@@ -1,0 +1,7 @@
+{
+  "name": "AntarcticaPocketGuide",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
