@@ -6,23 +6,26 @@ import { CreateUser, User } from "../types/user";
 export default function useUsers() {
   const [user, setUser] = useState<User | null>(null);
 
-  async function createNewUser(user: CreateUser): Promise<User | AuthResult> {
+  async function createNewUser(user: {
+    id: string;
+    name: string;
+  }): Promise<User | AuthResult> {
     try {
-      const { data: newUser, error } = await supabase
+      const { data, error } = await supabase
         .from("Users")
-        .insert(user);
-
-        console.log("newUser, error", newUser, error)
+        .insert({
+          id: user.id, // FK till auth.users
+          name: user.name,
+        })
+        .select()
+        .single();
 
       if (error) {
-        console.error("Error signing up: ", error.message);
         return { success: false, error: error.message };
       }
 
-      
-        setUser(newUser);
-        return newUser;
-      
+      setUser(data);
+      return data;
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
     }

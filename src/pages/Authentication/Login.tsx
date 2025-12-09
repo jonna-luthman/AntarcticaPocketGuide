@@ -16,34 +16,33 @@ import {
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
+import { useLoading } from "../../context/LoadingContext";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
 
-  console.log(email, password);
+  const { showLoading, hideLoading } = useLoading();
 
-  const { signInUser, session } = UserAuth();
+  const { signInUser } = UserAuth();
   const router = useIonRouter();
 
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    showLoading();
     try {
       const response = await signInUser({ email, password });
-      console.log("result", response);
       if (!response.success) {
         setError(response.error);
         return;
       }
       router.push("/", "forward");
       return response.data;
-    } catch (error) {
-      setError("An error occured: ", error);
+    } catch (error: any) {
+      setError(error);
     } finally {
-      setLoading(false);
+      hideLoading();
     }
   };
 

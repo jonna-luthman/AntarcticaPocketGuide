@@ -36,33 +36,36 @@ import Login from "./pages/Authentication/Login";
 import Register from "./pages/Authentication/Register";
 import ResetPassword from "./pages/Authentication/ResetPassword";
 import { AuthContextProvider } from "./context/AuthContext";
+import { LoadingProvider } from "./context/LoadingContext";
 
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp>
-    <AuthContextProvider>
-      <IonReactRouter>
-        <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/reset-password">
-            <ResetPassword />
-          </Route>
-          <Route exact path="/register">
-            <Register />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </AuthContextProvider>
-  </IonApp>
+  <LoadingProvider>
+    <IonApp>
+      <AuthContextProvider>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/reset-password">
+              <ResetPassword />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </AuthContextProvider>
+    </IonApp>
+  </LoadingProvider>
 );
 
 export default App;

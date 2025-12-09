@@ -7,21 +7,15 @@ import {
   IonInput,
   IonItem,
   IonList,
-  IonInputPasswordToggle,
   IonButton,
   useIonRouter,
   IonText,
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
-import useUsers from "../../hooks/useUser";
-import { useForm } from "../../hooks/useForm";
-import { CreateUser } from "../../types/user";
+import { useLoading } from "../../context/LoadingContext";
 
 const Register: React.FC = () => {
-  const { createNewUser } = useUsers();
-
-  const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: "",
     repeatPassword: "",
@@ -29,22 +23,16 @@ const Register: React.FC = () => {
   });
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
     password: "",
-    repeatPassword: ""
   });
   const [repeatPassword, setRepeatPassword] = useState<string>("");
 
-  const { session, signUpNewUser } = UserAuth();
-  const router = useIonRouter();
+  const { showLoading, hideLoading } = useLoading()
 
-  // const validateEmail = (email: string) => {
-  //   return email.match(
-  //     /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-  //   );
-  // };
+  const { signUpNewUser } = UserAuth();
+  const router = useIonRouter();
 
   const checkPasswordsMatch = (password: string, repeatPassword: string) => {
     return password === repeatPassword;
@@ -52,9 +40,9 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    setLoading(true);
+    showLoading();
 
-    const validPassword = checkPasswordsMatch(form.password, form.repeatPassword)
+    const validPassword = checkPasswordsMatch(form.password, repeatPassword)
 
     if (!validPassword) {
       setErrors((prev) => ({
@@ -64,9 +52,8 @@ const Register: React.FC = () => {
       return;
     }
 
-    const result = await signUpNewUser({email: form.email, password: form.password});
-
-    setLoading(false);
+    const result = await signUpNewUser(form);
+    hideLoading();
 
     if (!result.success) {
       setErrors((prev) => ({ ...prev, form: result.error }));
@@ -90,28 +77,14 @@ const Register: React.FC = () => {
           <IonList>
             <IonItem>
               <IonInput
-                name="firstName"
+                name="name"
                 label="Name"
                 labelPlacement="stacked"
-                value={form.firstName}
+                value={form.name}
                 onIonInput={(event: CustomEvent) =>
                   setForm((prev) => ({
                     ...prev,
-                    firstName: event.detail.value,
-                  }))
-                }
-              />
-            </IonItem>
-            <IonItem>
-              <IonInput
-                name="lastName"
-                label="Surname"
-                labelPlacement="stacked"
-                value={form.lastName}
-                onIonInput={(event: CustomEvent) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    lastName: event.detail.value,
+                    name: event.detail.value,
                   }))
                 }
               />
@@ -153,14 +126,12 @@ const Register: React.FC = () => {
               <IonInput
                 label="Repeat password"
                 type="password"
-                value={form.repeatPassword}
+                value={repeatPassword}
                 labelPlacement="stacked"
                 className={errors.repeatPassword ? "ion-invalid" : "ion-valid"}
-                onIonInput={(event: CustomEvent) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    repeatPassword: event.detail.value,
-                  }))}
+                 onIonInput={(event: Event) =>
+                  setRepeatPassword((event.target as HTMLInputElement).value)
+                }
               >
               </IonInput>
             </IonItem>
