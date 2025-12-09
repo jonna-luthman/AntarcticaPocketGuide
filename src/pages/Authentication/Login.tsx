@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                 onIonInput={(event: Event) =>
                   setEmail((event.target as HTMLInputElement).value)
                 }
-              ></IonInput>
+              />
             </IonItem>
 
             <IonItem>

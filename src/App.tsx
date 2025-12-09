@@ -37,6 +37,7 @@ import Register from "./pages/Authentication/Register";
 import ResetPassword from "./pages/Authentication/ResetPassword";
 import { AuthContextProvider } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
+import ChangePassword from "./pages/Authentication/ChangePassword";
 
 setupIonicReact();
 
@@ -51,6 +52,9 @@ const App: React.FC = () => (
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/change-password">
+              <ChangePassword />
             </Route>
             <Route exact path="/reset-password">
               <ResetPassword />

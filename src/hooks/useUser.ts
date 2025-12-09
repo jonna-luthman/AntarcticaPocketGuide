@@ -9,12 +9,12 @@ export default function useUsers() {
   async function createNewUser(user: {
     id: string;
     name: string;
-  }): Promise<User | AuthResult> {
+  }): Promise<AuthResult> {
     try {
       const { data, error } = await supabase
         .from("Users")
         .insert({
-          id: user.id, // FK till auth.users
+          id: user.id,
           name: user.name,
         })
         .select()
@@ -24,12 +24,31 @@ export default function useUsers() {
         return { success: false, error: error.message };
       }
 
-      setUser(data);
-      return data;
+      return { success: true, data };
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
     }
   }
 
-  return { createNewUser, user };
+  async function updateUser(user: {
+    email: string;
+    password: string;
+  }): Promise<AuthResult> {
+    try {
+      const { data, error } = await supabase.auth.updateUser({
+        email: user.email,
+        password: user.password,
+      });
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      return { success: true, data };
+    } catch (error: any) {
+      return { success: false, error: error.message ?? "Unexpected error" };
+    }
+  }
+
+  return { createNewUser, updateUser, user };
 }

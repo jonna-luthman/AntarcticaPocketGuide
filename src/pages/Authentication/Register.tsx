@@ -14,6 +14,7 @@ import {
 import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
+import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 
 const Register: React.FC = () => {
   const [errors, setErrors] = useState({
@@ -33,10 +34,6 @@ const Register: React.FC = () => {
 
   const { signUpNewUser } = UserAuth();
   const router = useIonRouter();
-
-  const checkPasswordsMatch = (password: string, repeatPassword: string) => {
-    return password === repeatPassword;
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
@@ -103,7 +100,7 @@ const Register: React.FC = () => {
                     email: event.detail.value,
                   }))
                 }
-              ></IonInput>
+              />
             </IonItem>
 
             <IonItem>
@@ -118,8 +115,7 @@ const Register: React.FC = () => {
                     password: event.detail.value,
                   }))
                 }
-              >
-              </IonInput>
+              />
             </IonItem>
 
             <IonItem>
@@ -132,8 +128,7 @@ const Register: React.FC = () => {
                  onIonInput={(event: Event) =>
                   setRepeatPassword((event.target as HTMLInputElement).value)
                 }
-              >
-              </IonInput>
+              />
             </IonItem>
           </IonList>
 

@@ -4,7 +4,7 @@ type AuthSuccess = {
   success: true;
   data: {
     user: User | null;
-    session: Session | null;
+    session?: Session | null;
   };
 };
 
