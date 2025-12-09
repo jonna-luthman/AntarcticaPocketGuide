@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonContent,
   IonHeader,
   IonItem,
@@ -7,16 +8,33 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonRouter,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
 import { useState, useEffect } from "react";
 import { getAllSpecies } from "../hooks/useSpecies";
 import { Specie } from "../types/species";
+import { UserAuth } from "../context/AuthContext";
 
 const Home: React.FC = () => {
   const [species, setSpecies] = useState<Specie[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const router = useIonRouter();
+
+  const { session, signOutUser } = UserAuth();
+  console.log("session", session)
+
+  const handleSignOut = async (e: Event) => {
+    e.preventDefault();
+    try {
+      await signOutUser();
+      router.push("/login", "none");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log(session);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -36,13 +54,13 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Blank</IonTitle>
+          <IonTitle>Home</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
+            <IonTitle size="large">Home page</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonList>
@@ -52,8 +70,14 @@ const Home: React.FC = () => {
             </IonItem>
           ))}
         </IonList>
-        <ExploreContainer />
       </IonContent>
+      <IonButton
+        className="ion-margin-top"
+        expand="block"
+        onClick={handleSignOut}
+      >
+        Sign out
+      </IonButton>
     </IonPage>
   );
 };

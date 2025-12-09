@@ -253,12 +253,9 @@ export type Database = {
           password_hash: string
         }
         Insert: {
-          created_at?: string
           email?: string
           first_name?: string
-          id?: string
           last_name?: string
-          password_hash: string
         }
         Update: {
           created_at?: string
