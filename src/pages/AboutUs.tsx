@@ -1,9 +1,14 @@
-import React from 'react'
+import { IonPage, IonContent, IonTitle } from "@ionic/react";
+import React from "react";
 
 const AboutUs: React.FC = () => {
   return (
-    <div>AboutUs</div>
-  )
-}
+    <IonPage>
+      <IonContent fullscreen>
+        <IonTitle>About us</IonTitle>
+      </IonContent>
+    </IonPage>
+  );
+};
 
-export default AboutUs
+export default AboutUs;

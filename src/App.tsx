@@ -1,17 +1,11 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import {
   IonApp,
-  IonFab,
-  IonFabButton,
-  IonIcon,
   IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
   IonTabs,
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { personOutline, homeOutline, add } from "ionicons/icons";
 import Home from "./pages/Home";
 
 /* Core CSS required for Ionic components to work properly */
@@ -44,14 +38,21 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import "./theme/global.css";
+
 import Login from "./pages/Authentication/Login";
 import Register from "./pages/Authentication/Register";
 import ResetPassword from "./pages/Authentication/ResetPassword";
+import ChangePassword from "./pages/Authentication/ChangePassword";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import FieldJournal from "./pages/FieldJournal";
+
 import { AuthContextProvider } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
-import ChangePassword from "./pages/Authentication/ChangePassword";
-import FieldJournal from "./pages/FieldJournal";
+
 import Menu from "./components/Menu";
+import Navbar from "./components/Navbar";
 
 setupIonicReact();
 
@@ -59,11 +60,11 @@ const App: React.FC = () => (
   <LoadingProvider>
     <IonApp>
       <AuthContextProvider>
-        <Menu />
         <IonReactRouter>
+          <Menu />
           <IonTabs>
             <IonRouterOutlet id="main-content">
-              <Route exact path="/home">
+              <Route exact path="/">
                 <Home />
               </Route>
               <Route exact path="/login">
@@ -78,28 +79,17 @@ const App: React.FC = () => (
               <Route exact path="/register">
                 <Register />
               </Route>
-              <Route exact path="/">
-                <Redirect to="/home" />
-              </Route>
               <Route exact path="/field-journal">
                 <FieldJournal />
               </Route>
+              <Route exact path="/about-us">
+                <AboutUs />
+              </Route>
+              <Route exact path="/contact-us">
+                <ContactUs />
+              </Route>
             </IonRouterOutlet>
-
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="home" href="/home">
-                <IonIcon icon={homeOutline} color="dark" />
-              </IonTabButton>
-              <IonTabButton tab="profile" href="/field-journal">
-                <IonIcon icon={personOutline} color="dark" />
-              </IonTabButton>
-            </IonTabBar>
-
-            <IonFab vertical="bottom" horizontal="center" edge={true}>
-              <IonFabButton>
-                <IonIcon icon={add} color="dark" />
-              </IonFabButton>
-            </IonFab>
+            <Navbar />
           </IonTabs>
         </IonReactRouter>
       </AuthContextProvider>

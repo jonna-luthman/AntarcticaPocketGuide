@@ -9,19 +9,31 @@ import {
   IonIcon,
   IonLabel,
   IonButton,
+  useIonRouter,
 } from "@ionic/react";
-
-import { closeOutline, homeOutline, settingsOutline } from "ionicons/icons";
+import { close } from "ionicons/icons";
+import { UserAuth } from "../context/AuthContext";
 
 const Menu = () => {
+  const { signOutUser } = UserAuth();
+  const router = useIonRouter();
+
+  const handleSignOut = async (e: Event) => {
+    e.preventDefault();
+    try {
+      await signOutUser();
+      router.push("/login", "none");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <IonMenu contentId="main-content" side="start">
       <IonHeader className="ion-padding">
         <IonToolbar>
-          <IonMenuToggle>
-            <IonButton slot="start" fill="clear">
-              <IonIcon icon={closeOutline} color="dark" />
-            </IonButton>
+          <IonMenuToggle slot="start">
+            <IonIcon icon={close} color="dark" size="large"/>
           </IonMenuToggle>
 
           <div className="menu-logo" slot="end">
@@ -37,26 +49,39 @@ const Menu = () => {
       <IonContent>
         <IonList>
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/" lines="none">
-              <IonIcon icon={homeOutline} slot="start" />
-              <IonLabel>My list</IonLabel>
+            <IonItem routerLink="/field-journal" lines="none">
+              <IonLabel>
+                <h2 className="ion-text-uppercase tex">Field Journal</h2>
+                <p  className="font-display">All my logs</p></IonLabel>
             </IonItem>
           </IonMenuToggle>
 
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/settings" lines="none">
-              <IonIcon icon={settingsOutline} slot="start" />
-              <IonLabel>About us</IonLabel>
+            <IonItem routerLink="/about-us" lines="none">
+              <IonLabel>
+                <h2 className="ion-text-uppercase">About us</h2>
+                <p  className="font-display">Who are we</p>
+              </IonLabel>
             </IonItem>
           </IonMenuToggle>
 
           <IonMenuToggle autoHide={false}>
-            <IonItem routerLink="/settings" lines="none">
-              <IonIcon icon={settingsOutline} slot="start" />
-              <IonLabel>Contact us</IonLabel>
+            <IonItem routerLink="/contact-us" lines="none">
+              <IonLabel>
+                <h2 className="ion-text-uppercase">Contact us</h2>
+                <p  className="font-display">Any questions</p>
+              </IonLabel>
             </IonItem>
           </IonMenuToggle>
 
+          <IonButton
+            color="light"
+            className="ion-margin-top"
+            expand="block"
+            onClick={handleSignOut}
+          >
+            Sign out
+          </IonButton>
         </IonList>
       </IonContent>
     </IonMenu>

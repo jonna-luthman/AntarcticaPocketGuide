@@ -1,9 +1,14 @@
-import React from 'react'
+import { IonContent, IonPage, IonTitle } from "@ionic/react";
+import React from "react";
 
 const FieldJournal: React.FC = () => {
   return (
-    <div>FieldJournal</div>
-  )
-}
+    <IonPage>
+      <IonContent fullscreen>
+        <IonTitle>Field Journal</IonTitle>
+      </IonContent>
+    </IonPage>
+  );
+};
 
-export default FieldJournal
+export default FieldJournal;

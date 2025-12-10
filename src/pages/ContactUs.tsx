@@ -1,9 +1,14 @@
-import React from 'react'
+import { IonPage, IonContent, IonTitle } from "@ionic/react";
+import React from "react";
 
 const ContactUs: React.FC = () => {
   return (
-    <div>ContactUs</div>
-  )
-}
+    <IonPage>
+      <IonContent fullscreen>
+        <IonTitle>Contact Us</IonTitle>
+      </IonContent>
+    </IonPage>
+  );
+};
 
-export default ContactUs
+export default ContactUs;
