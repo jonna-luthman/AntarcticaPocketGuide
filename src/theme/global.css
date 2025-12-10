@@ -1,0 +1,6 @@
+ion-app,
+ion-content {
+  height: 100%;
+  background: var(--ion-background-color);
+  color: var(--app-text-color);
+}
