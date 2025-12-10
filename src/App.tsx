@@ -1,5 +1,10 @@
-import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import { Route } from "react-router-dom";
+import {
+  IonApp,
+  IonRouterOutlet,
+  IonTabs,
+  setupIonicReact,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
 
@@ -28,16 +33,26 @@ import "@ionic/react/css/display.css";
 
 /* import '@ionic/react/css/palettes/dark.always.css'; */
 /* import '@ionic/react/css/palettes/dark.class.css'; */
-import "@ionic/react/css/palettes/dark.system.css";
+
+// import "@ionic/react/css/palettes/dark.system.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+import "./theme/global.css";
+
 import Login from "./pages/Authentication/Login";
 import Register from "./pages/Authentication/Register";
 import ResetPassword from "./pages/Authentication/ResetPassword";
+import ChangePassword from "./pages/Authentication/ChangePassword";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import FieldJournal from "./pages/FieldJournal";
+
 import { AuthContextProvider } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
-import ChangePassword from "./pages/Authentication/ChangePassword";
+
+import Menu from "./components/Menu";
+import Navbar from "./components/Navbar";
 
 setupIonicReact();
 
@@ -46,26 +61,36 @@ const App: React.FC = () => (
     <IonApp>
       <AuthContextProvider>
         <IonReactRouter>
-          <IonRouterOutlet>
-            <Route exact path="/home">
-              <Home />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/change-password">
-              <ChangePassword />
-            </Route>
-            <Route exact path="/reset-password">
-              <ResetPassword />
-            </Route>
-            <Route exact path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-          </IonRouterOutlet>
+          <Menu />
+          <IonTabs>
+            <IonRouterOutlet id="main-content">
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/change-password">
+                <ChangePassword />
+              </Route>
+              <Route exact path="/reset-password">
+                <ResetPassword />
+              </Route>
+              <Route exact path="/register">
+                <Register />
+              </Route>
+              <Route exact path="/field-journal">
+                <FieldJournal />
+              </Route>
+              <Route exact path="/about-us">
+                <AboutUs />
+              </Route>
+              <Route exact path="/contact-us">
+                <ContactUs />
+              </Route>
+            </IonRouterOutlet>
+            <Navbar />
+          </IonTabs>
         </IonReactRouter>
       </AuthContextProvider>
     </IonApp>

@@ -37,7 +37,7 @@ const Login: React.FC = () => {
         setError(response.error);
         return;
       }
-      router.push("/", "forward");
+      router.push("/", "none");
       return response.data;
     } catch (error: any) {
       setError(error);

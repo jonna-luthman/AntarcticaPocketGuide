@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Average&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Average&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700&display=swap');
+
+ion-app,
+ion-content {
+  height: 100%;
+  background: var(--ion-background-color);
+  color: var(--app-text-color);
+}
+/* -------- FONTER -------- */
+/* Bastext */
+body, p, span {
+  font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Rubriker */
+h1 {
+  font-family: "Playfair Display SC", serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h2, h3 {
+  font-family: "Average", serif;
+  font-weight: 400;
+}
+
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.3rem; }
+
+/* Mindre rubrik */
+h4 {
+  font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+ion-title {
+  font-family: "Playfair Display SC", serif !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+}
+
+ion-label {
+  font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+}
+
+ion-text {
+  font-family: "Avenir", sans-serif;
+}
+
+ion-tab-button {
+  --color: #000;
+  --color-selected: #000;
+  font-family: "Avenir", sans-serif;
+}
+
+.font-avenir { font-family: var(--font-avenir); }
+.font-display { font-family: var(--font-display); }
+.font-average { font-family: var(--font-average); }
