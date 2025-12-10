@@ -1,21 +1,39 @@
 import {
+  IonButton,
   IonContent,
   IonItem,
   IonLabel,
   IonList,
   IonPage,
+  useIonRouter,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
 import { useState, useEffect } from "react";
 import { getAllSpecies } from "../hooks/useSpecies";
 import { Specie } from "../types/species";
-import Header from "../components/header";
+import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";
 
+import { UserAuth } from "../context/AuthContext";
 
 const Home: React.FC = () => {
   const [species, setSpecies] = useState<Specie[]>([]);
 
+  const router = useIonRouter();
+
+  const { session, signOutUser } = UserAuth();
+  console.log("session", session)
+
+  const handleSignOut = async (e: Event) => {
+    e.preventDefault();
+    try {
+      await signOutUser();
+      router.push("/login", "none");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  console.log(session);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -41,8 +59,14 @@ const Home: React.FC = () => {
             </IonItem>
           ))}
         </IonList>
-        <ExploreContainer />
       </IonContent>
+      <IonButton
+        className="ion-margin-top"
+        expand="block"
+        onClick={handleSignOut}
+      >
+        Sign out
+      </IonButton>
     </IonPage>
   );
 };

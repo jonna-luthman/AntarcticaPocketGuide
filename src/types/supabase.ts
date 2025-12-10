@@ -246,27 +246,18 @@ export type Database = {
       Users: {
         Row: {
           created_at: string
-          email: string
-          first_name: string
           id: string
-          last_name: string
-          password_hash: string
+          name: string
         }
         Insert: {
           created_at?: string
-          email?: string
-          first_name?: string
-          id?: string
-          last_name?: string
-          password_hash: string
+          id: string
+          name?: string
         }
         Update: {
           created_at?: string
-          email?: string
-          first_name?: string
           id?: string
-          last_name?: string
-          password_hash?: string
+          name?: string
         }
         Relationships: []
       }
