@@ -1,10 +1,59 @@
+import { PostgrestError } from "@supabase/supabase-js";
+import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
+import { useLoading } from "../context/LoadingContext";
+import { Specie, SpecieSummary } from "../types/species";
 
-export async function getAllSpecies() {
-  const { data, error } = await supabase
-    .from("Species")
-    .select("*");
+export default function useSpecies() {
+  const [species, setSpecies] = useState<Specie[] | SpecieSummary[] | null>(
+    null
+  );
+  const [error, setError] = useState<PostgrestError | null>(null);
 
-  if (error) throw error;
-  return data;
+  async function getAllSpecies() {
+    try {
+      setError(null);
+
+      const { data, error } = await supabase.from("Species").select("*");
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+      setSpecies(data);
+
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    } 
+  }
+
+  async function getSpeciesByClass(
+    classId: string
+  ): Promise<SpecieSummary[] | null> {
+    setError(null);
+    try {
+
+      const { data, error } = await supabase
+        .from("Species")
+        .select("id, name_common, name_latin, slug")
+        .eq("animal_class_id", classId);
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setSpecies(data);
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  return { getAllSpecies, getSpeciesByClass, species, error };
 }

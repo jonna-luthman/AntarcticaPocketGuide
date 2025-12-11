@@ -1,0 +1,32 @@
+.specieCard {
+  height: 190px;
+  position: relative;
+  overflow: hidden; 
+  margin: 0.2rem 0;
+  border-radius: 0;
+}
+
+.contentWrapper {
+  position: relative; 
+  z-index: 2; 
+  height: 100%;
+}
+
+.cornerImage {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  height: 80%;
+  width: auto;
+  object-fit: cover; 
+}
+
+.cardHeader {
+    padding: 16px; 
+}
+
+.cardFont {
+    font-family: var(--font-display);
+    color: var(--color);
+}

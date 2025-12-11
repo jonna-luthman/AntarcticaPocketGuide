@@ -18,29 +18,38 @@ export type Database = {
         Row: {
           id: string
           name: string
+          slug: string
         }
         Insert: {
           id?: string
           name: string
+          slug: string
         }
         Update: {
           id?: string
           name?: string
+          slug?: string
         }
         Relationships: []
       }
       AnimalFamilies: {
         Row: {
+          class_id: string | null
           id: string
           name: string
+          slug: string
         }
         Insert: {
+          class_id?: string | null
           id?: string
           name: string
+          slug: string
         }
         Update: {
+          class_id?: string | null
           id?: string
           name?: string
+          slug?: string
         }
         Relationships: []
       }
@@ -62,7 +71,6 @@ export type Database = {
       Species: {
         Row: {
           animal_class_id: string | null
-          animal_family_id: string | null
           behaviour: Json | null
           birthing_season: string | null
           conservation_status:
@@ -80,11 +88,11 @@ export type Database = {
           population: string | null
           regions: string[] | null
           size: string | null
+          slug: string
           wildlife_interactions: Json | null
         }
         Insert: {
           animal_class_id?: string | null
-          animal_family_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
           conservation_status?:
@@ -102,11 +110,11 @@ export type Database = {
           population?: string | null
           regions?: string[] | null
           size?: string | null
+          slug: string
           wildlife_interactions?: Json | null
         }
         Update: {
           animal_class_id?: string | null
-          animal_family_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
           conservation_status?:
@@ -124,6 +132,7 @@ export type Database = {
           population?: string | null
           regions?: string[] | null
           size?: string | null
+          slug?: string
           wildlife_interactions?: Json | null
         }
         Relationships: [
@@ -132,13 +141,6 @@ export type Database = {
             columns: ["animal_class_id"]
             isOneToOne: false
             referencedRelation: "AnimalClasses"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "Species_animal_family_id_fkey"
-            columns: ["animal_family_id"]
-            isOneToOne: false
-            referencedRelation: "AnimalFamilies"
             referencedColumns: ["id"]
           },
         ]

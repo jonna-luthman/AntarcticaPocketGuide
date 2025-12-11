@@ -53,6 +53,8 @@ import { LoadingProvider } from "./context/LoadingContext";
 
 import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
+import AnimalClassPage from "./pages/AnimalClassPage";
+import AnimalSpeciesPage from "./pages/AnimalSpeciesPage";
 
 setupIonicReact();
 
@@ -87,6 +89,12 @@ const App: React.FC = () => (
               </Route>
               <Route exact path="/contact-us">
                 <ContactUs />
+              </Route>
+              <Route exact path="/animal-class/:classSlug/">
+                <AnimalClassPage />
+              </Route>
+              <Route exact path="animal-class/:classSlug/:speciesSlug">
+                <AnimalSpeciesPage />
               </Route>
             </IonRouterOutlet>
             <Navbar />
