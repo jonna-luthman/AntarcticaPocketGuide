@@ -90,10 +90,10 @@ const App: React.FC = () => (
               <Route exact path="/contact-us">
                 <ContactUs />
               </Route>
-              <Route exact path="/animal-class/:classSlug/">
+              <Route exact path="/:classSlug/">
                 <AnimalClassPage />
               </Route>
-              <Route exact path="animal-class/:classSlug/:speciesSlug">
+              <Route exact path="/:classSlug/:speciesSlug">
                 <AnimalSpeciesPage />
               </Route>
             </IonRouterOutlet>

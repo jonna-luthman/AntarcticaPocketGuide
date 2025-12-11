@@ -73,6 +73,7 @@ export type Database = {
           animal_class_id: string | null
           behaviour: Json | null
           birthing_season: string | null
+          class_slug: string | null
           conservation_status:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
@@ -95,6 +96,7 @@ export type Database = {
           animal_class_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
+          class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
@@ -117,6 +119,7 @@ export type Database = {
           animal_class_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
+          class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
@@ -142,6 +145,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "AnimalClasses"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Species_class_slug_fkey"
+            columns: ["class_slug"]
+            isOneToOne: false
+            referencedRelation: "AnimalClasses"
+            referencedColumns: ["slug"]
           },
         ]
       }
