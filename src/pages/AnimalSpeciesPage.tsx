@@ -16,17 +16,14 @@ import { Specie } from "../types/species";
 
 const AnimalSpeciesPage: React.FC = () => {
   const { classId } = useParams<{ classId: string }>();
-  const { getSpeciesByClass, getAllSpecies } = useSpecies();
-  const [species, setSpecies] = useState<Specie | null>(null);
+  const { getAllSpecies, species } = useSpecies();
 
   console.log(classId)
 
   useEffect(() => {
     const fetchSpecies = async () => {
-      // const data = await getSpeciesByClass(classId);
       const data = await getAllSpecies();
-      console.log("data in fetchspecies", data);
-      setSpecies(data)
+
     };
     fetchSpecies();
   }, []);
@@ -34,9 +31,8 @@ const AnimalSpeciesPage: React.FC = () => {
   return (
     <IonPage>
       <Header showBackButton={true} />
-      <CollapsableHeader />
       <IonContent fullscreen>
-        <IonTitle>Animal Species page: {classId}</IonTitle>
+        <IonTitle>Animal Species page</IonTitle>
         {/* <IonList>
           {species?.map((specie) => (
             <IonRouterLink href={`/anim/${specie.id}`}>

@@ -1,7 +1,7 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
-import { AnimalClass } from "../types/animalClasses";
-import { useEffect, useState } from "react";
+import { AnimalClass, AnimalClassSummary } from "../types/animalClasses";
+import { useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 
 export default function useAnimals() {
@@ -12,44 +12,85 @@ export default function useAnimals() {
   const [animalFamilies, setAnimalFamilies] = useState<AnimalClass[] | null>(
     null
   );
+  const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(null)
   const [error, setError] = useState<PostgrestError | null>(null);
 
-  console.log("animalClasses", animalClasses);
-  useEffect(() => {
-    getAllAnimalClasses();
-  }, []);
-
   async function getAllAnimalClasses() {
-    showLoading();
+    try {
+      showLoading();
+      setError(null);
 
-    const { data, error } = await supabase.from("AnimalClasses").select("*");
+      const { data, error } = await supabase.from("AnimalClasses").select("*");
 
-    console.log(data, error);
-    if (error) {
-      setError(error);
-      return;
-    } else {
+      if (error) {
+        setError(error);
+        return null;
+      }
+
       setAnimalClasses(data);
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    } finally {
+      hideLoading();
     }
+  }
 
-    hideLoading();
+  async function getAnimalClass(slug: string) {
+    try {
+      showLoading();
+      setError(null);
+
+      const { data: classData } = await supabase
+        .from("AnimalClasses")
+        .select("id, name")
+        .eq("slug", slug)
+        .single();
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setAnimalClass(classData);
+      return classData
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    } finally {
+      hideLoading();
+    }
   }
 
   async function getAllAnimalFamilies() {
-    showLoading();
+    try {
+      showLoading();
+      setError(null);
+      const { data, error } = await supabase.from("AnimalFamilies").select("*");
 
-    const { data, error } = await supabase.from("AnimalFamilies").select("*");
-
-    console.log(data, error);
-    if (error) {
-      setError(error);
-      return;
-    } else {
+      if (error) {
+        setError(error);
+        return;
+      }
       setAnimalFamilies(data);
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    } finally {
+      hideLoading();
     }
-
-    hideLoading();
   }
 
-  return { getAllAnimalClasses, animalClasses, getAllAnimalFamilies, animalFamilies, error };
+  return {
+    getAllAnimalClasses,
+    animalClasses,
+    getAnimalClass,
+    animalClass,
+    getAllAnimalFamilies,
+    animalFamilies,
+    error,
+  };
 }

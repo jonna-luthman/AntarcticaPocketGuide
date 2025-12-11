@@ -1,12 +1,37 @@
-import { IonContent } from "@ionic/react";
 import React from "react";
+import {
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+} from "@ionic/react";
+import styles from "./SpecieCard.module.css";
 
-const SpecieCard = () => {
+interface SpecieCardProps {
+  title: string | null;
+  subtitle: string | null;
+  src: string | undefined;
+}
+
+const SpecieCard: React.FC<SpecieCardProps> = ({ title, subtitle, src }) => {
   return (
-  <div className="">
+    <IonCard className={styles.specieCard} color="tertiary">
+      <div className={styles.contentWrapper}>
+        <img
+          src={src}
+          alt={`Bild för ${title}`}
+          className={styles.cornerImage}
+        />
 
-  </div>
-  )
+        <IonCardHeader className={styles.cardHeader}>
+          <IonCardSubtitle className={styles.cardFont}>
+            {subtitle}
+          </IonCardSubtitle>
+          <IonCardTitle className={styles.cardFont}>{title}</IonCardTitle>
+        </IonCardHeader>
+      </div>
+    </IonCard>
+  );
 };
 
 export default SpecieCard;
