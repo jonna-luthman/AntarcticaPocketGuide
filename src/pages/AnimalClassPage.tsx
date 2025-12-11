@@ -49,7 +49,7 @@ const AnimalClassPage: React.FC = () => {
         <IonList>
           {species?.map((specie: SpecieSummary) => (
             <IonRouterLink
-              href={`/animal-class/${classSlug}/${specie.id}`}
+              href={`/${classSlug}/${specie.slug}`}
               key={specie.id}
             >
               <SpecieCard

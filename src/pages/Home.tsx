@@ -30,7 +30,7 @@ const Home: React.FC = () => {
         <IonList>
           {animalClasses?.map((animalClass) => (
             <IonRouterLink
-              href={`/animal-class/${animalClass.slug}`}
+              href={`/${animalClass.slug}`}
               key={animalClass.id}
             >
               <IonItem key={animalClass.id}>
