@@ -18,29 +18,38 @@ export type Database = {
         Row: {
           id: string
           name: string
+          slug: string
         }
         Insert: {
           id?: string
           name: string
+          slug: string
         }
         Update: {
           id?: string
           name?: string
+          slug?: string
         }
         Relationships: []
       }
       AnimalFamilies: {
         Row: {
+          class_id: string | null
           id: string
           name: string
+          slug: string
         }
         Insert: {
+          class_id?: string | null
           id?: string
           name: string
+          slug: string
         }
         Update: {
+          class_id?: string | null
           id?: string
           name?: string
+          slug?: string
         }
         Relationships: []
       }
@@ -62,9 +71,9 @@ export type Database = {
       Species: {
         Row: {
           animal_class_id: string | null
-          animal_family_id: string | null
           behaviour: Json | null
           birthing_season: string | null
+          class_slug: string | null
           conservation_status:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
@@ -80,13 +89,14 @@ export type Database = {
           population: string | null
           regions: string[] | null
           size: string | null
+          slug: string
           wildlife_interactions: Json | null
         }
         Insert: {
           animal_class_id?: string | null
-          animal_family_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
+          class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
@@ -102,13 +112,14 @@ export type Database = {
           population?: string | null
           regions?: string[] | null
           size?: string | null
+          slug: string
           wildlife_interactions?: Json | null
         }
         Update: {
           animal_class_id?: string | null
-          animal_family_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
+          class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
@@ -124,6 +135,7 @@ export type Database = {
           population?: string | null
           regions?: string[] | null
           size?: string | null
+          slug?: string
           wildlife_interactions?: Json | null
         }
         Relationships: [
@@ -135,11 +147,11 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "Species_animal_family_id_fkey"
-            columns: ["animal_family_id"]
+            foreignKeyName: "Species_class_slug_fkey"
+            columns: ["class_slug"]
             isOneToOne: false
-            referencedRelation: "AnimalFamilies"
-            referencedColumns: ["id"]
+            referencedRelation: "AnimalClasses"
+            referencedColumns: ["slug"]
           },
         ]
       }
@@ -246,27 +258,18 @@ export type Database = {
       Users: {
         Row: {
           created_at: string
-          email: string
-          first_name: string
           id: string
-          last_name: string
-          password_hash: string
+          name: string
         }
         Insert: {
           created_at?: string
-          email?: string
-          first_name?: string
-          id?: string
-          last_name?: string
-          password_hash: string
+          id: string
+          name?: string
         }
         Update: {
           created_at?: string
-          email?: string
-          first_name?: string
           id?: string
-          last_name?: string
-          password_hash?: string
+          name?: string
         }
         Relationships: []
       }

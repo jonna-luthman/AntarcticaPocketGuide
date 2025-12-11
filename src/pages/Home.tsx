@@ -1,58 +1,44 @@
 import {
   IonContent,
-  IonHeader,
   IonItem,
   IonLabel,
   IonList,
   IonPage,
-  IonTitle,
-  IonToolbar,
+  IonRouterLink,
+  IonText,
 } from "@ionic/react";
-import ExploreContainer from "../components/ExploreContainer";
-import { useState, useEffect } from "react";
-import { getAllSpecies } from "../hooks/useSpecies";
-import { Specie } from "../types/species";
+import Header from "../components/Header";
+import CollapsableHeader from "../components/CollapsableHeader";
+import useAnimals from "../hooks/useAnimals";
+import { UserAuth } from "../context/AuthContext";
+import { useEffect } from "react";
 
 const Home: React.FC = () => {
-  const [species, setSpecies] = useState<Specie[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { animalClasses, getAllAnimalClasses } = useAnimals();
+  const { session } = UserAuth();
+  console.log("session", session);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getAllSpecies();
-        setSpecies(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchData();
+    getAllAnimalClasses();
   }, []);
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header showMenu={true} />
+        <CollapsableHeader />
         <IonList>
-          {species.map((specie) => (
-            <IonItem key={specie.id}>
-              <IonLabel>{specie.name_common}</IonLabel>
-            </IonItem>
+          {animalClasses?.map((animalClass) => (
+            <IonRouterLink
+              href={`/${animalClass.slug}`}
+              key={animalClass.id}
+            >
+              <IonItem key={animalClass.id}>
+                <IonText>{animalClass.name}</IonText>
+              </IonItem>
+            </IonRouterLink>
           ))}
         </IonList>
-        <ExploreContainer />
       </IonContent>
     </IonPage>
   );
