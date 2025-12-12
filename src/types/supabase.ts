@@ -1,3 +1,5 @@
+import { DistinguishableFeatures } from "./species"
+
 export type Json =
   | string
   | number
@@ -79,9 +81,12 @@ export type Database = {
             | null
           created_at: string
           diet: string | null
+          distinguishable_features: DistinguishableFeatures | null
           facts: Json | null
+          human_interaction: string | null
           id: string
           identifying_features: string | null
+          lead_text: string | null
           lifespan: string | null
           mating_season: string | null
           name_common: string | null
@@ -90,6 +95,7 @@ export type Database = {
           regions: string[] | null
           size: string | null
           slug: string
+          weight: string | null
           wildlife_interactions: Json | null
         }
         Insert: {
@@ -102,9 +108,12 @@ export type Database = {
             | null
           created_at?: string
           diet?: string | null
+          distinguishable_features?: Json | null
           facts?: Json | null
+          human_interaction?: string | null
           id?: string
           identifying_features?: string | null
+          lead_text?: string | null
           lifespan?: string | null
           mating_season?: string | null
           name_common?: string | null
@@ -113,6 +122,7 @@ export type Database = {
           regions?: string[] | null
           size?: string | null
           slug: string
+          weight?: string | null
           wildlife_interactions?: Json | null
         }
         Update: {
@@ -125,9 +135,12 @@ export type Database = {
             | null
           created_at?: string
           diet?: string | null
+          distinguishable_features?: Json | null
           facts?: Json | null
+          human_interaction?: string | null
           id?: string
           identifying_features?: string | null
+          lead_text?: string | null
           lifespan?: string | null
           mating_season?: string | null
           name_common?: string | null
@@ -136,6 +149,7 @@ export type Database = {
           regions?: string[] | null
           size?: string | null
           slug?: string
+          weight?: string | null
           wildlife_interactions?: Json | null
         }
         Relationships: [

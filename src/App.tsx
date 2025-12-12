@@ -93,7 +93,7 @@ const App: React.FC = () => (
               <Route exact path="/:classSlug/">
                 <AnimalClassPage />
               </Route>
-              <Route exact path="/:classSlug/:speciesSlug">
+              <Route exact path="/:classSlug/:speciesId">
                 <AnimalSpeciesPage />
               </Route>
             </IonRouterOutlet>

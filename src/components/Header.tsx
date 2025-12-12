@@ -8,8 +8,8 @@ import {
 
 const Header = ({ showMenu = false, showBackButton = false }) => {
   return (
-    <IonHeader translucent={true} className="ion-padding">
-      <IonToolbar>
+    <IonHeader className="ion-padding">
+      <IonToolbar color="primary">
         {showBackButton && (
           <IonButtons slot="start">
             <IonBackButton defaultHref="#" color="dark" />

@@ -5,7 +5,7 @@ import CollapsableHeader from "../components/CollapsableHeader";
 import { useParams } from "react-router";
 import useSpecies from "../hooks/useSpecies";
 import { SpecieSummary } from "../types/species";
-import SpecieCard from "../components/SpecieCard";
+import SpecieCard from "../components/Species/SpecieCard";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
 import useAnimals from "../hooks/useAnimals";
 import { useLoading } from "../context/LoadingContext";
@@ -49,7 +49,7 @@ const AnimalClassPage: React.FC = () => {
         <IonList>
           {species?.map((specie: SpecieSummary) => (
             <IonRouterLink
-              href={`/${classSlug}/${specie.slug}`}
+              href={`/${classSlug}/${specie.id}`}
               key={specie.id}
             >
               <SpecieCard

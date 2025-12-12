@@ -31,7 +31,7 @@ const Menu = () => {
   return (
     <IonMenu contentId="main-content" side="start">
       <IonHeader className="ion-padding">
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonMenuToggle slot="start">
             <IonIcon icon={close} color="dark" size="large"/>
           </IonMenuToggle>
@@ -46,7 +46,7 @@ const Menu = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent>
+      <IonContent className="ion-padding">
         <IonList>
           <IonMenuToggle autoHide={false}>
             <IonItem routerLink="/field-journal" lines="none">
@@ -75,7 +75,7 @@ const Menu = () => {
           </IonMenuToggle>
 
           <IonButton
-            color="light"
+            color="tertiary"
             className="ion-margin-top"
             expand="block"
             onClick={handleSignOut}

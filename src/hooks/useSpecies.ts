@@ -6,6 +6,7 @@ import { Specie, SpecieSummary } from "../types/species";
 
 export default function useSpecies<T>() {
   const [species, setSpecies] = useState<T[] | null>(null);
+  const [singleSpecies, setSingleSpecies] = useState<Specie | null>(null);
   const [error, setError] = useState<PostgrestError | null>(null);
 
   async function getAllSpecies(): Promise<Specie[] | null> {
@@ -77,5 +78,37 @@ export default function useSpecies<T>() {
     }
   }
 
-  return { getAllSpecies, getSpeciesByClass, getSpeciesBySearchQuery, species, error };
+  async function getSpeciesById(id: string): Promise<Specie | null> {
+    setError(null);
+
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setSingleSpecies(data);
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  return {
+    getAllSpecies,
+    getSpeciesByClass,
+    getSpeciesBySearchQuery,
+    getSpeciesById,
+    singleSpecies,
+    species,
+    error,
+  };
 }
