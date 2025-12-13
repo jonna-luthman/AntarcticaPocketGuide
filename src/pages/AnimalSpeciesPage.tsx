@@ -54,8 +54,7 @@ const AnimalSpeciesPage: React.FC = () => {
               <p>TODO</p>
             </div>
 
-              <SpeciesFeatures specie={singleSpecies} />
-
+            <SpeciesFeatures specie={singleSpecies} />
 
             <DistinguishableFeaturesCard specie={singleSpecies} />
 

@@ -29,14 +29,14 @@ const Home: React.FC = () => {
         <CollapsableHeader />
         <IonList>
           {animalClasses?.map((animalClass) => (
-            <IonRouterLink
-              href={`/${animalClass.slug}`}
+            <IonItem
+              routerLink={`/${animalClass.slug}`}
+              routerDirection="forward"
+              button
               key={animalClass.id}
             >
-              <IonItem key={animalClass.id}>
-                <IonText>{animalClass.name}</IonText>
-              </IonItem>
-            </IonRouterLink>
+              <IonText>{animalClass.name}</IonText>
+            </IonItem>
           ))}
         </IonList>
       </IonContent>

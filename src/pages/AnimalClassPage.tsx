@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonList, IonRouterLink } from "@ionic/react";
+import { IonPage, IonContent, IonList, IonRouterLink, useIonRouter } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";
@@ -22,10 +22,12 @@ const AnimalClassPage: React.FC = () => {
     null
   );
 
+  const router = useIonRouter();
+
   useEffect(() => {
     const fetch = async () => {
       showLoading();
-      
+
       const classData = await getAnimalClass(classSlug);
       setAnimalClass(classData);
 
@@ -48,16 +50,13 @@ const AnimalClassPage: React.FC = () => {
         <Breadcrumbs param1={animalClass?.name} />
         <IonList>
           {species?.map((specie: SpecieSummary) => (
-            <IonRouterLink
-              href={`/${classSlug}/${specie.id}`}
-              key={specie.id}
-            >
-              <SpecieCard
-                title={specie.name_common}
-                subtitle={specie.name_latin}
-                src="/WeddellSeal.svg"
-              />
-            </IonRouterLink>
+            <div key={specie.id} onClick={() => router.push(`/${classSlug}/${specie.id}`, "forward")}>
+            <SpecieCard
+              title={specie.name_common}
+              subtitle={specie.name_latin}
+              src="/WeddellSeal.svg"
+            />
+            </div>
           ))}
         </IonList>
       </IonContent>

@@ -10,9 +10,9 @@ const Facts = ({ specie }: Props) => {
   return (
     <ul className={styles.list}>
       {factsList?.map((value, key) => (
-        <div>
-          <li key={key} className={styles.listItem}>{value}</li>
-        </div>
+        <li key={key} className={styles.listItem}>
+          {value}
+        </li>
       ))}
     </ul>
   );
