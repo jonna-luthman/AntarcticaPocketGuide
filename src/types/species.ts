@@ -19,7 +19,7 @@ export type Specie = {
   name_common: string | null;
   name_latin: string | null;
   population: string | null;
-  regions: string[] | null;
+  distribution: Distribution | null;
   size: string | null;
   slug: string;
   weight: string | null;
@@ -30,17 +30,19 @@ export type SpecieSummary = Pick<
   "id" | "name_common" | "name_latin" | "class_slug" | "slug"
 >;
 
-export interface DistinguishableFeatures {
-  features: string[];
-}
-
-export interface Facts {
-  facts: string[];
-}
-
 export interface BehaviourEntry {
   description: string;
 }
 
 export type Behaviour = Record<string, BehaviourEntry>;
+
+export interface DistinguishableFeatures {
+  features: string[];
+}
+
+export interface Facts {
+  description: string[];
+}
+
+export type Distribution = Record<string, string>;
 

@@ -8,25 +8,18 @@ import {
 
 const Header = ({ showMenu = false, showBackButton = false }) => {
   return (
-    <IonHeader className="ion-padding">
-      <IonToolbar color="primary">
-        {showBackButton && (
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="#" color="dark" />
-          </IonButtons>
-        )}
+<IonHeader className="ion-padding">
+  <IonToolbar color="primary">
+    <IonButtons slot="start">
+      {showBackButton && <IonBackButton defaultHref="/" />}
+      {showMenu && <IonMenuButton autoHide={false} />}
+    </IonButtons>
 
-        {showMenu && (
-          <IonButtons slot="start">
-            <IonMenuButton autoHide={false} color="dark" />
-          </IonButtons>
-        )}
-
-        <div slot="end">
-          <img src="Logo.svg" alt="App Logo" />
-        </div>
-      </IonToolbar>
-    </IonHeader>
+    <IonButtons slot="end">
+      <img src="Logo.svg" alt="App Logo" />
+    </IonButtons>
+  </IonToolbar>
+</IonHeader>
   );
 };
 

@@ -7,6 +7,7 @@ import { SpeciesFeatures } from "../components/Species/SpeciesFeatures";
 import styles from "./styles/AnimalSpeciesPage.module.css";
 import { DistinguishableFeaturesCard } from "../components/Species/distinguishableFeatures";
 import SpeciesTabs from "../components/Species/SpeciesTabs";
+import { Blend, PersonStanding } from "lucide-react";
 
 const AnimalSpeciesPage: React.FC = () => {
   const { speciesId } = useParams<{ speciesId: string }>();
@@ -17,18 +18,19 @@ const AnimalSpeciesPage: React.FC = () => {
   }, [speciesId]);
 
   return (
-    <IonPage className="">
+    <IonPage>
       <Header showBackButton={true} />
       <IonContent color="primary">
         <div className={styles.backgroundColor}>
-          <IonItem color="tertiary">
+          <div>
+            {/* TODO: Add responsive picture */}
             <IonImg
               src="/emperor-1.svg"
               color="tertiary"
               alt="Emperor penguin"
-              className="ion-margin-vertical"
+              class={styles.heroImage}
             />
-          </IonItem>
+          </div>
 
           <div className={styles.contentWrapper}>
             <IonText>
@@ -40,28 +42,34 @@ const AnimalSpeciesPage: React.FC = () => {
               <h3 className="ion-no-margin">{singleSpecies?.name_latin}</h3>
             </IonText>
 
-            <div>
+            <div className="ion-padding-top">
               <h3>Look for:</h3>
               <p>{singleSpecies?.identifying_features}</p>
             </div>
 
-            <div>
-              <h3>Similar species:</h3>
+            <div className="ion-padding-top">
+              <h3 className="ion-text-justify">
+                <Blend size={20} /> Similar species:
+              </h3>
               <p>TODO</p>
             </div>
 
-            <SpeciesFeatures specie={singleSpecies} />
-            {singleSpecies && (
-              <DistinguishableFeaturesCard specie={singleSpecies} />
-            )}
+              <SpeciesFeatures specie={singleSpecies} />
 
-            <div>
-              <h3>Behaviour around people:</h3>
+
+            <DistinguishableFeaturesCard specie={singleSpecies} />
+
+            <div className="ion-padding-top">
+              <h3>
+                <PersonStanding size={20} />
+                Behaviour around people:
+              </h3>
               <p>{singleSpecies?.human_interaction}</p>
             </div>
           </div>
         </div>
-        <SpeciesTabs specie={singleSpecies}/>
+
+        <SpeciesTabs specie={singleSpecies} />
       </IonContent>
     </IonPage>
   );

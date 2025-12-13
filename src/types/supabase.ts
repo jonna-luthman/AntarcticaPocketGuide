@@ -92,7 +92,7 @@ export type Database = {
           name_common: string | null
           name_latin: string | null
           population: string | null
-          regions: string[] | null
+          distribution: Json | null
           size: string | null
           slug: string
           weight: string | null

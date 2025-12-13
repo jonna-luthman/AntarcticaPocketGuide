@@ -8,39 +8,31 @@ interface SpeciesInfoProps {
 
 export const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
   return (
-    <div className={`${styles.contentWrapper}`}>
-
-      <div className={`${styles.contentBox} ${styles.box1}`}>
-        <div>
-          <Ruler className={styles.icon} />
-          <Weight className={styles.icon} />
-        </div>
-        <div>
+    <div className={styles.contentWrapper}>
+      <div className={`${styles.contentBox} ${styles.boxSmall}`}>
+        <Ruler className={styles.icon} />
+        <div className={styles.textBlock}>
           <p>{specie?.size} mts</p>
-        {/* Needs to be added in the database */}
           <p>15 kg</p>
         </div>
       </div>
 
-      <div className={`${styles.contentBox} ${styles.box2}`}>
+      <div className={styles.contentBox}>
+        <Circle className={styles.icon} />
+        <div className={styles.textBlock}>
+          <p>{specie?.conservation_status}</p>
+          <p>{specie?.population} indiv.</p>
+        </div>
+      </div>
+
+      <div className={styles.contentBox}>
+        <Utensils className={styles.icon} />
+        <p>{specie?.diet}</p>
+      </div>
+
+      <div className={`${styles.contentBox} ${styles.boxSmall}`}>
         <Clock className={styles.icon} />
         <p>Up to {specie?.lifespan} years</p>
-      </div>
-
-      <div className={`${styles.contentBox} ${styles.box3}`}>
-        <Utensils className={styles.icon} />
-        <div>
-          <p className={styles.bold}>Diet</p>
-          <p>{specie?.diet}</p>
-        </div>
-      </div>
-
-      <div className={`${styles.contentBox} ${styles.box4}`}>
-        <Circle className={styles.icon}/>
-        <div>
-          <p className={styles.bold}>{specie?.conservation_status}</p>
-          <p className={styles.bold}>{specie?.population}</p>
-        </div>
       </div>
     </div>
   );

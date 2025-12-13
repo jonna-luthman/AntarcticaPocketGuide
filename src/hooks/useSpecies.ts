@@ -1,7 +1,6 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { useLoading } from "../context/LoadingContext";
 import { Specie, SpecieSummary } from "../types/species";
 
 export default function useSpecies<T>() {
@@ -87,6 +86,8 @@ export default function useSpecies<T>() {
         .select("*")
         .eq("id", id)
         .single();
+
+        console.log(data)
 
       if (error) {
         setError(error);
