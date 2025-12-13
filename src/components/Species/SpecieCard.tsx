@@ -5,7 +5,7 @@ import {
   IonCardTitle,
   IonCardSubtitle,
 } from "@ionic/react";
-import styles from "./SpecieCard.module.css";
+import styles from "./styles/SpecieCard.module.css";
 
 interface SpecieCardProps {
   title: string | null;

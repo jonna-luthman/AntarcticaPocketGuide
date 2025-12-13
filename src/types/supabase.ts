@@ -1,3 +1,5 @@
+import { Behaviour, DistinguishableFeatures, Distribution, Facts } from "./species"
+
 export type Json =
   | string
   | number
@@ -71,38 +73,47 @@ export type Database = {
       Species: {
         Row: {
           animal_class_id: string | null
-          behaviour: Json | null
+          behaviour: Behaviour | null
           birthing_season: string | null
+          class_slug: string | null
           conservation_status:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
           created_at: string
           diet: string | null
-          facts: Json | null
+          distinguishable_features: DistinguishableFeatures | null
+          facts: Facts | null
+          human_interaction: string | null
           id: string
           identifying_features: string | null
+          lead_text: string | null
           lifespan: string | null
           mating_season: string | null
           name_common: string | null
           name_latin: string | null
           population: string | null
-          regions: string[] | null
+          distribution: Distribution | null
           size: string | null
           slug: string
+          weight: string | null
           wildlife_interactions: Json | null
         }
         Insert: {
           animal_class_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
+          class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
           created_at?: string
           diet?: string | null
+          distinguishable_features?: Json | null
           facts?: Json | null
+          human_interaction?: string | null
           id?: string
           identifying_features?: string | null
+          lead_text?: string | null
           lifespan?: string | null
           mating_season?: string | null
           name_common?: string | null
@@ -111,20 +122,25 @@ export type Database = {
           regions?: string[] | null
           size?: string | null
           slug: string
+          weight?: string | null
           wildlife_interactions?: Json | null
         }
         Update: {
           animal_class_id?: string | null
           behaviour?: Json | null
           birthing_season?: string | null
+          class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
           created_at?: string
           diet?: string | null
+          distinguishable_features?: Json | null
           facts?: Json | null
+          human_interaction?: string | null
           id?: string
           identifying_features?: string | null
+          lead_text?: string | null
           lifespan?: string | null
           mating_season?: string | null
           name_common?: string | null
@@ -133,6 +149,7 @@ export type Database = {
           regions?: string[] | null
           size?: string | null
           slug?: string
+          weight?: string | null
           wildlife_interactions?: Json | null
         }
         Relationships: [
@@ -142,6 +159,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "AnimalClasses"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "Species_class_slug_fkey"
+            columns: ["class_slug"]
+            isOneToOne: false
+            referencedRelation: "AnimalClasses"
+            referencedColumns: ["slug"]
           },
         ]
       }

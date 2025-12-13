@@ -1,16 +1,14 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { useLoading } from "../context/LoadingContext";
 import { Specie, SpecieSummary } from "../types/species";
 
 export default function useSpecies() {
-  const [species, setSpecies] = useState<Specie[] | SpecieSummary[] | null>(
-    null
-  );
+  const [species, setSpecies] = useState<Specie[] | null>(null);
+  const [singleSpecies, setSingleSpecies] = useState<Specie | null>(null);
   const [error, setError] = useState<PostgrestError | null>(null);
 
-  async function getAllSpecies() {
+  async function getAllSpecies(): Promise<Specie[] | null> {
     try {
       setError(null);
 
@@ -20,33 +18,8 @@ export default function useSpecies() {
         setError(error);
         return null;
       }
-      setSpecies(data);
+      setSpecies(data as Specie[]);
 
-      return data;
-    } catch (error: any) {
-      console.error(error);
-      setError(error);
-      return null;
-    } 
-  }
-
-  async function getSpeciesByClass(
-    classId: string
-  ): Promise<SpecieSummary[] | null> {
-    setError(null);
-    try {
-
-      const { data, error } = await supabase
-        .from("Species")
-        .select("id, name_common, name_latin, slug")
-        .eq("animal_class_id", classId);
-
-      if (error) {
-        setError(error);
-        return null;
-      }
-
-      setSpecies(data);
       return data;
     } catch (error: any) {
       console.error(error);
@@ -55,5 +28,84 @@ export default function useSpecies() {
     }
   }
 
-  return { getAllSpecies, getSpeciesByClass, species, error };
+  async function getSpeciesByClass(
+    classId: string
+  ): Promise<SpecieSummary[] | null> {
+    setError(null);
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select("id, name_common, name_latin, slug, class_slug")
+        .eq("animal_class_id", classId);
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  async function getSpeciesBySearchQuery(
+    query: string
+  ): Promise<SpecieSummary[] | null> {
+    setError(null);
+
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select("id, name_common, name_latin, slug, class_slug")
+        .ilike("name_common", `%${query}%`);
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  async function getSpeciesById(id: string): Promise<Specie | null> {
+    setError(null);
+
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setSingleSpecies(data);
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  return {
+    getAllSpecies,
+    getSpeciesByClass,
+    getSpeciesBySearchQuery,
+    getSpeciesById,
+    singleSpecies,
+    species,
+    error,
+  };
 }

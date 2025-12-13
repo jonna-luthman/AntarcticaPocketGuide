@@ -1,47 +1,88 @@
 import {
   IonPage,
   IonContent,
-  IonTitle,
+  IonImg,
   IonItem,
-  IonList,
-  IonRouterLink,
   IonText,
+  IonBackButton,
+  IonButtons,
+  IonHeader,
+  IonToolbar,
 } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
-import CollapsableHeader from "../components/CollapsableHeader";
 import { useParams } from "react-router";
 import useSpecies from "../hooks/useSpecies";
-import { Specie } from "../types/species";
+import { SpeciesFeatures } from "../components/Species/SpeciesFeatures";
+import styles from "./styles/AnimalSpeciesPage.module.css";
+import { DistinguishableFeaturesCard } from "../components/Species/distinguishableFeatures";
+import SpeciesTabs from "../components/Species/SpeciesTabs";
+import { Blend, PersonStanding } from "lucide-react";
 
 const AnimalSpeciesPage: React.FC = () => {
-  const { classId } = useParams<{ classId: string }>();
-  const { getAllSpecies, species } = useSpecies();
-
-  console.log(classId)
+  const { speciesId } = useParams<{ speciesId: string }>();
+  const { getSpeciesById, singleSpecies } = useSpecies();
 
   useEffect(() => {
-    const fetchSpecies = async () => {
-      const data = await getAllSpecies();
-
-    };
-    fetchSpecies();
-  }, []);
+    getSpeciesById(speciesId);
+  }, [speciesId]);
 
   return (
     <IonPage>
-      <Header showBackButton={true} />
-      <IonContent fullscreen>
-        <IonTitle>Animal Species page</IonTitle>
-        {/* <IonList>
-          {species?.map((specie) => (
-            <IonRouterLink href={`/anim/${specie.id}`}>
-              <IonItem key={specie.id}>
-                <IonText>{specie.name_common}</IonText>
-              </IonItem>
-            </IonRouterLink>
-          ))} */}
-        {/* </IonList> */}
+      <IonContent color="tertiary" className="ion-no-border">
+        <IonHeader className={` ion-padding`}>
+          <IonToolbar color="tertiary">
+            <IonButtons slot="start">
+              <IonBackButton defaultHref="/" />
+            </IonButtons>
+          </IonToolbar>
+        </IonHeader>
+        <div>
+          {/* TODO: Add responsive picture */}
+          <IonImg
+            src="/emperor-1.svg"
+            color="tertiary"
+            alt="Emperor penguin"
+            class={styles.heroImage}
+          />
+        </div>
+
+        <div className={styles.contentWrapper}>
+          <IonText>
+            <h1 className="font-average ion-text-uppercase ion-no-margin ion-padding-top">
+              {singleSpecies?.name_common}
+            </h1>
+          </IonText>
+          <IonText className="font-average">
+            <h3 className="ion-no-margin">{singleSpecies?.name_latin}</h3>
+          </IonText>
+
+          <div className="ion-padding-top">
+            <h3>Look for:</h3>
+            <p>{singleSpecies?.identifying_features}</p>
+          </div>
+
+          <div className="ion-padding-top">
+            <h3 className="ion-text-justify">
+              <Blend size={20} /> Similar species:
+            </h3>
+            <p>TODO</p>
+          </div>
+
+          <SpeciesFeatures specie={singleSpecies} />
+
+          <DistinguishableFeaturesCard specie={singleSpecies} />
+
+          <div className="ion-padding-top">
+            <h3>
+              <PersonStanding size={20} />
+              Behaviour around people:
+            </h3>
+            <p>{singleSpecies?.human_interaction}</p>
+          </div>
+
+          <SpeciesTabs specie={singleSpecies} />
+        </div>
       </IonContent>
     </IonPage>
   );
