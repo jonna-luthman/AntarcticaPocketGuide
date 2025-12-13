@@ -1,26 +1,4 @@
 
-ion-segment {
-  --background: var(--ion-color-light);
-    border-radius: 999px;
-}
-
-ion-segment-button {
-  --color: var(--ion-color-medium);
-  --color-checked: var(--ion-color-black);
-  --background-checked: var(--ion-color-secondary);
-  --ripple-color: transparent;
-  font-style: normal;
-  border-radius: 999px;
-  margin: 4px;
-  text-transform: none;
-  min-width: 96px;
-}
-
-.segmentLabel {
-  white-space: normal;
-  line-height: 1.2;
-  font-size: 0.85rem;
-}
 
 .card {
   background-color: #f8f8f8;

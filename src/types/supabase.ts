@@ -1,4 +1,4 @@
-import { DistinguishableFeatures } from "./species"
+import { Behaviour, DistinguishableFeatures, Distribution, Facts } from "./species"
 
 export type Json =
   | string
@@ -73,7 +73,7 @@ export type Database = {
       Species: {
         Row: {
           animal_class_id: string | null
-          behaviour: Json | null
+          behaviour: Behaviour | null
           birthing_season: string | null
           class_slug: string | null
           conservation_status:
@@ -82,7 +82,7 @@ export type Database = {
           created_at: string
           diet: string | null
           distinguishable_features: DistinguishableFeatures | null
-          facts: Json | null
+          facts: Facts | null
           human_interaction: string | null
           id: string
           identifying_features: string | null
@@ -92,7 +92,7 @@ export type Database = {
           name_common: string | null
           name_latin: string | null
           population: string | null
-          distribution: Json | null
+          distribution: Distribution | null
           size: string | null
           slug: string
           weight: string | null

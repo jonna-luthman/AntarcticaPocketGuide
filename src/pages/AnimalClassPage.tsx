@@ -44,13 +44,13 @@ const AnimalClassPage: React.FC = () => {
 
   return (
     <IonPage>
+      <IonContent>
       <Header showBackButton={true} />
       <CollapsableHeader />
-      <IonContent fullscreen>
         <Breadcrumbs param1={animalClass?.name} />
         <IonList>
           {species?.map((specie: SpecieSummary) => (
-            <div key={specie.id} onClick={() => router.push(`/${classSlug}/${specie.id}`, "forward")}>
+            <div key={specie.id} onClick={() => router.push(`/animals/${classSlug}/${specie.id}`, "forward")}>
             <SpecieCard
               title={specie.name_common}
               subtitle={specie.name_latin}

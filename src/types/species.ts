@@ -40,9 +40,10 @@ export interface DistinguishableFeatures {
   features: string[];
 }
 
+export type Distribution = Record<string, string>;
+
 export interface Facts {
   description: string[];
 }
 
-export type Distribution = Record<string, string>;
 

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
 import { Specie, SpecieSummary } from "../types/species";
 
-export default function useSpecies<T>() {
-  const [species, setSpecies] = useState<T[] | null>(null);
+export default function useSpecies() {
+  const [species, setSpecies] = useState<Specie[] | null>(null);
   const [singleSpecies, setSingleSpecies] = useState<Specie | null>(null);
   const [error, setError] = useState<PostgrestError | null>(null);
 
@@ -35,7 +35,7 @@ export default function useSpecies<T>() {
     try {
       const { data, error } = await supabase
         .from("Species")
-        .select("id, name_common, name_latin, slug")
+        .select("id, name_common, name_latin, slug, class_slug")
         .eq("animal_class_id", classId);
 
       if (error) {
@@ -43,7 +43,6 @@ export default function useSpecies<T>() {
         return null;
       }
 
-      setSpecies(data as Specie[]);
       return data;
     } catch (error: any) {
       console.error(error);
@@ -68,7 +67,6 @@ export default function useSpecies<T>() {
         return null;
       }
 
-      setSpecies(data as SpecieSummary[]);
       return data;
     } catch (error: any) {
       console.error(error);
@@ -86,8 +84,6 @@ export default function useSpecies<T>() {
         .select("*")
         .eq("id", id)
         .single();
-
-        console.log(data)
 
       if (error) {
         setError(error);

@@ -19,7 +19,7 @@ export default function SpeciesTabs({ specie }: Props) {
   const [selectedTab, setSelectedTab] = useState<SegmentValue>("distribution");
 
   return (
-    <div className="ion-padding-horizontal">
+    <div>
       <IonSegment
       scrollable
         value={selectedTab}
@@ -40,9 +40,9 @@ export default function SpeciesTabs({ specie }: Props) {
 
       {/* Content controlled by state */}
       <div className="ion-padding">
-        {selectedTab === "distribution" && <DistributionInfo specie={specie} />}
-        {selectedTab === "behaviour" && <BehaviourInfo specie={specie} />}
-        {selectedTab === "facts" && <Facts specie={specie} />}
+        {selectedTab === "distribution" && specie && <DistributionInfo specie={specie} />}
+        {selectedTab === "behaviour" && specie && <BehaviourInfo specie={specie} />}
+        {selectedTab === "facts" && specie && <Facts specie={specie} />}
       </div>
     </div>
   );

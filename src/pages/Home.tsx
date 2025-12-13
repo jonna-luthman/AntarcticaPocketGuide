@@ -24,13 +24,13 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent>
         <Header showMenu={true} />
         <CollapsableHeader />
         <IonList>
           {animalClasses?.map((animalClass) => (
             <IonItem
-              routerLink={`/${animalClass.slug}`}
+              routerLink={`/animals/${animalClass.slug}`}
               routerDirection="forward"
               button
               key={animalClass.id}
