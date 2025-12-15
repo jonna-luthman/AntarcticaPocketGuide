@@ -9,8 +9,7 @@ import {
   IonHeader,
   IonToolbar,
 } from "@ionic/react";
-import React, { useEffect } from "react";
-import Header from "../components/Header";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useSpecies from "../hooks/useSpecies";
 import { SpeciesFeatures } from "../components/Species/SpeciesFeatures";
@@ -18,19 +17,29 @@ import styles from "./styles/AnimalSpeciesPage.module.css";
 import { DistinguishableFeaturesCard } from "../components/Species/distinguishableFeatures";
 import SpeciesTabs from "../components/Species/SpeciesTabs";
 import { Blend, PersonStanding } from "lucide-react";
+import useXenoCanto from "../hooks/useXenoCanto";
+import AnimalSounds from "../components/Species/AnimalSounds";
 
 const AnimalSpeciesPage: React.FC = () => {
   const { speciesId } = useParams<{ speciesId: string }>();
   const { getSpeciesById, singleSpecies } = useSpecies();
+  const { fetchSounds } = useXenoCanto();
+
+  const [sounds, setSounds] = useState<Sound[]>([]);
 
   useEffect(() => {
     getSpeciesById(speciesId);
   }, [speciesId]);
 
+
+  useEffect(() => {
+    fetchSounds(singleSpecies?.name_latin).then(setSounds);
+  }, [singleSpecies]);
+
   return (
     <IonPage>
       <IonContent color="tertiary" className="ion-no-border">
-        <IonHeader className={` ion-padding`}>
+        <IonHeader className={`ion-padding`}>
           <IonToolbar color="tertiary">
             <IonButtons slot="start">
               <IonBackButton defaultHref="/" />
@@ -40,7 +49,7 @@ const AnimalSpeciesPage: React.FC = () => {
         <div>
           {/* TODO: Add responsive picture */}
           <IonImg
-            src="/emperor-1.svg"
+            src="/aa.webp"
             color="tertiary"
             alt="Emperor penguin"
             class={styles.heroImage}
@@ -61,6 +70,8 @@ const AnimalSpeciesPage: React.FC = () => {
             <h3>Look for:</h3>
             <p>{singleSpecies?.identifying_features}</p>
           </div>
+
+          {sounds > 0 && <AnimalSounds sounds={sounds} />}
 
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">
