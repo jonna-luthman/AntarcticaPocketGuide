@@ -30,18 +30,19 @@ const AnimalSpeciesPage: React.FC = () => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { fetchSounds } = useXenoCanto();
 
-  const [sounds, setSounds] = useState<Sound[]>([]);
+  const [sounds, setSounds] = useState<Sound[] | null>(null);
 
   useEffect(() => {
     getSpeciesById(speciesId)
   }, [speciesId]);
 
   useEffect(() => {
-    fetchSounds(species?.name_latin).then(setSounds);
-  }, [species]);
-
-  const headerImage = findImageByRole(species?.SpeciesMedia, "header");
-
+    //TODO: Only for testing => delete before release.
+    fetchSounds("Sterna paradisaea").then(setSounds);
+    // fetchSounds(singleSpecies?.name_latin).then(setSounds);
+  }, [singleSpecies]);
+  
+  console.log(sounds)
   return (
     <IonPage>
       <IonContent color="tertiary" className="ion-no-border">
@@ -70,7 +71,7 @@ const AnimalSpeciesPage: React.FC = () => {
             <p>{species?.identifying_features}</p>
           </div>
 
-          {sounds > 0 && <AnimalSounds sounds={sounds} />}
+          {sounds?.length > 0 && <AnimalSounds sounds={sounds} />}
 
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">

@@ -9,19 +9,19 @@ import {
   IonInputPasswordToggle,
   IonItem,
   IonList,
-  IonButtons,
-  IonBackButton,
   useIonRouter,
   IonText,
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
+import Intro01 from "../../components/intro/Intro01"
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [introSeen, setIntroSeen] = useState<boolean>(false);
 
   const { showLoading, hideLoading } = useLoading();
 
@@ -46,79 +46,84 @@ const Login: React.FC = () => {
     }
   };
 
+  const finishIntro = async () => {
+    console.log("intro finish")
+  }
+
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="/" />
-          </IonButtons>
-          <IonTitle>Log in</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+    <>
+      {!introSeen ? (
+        <Intro01 onFinish={finishIntro}/>
+      ) : (
+        <IonPage>
+          <IonContent fullscreen scrollY={false}>
+            <IonHeader collapse="condense">
+              <IonToolbar>
+                <IonTitle size="large">Log in</IonTitle>
+              </IonToolbar>
+            </IonHeader>
+            <form onSubmit={handleSignIn}>
+              <IonList>
+                <IonItem>
+                  <IonInput
+                    label="Email"
+                    type="email"
+                    labelPlacement="stacked"
+                    value={email}
+                    onIonInput={(event: Event) =>
+                      setEmail((event.target as HTMLInputElement).value)
+                    }
+                  />
+                </IonItem>
 
-      <IonContent fullscreen scrollY={false}>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Log in</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <form onSubmit={handleSignIn}>
-          <IonList>
-            <IonItem>
-              <IonInput
-                label="Email"
-                type="email"
-                labelPlacement="stacked"
-                value={email}
-                onIonInput={(event: Event) =>
-                  setEmail((event.target as HTMLInputElement).value)
-                }
-              />
-            </IonItem>
+                <IonItem>
+                  <IonInput
+                    label="Password"
+                    type="password"
+                    labelPlacement="stacked"
+                    value={password}
+                    onIonInput={(event: Event) =>
+                      setPassword((event.target as HTMLInputElement).value)
+                    }
+                  >
+                    <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
+                  </IonInput>
+                </IonItem>
+              </IonList>
 
-            <IonItem>
-              <IonInput
-                label="Password"
-                type="password"
-                labelPlacement="stacked"
-                value={password}
-                onIonInput={(event: Event) =>
-                  setPassword((event.target as HTMLInputElement).value)
-                }
+              {error && (
+                <IonText color="danger" className="ion-padding">
+                  {error}
+                </IonText>
+              )}
+
+              <IonButton
+                className="ion-margin-top"
+                expand="block"
+                type="submit"
               >
-                <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
-              </IonInput>
-            </IonItem>
-          </IonList>
-
-          {error && (
-            <IonText color="danger" className="ion-padding">
-              {error}
-            </IonText>
-          )}
-          
-          <IonButton className="ion-margin-top" expand="block" type="submit">
-            Log in
-          </IonButton>
-          <IonButton
-            className="ion-margin-top"
-            expand="block"
-            routerLink="/reset-password"
-          >
-            Forgot your password?
-          </IonButton>
-          <IonButton
-            color={"dark"}
-            className="ion-margin-top"
-            expand="block"
-            routerLink="/register"
-          >
-            Register
-          </IonButton>
-        </form>
-      </IonContent>
-    </IonPage>
+                Log in
+              </IonButton>
+              <IonButton
+                className="ion-margin-top"
+                expand="block"
+                routerLink="/reset-password"
+              >
+                Forgot your password?
+              </IonButton>
+              <IonButton
+                color={"dark"}
+                className="ion-margin-top"
+                expand="block"
+                routerLink="/register"
+              >
+                Register
+              </IonButton>
+            </form>
+          </IonContent>
+        </IonPage>
+      )}
+    </>
   );
 };
 
