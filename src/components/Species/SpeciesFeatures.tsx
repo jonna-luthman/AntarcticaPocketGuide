@@ -13,7 +13,7 @@ const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
         <Ruler className={styles.icon} />
         <div className={styles.textBlock}>
           <p>{specie?.size} mts</p>
-          <p>15 kg</p>
+          <p>{specie?.weight}</p>
         </div>
       </div>
 
