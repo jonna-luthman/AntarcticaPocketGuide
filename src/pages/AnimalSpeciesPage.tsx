@@ -30,7 +30,7 @@ const AnimalSpeciesPage: React.FC = () => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { fetchSounds } = useXenoCanto();
 
-  const [sounds, setSounds] = useState<Sound[] | null>(null);
+  const [sounds, setSounds] = useState<Sound[] | []>([]);
 
   useEffect(() => {
     getSpeciesById(speciesId)
@@ -40,9 +40,10 @@ const AnimalSpeciesPage: React.FC = () => {
     //TODO: Only for testing => delete before release.
     fetchSounds("Sterna paradisaea").then(setSounds);
     // fetchSounds(singleSpecies?.name_latin).then(setSounds);
-  }, [singleSpecies]);
-  
-  console.log(sounds)
+  }, [species]);
+
+  const headerImage = findImageByRole(species?.SpeciesMedia, "header");
+
   return (
     <IonPage>
       <IonContent color="tertiary" className="ion-no-border">
