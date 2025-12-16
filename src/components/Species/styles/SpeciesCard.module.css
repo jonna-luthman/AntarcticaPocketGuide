@@ -12,16 +12,6 @@
   height: 100%;
 }
 
-.cornerImage {
-  position: absolute;
-  z-index: 1;
-  bottom: 0;
-  right: 0;
-  height: 80%;
-  width: auto;
-  object-fit: cover; 
-}
-
 .cardHeader {
     padding: 16px; 
 }
@@ -30,3 +20,5 @@
     font-family: var(--font-display);
     color: var(--color);
 }
+
+

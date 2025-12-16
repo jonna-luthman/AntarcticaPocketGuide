@@ -2,7 +2,6 @@ import {
   IonPage,
   IonContent,
   IonImg,
-  IonItem,
   IonText,
   IonBackButton,
   IonButtons,
@@ -11,30 +10,37 @@ import {
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import useSpecies from "../hooks/useSpecies";
-import { SpeciesFeatures } from "../components/Species/SpeciesFeatures";
-import styles from "./styles/AnimalSpeciesPage.module.css";
-import { DistinguishableFeaturesCard } from "../components/Species/distinguishableFeatures";
-import SpeciesTabs from "../components/Species/SpeciesTabs";
 import { Blend, PersonStanding } from "lucide-react";
+
+import useSpecies from "../hooks/useSpecies";
 import useXenoCanto from "../hooks/useXenoCanto";
+
+import styles from "./styles/AnimalSpeciesPage.module.css";
+
+import SpeciesFeatures from "../components/Species/SpeciesFeatures";
+import DistinguishableFeaturesCard from "../components/Species/distinguishableFeatures";
+import SpeciesTabs from "../components/Species/SpeciesTabs";
 import AnimalSounds from "../components/Species/AnimalSounds";
+import Image from "../components/Image";
+
+import { findImageByRole } from "../utils/getMediaTypes.ts";
 
 const AnimalSpeciesPage: React.FC = () => {
   const { speciesId } = useParams<{ speciesId: string }>();
-  const { getSpeciesById, singleSpecies } = useSpecies();
+  const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { fetchSounds } = useXenoCanto();
 
   const [sounds, setSounds] = useState<Sound[]>([]);
 
   useEffect(() => {
-    getSpeciesById(speciesId);
+    getSpeciesById(speciesId)
   }, [speciesId]);
 
-
   useEffect(() => {
-    fetchSounds(singleSpecies?.name_latin).then(setSounds);
-  }, [singleSpecies]);
+    fetchSounds(species?.name_latin).then(setSounds);
+  }, [species]);
+
+  const headerImage = findImageByRole(species?.SpeciesMedia, "header");
 
   return (
     <IonPage>
@@ -46,29 +52,22 @@ const AnimalSpeciesPage: React.FC = () => {
             </IonButtons>
           </IonToolbar>
         </IonHeader>
-        <div>
-          {/* TODO: Add responsive picture */}
-          <IonImg
-            src="/aa.webp"
-            color="tertiary"
-            alt="Emperor penguin"
-            class={styles.heroImage}
-          />
-        </div>
+
+        {headerImage && <Image image={headerImage} class="header"/>}
 
         <div className={styles.contentWrapper}>
           <IonText>
             <h1 className="font-average ion-text-uppercase ion-no-margin ion-padding-top">
-              {singleSpecies?.name_common}
+              {species?.name_common}
             </h1>
           </IonText>
           <IonText className="font-average">
-            <h3 className="ion-no-margin">{singleSpecies?.name_latin}</h3>
+            <h3 className="ion-no-margin">{species?.name_latin}</h3>
           </IonText>
 
           <div className="ion-padding-top">
             <h3>Look for:</h3>
-            <p>{singleSpecies?.identifying_features}</p>
+            <p>{species?.identifying_features}</p>
           </div>
 
           {sounds > 0 && <AnimalSounds sounds={sounds} />}
@@ -80,19 +79,19 @@ const AnimalSpeciesPage: React.FC = () => {
             <p>TODO</p>
           </div>
 
-          <SpeciesFeatures specie={singleSpecies} />
+          <SpeciesFeatures specie={species} />
 
-          <DistinguishableFeaturesCard specie={singleSpecies} />
+          <DistinguishableFeaturesCard specie={species} />
 
           <div className="ion-padding-top">
             <h3>
               <PersonStanding size={20} />
               Behaviour around people:
             </h3>
-            <p>{singleSpecies?.human_interaction}</p>
+            <p>{species?.human_interaction}</p>
           </div>
 
-          <SpeciesTabs specie={singleSpecies} />
+          <SpeciesTabs specie={species} />
         </div>
       </IonContent>
     </IonPage>
