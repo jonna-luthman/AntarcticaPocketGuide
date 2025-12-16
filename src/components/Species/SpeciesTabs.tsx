@@ -9,7 +9,7 @@ import BehaviourInfo from "./BehaviourInfo";
 import Facts from "./Facts";
 import DistributionInfo from "./DistributionInfo";
 import { Specie } from "../../types/species";
-import styles from "./styles/SpecieCard.module.css"
+import styles from "./styles/SpeciesCard.module.css"
 
 export interface Props {
   specie: Specie | null;

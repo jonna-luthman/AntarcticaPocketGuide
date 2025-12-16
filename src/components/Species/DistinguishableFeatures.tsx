@@ -6,7 +6,7 @@ export interface Props {
   specie: Specie | null;
 }
 
-export const DistinguishableFeaturesCard = ({ specie }: Props) => {
+const DistinguishableFeaturesCard = ({ specie }: Props) => {
   const featureList = specie?.distinguishable_features?.features;
 
   if (!featureList || featureList.length === 0) {
@@ -26,3 +26,5 @@ export const DistinguishableFeaturesCard = ({ specie }: Props) => {
     </div>
   );
 };
+
+export default DistinguishableFeaturesCard;

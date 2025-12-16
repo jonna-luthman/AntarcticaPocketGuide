@@ -6,7 +6,7 @@ interface SpeciesInfoProps {
   specie: Specie | null;
 }
 
-export const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
+const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
   return (
     <div className={styles.contentWrapper}>
       <div className={`${styles.contentBox} ${styles.boxSmall}`}>
@@ -37,3 +37,5 @@ export const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
     </div>
   );
 };
+
+export default SpeciesFeatures;

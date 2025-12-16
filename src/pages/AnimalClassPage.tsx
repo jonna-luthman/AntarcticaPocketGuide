@@ -1,20 +1,21 @@
-import { IonPage, IonContent, IonList, IonRouterLink, useIonRouter } from "@ionic/react";
+import { IonPage, IonContent, IonList } from "@ionic/react";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+
 import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";
-import { useParams } from "react-router";
-import useSpecies from "../hooks/useSpecies";
-import { SpecieSummary } from "../types/species";
-import SpecieCard from "../components/Species/SpecieCard";
+import SpeciesCard from "../components/Species/SpeciesCard";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
+
 import useAnimals from "../hooks/useAnimals";
-import { useLoading } from "../context/LoadingContext";
+import useSpecies from "../hooks/useSpecies";
+
+import { SpecieSummary } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
 
 const AnimalClassPage: React.FC = () => {
-  const { showLoading, hideLoading } = useLoading();
   const { classSlug } = useParams<{ classSlug: string }>();
-  const { getSpeciesByClass } = useSpecies();
+  const { getSpeciesWithHeaderMediaByClass } = useSpecies();
   const { getAnimalClass } = useAnimals();
 
   const [species, setSpecies] = useState<SpecieSummary[] | null>(null);
@@ -22,42 +23,33 @@ const AnimalClassPage: React.FC = () => {
     null
   );
 
-  const router = useIonRouter();
+  useEffect(() => {
+    getAnimalClass(classSlug).then(setAnimalClass);
+  }, [classSlug]);
 
   useEffect(() => {
-    const fetch = async () => {
-      showLoading();
+    if (!animalClass?.id) return;
 
-      const classData = await getAnimalClass(classSlug);
-      setAnimalClass(classData);
-
-      if (classData?.id) {
-        const speciesData = await getSpeciesByClass(classData.id);
-        setSpecies(speciesData);
-      }
-
-      hideLoading();
-    };
-
-    fetch();
-  }, [classSlug]);
+    getSpeciesWithHeaderMediaByClass(animalClass.id).then(setSpecies);
+  }, [animalClass]);
 
   return (
     <IonPage>
       <IonContent>
-      <Header showBackButton={true} />
-      <CollapsableHeader />
+        <Header showBackButton={true} />
+        <CollapsableHeader />
         <Breadcrumbs param1={animalClass?.name} />
         <IonList>
-          {species?.map((specie: SpecieSummary) => (
-            <div key={specie.id} onClick={() => router.push(`/animals/${classSlug}/${specie.id}`, "forward")}>
-            <SpecieCard
-              title={specie.name_common}
-              subtitle={specie.name_latin}
-              src="/WeddellSeal.svg"
-            />
-            </div>
-          ))}
+          {species && species.map((s) => {
+            const headerImage = s.SpeciesMedia?.[0];
+
+            return (
+              <div key={s.id}>
+              <SpeciesCard species={s} headerImage={headerImage} title={s.name_common}
+              subtitle={s.name_latin} />
+              </div>
+            );
+          })}
         </IonList>
       </IonContent>
     </IonPage>

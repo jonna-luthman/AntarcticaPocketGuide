@@ -30,6 +30,10 @@ export type SpecieSummary = Pick<
   "id" | "name_common" | "name_latin" | "class_slug" | "slug"
 >;
 
+export type SpecieWithMedia = Specie & {
+  SpeciesMedia: SpeciesMedia[];
+};
+
 export interface BehaviourEntry {
   description: string;
 }

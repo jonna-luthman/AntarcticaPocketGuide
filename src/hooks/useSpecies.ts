@@ -1,25 +1,25 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { Specie, SpecieSummary } from "../types/species";
+import { Specie, SpecieSummary, SpecieWithMedia } from "../types/species";
 
 export default function useSpecies() {
   const [species, setSpecies] = useState<Specie[] | null>(null);
   const [singleSpecies, setSingleSpecies] = useState<Specie | null>(null);
   const [error, setError] = useState<PostgrestError | null>(null);
-
+  
   async function getAllSpecies(): Promise<Specie[] | null> {
     try {
       setError(null);
-
+      
       const { data, error } = await supabase.from("Species").select("*");
-
+      
       if (error) {
         setError(error);
         return null;
       }
       setSpecies(data as Specie[]);
-
+      
       return data;
     } catch (error: any) {
       console.error(error);
@@ -28,15 +28,52 @@ export default function useSpecies() {
     }
   }
 
+
+  type GetSpeciesByClassOptions = {
+    includeMedia?: boolean;
+  };
+
   async function getSpeciesByClass(
-    classId: string
-  ): Promise<SpecieSummary[] | null> {
+    classId: string,
+    options?: GetSpeciesByClassOptions
+  ): Promise<SpecieSummary[] | SpecieWithMedia[] | null> {
     setError(null);
+
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from("Species")
-        .select("id, name_common, name_latin, slug, class_slug")
+        .select(
+          options?.includeMedia
+            ? `
+            id,
+            name_common,
+            name_latin,
+            slug,
+            class_slug,
+            SpeciesMedia (
+              id,
+              media_url,
+              role,
+              order_index
+            )
+          `
+            : `
+            id,
+            name_common,
+            name_latin,
+            slug,
+            class_slug
+          `
+        )
         .eq("animal_class_id", classId);
+
+      if (options?.includeMedia) {
+        query = query
+          .eq("SpeciesMedia.role", "header")
+          .order("order_index", { foreignTable: "SpeciesMedia" });
+      }
+
+      const { data, error } = await query;
 
       if (error) {
         setError(error);
@@ -44,9 +81,9 @@ export default function useSpecies() {
       }
 
       return data;
-    } catch (error: any) {
-      console.error(error);
-      setError(error);
+    } catch (err: any) {
+      console.error(err);
+      setError(err);
       return null;
     }
   }
@@ -75,33 +112,53 @@ export default function useSpecies() {
     }
   }
 
-  async function getSpeciesById(id: string): Promise<Specie | null> {
-    setError(null);
+async function getSpeciesById(
+  id: string
+): Promise<SpecieWithMedia | null> {
+  setError(null);
 
-    try {
-      const { data, error } = await supabase
-        .from("Species")
-        .select("*")
-        .eq("id", id)
-        .single();
+  try {
+    const { data, error } = await supabase
+      .from("Species")
+      .select(`*,
+        SpeciesMedia (
+          id,
+          media_url,
+          role,
+          order_index,
+          photographer,
+          attribute
+        )
+      `)
+      .eq("id", id)
+      .order("order_index", { foreignTable: "SpeciesMedia" })
+      .single();
 
-      if (error) {
-        setError(error);
-        return null;
-      }
-
-      setSingleSpecies(data);
-      return data;
-    } catch (error: any) {
-      console.error(error);
+    if (error) {
       setError(error);
       return null;
     }
+
+    setSingleSpecies(data);
+    return data;
+  } catch (error: any) {
+    console.error(error);
+    setError(error);
+    return null;
   }
+}
+
+
+  const getSpeciesSummariesByClass = (classId: string) =>
+    getSpeciesByClass(classId);
+
+  const getSpeciesWithHeaderMediaByClass = (classId: string) =>
+    getSpeciesByClass(classId, { includeMedia: true });
 
   return {
     getAllSpecies,
-    getSpeciesByClass,
+    getSpeciesSummariesByClass,
+    getSpeciesWithHeaderMediaByClass,
     getSpeciesBySearchQuery,
     getSpeciesById,
     singleSpecies,

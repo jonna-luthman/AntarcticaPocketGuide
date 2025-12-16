@@ -1,0 +1,10 @@
+/* Add styling */
+.cornerImage {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: auto;
+  object-fit: cover; 
+}
