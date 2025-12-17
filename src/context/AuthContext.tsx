@@ -17,10 +17,11 @@ interface AuthContextType {
     password: string;
     name: string;
   }) => Promise<AuthResult>;
-  signInUser: (payload: {
+  signInWithEmail: (payload: {
     email: string;
     password: string;
   }) => Promise<AuthResult>;
+  signInWithGoogle: () => Promise<void>;
   signOutUser: () => Promise<SignOutResult>;
 }
 
@@ -28,40 +29,55 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
-  const { createNewUser } = useUsers()
+  const { checkUserProfile } = useUsers();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session ?? null);
+
+      if (data.session?.user) {
+        checkUserProfile(data.session.user);
+      }
+    });
+
+    const { data } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        setSession(session ?? null);
+
+        if (session?.user) {
+          await checkUserProfile(session.user);
+        }
+      }
+    );
+
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, []);
 
   //Sign up
-const signUpNewUser = async (payload: {
-  email: string;
-  password: string;
-  name: string;
-}): Promise<AuthResult> => {
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email: payload.email,
-      password: payload.password
+  const signUpNewUser = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    return supabase.auth.signUp({ email, password });
+  };
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
     });
 
-    if (error) return { success: false, error: error.message };
-
-    const authUser = data.user;
-    if (!authUser) return { success: false, error: "No user returned" };
-
-    await createNewUser({
-      id: authUser.id,
-      name: payload.name,
-    });
-
-    return { success: true, data };
-
-  } catch (error: any) {
-    return { success: false, error: error.message ?? "Unexpected error" };
-  }
-};
-
+    if (error) {
+      console.error(error);
+    }
+  };
 
   //Sign in
-  const signInUser = async (credentials: {
+  const signInWithEmail = async (credentials: {
     email: string;
     password: string;
   }): Promise<AuthResult> => {
@@ -81,42 +97,37 @@ const signUpNewUser = async (payload: {
   };
 
   //Sign out
-const signOutUser = async (): Promise<SignOutResult> => {
-  try {
-    const { error } = await supabase.auth.signOut();
+  const signOutUser = async (): Promise<SignOutResult> => {
+    try {
+      const { error } = await supabase.auth.signOut();
 
-    if (error) {
+      if (error) {
+        return {
+          success: false,
+          error: error.message,
+        };
+      }
+
+      return {
+        success: true,
+      };
+    } catch (error: any) {
       return {
         success: false,
-        error: error.message,
+        error: error.message ?? "Unexpected error",
       };
     }
-
-    return {
-      success: true,
-    };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message ?? "Unexpected error",
-    };
-  }
-};
-
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
+  };
 
   return (
     <AuthContext.Provider
-      value={{ session, signUpNewUser, signInUser, signOutUser }}
+      value={{
+        session,
+        signUpNewUser,
+        signInWithEmail,
+        signOutUser,
+        signInWithGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,21 +1,39 @@
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
 import { AuthResult } from "../types/auth";
-import { CreateUser, User } from "../types/user";
+import { User } from "../types/user";
+import { User } from "@supabase/supabase-js";
 
 export default function useUsers() {
   const [user, setUser] = useState<User | null>(null);
 
-  async function createNewUser(user: {
-    id: string;
-    name: string;
-  }): Promise<AuthResult> {
+  async function checkUserProfile(user: User): Promise<AuthResult> {
     try {
+      const { data: existingUser, error: selectError } = await supabase
+        .from("Users")
+        .select("id")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (selectError) {
+        return { success: false, error: selectError.message };
+      }
+
+      if (existingUser) {
+        return { success: true, data: existingUser };
+      }
+
+      const name =
+        user.user_metadata?.full_name ??
+        user.user_metadata?.name ??
+        user.email ??
+        "Unnamed user";
+
       const { data, error } = await supabase
         .from("Users")
         .insert({
           id: user.id,
-          name: user.name,
+          name,
         })
         .select()
         .single();
@@ -50,5 +68,5 @@ export default function useUsers() {
     }
   }
 
-  return { createNewUser, updateUser, user };
+  return { checkUserProfile, updateUser, user };
 }
