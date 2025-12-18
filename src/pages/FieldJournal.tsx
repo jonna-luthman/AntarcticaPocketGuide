@@ -1,7 +1,14 @@
-import { IonContent, IonPage, IonTitle } from "@ionic/react";
-import React from "react";
+import { IonContent, IonPage, IonTitle, useIonRouter } from "@ionic/react";
+import { UserAuth } from "../context/AuthContext";
+import useUser from "../hooks/useUser.ts"
+import React, {useEffect} from "react";
 
 const FieldJournal: React.FC = () => {
+const { session } = UserAuth()
+const router = useIonRouter();
+
+
+
   return (
     <IonPage>
       <IonContent fullscreen>
