@@ -1,0 +1,21 @@
+.button {
+  color: var(--ion-tertiary);
+  padding: 16px;
+}
+
+.googleButton {
+  color: white;
+  padding: 16px;
+}
+
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+
+.divider {
+  border-top: 1px solid #bbb;
+  border-radius: 5px;
+}

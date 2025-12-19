@@ -4,9 +4,10 @@ import {
   IonRouterOutlet,
   IonTabs,
   setupIonicReact,
+  useIonRouter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "./pages/Home";
+import React, { useState } from "react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -40,7 +41,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import "./theme/global.css";
 
-import Login from "./pages/Authentication/Login";
+import Home from "./pages/Home";
+import LoginModal from "./pages/Authentication/LoginModal";
 import Register from "./pages/Authentication/Register";
 import ResetPassword from "./pages/Authentication/ResetPassword";
 import ChangePassword from "./pages/Authentication/ChangePassword";
@@ -48,7 +50,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import FieldJournal from "./pages/FieldJournal";
 
-import { AuthContextProvider } from "./context/AuthContext";
+import { AuthContextProvider, UserAuth } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
 
 import Menu from "./components/Menu";
@@ -58,51 +60,43 @@ import AnimalSpeciesPage from "./pages/AnimalSpeciesPage";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <LoadingProvider>
-    <IonApp>
-      <AuthContextProvider>
-        <IonReactRouter>
-          <Menu />
-          <IonTabs>
-            <IonRouterOutlet id="main-content">
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/change-password">
-                <ChangePassword />
-              </Route>
-              <Route exact path="/reset-password">
-                <ResetPassword />
-              </Route>
-              <Route exact path="/register">
-                <Register />
-              </Route>
-              <Route exact path="/field-journal">
-                <FieldJournal />
-              </Route>
-              <Route exact path="/about-us">
-                <AboutUs />
-              </Route>
-              <Route exact path="/contact-us">
-                <ContactUs />
-              </Route>
-              <Route exact path="/animals/:classSlug/">
-                <AnimalClassPage />
-              </Route>
-              <Route exact path="/animals/:classSlug/:speciesId">
-                <AnimalSpeciesPage />
-              </Route>
-            </IonRouterOutlet>
-            <Navbar />
-          </IonTabs>
-        </IonReactRouter>
-      </AuthContextProvider>
-    </IonApp>
-  </LoadingProvider>
-);
+const App: React.FC = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+  return (
+    <LoadingProvider>
+      <IonApp>
+        <AuthContextProvider>
+          <IonReactRouter>
+            <Menu />
+            <IonTabs>
+              <IonRouterOutlet id="main-content">
+                <Route exact path="/" component={Home} />
+                <Route exact path="/field-journal">
+                  <FieldJournal onShowLogin={() => setIsLoginOpen(true)} />
+                </Route>
+                <Route exact path="/about-us" component={AboutUs} />
+                <Route exact path="/contact-us" component={ContactUs} />
+                <Route exact path="/change-password" component={ChangePassword} />
+                <Route
+                  exact
+                  path="/animals/:classSlug/"
+                  component={AnimalClassPage}
+                />
+                <Route
+                  exact
+                  path="/animals/:classSlug/:speciesId"
+                  component={AnimalSpeciesPage}
+                />
+              </IonRouterOutlet>
+              <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
+            </IonTabs>
+            <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
+          </IonReactRouter>
+        </AuthContextProvider>
+      </IonApp>
+    </LoadingProvider>
+  );
+};
 
 export default App;

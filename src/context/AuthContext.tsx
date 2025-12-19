@@ -9,6 +9,7 @@ import { supabase } from "../api/supabaseClient";
 import { Session } from "@supabase/supabase-js";
 import { AuthResult, SignOutResult } from "../types/auth";
 import useUsers from "../hooks/useUser";
+import { useLoading } from "./LoadingContext";
 
 interface AuthContextType {
   session: Session | null;
@@ -17,10 +18,11 @@ interface AuthContextType {
     password: string;
     name: string;
   }) => Promise<AuthResult>;
-  signInUser: (payload: {
+  signInWithEmail: (payload: {
     email: string;
     password: string;
   }) => Promise<AuthResult>;
+  signInWithGoogle: () => Promise<void>;
   signOutUser: () => Promise<SignOutResult>;
 }
 
@@ -28,40 +30,88 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
-  const { createNewUser } = useUsers()
+  const { checkUserProfile } = useUsers();
+  const { showLoading, hideLoading } = useLoading();
 
-  //Sign up
-const signUpNewUser = async (payload: {
-  email: string;
-  password: string;
-  name: string;
-}): Promise<AuthResult> => {
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email: payload.email,
-      password: payload.password
+  useEffect(() => {
+    showLoading()
+    const initAuth = async () => {
+      try {
+        const { data } = await supabase.auth.getSession();
+        setSession(data.session ?? null);
+        if (data.session?.user) {
+          await checkUserProfile(data.session.user);
+        }
+      } catch (err) {
+        console.error("Auth init error", err);
+      } finally {
+        hideLoading();
+      }
+    };
+
+    initAuth();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        setSession(session ?? null);
+        if (session?.user) {
+         checkUserProfile(session.user);
+        }
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const signUpNewUser = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Promise<AuthResult> => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        return {
+          success: false,
+          error: {
+            message: error.message,
+            code: error.code,
+          },
+        };
+      }
+
+      return { success: true, data };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.message ?? "Unexpected error",
+          code: error.code ?? "Unexpected error",
+        },
+      };
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
     });
 
-    if (error) return { success: false, error: error.message };
-
-    const authUser = data.user;
-    if (!authUser) return { success: false, error: "No user returned" };
-
-    await createNewUser({
-      id: authUser.id,
-      name: payload.name,
-    });
-
-    return { success: true, data };
-
-  } catch (error: any) {
-    return { success: false, error: error.message ?? "Unexpected error" };
-  }
-};
-
+    if (error) {
+      console.error(error);
+    }
+  };
 
   //Sign in
-  const signInUser = async (credentials: {
+  const signInWithEmail = async (credentials: {
     email: string;
     password: string;
   }): Promise<AuthResult> => {
@@ -71,52 +121,59 @@ const signUpNewUser = async (payload: {
       );
 
       if (error) {
-        return { success: false, error: error.message };
+        return {
+          success: false,
+          error: {
+            message: error.message ?? "Unexpected error",
+            code: error.code ?? "Unexpected error",
+          },
+        };
       }
 
       return { success: true, data };
     } catch (error: any) {
-      return { success: false, error: error.message ?? "Unexpected error" };
+      return {
+        success: false,
+        error: {
+          message: error.message ?? "Unexpected error",
+          code: error.code ?? "Unexpected error",
+        },
+      };
     }
   };
 
   //Sign out
-const signOutUser = async (): Promise<SignOutResult> => {
-  try {
-    const { error } = await supabase.auth.signOut();
+  const signOutUser = async (): Promise<SignOutResult> => {
+    try {
+      const { error } = await supabase.auth.signOut();
 
-    if (error) {
+      if (error) {
+        return {
+          success: false,
+          error: error.message,
+        };
+      }
+
+      return {
+        success: true,
+      };
+    } catch (error: any) {
       return {
         success: false,
-        error: error.message,
+        error: error.message ?? "Unexpected error",
       };
     }
-
-    return {
-      success: true,
-    };
-  } catch (error: any) {
-    return {
-      success: false,
-      error: error.message ?? "Unexpected error",
-    };
-  }
-};
-
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []);
+  };
 
   return (
     <AuthContext.Provider
-      value={{ session, signUpNewUser, signInUser, signOutUser }}
+      value={{
+        session,
+        signUpNewUser,
+        signInWithEmail,
+        signOutUser,
+        signInWithGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>

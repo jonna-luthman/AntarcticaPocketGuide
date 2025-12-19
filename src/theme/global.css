@@ -59,6 +59,10 @@ ion-tab-button {
   font-family: "Avenir", sans-serif;
 }
 
+.custom-modal {
+  --ion-color-primary: var(--ion-color-dark);
+}
+
 .font-avenir { font-family: var(--font-avenir); }
 .font-display { font-family: var(--font-display); }
 .font-average { font-family: var(--font-average); }

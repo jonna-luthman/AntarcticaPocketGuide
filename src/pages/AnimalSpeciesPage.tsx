@@ -38,8 +38,8 @@ const AnimalSpeciesPage: React.FC = () => {
 
   useEffect(() => {
     //TODO: Only for testing => delete before release.
-    fetchSounds("Sterna paradisaea").then(setSounds);
-    // fetchSounds(singleSpecies?.name_latin).then(setSounds);
+    // fetchSounds("Sterna paradisaea").then(setSounds);
+    fetchSounds(species?.name_latin).then(setSounds);
   }, [species]);
 
   const headerImage = findImageByRole(species?.SpeciesMedia, "header");

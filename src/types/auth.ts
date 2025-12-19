@@ -10,7 +10,10 @@ type AuthSuccess = {
 
 type AuthFailure = {
   success: false;
-  error: string;
+  error: {
+    message: string;
+    code?: string;
+  };
 };
 
 export type AuthResult = AuthSuccess | AuthFailure;

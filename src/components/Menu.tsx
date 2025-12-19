@@ -15,14 +15,14 @@ import { close } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
 
 const Menu = () => {
-  const { signOutUser } = UserAuth();
+  const { signOutUser, session } = UserAuth();
   const router = useIonRouter();
 
   const handleSignOut = async (e: Event) => {
     e.preventDefault();
     try {
       await signOutUser();
-      router.push("/login", "none");
+
     } catch (error) {
       console.error(error);
     }
@@ -74,14 +74,14 @@ const Menu = () => {
             </IonItem>
           </IonMenuToggle>
 
-          <IonButton
+         {session && <IonButton
             color="tertiary"
             className="ion-margin-top"
             expand="block"
             onClick={handleSignOut}
           >
             Sign out
-          </IonButton>
+          </IonButton>}
         </IonList>
       </IonContent>
     </IonMenu>
