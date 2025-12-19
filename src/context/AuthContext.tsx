@@ -9,6 +9,7 @@ import { supabase } from "../api/supabaseClient";
 import { Session } from "@supabase/supabase-js";
 import { AuthResult, SignOutResult } from "../types/auth";
 import useUsers from "../hooks/useUser";
+import { useLoading } from "./LoadingContext";
 
 interface AuthContextType {
   session: Session | null;
@@ -30,20 +31,29 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const { checkUserProfile } = useUsers();
+  const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      setSession(data.session ?? null);
-
-      if (data.session?.user) {
-        checkUserProfile(data.session.user);
+    showLoading()
+    const initAuth = async () => {
+      try {
+        const { data } = await supabase.auth.getSession();
+        setSession(data.session ?? null);
+        if (data.session?.user) {
+          await checkUserProfile(data.session.user);
+        }
+      } catch (err) {
+        console.error("Auth init error", err);
+      } finally {
+        hideLoading();
       }
-    });
+    };
 
-    const { data } = supabase.auth.onAuthStateChange(
+    initAuth();
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setSession(session ?? null);
-
         if (session?.user) {
           await checkUserProfile(session.user);
         }
@@ -51,19 +61,43 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     );
 
     return () => {
-      data.subscription.unsubscribe();
+      authListener.subscription.unsubscribe();
     };
   }, []);
 
-  //Sign up
   const signUpNewUser = async ({
     email,
     password,
   }: {
     email: string;
     password: string;
-  }) => {
-    return supabase.auth.signUp({ email, password });
+  }): Promise<AuthResult> => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) {
+        return {
+          success: false,
+          error: {
+            message: error.message,
+            code: error.code,
+          },
+        };
+      }
+
+      return { success: true, data };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          message: error.message ?? "Unexpected error",
+          code: error.code ?? "Unexpected error",
+        },
+      };
+    }
   };
 
   const signInWithGoogle = async () => {
@@ -87,12 +121,24 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       );
 
       if (error) {
-        return { success: false, error: error.message };
+        return {
+          success: false,
+          error: {
+            message: error.message ?? "Unexpected error",
+            code: error.code ?? "Unexpected error",
+          },
+        };
       }
 
       return { success: true, data };
     } catch (error: any) {
-      return { success: false, error: error.message ?? "Unexpected error" };
+      return {
+        success: false,
+        error: {
+          message: error.message ?? "Unexpected error",
+          code: error.code ?? "Unexpected error",
+        },
+      };
     }
   };
 

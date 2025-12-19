@@ -20,6 +20,8 @@ import { UserAuth } from "../../context/AuthContext";
 import { useLoading } from "../../context/LoadingContext";
 import Login from "../../components/Login";
 
+import styles from "../components/styles/Auth.module.css";
+
 interface LoginModalProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
@@ -27,6 +29,7 @@ interface LoginModalProps {
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, setIsOpen }) => {
   const navRef = useRef<HTMLIonNavElement>(null);
+  const router = useIonRouter()
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -34,6 +37,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, setIsOpen }) => {
   const [introSeen, setIntroSeen] = useState<boolean>(false);
 
   const { signInUser, signInWithGoogle, session } = UserAuth();
+
+  const handleDismiss = () => {
+    setIsOpen(false);
+
+    if (!session) {
+      router.push("/", "none");
+    }
+  };
 
   useEffect(() => {
     if (session) {
@@ -44,16 +55,16 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <IonModal
+        className="custom-modal"
         isOpen={isOpen}
-        onDidDismiss={() => setIsOpen(false)}
+        onDidDismiss={handleDismiss}
         initialBreakpoint={1}
         breakpoints={[0, 1]}
       >
-        <IonNav 
-        ref={navRef} 
-        // Vi skickar in navRef.current så att Login-komponenten kan styra navigeringen
-        root={() => <Login nav={navRef.current} />} 
-      />
+        <IonNav
+          ref={navRef}
+          root={() => <Login nav={navRef.current} setIsOpen={setIsOpen}/>}
+        />
       </IonModal>
     </>
   );

@@ -13,7 +13,6 @@ export default function useUsers() {
         .from("Users")
         .select("id")
         .eq("id", user.id)
-        .maybeSingle();
 
       if (selectError) {
         return { success: false, error: selectError.message };

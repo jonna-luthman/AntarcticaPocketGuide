@@ -8,7 +8,11 @@ interface LoadingContextType {
 
 const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 
-export const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
+export const LoadingProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState("Loading...");
 

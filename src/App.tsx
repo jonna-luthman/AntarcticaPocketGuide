@@ -4,7 +4,7 @@ import {
   IonRouterOutlet,
   IonTabs,
   setupIonicReact,
-  useIonRouter
+  useIonRouter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import React, { useState } from "react";
@@ -72,16 +72,25 @@ const App: React.FC = () => {
             <IonTabs>
               <IonRouterOutlet id="main-content">
                 <Route exact path="/" component={Home} />
-                <Route exact path="/field-journal" component={FieldJournal} />
+                <Route exact path="/field-journal">
+                  <FieldJournal onShowLogin={() => setIsLoginOpen(true)} />
+                </Route>
                 <Route exact path="/about-us" component={AboutUs} />
                 <Route exact path="/contact-us" component={ContactUs} />
-                <Route exact path="/animals/:classSlug/" component={AnimalClassPage} />
-                <Route exact path="/animals/:classSlug/:speciesId" component={AnimalSpeciesPage} />
+                <Route exact path="/change-password" component={ChangePassword} />
+                <Route
+                  exact
+                  path="/animals/:classSlug/"
+                  component={AnimalClassPage}
+                />
+                <Route
+                  exact
+                  path="/animals/:classSlug/:speciesId"
+                  component={AnimalSpeciesPage}
+                />
               </IonRouterOutlet>
-
               <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
             </IonTabs>
-
             <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
           </IonReactRouter>
         </AuthContextProvider>
