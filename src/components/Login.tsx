@@ -91,33 +91,27 @@ const Login: React.FC = ({ nav, setIsOpen }) => {
         </div>
         <div>
           <form onSubmit={handleSignIn}>
-            <IonList>
-              <IonItem className="ion-margin-bottom">
-                <IonInput
-                  className="ion-margin-top"
-                  label="Email"
-                  type="email"
-                  labelPlacement="stacked"
-                  fill="outline"
-                  value={email}
-                  onIonInput={(e) => setEmail(e.detail.value!)}
-                />
-              </IonItem>
+            <IonInput
+              className="ion-margin-top"
+              label="Email"
+              type="email"
+              labelPlacement="stacked"
+              fill="outline"
+              value={email}
+              onIonInput={(e) => setEmail(e.detail.value!)}
+            />
 
-              <IonItem>
-                <IonInput
-                  className="ion-margin-top"
-                  label="Password"
-                  type="password"
-                  labelPlacement="stacked"
-                  fill="outline"
-                  value={password}
-                  onIonInput={(e) => setPassword(e.detail.value!)}
-                >
-                  <IonInputPasswordToggle slot="end" />
-                </IonInput>
-              </IonItem>
-            </IonList>
+            <IonInput
+              className="ion-margin-top"
+              label="Password"
+              type="password"
+              labelPlacement="stacked"
+              fill="outline"
+              value={password}
+              onIonInput={(e) => setPassword(e.detail.value!)}
+            >
+              <IonInputPasswordToggle slot="end" />
+            </IonInput>
 
             {error && (
               <IonText color="danger" className="ion-padding">
@@ -166,24 +160,25 @@ const Login: React.FC = ({ nav, setIsOpen }) => {
           </IonButton>
         </div>
 
-
-            <IonButton
-            fill="transparent"
-            expand="block"
-              onClick={() =>
-                nav.push(() => (
-                  <Register
-                    nav={nav}
-                    showLoading={showLoading}
-                    hideLoading={hideLoading}
-                    signUpNewUser={signUpNewUser}
-                    signUpWithGoogle={signInWithGoogle}
-                  />
-                ))
-              }
-            >
-              <IonText>Dont have an account?<b> Register here</b></IonText>
-            </IonButton>
+        <IonButton
+          fill="transparent"
+          expand="block"
+          onClick={() =>
+            nav.push(() => (
+              <Register
+                nav={nav}
+                showLoading={showLoading}
+                hideLoading={hideLoading}
+                signUpNewUser={signUpNewUser}
+                signUpWithGoogle={signInWithGoogle}
+              />
+            ))
+          }
+        >
+          <IonText>
+            Dont have an account?<b> Register here</b>
+          </IonText>
+        </IonButton>
       </IonContent>
     </>
   );

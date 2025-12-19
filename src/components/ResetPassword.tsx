@@ -67,7 +67,7 @@ const ResetPassword: React.FC = ({ nav }) => {
 
       <IonContent fullscreen className="ion-padding">
         <div className={styles.center}>
-          <IonText className="ion-padding">
+          <IonText>
             <h2>Forgot your password?</h2>
             <p>
               No worries! Enter your email and we will send you a reset link.
@@ -77,20 +77,18 @@ const ResetPassword: React.FC = ({ nav }) => {
         <div>
           {showForm && (
             <form onSubmit={handleReset}>
-              <IonItem className="ion-margin-bottom">
                 <IonInput
                   className="ion-margin-top"
                   label="Email"
                   type="email"
                   fill="outline"
-                  labelPlacement="floating"
+                  labelPlacement="stacked"
                   placeholder="example@mail.com"
                   value={email}
                   onIonInput={(event: CustomEvent) =>
                     setEmail(event.detail.value)
                   }
                 />
-              </IonItem>
 
               {error && (
                 <IonText color="danger" className="ion-padding">
@@ -99,7 +97,7 @@ const ResetPassword: React.FC = ({ nav }) => {
               )}
 
               <IonButton
-                className="ion-padding"
+                className="ion-padding-vertical"
                 color={"dark"}
                 expand="block"
                 type="submit"
@@ -114,14 +112,18 @@ const ResetPassword: React.FC = ({ nav }) => {
               <IonText color="success" className="ion-padding">
                 {success}
               </IonText>
+
+              {/* <div>
+                <IonButton
+                  expand="block"
+                  fill="transparent"
+                  onClick={() => nav.pop()}
+                >
+                  <IonText>Go back to log in</IonText>
+                </IonButton>
+              </div> */}
             </div>
           )}
-
-          <div>
-              <IonButton expand="block" fill="transparent" onClick={() => nav.pop()}>
-               <IonText>Go back to log in</IonText>
-              </IonButton>
-          </div>
         </div>
       </IonContent>
     </>

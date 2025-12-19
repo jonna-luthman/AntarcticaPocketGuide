@@ -55,7 +55,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       async (_event, session) => {
         setSession(session ?? null);
         if (session?.user) {
-          await checkUserProfile(session.user);
+         checkUserProfile(session.user);
         }
       }
     );

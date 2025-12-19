@@ -75,11 +75,6 @@ const ChangePassword: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large">Change password</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen scrollY={false} className="ion-padding">
         <div>
           <IonText className="ion-text-center">
@@ -172,7 +167,16 @@ const ChangePassword: React.FC = () => {
             <IonText color="success" className="ion-padding">
               {success}
             </IonText>
-            <Link to="/login">Go back to login</Link>
+            
+              <div>
+                <IonButton
+                  expand="block"
+                  fill="transparent"
+                  onClick={() => nav.pop()}
+                >
+                  <IonText>Go back to log in</IonText>
+                </IonButton>
+              </div>
           </div>
         )}
       </IonContent>
