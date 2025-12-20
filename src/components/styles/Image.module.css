@@ -8,3 +8,11 @@
   width: auto;
   object-fit: cover; 
 }
+
+.distributionImageContainer {
+  padding: 16px 0;
+}
+
+.factsImageContainer {
+  padding: 16px 0;
+}

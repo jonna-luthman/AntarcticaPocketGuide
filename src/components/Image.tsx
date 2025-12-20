@@ -10,7 +10,6 @@ type ImageProps = {
 const Image = ({ image, className }: ImageProps) => {
   const { getSpeciesImageUrl } = useMedia();
 
-  console.log("Image in Image", image)
   if (!image || !image.media_url) return null;
 
   const imageUrl = getSpeciesImageUrl(image.media_url);

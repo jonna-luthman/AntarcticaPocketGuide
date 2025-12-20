@@ -9,7 +9,7 @@ const Navbar: React.FC<NavBarProps> = () => {
 
   return (
     <>
-      <IonTabBar slot="bottom">
+      <IonTabBar slot="bottom" color="primary">
         <IonTabButton tab="Home" href="/">
           <IonIcon icon={homeOutline} color="dark" />
         </IonTabButton>
