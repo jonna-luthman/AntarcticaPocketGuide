@@ -1,7 +1,22 @@
-.contentWrapper {
-  background: var(--ion-color-primary);
-  padding: 16px;
-  border-radius: 40px 40px 0 0;
-  color: var(--ion-color-dark);
+
+
+.headerImageContainer {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: -1;
+  transform-origin: center;
+  overflow: hidden;
 }
 
+.contentWrapper {
+  background: var(--ion-color-primary);
+    color: var(--ion-color-dark);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-top: -20px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
