@@ -1,15 +1,19 @@
-import { IonContent, IonPage, IonTitle, useIonRouter } from "@ionic/react";
+import { IonContent, IonPage, IonTitle, useIonRouter, IonText, IonButton } from "@ionic/react";
 import { UserAuth } from "../context/AuthContext";
-import useUser from "../hooks/useUser.ts"
+import useUser from "../hooks/useUser.ts";
 import React, { useEffect } from "react";
-import { useHistory } from "react-router"
+import { useHistory } from "react-router";
 
-const FieldJournal: React.FC<{ onShowLogin: () => void }> = ({ onShowLogin }) => {
+interface FieldJournalProps {
+  onShowLoginModal: () => void;
+}
+
+const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
   const { session } = UserAuth();
 
   useEffect(() => {
     if (!session) {
-      onShowLogin();
+      onShowLoginModal();
     }
   }, []);
 
@@ -17,6 +21,16 @@ const FieldJournal: React.FC<{ onShowLogin: () => void }> = ({ onShowLogin }) =>
     <IonPage>
       <IonContent fullscreen>
         <IonTitle>Field Journal</IonTitle>
+        {!session ? (
+          <div>
+            <IonText>You need to log in to see your saved animals.</IonText>
+            <IonButton>Log in</IonButton>
+          </div>
+        ) : (
+          <div>
+            <IonText>List of animals</IonText>
+          </div>
+        )}
       </IonContent>
     </IonPage>
   );
