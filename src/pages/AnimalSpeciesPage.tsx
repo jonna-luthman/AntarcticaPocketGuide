@@ -21,6 +21,7 @@ import SpeciesFeatures from "../components/Species/SpeciesFeatures";
 import DistinguishableFeaturesCard from "../components/Species/distinguishableFeatures";
 import SpeciesTabs from "../components/Species/SpeciesTabs";
 import AnimalSounds from "../components/Species/AnimalSounds";
+import ImageModal from "../components/Species/ImageModal";
 import Image from "../components/Image";
 
 import { findImageByRole } from "../utils/getMediaTypes.ts";
@@ -31,6 +32,7 @@ const AnimalSpeciesPage: React.FC = () => {
   const { fetchSounds } = useXenoCanto();
 
   const [sounds, setSounds] = useState<Sound[] | []>([]);
+  const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
     getSpeciesById(speciesId)
@@ -46,8 +48,16 @@ const AnimalSpeciesPage: React.FC = () => {
 
   return (
     <IonPage>
+      {headerImage && (
+        <ImageModal 
+          isOpen={isImageModalOpen} 
+          onClose={() => setIsImageModalOpen(false)} 
+          image={headerImage}
+        />
+      )}
+
       <IonContent color="tertiary" className="ion-no-border">
-        <IonHeader className={`ion-padding`}>
+        <IonHeader className="ion-padding">
           <IonToolbar color="tertiary">
             <IonButtons slot="start">
               <IonBackButton defaultHref="/" />
@@ -55,7 +65,11 @@ const AnimalSpeciesPage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-        {headerImage && <Image image={headerImage} class="header"/>}
+        {headerImage && (
+          <div onClick={() => setIsImageModalOpen(true)} className={styles.headerImageContainer}>
+            <Image image={headerImage} class="header"/>
+          </div>
+        )}
 
         <div className={styles.contentWrapper}>
           <IonText>
@@ -72,17 +86,16 @@ const AnimalSpeciesPage: React.FC = () => {
             <p>{species?.identifying_features}</p>
           </div>
 
-          {sounds?.length > 0 && <AnimalSounds sounds={sounds} />}
+          {sounds && sounds.length > 0 && <AnimalSounds sounds={sounds} />}
 
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">
               <Blend size={20} /> Similar species:
             </h3>
-            <p>TODO</p>
+            <p>TBA</p>
           </div>
 
           <SpeciesFeatures specie={species} />
-
           <DistinguishableFeaturesCard specie={species} />
 
           <div className="ion-padding-top">

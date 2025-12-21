@@ -4,23 +4,12 @@ import { addCircleOutline, homeOutline, personOutline } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
 import LoginModal from "../pages/Authentication/LoginModal"
 
-interface NavbarProps {
-  onOpenLogin: () => void;
-}
-
-const Navbar: React.FC<NavBarProps> = ({onOpenLogin}) => {
+const Navbar: React.FC<NavBarProps> = () => {
   const { session } = UserAuth();
-
-const handleTabClick = (e: React.MouseEvent, tab: string) => {
-    if (!session && tab === "Profile") {
-      e.preventDefault(); 
-      onOpenLogin();
-    }
-  };
 
   return (
     <>
-      <IonTabBar slot="bottom">
+      <IonTabBar slot="bottom" color="primary">
         <IonTabButton tab="Home" href="/">
           <IonIcon icon={homeOutline} color="dark" />
         </IonTabButton>
@@ -31,7 +20,6 @@ const handleTabClick = (e: React.MouseEvent, tab: string) => {
         <IonTabButton
           tab="Profile"
           href="/field-journal"
-          onClick={(e) => handleTabClick(e, "Profile")}
         >
           <IonIcon icon={personOutline} color="dark" />
         </IonTabButton>

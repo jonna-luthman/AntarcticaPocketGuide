@@ -73,7 +73,7 @@ const App: React.FC = () => {
               <IonRouterOutlet id="main-content">
                 <Route exact path="/" component={Home} />
                 <Route exact path="/field-journal">
-                  <FieldJournal onShowLogin={() => setIsLoginOpen(true)} />
+                  <FieldJournal onShowLoginModal={() => setIsLoginOpen(true)} />
                 </Route>
                 <Route exact path="/about-us" component={AboutUs} />
                 <Route exact path="/contact-us" component={ContactUs} />
@@ -89,7 +89,7 @@ const App: React.FC = () => {
                   component={AnimalSpeciesPage}
                 />
               </IonRouterOutlet>
-              <Navbar onOpenLogin={() => setIsLoginOpen(true)} />
+              <Navbar/>
             </IonTabs>
             <LoginModal isOpen={isLoginOpen} setIsOpen={setIsLoginOpen} />
           </IonReactRouter>

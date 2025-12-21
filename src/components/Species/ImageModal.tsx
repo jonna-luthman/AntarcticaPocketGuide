@@ -1,0 +1,51 @@
+import { IonModal, IonHeader, IonToolbar, IonButtons, IonButton, IonContent, IonIcon, IonText } from '@ionic/react';
+import { closeOutline } from 'ionicons/icons';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Zoom } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/zoom';
+import Image from "../Image"
+import { SpeciesMedia } from "../../types/species.ts"
+import styles from "./styles/Image.module.css";
+
+interface ImageModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  image: SpeciesMedia;
+  className?: string
+}
+
+const ImageModal: React.FC<Props> = ({ isOpen, onClose, image, className }) => {
+
+  return (
+    <IonModal isOpen={isOpen} onDidDismiss={onClose}>
+      <IonHeader>
+        <IonToolbar color="tertiary">
+          <IonButtons slot="end">
+            <IonButton onClick={onClose}>
+              <IonIcon icon={closeOutline} />
+            </IonButton>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent color="tertiary">
+        <Swiper modules={[Zoom]} zoom={true} style={{ width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+          <SwiperSlide>
+                <IonText color="light" className="ion-padding ion-text-center">
+                    <h3>{image.attribute}</h3>
+                </IonText>
+            <div className="swiper-zoom-container">
+              <Image image={image} className={className}/>
+            </div>
+        {image?.photographer &&  
+            <IonText color="light" className="ion-padding">
+                <i>Photographer: {image.photographer}</i>
+            </IonText>}
+          </SwiperSlide>
+        </Swiper>
+      </IonContent>
+    </IonModal>
+  );
+};
+
+export default ImageModal;

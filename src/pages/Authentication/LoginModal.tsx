@@ -41,9 +41,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, setIsOpen }) => {
   const handleDismiss = () => {
     setIsOpen(false);
 
-    if (!session) {
-      router.push("/", "none");
-    }
   };
 
   useEffect(() => {
