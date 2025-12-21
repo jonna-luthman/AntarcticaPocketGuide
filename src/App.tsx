@@ -57,6 +57,7 @@ import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
 import AnimalClassPage from "./pages/AnimalClassPage";
 import AnimalSpeciesPage from "./pages/AnimalSpeciesPage";
+import IdentifyPenguins from "./pages/IdentifyPenguins";
 
 setupIonicReact();
 
@@ -88,6 +89,7 @@ const App: React.FC = () => {
                   path="/animals/:classSlug/:speciesId"
                   component={AnimalSpeciesPage}
                 />
+                <Route exact path="/identify-penguins" component={IdentifyPenguins} />
               </IonRouterOutlet>
               <Navbar/>
             </IonTabs>

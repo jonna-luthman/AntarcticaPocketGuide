@@ -21,7 +21,7 @@ const Facts = ({ specie }: Props) => {
       ))}
         {specie && factsImage && 
         <div className={imageStyles.factsImageContainer}>
-           <Image image={factsImage} class="facts"/>
+           <Image image={factsImage} class="facts" bucket="species" />
            <p><i>Figure: {factsImage?.attribute}</i></p>
         </div>}
     </ul>

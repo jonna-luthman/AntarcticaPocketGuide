@@ -25,13 +25,13 @@ const SpeciesCard: React.FC<SpeciesCardProps> = ({
 
   return (
     <IonRouterLink
-      routerLink={`/animals/${species.classSlug}/${species.id}`}
+      routerLink={`/animals/${species.class_slug}/${species.id}`}
       routerDirection="forward"
     >
       <IonCard className={styles.specieCard} color="tertiary">
         <div className={styles.contentWrapper}>
           {headerImage && (
-            <Image image={headerImage} className="cornerImage"/>
+            <Image image={headerImage} className="cornerImage" bucket="species"/>
           )}
 
           <IonCardHeader className={styles.cardHeader}>

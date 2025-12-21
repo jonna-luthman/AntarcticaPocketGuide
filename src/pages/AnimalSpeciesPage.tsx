@@ -67,7 +67,7 @@ const AnimalSpeciesPage: React.FC = () => {
 
         {headerImage && (
           <div onClick={() => setIsImageModalOpen(true)} className={styles.headerImageContainer}>
-            <Image image={headerImage} class="header"/>
+            <Image image={headerImage} class="header" bucket="species" />
           </div>
         )}
 
