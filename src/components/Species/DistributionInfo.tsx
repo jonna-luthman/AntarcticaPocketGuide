@@ -22,7 +22,7 @@ const DistributionInfo = ({ specie }: Props) => {
         <div key={region} >
           {specie && distributionImage &&
           <div className={imageStyles.distributionImageContainer}>
-           <Image image={distributionImage} class="distribution"/>
+           <Image image={distributionImage} class="distribution" bucket="species" />
            </div>
           }
           <p className={styles.distributionText}>

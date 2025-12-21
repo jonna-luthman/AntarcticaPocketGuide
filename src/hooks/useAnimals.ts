@@ -19,14 +19,25 @@ export default function useAnimals() {
     try {
       showLoading();
       setError(null);
-
-      const { data, error } = await supabase.from("AnimalClasses").select("*");
-
+      const { data, error } = await supabase
+        .from("AnimalClasses")
+        .select(
+          `
+          id, 
+          name,
+          slug, 
+          SpeciesMedia (
+          id, 
+          media_url,
+          role
+        )`
+        )
+        .eq("SpeciesMedia.role", "cover")
+        .order('name', { ascending: false });
       if (error) {
         setError(error);
-        return null;
+        return;
       }
-
       setAnimalClasses(data);
     } catch (error: any) {
       console.error(error);

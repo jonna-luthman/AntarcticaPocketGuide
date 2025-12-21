@@ -35,7 +35,7 @@ const ImageModal: React.FC<Props> = ({ isOpen, onClose, image, className }) => {
                     <h3>{image.attribute}</h3>
                 </IonText>
             <div className="swiper-zoom-container">
-              <Image image={image} className={className}/>
+              <Image image={image} className={className} bucket="species" />
             </div>
         {image?.photographer &&  
             <IonText color="light" className="ion-padding">
