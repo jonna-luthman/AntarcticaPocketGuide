@@ -7,17 +7,25 @@ import {
   IonText,
   IonGrid,
   IonCol,
+  IonRow,
   useIonRouter,
+  IonThumbnail,
 } from "@ionic/react";
+import { useEffect } from "react";
+
+import { UserAuth } from "../context/AuthContext";
+
+import useAnimals from "../hooks/useAnimals";
+import useMedia from "../hooks/useMedia.ts";
+
 import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";
-import useAnimals from "../hooks/useAnimals";
-import { UserAuth } from "../context/AuthContext";
-import { useEffect } from "react";
-import styles from "./styles/Homepage.module.css";
 import Image from "../components/Image";
+
 import imageStyles from "../components/styles/Image.module.css";
-import useMedia from "../hooks/useMedia.ts";
+import styles from "./styles/Home.module.css";
+
+import IdentifyPenguin from "../assets/identify-penguin-icon.svg";
 
 const Home: React.FC = () => {
   const { animalClasses, getAllAnimalClasses } = useAnimals();
@@ -26,18 +34,17 @@ const Home: React.FC = () => {
   const router = useIonRouter();
   console.log("session", session);
 
-
   useEffect(() => {
     getAllAnimalClasses();
   }, []);
 
-  const handleNavigate = (classSlug: string) => {
-    router.push(`/animals/${classSlug}`, "forward", "replace");
+  const handleNavigate = (url: string) => {
+    router.push(url, "forward", "replace");
   };
 
   return (
     <IonPage>
-      <IonContent>
+      <IonContent fullscreen={true}>
         <Header showMenu={true} />
         <CollapsableHeader />
         <IonGrid className={styles.parent}>
@@ -45,7 +52,7 @@ const Home: React.FC = () => {
             <IonCol
               key={animalClass.id}
               className={styles.gridItem}
-              onClick={() => handleNavigate(animalClass.slug)}
+              onClick={() => handleNavigate(`/animals/${animalClass.slug}`)}
             >
               <Image
                 image={animalClass.SpeciesMedia[0]}
@@ -55,6 +62,20 @@ const Home: React.FC = () => {
               <IonText className={styles.heading}>{animalClass.name}</IonText>
             </IonCol>
           ))}
+
+          {/* Add my species list when page is created. */}
+
+          <IonCol className={styles.fullWidthRow}>
+            <IonItem lines="none" button detail={false} className={styles.identifyItem} routerLink="/identify-penguins">
+              <IonThumbnail slot="start" className={styles.icon}>
+                <img alt="Man with binoculars" src={IdentifyPenguin} />
+              </IonThumbnail>
+              <IonText>
+                <h2>How to identify penguins</h2>
+                <p>Use our guide to find out what you saw</p>
+              </IonText>
+            </IonItem>
+          </IonCol>
         </IonGrid>
       </IonContent>
     </IonPage>
