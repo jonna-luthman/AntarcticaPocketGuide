@@ -23,6 +23,7 @@ import SpeciesTabs from "../components/Species/SpeciesTabs";
 import AnimalSounds from "../components/Species/AnimalSounds";
 import ImageModal from "../components/Species/ImageModal";
 import Image from "../components/Image";
+import Header from "../components/Header";
 
 import { findImageByRole } from "../utils/getMediaTypes.ts";
 
@@ -57,13 +58,7 @@ const AnimalSpeciesPage: React.FC = () => {
       )}
 
       <IonContent color="tertiary" className="ion-no-border">
-        <IonHeader className="ion-padding">
-          <IonToolbar color="tertiary">
-            <IonButtons slot="start">
-              <IonBackButton defaultHref="/" />
-            </IonButtons>
-          </IonToolbar>
-        </IonHeader>
+      <Header showBackButton={true} showLogo={false}/>
 
         {headerImage && (
           <div onClick={() => setIsImageModalOpen(true)} className={styles.headerImageContainer}>

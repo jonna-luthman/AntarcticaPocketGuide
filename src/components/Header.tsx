@@ -4,20 +4,43 @@ import {
   IonBackButton,
   IonButtons,
   IonMenuButton,
+  IonTitle
 } from "@ionic/react";
 
-const Header = ({ showMenu = false, showBackButton = false }) => {
+interface HeaderProps {
+  showmMenu?: booelan;
+  showBackButton?: booelan;
+  showLogo?: booelean;
+  showTitle?: booelan;
+  title?: string;
+}
+
+const Header = ({
+  showMenu = false,
+  showBackButton = false,
+  showLogo = true,
+  showTitle = false,
+  title,
+}) : HeaderProps => {
   return (
-    <IonHeader className="ion-padding">
-      <IonToolbar color="primary">
+    <IonHeader className="ion-padding ion-no-border">
+      <IonToolbar color="inherit">
         <IonButtons slot="start">
-          {showBackButton && <IonBackButton defaultHref="/" />}
+          {showBackButton && <IonBackButton text={undefined} defaultHref="/" />}
           {showMenu && <IonMenuButton autoHide={false} />}
         </IonButtons>
 
-        <IonButtons slot="end">
-          <img src="Logo.svg" alt="App Logo" />
-        </IonButtons>
+        {showTitle && (
+          <IonTitle color="dark" slot="end" className="ion-text-center">
+            <h4>{title}</h4>
+          </IonTitle>
+        )}
+
+        {showLogo && (
+          <IonButtons slot="end">
+            <img src="Logo.svg" alt="App Logo" defaultHref="/"/>
+          </IonButtons>
+        )}
       </IonToolbar>
     </IonHeader>
   );

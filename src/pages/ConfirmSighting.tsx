@@ -1,14 +1,14 @@
 import { IonPage, IonContent, IonTitle } from "@ionic/react";
 import React from "react";
 
-const IdentifyPenguins: React.FC = () => {
+const ConfirmSighting: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonTitle>IdentifyPenguins</IonTitle>
+        <IonTitle>ConfirmSighting</IonTitle>
       </IonContent>
     </IonPage>
   );
 };
 
-export default IdentifyPenguins
+export default ConfirmSighting;

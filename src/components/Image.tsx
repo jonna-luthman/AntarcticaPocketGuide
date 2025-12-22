@@ -30,8 +30,6 @@ const Image = ({ image, className, bucket }: ImageProps) => {
 
   if (!image || !url) return null;
 
-  console.log(image)
-
   return (
     <IonImg
       src={url ?? ""}

@@ -7,19 +7,33 @@ export default function useSpecies() {
   const [species, setSpecies] = useState<Specie[] | null>(null);
   const [singleSpecies, setSingleSpecies] = useState<Specie | null>(null);
   const [error, setError] = useState<PostgrestError | null>(null);
-  
-  async function getAllSpecies(): Promise<Specie[] | null> {
+
+  async function getAllSpecies(): Promise<SpecieWithMedia[] | null> {
     try {
       setError(null);
-      
-      const { data, error } = await supabase.from("Species").select("*");
-      
+
+      const { data, error } = await supabase
+        .from("Species")
+        .select(
+          `
+        id,
+        name_common,
+        name_latin,
+        class_slug,
+        slug,
+        SpeciesMedia!inner(*)
+      `
+        )
+        .eq("SpeciesMedia.role", "header")
+        .order("name_common", { ascending: false })
+        .limit(1, { foreignTable: "SpeciesMedia" });
+
       if (error) {
         setError(error);
         return null;
       }
-      setSpecies(data as Specie[]);
-      
+      setSpecies(data as SpecieWithMedia[]);
+
       return data;
     } catch (error: any) {
       console.error(error);
@@ -27,7 +41,6 @@ export default function useSpecies() {
       return null;
     }
   }
-
 
   type GetSpeciesByClassOptions = {
     includeMedia?: boolean;
@@ -112,15 +125,14 @@ export default function useSpecies() {
     }
   }
 
-async function getSpeciesById(
-  id: string
-): Promise<SpecieWithMedia | null> {
-  setError(null);
+  async function getSpeciesById(id: string): Promise<SpecieWithMedia | null> {
+    setError(null);
 
-  try {
-    const { data, error } = await supabase
-      .from("Species")
-      .select(`*,
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select(
+          `*,
         SpeciesMedia (
           id,
           media_url,
@@ -129,25 +141,25 @@ async function getSpeciesById(
           photographer,
           attribute
         )
-      `)
-      .eq("id", id)
-      .order("order_index", { foreignTable: "SpeciesMedia" })
-      .single();
+      `
+        )
+        .eq("id", id)
+        .order("order_index", { foreignTable: "SpeciesMedia" })
+        .single();
 
-    if (error) {
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setSingleSpecies(data);
+      return data;
+    } catch (error: any) {
+      console.error(error);
       setError(error);
       return null;
     }
-
-    setSingleSpecies(data);
-    return data;
-  } catch (error: any) {
-    console.error(error);
-    setError(error);
-    return null;
   }
-}
-
 
   const getSpeciesSummariesByClass = (classId: string) =>
     getSpeciesByClass(classId);

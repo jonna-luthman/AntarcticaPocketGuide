@@ -39,9 +39,9 @@ h4 {
 }
 
 ion-title {
-  font-family: "Playfair Display SC", serif !important;
-  font-size: 1.5rem !important;
-  font-weight: 700 !important;
+  font-family: "Playfair Display SC", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 ion-label {

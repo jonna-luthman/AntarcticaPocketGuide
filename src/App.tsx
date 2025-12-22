@@ -49,15 +49,17 @@ import ChangePassword from "./pages/Authentication/ChangePassword";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import FieldJournal from "./pages/FieldJournal";
+import AddSighting from "./pages/AddSighting";
+import AnimalClassPage from "./pages/AnimalClassPage";
+import AnimalSpeciesPage from "./pages/AnimalSpeciesPage";
+import IdentifyPenguins from "./pages/IdentifyPenguins";
+import ConfirmSighting from "./pages/ConfirmSighting";
 
 import { AuthContextProvider, UserAuth } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
 
 import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
-import AnimalClassPage from "./pages/AnimalClassPage";
-import AnimalSpeciesPage from "./pages/AnimalSpeciesPage";
-import IdentifyPenguins from "./pages/IdentifyPenguins";
 
 setupIonicReact();
 
@@ -76,6 +78,8 @@ const App: React.FC = () => {
                 <Route exact path="/field-journal">
                   <FieldJournal onShowLoginModal={() => setIsLoginOpen(true)} />
                 </Route>
+                <Route exact path="/add-sighting" component={AddSighting} />
+                <Route exact path="/add-sighting/:speciesId" component={ConfirmSighting} />
                 <Route exact path="/about-us" component={AboutUs} />
                 <Route exact path="/contact-us" component={ContactUs} />
                 <Route exact path="/change-password" component={ChangePassword} />
