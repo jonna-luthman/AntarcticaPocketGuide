@@ -294,13 +294,17 @@ export type Database = {
           note_text: string | null
           species_id: string | null
           user_id: string | null
+          location?: string | null
+          observation_date?: string | null
+          observations?: number | null
         }
         Insert: {
-          created_at?: string
-          id?: number
           note_text?: string | null
           species_id?: string | null
           user_id?: string | null
+          location?: string | null
+          observation_date?: string | null
+          observations?: number | null
         }
         Update: {
           created_at?: string
@@ -308,6 +312,9 @@ export type Database = {
           note_text?: string | null
           species_id?: string | null
           user_id?: string | null
+          location?: string | null
+          observation_date?: string | null
+          observations?: number | null
         }
         Relationships: [
           {

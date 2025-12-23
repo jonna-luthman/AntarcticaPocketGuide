@@ -12,7 +12,7 @@ export default function useUsers() {
       const { data: existingUser, error: selectError } = await supabase
         .from("Users")
         .select("id")
-        .eq("id", user.id)
+        .eq("id", user.id);
 
       if (selectError) {
         return { success: false, error: selectError.message };
@@ -67,5 +67,33 @@ export default function useUsers() {
     }
   }
 
-  return { checkUserProfile, updateUser, user };
+  async function createUserSpeciesList(sighting): Promise<AuthResult> {
+    try {
+      console.log("sighting in createUserSpeciesList", sighting)
+      const { data, error } = await supabase
+        .from("UserSpeciesList")
+        .insert(
+          { user_id: sighting.userId, 
+            note_text: sighting.noteText,
+            species_id: sighting.speciesId,
+            location: sighting.location,
+            observation_date: sighting.date,
+            observations: sighting.observations
+         })
+        .select()
+        .single();
+
+         console.log("data, error", data, error)
+
+      if (error) {
+        return { success: false, error: error.message };
+      }
+
+      return { success: true, data };
+    } catch (error: any) {
+      return { success: false, error: error.message ?? "Unexpected error" };
+    }
+  }
+
+  return { checkUserProfile, updateUser, user, createUserSpeciesList };
 }
