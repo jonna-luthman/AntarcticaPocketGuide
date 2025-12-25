@@ -26,6 +26,7 @@ import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { waterOutline, boatOutline } from "ionicons/icons";
 import { Bird } from "lucide-react";
 import { count } from "console";
+import NotAuthorized from "../components/NotAuthorized";
 
 interface FieldJournalProps {
   onShowLoginModal: () => void;
@@ -73,10 +74,10 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
   );
 
   const totalSightings = useMemo(() => {
-  return speciesWithUrls?.reduce((count, species) => {
-    return count + (species.UserSpeciesList?.length || 0);
-  }, 0);
-}, [speciesWithUrls]);
+    return speciesWithUrls?.reduce((count, species) => {
+      return count + (species.UserSpeciesList?.length || 0);
+    }, 0);
+  }, [speciesWithUrls]);
 
   const currentDisplayList =
     selectedSegment === "seen" ? seenSpecies : notSeenSpecies;
@@ -97,12 +98,9 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
   return (
     <IonPage>
       <Header showMenu={true} />
-      <IonContent fullscreen className="ion-padding" >
+      <IonContent fullscreen>
         {!session ? (
-          <div>
-            <IonText>You need to log in to see your saved animals.</IonText>
-            <IonButton>Log in</IonButton>
-          </div>
+          <NotAuthorized onAction={onShowLoginModal} />
         ) : (
           <div>
             <h1 className="ion-padding-horizontal">Field notes</h1>
@@ -141,38 +139,39 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
               </IonGrid>
             </div>
 
-            <IonSegment
-              value={selectedSegment}
-              onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
-              className={styles.segment}
-            >
-              <IonSegmentButton value="seen">
-                <IonLabel>Seen</IonLabel>
-              </IonSegmentButton>
-              <IonSegmentButton value="not-seen">
-                <IonLabel>Not seen</IonLabel>
-              </IonSegmentButton>
-            </IonSegment>
+            <div className="ion-padding">
+              <IonSegment
+                value={selectedSegment}
+                onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
+              >
+                <IonSegmentButton value="seen">
+                  <IonLabel>Seen</IonLabel>
+                </IonSegmentButton>
+                <IonSegmentButton value="not-seen">
+                  <IonLabel>Not seen</IonLabel>
+                </IonSegmentButton>
+              </IonSegment>
 
-            <IonAccordionGroup expand="inset">
-              <AccordionGroupItem
-                title="Birds"
-                items={birds ?? []}
-                isSeenMode={selectedSegment === "seen"}
-              />
+              <IonAccordionGroup expand="inset">
+                <AccordionGroupItem
+                  title="Birds"
+                  items={birds ?? []}
+                  isSeenMode={selectedSegment === "seen"}
+                />
 
-              <AccordionGroupItem
-                title="Seals"
-                items={seals ?? []}
-                isSeenMode={selectedSegment === "seen"}
-              />
+                <AccordionGroupItem
+                  title="Seals"
+                  items={seals ?? []}
+                  isSeenMode={selectedSegment === "seen"}
+                />
 
-              <AccordionGroupItem
-                title="Whales & Dolphins"
-                items={whales ?? []}
-                isSeenMode={selectedSegment === "seen"}
-              />
-            </IonAccordionGroup>
+                <AccordionGroupItem
+                  title="Whales & Dolphins"
+                  items={whales ?? []}
+                  isSeenMode={selectedSegment === "seen"}
+                />
+              </IonAccordionGroup>
+            </div>
           </div>
         )}
       </IonContent>

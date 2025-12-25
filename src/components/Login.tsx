@@ -13,6 +13,7 @@ import {
   useIonRouter,
   IonText,
   IonButtons,
+  useIonToast,
 } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
 import React, { FormEvent, useState } from "react";
@@ -29,7 +30,7 @@ interface LoginProps {
   setIsOpen: () => void;
 }
 
-const Login: React.FC = ({ nav, setIsOpen }) => {
+const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
   const { showLoading, hideLoading } = useLoading();
 
   const [email, setEmail] = useState<string>("");
@@ -38,6 +39,7 @@ const Login: React.FC = ({ nav, setIsOpen }) => {
   const [introSeen, setIntroSeen] = useState<boolean>(false);
 
   const { signInWithEmail, signInWithGoogle, signUpNewUser } = UserAuth();
+  const [showToast] = useIonToast();
 
   const router = useIonRouter();
 
@@ -60,10 +62,19 @@ const Login: React.FC = ({ nav, setIsOpen }) => {
             setError("No user found with this email.");
             break;
           default:
-            setError(response.message || "Unexpected error, try again.");
+            setError(response.error.message || "Unexpected error, try again.");
         }
         return;
       }
+
+      hideLoading()
+      showToast({
+        message: "Welcome back!",
+        duration: 2000,
+        color: "dark",
+        position: "bottom",
+      });
+
       return response.data;
     } catch (error: any) {
       setError(error);
@@ -86,7 +97,9 @@ const Login: React.FC = ({ nav, setIsOpen }) => {
         <div className={styles.center}>
           <IonText>
             <h2>Log in</h2>
-            <p>Welcome back! Log in to see your list of animals.</p>
+            <p>
+              Welcome back! Log in to view your Field Notes and Add Sightings.
+            </p>
           </IonText>
         </div>
         <div>

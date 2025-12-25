@@ -59,6 +59,10 @@ ion-tab-button {
   font-family: "Avenir", sans-serif;
 }
 
+.alert-button {
+  color: var(--ion-color-dark) !important;
+}
+
 .custom-modal {
   --ion-color-primary: var(--ion-color-dark);
 }

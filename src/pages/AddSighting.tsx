@@ -9,6 +9,9 @@ import {
   IonThumbnail,
   IonItemDivider,
   IonItemGroup,
+  IonButton,
+  IonText,
+  IonIcon,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
 import useSpecies from "../hooks/useSpecies";
@@ -17,13 +20,29 @@ import Header from "../components/Header";
 
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
+import { UserAuth } from "../context/AuthContext";
+import { personCircleOutline } from "ionicons/icons";
+import NotAuthorized from "../components/NotAuthorized";
 
-const AddSighting: React.FC = () => {
+interface AddSightingProps {
+  onShowLoginModal: () => void;
+}
+
+const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
+  const { session } = UserAuth();
   const { getAllSpecies, speciesList: species } = useSpecies();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     getAllSpecies();
+  }, []);
+
+  const userId = session?.user.id;
+
+  useEffect(() => {
+    if (!session) {
+      onShowLoginModal();
+    }
   }, []);
 
   const speciesWithUrls = useMemo(() => {
@@ -91,37 +110,43 @@ const AddSighting: React.FC = () => {
 
   return (
     <IonPage>
+      <Header
+        showBackButton={true}
+        showLogo={false}
+        showTitle={true}
+        title="Add a Sighting"
+      />
       <IonContent fullscreen>
-        <Header
-          showBackButton={true}
-          showLogo={false}
-          showTitle={true}
-          title="Add a Sighting"
-        />
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonSearchbar
-              value={searchTerm}
-              onIonInput={(e) => setSearchTerm(e.detail.value!)}
-              placeholder="Search for species..."
-              debounce={300}
-            />
-          </IonToolbar>
-        </IonHeader>
+        {!session ? (
+          <NotAuthorized title="Add sighting" description="Log in to add a sighting, track your progress, and build your personal field journal." onAction={onShowLoginModal} />
+        ) : (
+          <div>
+            <IonHeader collapse="condense">
+              <IonToolbar>
+                <IonSearchbar
+                  value={searchTerm}
+                  onIonInput={(e) => setSearchTerm(e.detail.value!)}
+                  placeholder="Search for species..."
+                  debounce={300}
+                />
+              </IonToolbar>
+            </IonHeader>
 
-        <IonList className="ion-padding">
-          {birds && birds.length > 0 && (
-            <SpeciesGroup title="Birds" items={birds} />
-          )}
+            <IonList className="ion-padding">
+              {birds && birds.length > 0 && (
+                <SpeciesGroup title="Birds" items={birds} />
+              )}
 
-          {seals && seals.length > 0 && (
-            <SpeciesGroup title="Seals" items={seals} />
-          )}
+              {seals && seals.length > 0 && (
+                <SpeciesGroup title="Seals" items={seals} />
+              )}
 
-          {whales && whales.length > 0 && (
-            <SpeciesGroup title="Whales and Dolphins" items={whales} />
-          )}
-        </IonList>
+              {whales && whales.length > 0 && (
+                <SpeciesGroup title="Whales and Dolphins" items={whales} />
+              )}
+            </IonList>
+          </div>
+        )}
       </IonContent>
     </IonPage>
   );

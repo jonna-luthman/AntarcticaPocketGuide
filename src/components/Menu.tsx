@@ -10,6 +10,8 @@ import {
   IonLabel,
   IonButton,
   useIonRouter,
+  useIonAlert,
+  useIonToast,
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
@@ -17,12 +19,39 @@ import { UserAuth } from "../context/AuthContext";
 const Menu = () => {
   const { signOutUser, session } = UserAuth();
   const router = useIonRouter();
+  const [showAlert] = useIonAlert();
+  const [showToast] = useIonToast();
 
-  const handleSignOut = async (e: Event) => {
-    e.preventDefault();
+  const handleClick = () => {
+    showAlert({
+      header: "Sign out",
+      message: "Are you sure you want to sign out?",
+      cssClass: "custom-alert",
+      buttons: [
+        { text: "Cancel", role: "cancel" },
+        {
+          text: "Sign out",
+          role: "confirm",
+          handler: async () => {
+            await handleSignOut();
+          },
+        },
+      ],
+    });
+  };
+
+  const handleSignOut = async () => {
     try {
       await signOutUser();
 
+      showToast({
+        message: "You have been logged out.",
+        duration: 2000,
+        color: "dark",
+        position: "bottom",
+      });
+
+      router.push("/", "none");
     } catch (error) {
       console.error(error);
     }
@@ -33,7 +62,7 @@ const Menu = () => {
       <IonHeader className="ion-padding">
         <IonToolbar color="primary">
           <IonMenuToggle slot="start">
-            <IonIcon icon={close} color="dark" size="large"/>
+            <IonIcon icon={close} color="dark" size="large" />
           </IonMenuToggle>
 
           <div className="menu-logo" slot="end">
@@ -52,7 +81,8 @@ const Menu = () => {
             <IonItem routerLink="/field-journal" lines="none">
               <IonLabel>
                 <h2 className="ion-text-uppercase tex">Field Journal</h2>
-                <p  className="font-display">All my logs</p></IonLabel>
+                <p className="font-display">All my logs</p>
+              </IonLabel>
             </IonItem>
           </IonMenuToggle>
 
@@ -60,7 +90,7 @@ const Menu = () => {
             <IonItem routerLink="/about-us" lines="none">
               <IonLabel>
                 <h2 className="ion-text-uppercase">About us</h2>
-                <p  className="font-display">Who are we</p>
+                <p className="font-display">Who are we</p>
               </IonLabel>
             </IonItem>
           </IonMenuToggle>
@@ -69,19 +99,23 @@ const Menu = () => {
             <IonItem routerLink="/contact-us" lines="none">
               <IonLabel>
                 <h2 className="ion-text-uppercase">Contact us</h2>
-                <p  className="font-display">Any questions</p>
+                <p className="font-display">Any questions</p>
               </IonLabel>
             </IonItem>
           </IonMenuToggle>
 
-         {session && <IonButton
-            color="tertiary"
-            className="ion-margin-top"
-            expand="block"
-            onClick={handleSignOut}
-          >
-            Sign out
-          </IonButton>}
+          {session && (
+            <IonMenuToggle>
+              <IonButton
+                color="tertiary"
+                className="ion-margin-top"
+                expand="block"
+                onClick={handleClick}
+              >
+                Sign out
+              </IonButton>
+            </IonMenuToggle>
+          )}
         </IonList>
       </IonContent>
     </IonMenu>

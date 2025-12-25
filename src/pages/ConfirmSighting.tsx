@@ -55,15 +55,6 @@ const ConfirmSighting: React.FC = () => {
 
   const [count, setCount] = useState<number>(1);
 
-  const sightingData: CreateUserSpeciesList = {
-    species_id: speciesId,
-    user_id: session?.user.id,
-    note_text: notes,
-    location: location,
-    observation_date: selectedDate,
-    observations: count,
-  };
-
   useEffect(() => {
     getSpeciesById(speciesId);
   }, [speciesId]);
@@ -75,6 +66,16 @@ const ConfirmSighting: React.FC = () => {
       console.error("No user session found");
       return;
     }
+
+    const sightingData: CreateUserSpeciesList = {
+      species_id: speciesId,
+      user_id: session?.user.id,
+      note_text: notes,
+      location: location,
+      observation_date: selectedDate,
+      observations: count,
+    };
+
     showLoading();
     try {
       const result = await createUserSpeciesList(sightingData);
@@ -110,23 +111,13 @@ const ConfirmSighting: React.FC = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <IonItemGroup>
-            <IonItemDivider color="inherit" className="ion-margin ">
-              <h3>Sighting</h3>
-            </IonItemDivider>
-
             <IonItem
               button
               lines="full"
-              className="ion-margin"
+              className="ion-margin-vertical ion-padding-bottom"
               routerLink="/add-sighting"
             >
-              <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
-              <div className={styles.quantityWrapper}>
-                <IonLabel className="ion-padding-vertical">
-                  <h2>{species?.name_common}</h2>
-                </IonLabel>
-                <QuantitySelector count={count} setCount={setCount} />
-              </div>
+              <h3 className="ion-margin">{species?.name_common}</h3>
             </IonItem>
 
             <IonItem
@@ -139,11 +130,15 @@ const ConfirmSighting: React.FC = () => {
                 aria-hidden="true"
                 icon={calendarNumberOutline}
                 slot="start"
-              ></IonIcon>
-              <IonLabel>
-                <p className="ion-padding-bottom">Date</p>
-                <h2>{formatDate(selectedDate)}</h2>
-              </IonLabel>
+              />
+
+              <p>{formatDate(selectedDate)}</p>
+            </IonItem>
+
+            <IonItem lines="full" className="ion-margin ion-padding-bottom">
+              <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
+              <p>How many did you see?</p>
+              <QuantitySelector count={count} setCount={setCount} />
             </IonItem>
 
             <IonItem
@@ -156,9 +151,7 @@ const ConfirmSighting: React.FC = () => {
                 icon={locationOutline}
                 slot="start"
               ></IonIcon>
-              <IonLabel position="stacked">
-                <p>Location</p>
-              </IonLabel>
+              <IonLabel position="stacked">Location</IonLabel>
               <IonInput
                 type="text"
                 value={location}
@@ -169,9 +162,7 @@ const ConfirmSighting: React.FC = () => {
 
             <IonItem lines="full" className="ion-margin ion-padding-bottom">
               <IonIcon icon={chatbubbleEllipsesOutline} slot="start" />
-              <IonLabel position="stacked">
-                <p>Notes</p>
-              </IonLabel>
+              <IonLabel position="stacked">Notes</IonLabel>
               <IonTextarea
                 value={notes}
                 placeholder="Add a note..."

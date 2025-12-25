@@ -3,6 +3,7 @@ import { supabase } from "../api/supabaseClient";
 import { AuthResult } from "../types/auth";
 import { User } from "../types/user";
 import { User } from "@supabase/supabase-js";
+import { CreateUserSpeciesList } from "../types/userSpeciesList";
 
 export default function useUsers() {
   const [user, setUser] = useState<User | null>(null);
@@ -67,22 +68,22 @@ export default function useUsers() {
     }
   }
 
-  async function createUserSpeciesList(sighting): Promise<AuthResult> {
-    try {
-      const { data, error } = await supabase
-        .from("UserSpeciesList")
-        .insert({
-          user_id: sighting.userId,
-          note_text: sighting.noteText,
-          species_id: sighting.speciesId,
-          location: sighting.location,
-          observation_date: sighting.date,
-          observations: sighting.observations,
-        })
-        .select()
-        .single();
-
-      console.log("data, error", data, error);
+  async function createUserSpeciesList(
+  sighting: CreateUserSpeciesList
+): Promise<AuthResult> {
+  try {
+    const { data, error } = await supabase
+      .from("UserSpeciesList")
+      .insert({
+        user_id: sighting.user_id,
+        note_text: sighting.note_text,
+        species_id: sighting.species_id,
+        location: sighting.location,
+        observation_date: sighting.observation_date,
+        observations: sighting.observations,
+      })
+      .select()
+      .single();
 
       if (error) {
         return { success: false, error: error.message };

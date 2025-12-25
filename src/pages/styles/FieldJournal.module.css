@@ -1,5 +1,10 @@
+.segment {
+  margin: 16px;
+}
+
 .summaryContainer {
   gap: 10px;
+  padding: 16px;
 }
 
 .statCard {

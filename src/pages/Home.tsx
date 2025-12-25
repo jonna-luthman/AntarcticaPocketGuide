@@ -18,7 +18,7 @@ import CollapsableHeader from "../components/CollapsableHeader";
 import Image from "../components/Image";
 
 import styles from "./styles/Home.module.css";
-import IdentifyPenguin from "../assets/identify-penguin-icon.svg";
+import IdentifyPenguin from "../assets/icons/identify-penguin-icon.svg";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const Home: React.FC = () => {

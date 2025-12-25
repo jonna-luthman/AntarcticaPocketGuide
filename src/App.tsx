@@ -78,7 +78,9 @@ const App: React.FC = () => {
                 <Route exact path="/field-journal">
                   <FieldJournal onShowLoginModal={() => setIsLoginOpen(true)} />
                 </Route>
-                <Route exact path="/add-sighting" component={AddSighting} />
+                <Route exact path="/add-sighting">
+                  <AddSighting onShowLoginModal={() => setIsLoginOpen(true)} />
+                </Route>
                 <Route exact path="/add-sighting/:speciesId" component={ConfirmSighting} />
                 <Route exact path="/about-us" component={AboutUs} />
                 <Route exact path="/contact-us" component={ContactUs} />
