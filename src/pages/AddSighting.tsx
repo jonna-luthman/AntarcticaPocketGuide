@@ -3,80 +3,64 @@ import {
   IonContent,
   IonToolbar,
   IonSearchbar,
-  IonTitle,
   IonList,
   IonHeader,
-  IonButtons,
-  IonBackButton,
-  IonLabel,
   IonItem,
   IonThumbnail,
   IonItemDivider,
   IonItemGroup,
 } from "@ionic/react";
-import React, { useEffect, useState } from "react";
-import useMedia from "../hooks/useMedia.ts";
-import useSpecies from "../hooks/useSpecies.ts";
-
-import { SpecieSummary } from "../types/species";
+import React, { useEffect, useMemo, useState } from "react";
+import useSpecies from "../hooks/useSpecies";
 
 import Header from "../components/Header";
-import SpeciesCard from "../components/Species/SpeciesCard";
-import Image from "../components/Image";
 
-interface SpeciesWithUrl extends SpecieSummary {
-  resolvedImageUrl: string | null;
-  SpeciesMedia: SpeciesMedia[];
-}
+import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const AddSighting: React.FC = () => {
-  const { getAllSpecies, species } = useSpecies();
-  const { getImageUrl } = useMedia();
-
-  const [listItems, setListItems] = useState(null);
+  const { getAllSpecies, speciesList: species } = useSpecies();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
     getAllSpecies();
   }, []);
 
-  useEffect(() => {
-    const fetchUrls = async () => {
-      if (species && species.length > 0) {
-        try {
-          const speciesWithUrls = await Promise.all(
-            species.map(async (s) => {
-              const headerMedia = s.SpeciesMedia[0];
+  const speciesWithUrls = useMemo(() => {
+    if (!species) return [];
 
-              if (!headerMedia) return { ...s, resolvedImageUrl: null };
+    return species.map((s) => {
+      const headerMedia = s.SpeciesMedia?.[0];
 
-              const publicUrl = await getImageUrl({
-                path: headerMedia.media_url,
-                bucket: "species",
-              });
-
-              return { ...s, resolvedImageUrl: publicUrl };
-            })
-          );
-          setListItems(speciesWithUrls);
-        } catch (error) {
-          console.error("Error fetching image urls: "), error;
-        }
-      }
-    };
-
-    fetchUrls();
+      return {
+        ...s,
+        resolvedImageUrl: headerMedia
+          ? resolveImageUrl(headerMedia.media_url, "species")
+          : null,
+      };
+    });
   }, [species]);
 
-  const filteredItems = listItems?.filter((s) =>
-    s.name_common.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredList = useMemo(() => {
+    if (!searchTerm) return speciesWithUrls;
 
-  const birds = filteredItems?.filter((s) => s.class_slug === "birds");
-  const seals = filteredItems?.filter((s) => s.class_slug === "seals");
-  const whales = filteredItems?.filter(
-    (s) => s.class_slug === "whales-and-dolphins"
-  );
+    return speciesWithUrls.filter((s) =>
+      s.name_common?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [speciesWithUrls, searchTerm]);
+
+  const birds = filterSpeciesByClass({
+    items: filteredList,
+    classSlug: "birds",
+  });
+  const seals = filterSpeciesByClass({
+    items: filteredList,
+    classSlug: "seals",
+  });
+  const whales = filterSpeciesByClass({
+    items: filteredList,
+    classSlug: "whales-and-dolphins",
+  });
 
   const SpeciesGroup = ({ title, items }: { title: string; items: any[] }) => (
     <IonItemGroup className="ion-margin-bottom">
@@ -89,7 +73,7 @@ const AddSighting: React.FC = () => {
           button
           lines="full"
           className="ion-padding-bottom"
-            routerLink={`/add-sighting/${item.id}`}
+          routerLink={`/add-sighting/${item.id}`}
         >
           {item.resolvedImageUrl && (
             <IonThumbnail slot="start">

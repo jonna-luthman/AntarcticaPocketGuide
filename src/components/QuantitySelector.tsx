@@ -1,35 +1,31 @@
 import {
-  IonItem,
-  IonLabel,
   IonButton,
   IonIcon,
   IonText,
-  IonGrid,
-  IonRow,
-  IonCol,
 } from "@ionic/react";
 import { addOutline, removeOutline } from "ionicons/icons";
-import { useState } from "react";
 import styles from "./styles/QuantitySelector.module.css";
 
 interface QuantitySelectorProps {
   count: number;
-  setCount: (count: number) => void;
+  setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const QuantitySelector: React.FC = ({
-  setCount,
+const QuantitySelector: React.FC<QuantitySelectorProps> = ({
   count,
-}): QuantitySelectorProps => {
+  setCount,
+}) => {
 
-  const handleIncrement = (e: React.MouseEvent) => {
+  const handleIncrement = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setCount((prev) => prev + 1);
   };
 
-  const handleDecrement = (e: React.MouseEvent) => {
+  const handleDecrement = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    if (count > 1) setCount(count - 1);
+    if (count > 1) {
+      setCount((prev) => prev - 1);
+    }
   };
 
   return (
@@ -39,6 +35,7 @@ const QuantitySelector: React.FC = ({
         color="dark"
         onClick={handleDecrement}
         className={styles.controlButton}
+        disabled={count <= 1}
       >
         <IonIcon icon={removeOutline} slot="icon-only" />
       </IonButton>

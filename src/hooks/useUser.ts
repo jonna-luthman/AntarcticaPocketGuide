@@ -69,21 +69,20 @@ export default function useUsers() {
 
   async function createUserSpeciesList(sighting): Promise<AuthResult> {
     try {
-      console.log("sighting in createUserSpeciesList", sighting)
       const { data, error } = await supabase
         .from("UserSpeciesList")
-        .insert(
-          { user_id: sighting.userId, 
-            note_text: sighting.noteText,
-            species_id: sighting.speciesId,
-            location: sighting.location,
-            observation_date: sighting.date,
-            observations: sighting.observations
-         })
+        .insert({
+          user_id: sighting.userId,
+          note_text: sighting.noteText,
+          species_id: sighting.speciesId,
+          location: sighting.location,
+          observation_date: sighting.date,
+          observations: sighting.observations,
+        })
         .select()
         .single();
 
-         console.log("data, error", data, error)
+      console.log("data, error", data, error);
 
       if (error) {
         return { success: false, error: error.message };
@@ -95,5 +94,10 @@ export default function useUsers() {
     }
   }
 
-  return { checkUserProfile, updateUser, user, createUserSpeciesList };
+  return {
+    checkUserProfile,
+    updateUser,
+    user,
+    createUserSpeciesList,
+  };
 }

@@ -1,12 +1,7 @@
 import {
   IonPage,
   IonContent,
-  IonImg,
   IonText,
-  IonBackButton,
-  IonButtons,
-  IonHeader,
-  IonToolbar,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -18,21 +13,22 @@ import useXenoCanto from "../hooks/useXenoCanto";
 import styles from "./styles/AnimalSpeciesPage.module.css";
 
 import SpeciesFeatures from "../components/Species/SpeciesFeatures";
-import DistinguishableFeaturesCard from "../components/Species/distinguishableFeatures";
+import DistinguishableFeaturesCard from "../components/Species/DistinguishableFeatures"
 import SpeciesTabs from "../components/Species/SpeciesTabs";
 import AnimalSounds from "../components/Species/AnimalSounds";
 import ImageModal from "../components/Species/ImageModal";
 import Image from "../components/Image";
 import Header from "../components/Header";
 
-import { findImageByRole } from "../utils/getMediaTypes.ts";
+import { findImageByRole } from "../utils/getMediaTypes";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const AnimalSpeciesPage: React.FC = () => {
   const { speciesId } = useParams<{ speciesId: string }>();
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { fetchSounds } = useXenoCanto();
 
-  const [sounds, setSounds] = useState<Sound[] | []>([]);
+  const [sounds, setSounds] = useState([]);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false)
 
   useEffect(() => {
@@ -42,10 +38,13 @@ const AnimalSpeciesPage: React.FC = () => {
   useEffect(() => {
     //TODO: Only for testing => delete before release.
     // fetchSounds("Sterna paradisaea").then(setSounds);
-    fetchSounds(species?.name_latin).then(setSounds);
+    if (species?.name_latin)
+    fetchSounds(species.name_latin).then(setSounds);
   }, [species]);
 
-  const headerImage = findImageByRole(species?.SpeciesMedia, "header");
+  const headerImage = findImageByRole(species?.SpeciesMedia ?? null, "header");
+  const imageUrl = headerImage?.media_url ? resolveImageUrl(headerImage.media_url) : "";
+
 
   return (
     <IonPage>
@@ -62,7 +61,7 @@ const AnimalSpeciesPage: React.FC = () => {
 
         {headerImage && (
           <div onClick={() => setIsImageModalOpen(true)} className={styles.headerImageContainer}>
-            <Image image={headerImage} class="header" bucket="species" />
+            <Image image={headerImage} className="header" imageUrl={imageUrl} />
           </div>
         )}
 

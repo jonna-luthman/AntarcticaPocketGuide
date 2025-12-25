@@ -2,7 +2,6 @@ import {
   IonPage,
   IonButton,
   IonContent,
-  IonTitle,
   IonItemGroup,
   IonItemDivider,
   IonLabel,
@@ -11,16 +10,14 @@ import {
   IonInput,
   IonDatetime,
   IonModal,
-  IonBackdrop,
   IonTextarea,
-  IonText,
   useIonRouter,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
-import useSpecies from "../hooks/useSpecies.ts";
-import useUser from "../hooks/useUser.ts";
+import useSpecies from "../hooks/useSpecies";
+import useUser from "../hooks/useUser";
 
 import { useLoading } from "../context/LoadingContext";
 import { UserAuth } from "../context/AuthContext";
@@ -31,29 +28,26 @@ import QuantitySelector from "../components/QuantitySelector";
 
 import styles from "./styles/ConfirmSighting.module.css";
 
-import { formatDate } from "../utils/formatDate.ts";
-import { CreateUserSpeciesList } from "../types/userSpeciesList.ts";
+import { formatDate } from "../utils/formatDate";
+import { CreateUserSpeciesList } from "../types/userSpeciesList";
 
 import {
   calendarNumberOutline,
-  clipboardOutline,
   eyeOutline,
   locationOutline,
   chatbubbleEllipsesOutline,
-  removeOutline,
-  addOutline,
 } from "ionicons/icons";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const ConfirmSighting: React.FC = () => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { speciesId } = useParams<{ speciesId: string }>();
   const { session } = UserAuth();
-  const { createUserSpeciesList, error } = useUser();
+  const { createUserSpeciesList } = useUser();
   const { showLoading, hideLoading } = useLoading();
 
   const router = useIonRouter();
 
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString());
   const [notes, setNotes] = useState<string>("");
   const [location, setLocation] = useState<string>("");
@@ -62,20 +56,17 @@ const ConfirmSighting: React.FC = () => {
   const [count, setCount] = useState<number>(1);
 
   const sightingData: CreateUserSpeciesList = {
-    speciesId: speciesId,
-    userId: session?.user.id,
-    noteText: notes,
+    species_id: speciesId,
+    user_id: session?.user.id,
+    note_text: notes,
     location: location,
-    observationDate: selectedDate,
+    observation_date: selectedDate,
     observations: count,
   };
-
-  console.log("sightingData", sightingData);
 
   useEffect(() => {
     getSpeciesById(speciesId);
   }, [speciesId]);
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,18 +77,18 @@ const ConfirmSighting: React.FC = () => {
     }
     showLoading();
     try {
-      const result = await createUserSpeciesList(sightingData)
-        console.log("result in ConfirmSighting", result)
+      const result = await createUserSpeciesList(sightingData);
+
       if (!result.success) {
-        setErrorMessage(result.error)
-        throw error
-    };
+        setErrorMessage(result.error.message);
+        return;
+      }
 
       router.push("/field-journal", "root");
     } catch (error) {
       console.error("Error saving sighting:", error);
     } finally {
-      hideLoading(false);
+      hideLoading();
     }
   };
 
@@ -112,9 +103,9 @@ const ConfirmSighting: React.FC = () => {
         />
         <div>
           <Image
-            image={species?.SpeciesMedia[0]}
+            image={species?.SpeciesMedia}
             className="sightingHeaderImage"
-            bucket="species"
+            imageUrl={resolveImageUrl(species?.SpeciesMedia[0].media_url)}
           />
         </div>
         <form onSubmit={handleSubmit}>
@@ -196,7 +187,7 @@ const ConfirmSighting: React.FC = () => {
             keepContentsMounted={true}
             className={styles.DateTimeModal}
             showBackdrop={true}
-            backDropDismiss={true}
+            backdropDismiss={true}
           >
             <div className={styles.DatePicker}>
               <IonDatetime

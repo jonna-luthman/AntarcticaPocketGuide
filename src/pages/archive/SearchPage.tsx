@@ -3,11 +3,8 @@ import {
   IonContent,
   IonToolbar,
   IonSearchbar,
-  IonTitle,
   IonList,
   IonHeader,
-  IonButtons,
-  IonBackButton,
   IonLabel,
   IonItem,
   IonThumbnail,
@@ -15,28 +12,21 @@ import {
   IonItemGroup,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import useMedia from "../hooks/useMedia.ts";
-import useSpecies from "../hooks/useSpecies.ts";
+import useSpecies from "../../hooks/useSpecies";
 
-import { SpecieSummary } from "../types/species";
-
-import Header from "../components/Header";
-import SpeciesCard from "../components/Species/SpeciesCard";
-import Image from "../components/Image";
-
-interface SpeciesWithUrl extends SpecieSummary {
-  resolvedImageUrl: string | null;
-  SpeciesMedia: SpeciesMedia[];
-}
+import Header from "../../components/Header";
+import { resolveImageUrl } from "../../utils/resolveImageUrl";
+import { SpecieListItemWithMedia } from "../../types/species";
 
 // Make in to a modal ????
 
 const SearchPage: React.FC = () => {
-  const { getAllSpecies, species } = useSpecies();
-  const { getImageUrl } = useMedia();
+  const { getAllSpecies, speciesList: species } = useSpecies();
 
-  const [listItems, setListItems] = useState(null);
-  const [searchTerm, setSearchTerm] = useState<string>("")
+  const [listItems, setListItems] = useState<SpecieListItemWithMedia[] | null>(
+    null
+  );
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   console.log(listItems);
 
@@ -54,10 +44,9 @@ const SearchPage: React.FC = () => {
 
               if (!headerMedia) return { ...s, resolvedImageUrl: null };
 
-              const publicUrl = await getImageUrl({
-                path: headerMedia.media_url,
-                bucket: "species",
-              });
+              const publicUrl = headerMedia.media_url
+                ? resolveImageUrl(headerMedia.media_url)
+                : "";
 
               return { ...s, resolvedImageUrl: publicUrl };
             })
@@ -72,9 +61,10 @@ const SearchPage: React.FC = () => {
     fetchUrls();
   }, [species]);
 
-  const filteredItems = listItems?.filter((s) =>
-    s.name_common.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredItems = listItems?.filter((s) => {
+    if (!s.name_common) return null;
+    s.name_common.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   const birds = filteredItems?.filter((s) => s.class_slug === "birds");
   const seals = filteredItems?.filter((s) => s.class_slug === "seals");
@@ -138,7 +128,6 @@ const SearchPage: React.FC = () => {
             <SpeciesGroup title="Whales and Dolphins" items={whales} />
           )}
         </IonList>
-
       </IonContent>
     </IonPage>
   );

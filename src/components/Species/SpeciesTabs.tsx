@@ -8,20 +8,16 @@ import {
 import BehaviourInfo from "./BehaviourInfo";
 import Facts from "./Facts";
 import DistributionInfo from "./DistributionInfo";
-import { Specie } from "../../types/species";
-import styles from "./styles/SpeciesCard.module.css"
+import styles from "./styles/SpeciesCard.module.css";
+import { SpecieDetail } from "../../types/species";
 
-export interface Props {
-  specie: Specie | null;
-}
-
-export default function SpeciesTabs({ specie }: Props) {
+export default function SpeciesTabs(specie: SpecieDetail) {
   const [selectedTab, setSelectedTab] = useState<SegmentValue>("distribution");
 
   return (
     <div>
       <IonSegment
-      scrollable
+        scrollable
         value={selectedTab}
         onIonChange={(e) => setSelectedTab(e.detail.value!)}
       >
@@ -38,10 +34,13 @@ export default function SpeciesTabs({ specie }: Props) {
         </IonSegmentButton>
       </IonSegment>
 
-      {/* Content controlled by state */}
       <div className="ion-padding">
-        {selectedTab === "distribution" && specie && <DistributionInfo specie={specie} />}
-        {selectedTab === "behaviour" && specie && <BehaviourInfo specie={specie} />}
+        {selectedTab === "distribution" && specie && (
+          <DistributionInfo specie={specie} />
+        )}
+        {selectedTab === "behaviour" && specie && (
+          <BehaviourInfo specie={specie} />
+        )}
         {selectedTab === "facts" && specie && <Facts specie={specie} />}
       </div>
     </div>

@@ -10,15 +10,16 @@ import Breadcrumbs from "../components/ui/Breadcrumbs";
 import useAnimals from "../hooks/useAnimals";
 import useSpecies from "../hooks/useSpecies";
 
-import { SpecieSummary } from "../types/species";
+import { SpecieWithMedia, UISpecieSummaryWithMedia } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
+import { mapSpecieSummaryToUI } from "../mappers/speciesSummary";
 
 const AnimalClassPage: React.FC = () => {
   const { classSlug } = useParams<{ classSlug: string }>();
-  const { getSpeciesWithHeaderMediaByClass } = useSpecies();
+  const { getSpeciesByClass } = useSpecies();
   const { getAnimalClass } = useAnimals();
 
-  const [species, setSpecies] = useState<SpecieSummary[] | null>(null);
+  const [species, setSpecies] = useState<UISpecieSummaryWithMedia[] | null>(null);
   const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(
     null
   );
@@ -28,10 +29,28 @@ const AnimalClassPage: React.FC = () => {
   }, [classSlug]);
 
   useEffect(() => {
-    if (!animalClass?.id) return;
+    const classId = animalClass?.id;
+    if (!classId) return;
 
-    getSpeciesWithHeaderMediaByClass(animalClass.id).then(setSpecies);
+    const fetchData = async () => {
+      try {
+        const data = await getSpeciesByClass(classId, { includeMedia: true });
+
+        console.log("data", data)
+        if (!data) return;
+
+        const uiData = data.map(mapSpecieSummaryToUI);
+
+        setSpecies(uiData);
+      } catch (error) {
+        console.error("Misslyckades att hämta arter:", error);
+      }
+    };
+
+    fetchData();
   }, [animalClass]);
+
+  console.log(species)
 
   return (
     <IonPage>
@@ -40,16 +59,21 @@ const AnimalClassPage: React.FC = () => {
         <CollapsableHeader />
         <Breadcrumbs param1={animalClass?.name} />
         <IonList>
-          {species && species.map((s) => {
-            const headerImage = s.SpeciesMedia?.[0];
+          {species &&
+            species.map((s) => {
+              const headerImage = s.SpeciesMedia?.[0];
 
-            return (
-              <div key={s.id}>
-              <SpeciesCard species={s} headerImage={headerImage} title={s.name_common}
-              subtitle={s.name_latin} />
-              </div>
-            );
-          })}
+              return (
+                <div key={s.id}>
+                  <SpeciesCard
+                    species={s}
+                    headerImage={headerImage}
+                    title={s.name_common}
+                    subtitle={s.name_latin}
+                  />
+                </div>
+              );
+            })}
         </IonList>
       </IonContent>
     </IonPage>
@@ -57,3 +81,6 @@ const AnimalClassPage: React.FC = () => {
 };
 
 export default AnimalClassPage;
+function getSpeciesByClass(id: any, arg1: { includeMedia: boolean }) {
+  throw new Error("Function not implemented.");
+}

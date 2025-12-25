@@ -1,3 +1,5 @@
+import { SpeciesMedia } from "../types/media";
+
 export const findImageByRole = (
   mediaArray: SpeciesMedia[] | null,
   role: SpeciesMedia["role"]
@@ -10,7 +12,7 @@ export const findImageByRole = (
 };
 
 export const getImagesByRole = (
-  mediaArray: SpeciesMedia[] | null,
+  mediaArray: any[] | null,
   role: SpeciesMedia['role']
 ): SpeciesMedia[] => {
   if (!mediaArray) return [];
@@ -18,4 +20,4 @@ export const getImagesByRole = (
   return mediaArray
     .filter((m) => m.role === role)
     .sort((a, b) => (a.order_index ?? 0) - (b.order_index ?? 0));
-};
+}

@@ -4,9 +4,7 @@ import {
   IonSearchbar,
   IonList,
   IonItem,
-  IonText,
   IonLabel,
-  IonRouterLink,
 } from "@ionic/react";
 import useSpecies from "../hooks/useSpecies";
 import { useRef, useState } from "react";

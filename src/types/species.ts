@@ -1,4 +1,6 @@
+import { SpeciesMedia } from "./media";
 import { Database } from "./supabase";
+import { UserSpeciesList } from "./userSpeciesList";
 
 export type Specie = {
   animal_class_id: string | null;
@@ -32,6 +34,45 @@ export type SpecieSummary = Pick<
 
 export type SpecieWithMedia = Specie & {
   SpeciesMedia: SpeciesMedia[];
+};
+
+export type SpecieListItemWithMedia =
+  SpecieSummary & {
+    SpeciesMedia: SpeciesMedia[];
+  };
+
+export type GetSpeciesByClassOptions = {
+  includeMedia?: false;
+};
+
+export type GetSpeciesByClassWithMediaOptions = {
+  includeMedia: true;
+};
+
+export type SpecieQueryResult = SpecieSummary & {
+  SpeciesMedia?: SpeciesMedia[];
+};
+
+export type SpecieSummaryWithMedia = SpecieSummary & {
+  UserSpeciesList: UserSpeciesList[];
+  SpeciesMedia: SpeciesMedia[];
+  resolvedImageUrl: string | null;
+};
+
+export type UISpecieSummaryWithMedia =
+  SpecieSummary & {
+    resolvedImageUrl: string;
+    SpeciesMedia: SpeciesMedia[]
+  };
+
+
+export type SpecieDetail = Specie & {
+  SpeciesMedia: Array<
+    Pick<
+      SpeciesMedia,
+      "id" | "media_url" | "role" | "order_index" | "photographer" | "attribute"
+    >
+  >;
 };
 
 export interface BehaviourEntry {

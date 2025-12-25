@@ -3,15 +3,16 @@ import {
   IonToolbar,
   IonBackButton,
   IonButtons,
+  IonButton,
   IonMenuButton,
-  IonTitle
+  IonTitle,
 } from "@ionic/react";
 
 interface HeaderProps {
-  showmMenu?: booelan;
-  showBackButton?: booelan;
-  showLogo?: booelean;
-  showTitle?: booelan;
+  showMenu?: boolean;
+  showBackButton?: boolean;
+  showLogo?: boolean;
+  showTitle?: boolean;
   title?: string;
 }
 
@@ -20,10 +21,10 @@ const Header = ({
   showBackButton = false,
   showLogo = true,
   showTitle = false,
-  title,
-}) : HeaderProps => {
+  title = "",
+}: HeaderProps) => {
   return (
-    <IonHeader className="ion-padding ion-no-border">
+    <IonHeader className="ion-padding-horizontal ion-no-border">
       <IonToolbar color="inherit">
         <IonButtons slot="start">
           {showBackButton && <IonBackButton text={undefined} defaultHref="/" />}
@@ -37,9 +38,18 @@ const Header = ({
         )}
 
         {showLogo && (
-          <IonButtons slot="end">
-            <img src="Logo.svg" alt="App Logo" defaultHref="/"/>
-          </IonButtons>
+          <IonButton
+            slot="end"
+            fill="clear"
+            routerLink="/"
+            routerDirection="root"
+          >
+            <img
+              src="Logo.svg"
+              alt="App Logo"
+              style={{ height: "45px", width: "auto" }}
+            />
+          </IonButton>
         )}
       </IonToolbar>
     </IonHeader>

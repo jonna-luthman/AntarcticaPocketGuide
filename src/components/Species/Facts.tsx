@@ -1,16 +1,20 @@
 import styles from "./styles/SpeciesTabs.module.css";
-import { Specie } from "../../types/species";
+import { SpecieWithMedia } from "../../types/species";
 import Image from "../Image";
 import imageStyles from "../styles/Image.module.css";
-import { findImageByRole } from "../../utils/getMediaTypes.ts";
+import { findImageByRole } from "../../utils/getMediaTypes";
+import { resolveImageUrl } from "../../utils/resolveImageUrl";
 
 interface Props {
-  specie: Specie;
+  specie: SpecieWithMedia;
 }
 
 const Facts = ({ specie }: Props) => {
   const factsList = specie?.facts?.description;
   const factsImage = findImageByRole(specie?.SpeciesMedia, "facts");
+
+  const image = findImageByRole(specie?.SpeciesMedia ?? null, "facts");
+  const imageUrl = image?.media_url ? resolveImageUrl(image.media_url) : "";
 
   return (
     <ul className={styles.list}>
@@ -19,11 +23,14 @@ const Facts = ({ specie }: Props) => {
           {value}
         </li>
       ))}
-        {specie && factsImage && 
+      {specie && factsImage && (
         <div className={imageStyles.factsImageContainer}>
-           <Image image={factsImage} class="facts" bucket="species" />
-           <p><i>Figure: {factsImage?.attribute}</i></p>
-        </div>}
+          <Image image={factsImage} imageUrl={imageUrl} />
+          <p>
+            <i>Figure: {factsImage?.attribute}</i>
+          </p>
+        </div>
+      )}
     </ul>
   );
 };
