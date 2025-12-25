@@ -12,7 +12,7 @@ import { SpecieSummaryWithMedia } from "../types/species";
 
 interface AccordionGroupProps {
   title: string;
-  items: SpecieSummaryWithMedia[]; //TODO
+  items: SpecieSummaryWithMedia[];
   isSeenMode: boolean;
 }
 
@@ -30,9 +30,9 @@ const AccordionGroupItem = ({
 
   return (
     <IonAccordion value={title}>
-      <IonItem slot="header" color="inherit">
+      <IonItem slot="header" color="inherit" className="ion-margin-vertical">
         <IonLabel>
-          {title} ({items?.length})
+          <h1>{title} ({items?.length})</h1>
         </IonLabel>
       </IonItem>
       <div slot="content">
@@ -49,11 +49,14 @@ const AccordionGroupItem = ({
             >
               {item.resolvedImageUrl && (
                 <IonThumbnail slot="start">
-                  <img alt={item.name_common} src={item.resolvedImageUrl} />
+                  <img
+                    alt={item.name_common ?? ""}
+                    src={item.resolvedImageUrl}
+                  />
                 </IonThumbnail>
               )}
               <IonLabel>
-                <h4 className="font-average">{item.name_common}</h4>
+                <h2 className="font-average">{item.name_common}</h2>
                 {isSeenMode && (
                   <p>{item.UserSpeciesList.length} observations</p>
                 )}
@@ -71,22 +74,16 @@ const AccordionGroupItem = ({
             </IonItem>
 
             {isSeenMode && expandedId === item.id && (
-              <div
-                className="ion-padding-start ion-padding-bottom"
-              >
+              <div className="ion-margin-start ion-margin-bottom">
                 {item.UserSpeciesList.map((o: any) => (
-                  <IonItem
-                    key={o.id}
-                    lines="none"
-                  >
+                  <IonItem key={o.id} lines="none">
                     <IonLabel>
                       <p>
+                        Date:{" "}
                         {new Date(o.observation_date).toLocaleDateString()} -{" "}
-                        {o.location}
                       </p>
-                      <p>
-                        o
-                      </p>
+                      <p>Location: {o.location}</p>
+                      {o.note_text && <p>Notes: {o.note_text} </p>}
                     </IonLabel>
                   </IonItem>
                 ))}
