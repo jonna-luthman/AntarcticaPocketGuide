@@ -57,7 +57,7 @@ const ConfirmSighting: React.FC = () => {
 
   useEffect(() => {
     getSpeciesById(speciesId);
-  }, [speciesId]);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
