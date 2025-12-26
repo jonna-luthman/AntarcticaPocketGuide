@@ -4,14 +4,11 @@ import {
   IonSearchbar,
   IonList,
   IonItem,
-  IonText,
   IonLabel,
-  IonRouterLink,
 } from "@ionic/react";
 import useSpecies from "../hooks/useSpecies";
 import { useRef, useState } from "react";
 import { SpecieSummary } from "../types/species";
-import styles from "./styles/CollapsableHeader.module.css"
 
 const CollapsableHeader = () => {
   const { getSpeciesBySearchQuery } = useSpecies();
@@ -51,24 +48,22 @@ const CollapsableHeader = () => {
       </IonHeader>
 
       {query.length > 0 && (
-        <div className={styles.searchOverlay}>
-          <IonList inset={true}>
-            {results && results.length > 0 ? (
-              results.map((result) => (
-                <IonItem
-                  routerLink={`/${result.class_slug}/${result.slug}`}
-                  key={result.id}
-                >
-                  <IonLabel>{result.name_common}</IonLabel>
-                </IonItem>
-              ))
-            ) : (
-              <IonItem>
-                <IonLabel>{message}</IonLabel>
+        <IonList inset={true}>
+          {results && results.length > 0 ? (
+            results.map((result) => (
+              <IonItem
+                routerLink={`/${result.class_slug}/${result.slug}`}
+                key={result.id}
+              >
+                <IonLabel>{result.name_common}</IonLabel>
               </IonItem>
-            )}
-          </IonList>
-        </div>
+            ))
+          ) : (
+            <IonItem>
+              <IonLabel>{message}</IonLabel>
+            </IonItem>
+          )}
+        </IonList>
       )}
     </>
   );

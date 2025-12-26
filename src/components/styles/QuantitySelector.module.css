@@ -1,0 +1,17 @@
+.controls {
+    display: flex;
+    align-items: center;
+    background-color: var(--ion-color-light);
+    border-radius: 8px;
+    border: 1px solid;
+}
+
+.controlButton {
+    padding: 10px;
+}
+
+.counter {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 700;
+}

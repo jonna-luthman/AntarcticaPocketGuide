@@ -1,31 +1,25 @@
 import {
   IonContent,
   IonItem,
-  IonLabel,
-  IonList,
   IonPage,
   IonText,
   IonGrid,
   IonCol,
-  IonRow,
   useIonRouter,
   IonThumbnail,
 } from "@ionic/react";
 import { useEffect } from "react";
-
 import { UserAuth } from "../context/AuthContext";
 
 import useAnimals from "../hooks/useAnimals";
-import useMedia from "../hooks/useMedia.ts";
 
 import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";
 import Image from "../components/Image";
 
-import imageStyles from "../components/styles/Image.module.css";
 import styles from "./styles/Home.module.css";
-
-import IdentifyPenguin from "../assets/identify-penguin-icon.svg";
+import IdentifyPenguin from "../assets/icons/identify-penguin-icon.svg";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const Home: React.FC = () => {
   const { animalClasses, getAllAnimalClasses } = useAnimals();
@@ -57,7 +51,10 @@ const Home: React.FC = () => {
               <Image
                 image={animalClass.SpeciesMedia[0]}
                 className="coverImage"
-                bucket="Homepage"
+                imageUrl={resolveImageUrl(
+                  animalClass?.SpeciesMedia[0]?.media_url,
+                  "Homepage"
+                )}
               />
               <IonText className={styles.heading}>{animalClass.name}</IonText>
             </IonCol>
@@ -66,7 +63,13 @@ const Home: React.FC = () => {
           {/* Add my species list when page is created. */}
 
           <IonCol className={styles.fullWidthRow}>
-            <IonItem lines="none" button detail={false} className={styles.identifyItem} routerLink="/identify-penguins">
+            <IonItem
+              lines="none"
+              button
+              detail={false}
+              className={styles.identifyItem}
+              routerLink="/identify-penguins"
+            >
               <IonThumbnail slot="start" className={styles.icon}>
                 <img alt="Man with binoculars" src={IdentifyPenguin} />
               </IonThumbnail>

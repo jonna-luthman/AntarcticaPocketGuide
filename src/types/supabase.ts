@@ -1,5 +1,3 @@
-import { Behaviour, DistinguishableFeatures, Distribution, Facts } from "./species"
-
 export type Json =
   | string
   | number
@@ -73,7 +71,7 @@ export type Database = {
       Species: {
         Row: {
           animal_class_id: string | null
-          behaviour: Behaviour | null
+          behaviour: Json | null
           birthing_season: string | null
           class_slug: string | null
           conservation_status:
@@ -81,8 +79,9 @@ export type Database = {
             | null
           created_at: string
           diet: string | null
-          distinguishable_features: DistinguishableFeatures | null
-          facts: Facts | null
+          distinguishable_features: Json | null
+          distribution: Json | null
+          facts: Json | null
           human_interaction: string | null
           id: string
           identifying_features: string | null
@@ -92,11 +91,9 @@ export type Database = {
           name_common: string | null
           name_latin: string | null
           population: string | null
-          distribution: Distribution | null
           size: string | null
           slug: string
           weight: string | null
-          wildlife_interactions: Json | null
         }
         Insert: {
           animal_class_id?: string | null
@@ -109,6 +106,7 @@ export type Database = {
           created_at?: string
           diet?: string | null
           distinguishable_features?: Json | null
+          distribution?: Json | null
           facts?: Json | null
           human_interaction?: string | null
           id?: string
@@ -119,11 +117,9 @@ export type Database = {
           name_common?: string | null
           name_latin?: string | null
           population?: string | null
-          regions?: string[] | null
           size?: string | null
           slug: string
           weight?: string | null
-          wildlife_interactions?: Json | null
         }
         Update: {
           animal_class_id?: string | null
@@ -136,6 +132,7 @@ export type Database = {
           created_at?: string
           diet?: string | null
           distinguishable_features?: Json | null
+          distribution?: Json | null
           facts?: Json | null
           human_interaction?: string | null
           id?: string
@@ -146,11 +143,9 @@ export type Database = {
           name_common?: string | null
           name_latin?: string | null
           population?: string | null
-          regions?: string[] | null
           size?: string | null
           slug?: string
           weight?: string | null
-          wildlife_interactions?: Json | null
         }
         Relationships: [
           {
@@ -172,35 +167,48 @@ export type Database = {
       SpeciesMedia: {
         Row: {
           attribute: string | null
+          class_id: string | null
           created_at: string
           id: string
           media_url: string | null
           order_index: number | null
           photographer: string | null
           region: number[] | null
+          role: Database["public"]["Enums"]["MediaRole"] | null
           species_id: string | null
         }
         Insert: {
           attribute?: string | null
+          class_id?: string | null
           created_at?: string
           id?: string
           media_url?: string | null
           order_index?: number | null
           photographer?: string | null
           region?: number[] | null
+          role?: Database["public"]["Enums"]["MediaRole"] | null
           species_id?: string | null
         }
         Update: {
           attribute?: string | null
+          class_id?: string | null
           created_at?: string
           id?: string
           media_url?: string | null
           order_index?: number | null
           photographer?: string | null
           region?: number[] | null
+          role?: Database["public"]["Enums"]["MediaRole"] | null
           species_id?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "SpeciesMedia_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "AnimalClasses"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "SpeciesMedia_species_id_fkey"
             columns: ["species_id"]
@@ -291,21 +299,30 @@ export type Database = {
         Row: {
           created_at: string
           id: number
+          location: string | null
           note_text: string | null
+          observation_date: string | null
+          observations: number | null
           species_id: string | null
           user_id: string | null
         }
         Insert: {
           created_at?: string
           id?: number
+          location?: string | null
           note_text?: string | null
+          observation_date?: string | null
+          observations?: number | null
           species_id?: string | null
           user_id?: string | null
         }
         Update: {
           created_at?: string
           id?: number
+          location?: string | null
           note_text?: string | null
+          observation_date?: string | null
+          observations?: number | null
           species_id?: string | null
           user_id?: string | null
         }
@@ -342,6 +359,7 @@ export type Database = {
         | "Critically endangered"
         | "Extinct in the wild"
         | "Extinct"
+      MediaRole: "header" | "distribution" | "facts" | "behaviour" | "cover"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -478,6 +496,7 @@ export const Constants = {
         "Extinct in the wild",
         "Extinct",
       ],
+      MediaRole: ["header", "distribution", "facts", "behaviour", "cover"],
     },
   },
 } as const

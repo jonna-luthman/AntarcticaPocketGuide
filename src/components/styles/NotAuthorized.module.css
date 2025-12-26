@@ -1,0 +1,30 @@
+.loginPromptContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.loginPromptContent {
+  text-align: center;
+  max-width: 400px;
+}
+
+.loginPromptIcon {
+  font-size: 96px;
+  opacity: 0.15;
+  margin-bottom: 16px;
+  color: var(--ion-color-step-600);
+}
+
+.loginPromptTitle {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.loginPromptDescription {
+  padding: 0 32px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}

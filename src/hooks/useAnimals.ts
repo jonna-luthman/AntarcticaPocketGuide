@@ -1,18 +1,22 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
-import { AnimalClass, AnimalClassSummary } from "../types/animalClasses";
+import {
+  AnimalClass,
+  AnimalClassSummary,
+  AnimalClassWithMedia,
+} from "../types/animalClasses";
 import { useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 
 export default function useAnimals() {
   const { showLoading, hideLoading } = useLoading();
-  const [animalClasses, setAnimalClasses] = useState<AnimalClass[] | null>(
-    null
-  );
+  const [animalClasses, setAnimalClasses] = useState<AnimalClassWithMedia[] | null>(null);
   const [animalFamilies, setAnimalFamilies] = useState<AnimalClass[] | null>(
     null
   );
-  const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(null)
+  const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(
+    null
+  );
   const [error, setError] = useState<PostgrestError | null>(null);
 
   async function getAllAnimalClasses() {
@@ -33,7 +37,7 @@ export default function useAnimals() {
         )`
         )
         .eq("SpeciesMedia.role", "cover")
-        .order('name', { ascending: false });
+        .order("name", { ascending: false });
       if (error) {
         setError(error);
         return;
@@ -65,7 +69,7 @@ export default function useAnimals() {
       }
 
       setAnimalClass(classData);
-      return classData
+      return classData;
     } catch (error: any) {
       console.error(error);
       setError(error);

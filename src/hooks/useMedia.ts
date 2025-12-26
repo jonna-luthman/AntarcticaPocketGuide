@@ -9,14 +9,10 @@ export default function useMedia() {
   const { showLoading, hideLoading } = useLoading();
   const [error, setError] = useState<PostgrestError | null>(null);
 
-  interface ImageParams {
-    path: string;
-    type: string;
-  }
 
   async function getSpeciesMedia(
     speciesId: string
-  ): Promise<SpeciesMedia[] | null> {
+  ) {
     showLoading();
     try {
       const { data, error } = await supabase
@@ -41,7 +37,7 @@ export default function useMedia() {
 
   async function getClassMedia(
     classId: string
-  ): Promise<SpeciesMedia[] | null> {
+  ){
     showLoading();
     try {
       const { data, error } = await supabase
@@ -63,11 +59,6 @@ export default function useMedia() {
     }
   }
 
-  async function getImageUrl({ path, bucket }: ImageParams): Promise<string | null> {
-    const { data } = supabase.storage.from(bucket).getPublicUrl(path);
 
-    return data.publicUrl;
-  }
-
-  return { getSpeciesMedia, getClassMedia, getImageUrl, media, error };
+  return { getSpeciesMedia, getClassMedia, media, error };
 }

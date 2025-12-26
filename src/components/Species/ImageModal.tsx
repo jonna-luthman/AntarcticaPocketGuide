@@ -7,6 +7,7 @@ import 'swiper/css/zoom';
 import Image from "../Image"
 import { SpeciesMedia } from "../../types/species.ts"
 import styles from "./styles/Image.module.css";
+import { resolveImageUrl } from '../../utils/resolveImageUrl';
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -15,7 +16,8 @@ interface ImageModalProps {
   className?: string
 }
 
-const ImageModal: React.FC<Props> = ({ isOpen, onClose, image, className }) => {
+const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onClose, image, className }) => {
+const imageUrl = image?.media_url ? resolveImageUrl(image.media_url) : "";
 
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
@@ -35,7 +37,7 @@ const ImageModal: React.FC<Props> = ({ isOpen, onClose, image, className }) => {
                     <h3>{image.attribute}</h3>
                 </IonText>
             <div className="swiper-zoom-container">
-              <Image image={image} className={className} bucket="species" />
+              <Image image={image} imageUrl={imageUrl} className={className} />
             </div>
         {image?.photographer &&  
             <IonText color="light" className="ion-padding">

@@ -2,7 +2,6 @@ export type SpeciesMedia = {
   id: string;
   attribute: string | null;
   created_at: string;
-  id: string;
   media_url: string | null;
   order_index: number | null;
   photographer: string | null;
@@ -11,3 +10,5 @@ export type SpeciesMedia = {
   class_id: string | null;
   role: string;
 };
+
+export type SpeciesMediaSummary = Pick<SpeciesMedia, "id" | "role" | "media_url" | "order_index">

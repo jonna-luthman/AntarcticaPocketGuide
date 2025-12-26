@@ -14,7 +14,7 @@ const Navbar: React.FC<NavBarProps> = () => {
           <IonIcon icon={homeOutline} color="dark" />
         </IonTabButton>
         {/* TODO: Add drawer to add to list */}
-        <IonTabButton tab="Add" href="/">
+        <IonTabButton tab="Add" href="/add-sighting">
           <IonIcon icon={addCircleOutline}></IonIcon>
         </IonTabButton>
         <IonTabButton

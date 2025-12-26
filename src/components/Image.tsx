@@ -1,40 +1,19 @@
-import { useEffect, useState } from "react";
 import { IonImg } from "@ionic/react";
-import useMedia from "../hooks/useMedia";
 import styles from "./styles/Image.module.css";
+import { SpeciesMedia } from "../types/media";
 
 type ImageProps = {
   image: SpeciesMedia;
   className?: keyof typeof styles;
-  bucket: "Species" | "AnimalClasses";
+  imageUrl?: string;
 };
 
-const Image = ({ image, className, bucket }: ImageProps) => {
-  const { getImageUrl } = useMedia();
-  const [url, setUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchUrl = async () => {
-      if (image?.media_url) {
-        const resolvedUrl = await getImageUrl({
-          path: image.media_url,
-          bucket: bucket,
-        });
-
-        setUrl(resolvedUrl);
-      }
-    };
-
-    fetchUrl();
-  }, [image?.media_url, bucket, getImageUrl]);
-
-  if (!image || !url) return null;
-
-  console.log(image)
+const Image = ({ image, className, imageUrl }: ImageProps) => {
+  if (!image || !imageUrl) return null;
 
   return (
     <IonImg
-      src={url ?? ""}
+      src={imageUrl ?? ""}
       alt={image.attribute ?? ""}
       className={className ? styles[className] : undefined}
     />

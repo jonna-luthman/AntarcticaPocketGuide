@@ -1,4 +1,6 @@
+import { SpeciesMedia, SpeciesMediaSummary } from "./media";
 import { Database } from "./supabase";
+import { UserSpeciesList } from "./userSpeciesList";
 
 export type Specie = {
   animal_class_id: string | null;
@@ -34,6 +36,37 @@ export type SpecieWithMedia = Specie & {
   SpeciesMedia: SpeciesMedia[];
 };
 
+export type SpecieListItemWithMedia = SpecieSummary & {
+  SpeciesMedia: SpeciesMedia[];
+};
+
+export type GetSpeciesByClassOptions = {
+  includeMedia?: false;
+};
+
+export type GetSpeciesByClassWithMediaOptions = {
+  includeMedia: true;
+};
+
+export type SpecieQueryResult = SpecieSummary & {
+  SpeciesMedia?: SpeciesMediaSummary[];
+};
+
+export type SpecieSummaryWithMedia = SpecieSummary & {
+  UserSpeciesList: UserSpeciesList[];
+  SpeciesMedia: SpeciesMediaSummary[];
+  resolvedImageUrl: string | null;
+};
+
+export type UISpecieSummaryWithMedia = SpecieSummary & {
+  resolvedImageUrl: string;
+  SpeciesMedia: SpeciesMediaSummary[];
+};
+
+export type SpecieDetail = Specie & {
+  SpeciesMedia: SpeciesMedia[];
+};
+
 export interface BehaviourEntry {
   description: string;
 }
@@ -49,5 +82,3 @@ export type Distribution = Record<string, string>;
 export interface Facts {
   description: string[];
 }
-
-
