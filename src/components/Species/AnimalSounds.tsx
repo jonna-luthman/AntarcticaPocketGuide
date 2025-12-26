@@ -7,7 +7,7 @@ export default function AnimalSounds({ sounds }: { sounds: animalSound[] }) {
     <>
       <div className="ion-padding-top">
         <h3 className="ion-text-justify">
-          <AudioLines size={20} /> Listen:
+          <AudioLines size={20} /> Listen
         </h3>
         {sounds?.map((sound) => (
           <IonItem key={sound.id}>

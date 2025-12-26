@@ -54,13 +54,13 @@ export type SpecieQueryResult = SpecieSummary & {
 
 export type SpecieSummaryWithMedia = SpecieSummary & {
   UserSpeciesList: UserSpeciesList[];
-  SpeciesMedia: SpeciesMedia[];
+  SpeciesMedia: SpeciesMediaSummary[];
   resolvedImageUrl: string | null;
 };
 
 export type UISpecieSummaryWithMedia = SpecieSummary & {
   resolvedImageUrl: string;
-  SpeciesMedia: SpeciesMedia[];
+  SpeciesMedia: SpeciesMediaSummary[];
 };
 
 export type SpecieDetail = Specie & {

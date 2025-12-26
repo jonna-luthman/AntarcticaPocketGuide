@@ -78,7 +78,6 @@ export default function useSpecies() {
         return null;
       }
 
-      console.log(data);
       return data as unknown as SpecieQueryResult[];
     } catch (error: any) {
       console.error(error);

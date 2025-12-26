@@ -36,7 +36,7 @@ const AnimalClassPage: React.FC = () => {
       try {
         const data = await getSpeciesByClass(classId, { includeMedia: true });
 
-        console.log("data", data)
+        console.log(data)
         if (!data) return;
 
         const uiData = data.map(mapSpecieSummaryToUI);
@@ -50,7 +50,6 @@ const AnimalClassPage: React.FC = () => {
     fetchData();
   }, [animalClass]);
 
-  console.log(species)
 
   return (
     <IonPage>

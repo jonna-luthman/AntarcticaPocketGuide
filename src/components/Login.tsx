@@ -1,15 +1,11 @@
 import {
-  IonModal,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
   IonButton,
   IonInput,
   IonIcon,
   IonInputPasswordToggle,
-  IonItem,
-  IonList,
   useIonRouter,
   IonText,
   IonButtons,
@@ -20,7 +16,7 @@ import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { useLoading } from "../context/LoadingContext";
 
-import Register from "./register";
+import Register from "./Register"
 import ResetPassword from "./ResetPassword";
 
 import styles from "./styles/Auth.module.css";
