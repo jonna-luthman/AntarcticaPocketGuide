@@ -1,8 +1,6 @@
 import {
-  IonPage,
   IonHeader,
   IonToolbar,
-  IonTitle,
   IonContent,
   IonInput,
   IonItem,
@@ -14,25 +12,25 @@ import {
   IonText,
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
-import { UserAuth } from "../context/AuthContext";
 
 import { useLoading } from "../context/LoadingContext";
 import { checkPasswordsMatch } from "../utils/checkPasswordsMatch";
-
 import { logoGoogle, chevronBackOutline } from "ionicons/icons";
 import styles from "./styles/Auth.module.css";
+import { AuthResult } from "../types/auth";
 
 interface RegisterProps {
-  nav: any;
-  onLoginSuccess: () => void;
-  signUpNewUser: () => void;
-  signUpWithGoogle: () => void;
-  sh;
+  nav: HTMLIonNavElement;
+  signUpNewUser: (payload: {
+    email: string;
+    password: string;
+    name: string;
+  }) => Promise<AuthResult>;
+  signUpWithGoogle: () => Promise<void>;
 }
 
 const Register: React.FC<RegisterProps> = ({
   nav,
-  onLoginSuccess,
   signUpNewUser,
   signUpWithGoogle,
 }) => {
@@ -94,7 +92,7 @@ const Register: React.FC<RegisterProps> = ({
           message = response.error.message;
       }
 
-      setErrors((prev) => ({ ...prev, form: friendlyMessage }));
+      setErrors((prev) => ({ ...prev, form: message }));
       return;
     }
 

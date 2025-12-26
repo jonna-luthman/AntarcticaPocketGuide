@@ -12,7 +12,7 @@ import { SpecieSummaryWithMedia } from "../types/species";
 
 interface AccordionGroupProps {
   title: string;
-  items: SpecieSummaryWithMedia[];
+  items: SpecieSummaryWithMediaAndUrl[];
   isSeenMode: boolean;
 }
 
@@ -43,8 +43,8 @@ const AccordionGroupItem = ({
               detail={isSeenMode ? false : true}
               onClick={() =>
                 isSeenMode
-                  ? setExpandedId(expandedId === item.id ? null : item.id)
-                  : navigateToSpecies(item.id, item.class_slug)
+                  ? setExpandedId(expandedId === item.id ? "" : item.id)
+                  : navigateToSpecies(item.id, item.class_slug ?? "undefined")
               }
             >
               {item.resolvedImageUrl && (

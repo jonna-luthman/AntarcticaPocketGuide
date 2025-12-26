@@ -4,7 +4,7 @@ import { UserSpeciesList } from "./userSpeciesList";
 
 export type Specie = {
   animal_class_id: string | null;
-  behaviour: Behaviour | null;
+  behaviour: Behaviour | JSON | null;
   birthing_season: string | null;
   class_slug: string | null;
   conservation_status: Database["public"]["Enums"]["ConservationStatus"] | null;
@@ -52,15 +52,20 @@ export type SpecieQueryResult = SpecieSummary & {
   SpeciesMedia?: SpeciesMediaSummary[];
 };
 
-export type SpecieSummaryWithMedia = SpecieSummary & {
+export type SpecieSummaryWithMediaAndUrl = SpecieSummary & {
   UserSpeciesList: UserSpeciesList[];
-  SpeciesMedia: SpeciesMediaSummary[];
+  SpeciesMedia: SpeciesMedia[];
   resolvedImageUrl: string | null;
 };
 
+export type SpecieSummaryWithMedia = SpecieSummary & {
+  UserSpeciesList: UserSpeciesList[];
+  SpeciesMedia: SpeciesMedia[];
+};
+
 export type UISpecieSummaryWithMedia = SpecieSummary & {
-  resolvedImageUrl: string;
-  SpeciesMedia: SpeciesMediaSummary[];
+  resolvedImageUrl: string | null;
+  SpeciesMedia: SpeciesMedia[];
 };
 
 export type SpecieDetail = Specie & {
@@ -71,7 +76,7 @@ export interface BehaviourEntry {
   description: string;
 }
 
-export type Behaviour = Record<string, BehaviourEntry>;
+export type Behaviour = Record<string, BehaviourEntry | undefined>;
 
 export interface DistinguishableFeatures {
   features: string[];

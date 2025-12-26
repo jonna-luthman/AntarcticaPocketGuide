@@ -28,8 +28,6 @@ const SearchPage: React.FC = () => {
   );
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  console.log(listItems);
-
   useEffect(() => {
     getAllSpecies();
   }, []);

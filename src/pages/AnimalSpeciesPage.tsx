@@ -101,7 +101,7 @@ const AnimalSpeciesPage: React.FC = () => {
             <p>{species?.human_interaction}</p>
           </div>
 
-          <SpeciesTabs specie={species} />
+          {<SpeciesTabs specie={species} />}
         </div>
       </IonContent>
     </IonPage>

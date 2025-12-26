@@ -4,8 +4,7 @@ import { addCircleOutline, homeOutline, personOutline } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
 import LoginModal from "../pages/Authentication/LoginModal"
 
-const Navbar: React.FC<NavBarProps> = () => {
-  const { session } = UserAuth();
+const Navbar: React.FC = () => {
 
   return (
     <>

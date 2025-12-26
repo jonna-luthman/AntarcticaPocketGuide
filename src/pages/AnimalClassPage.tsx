@@ -36,7 +36,6 @@ const AnimalClassPage: React.FC = () => {
       try {
         const data = await getSpeciesByClass(classId, { includeMedia: true });
 
-        console.log(data)
         if (!data) return;
 
         const uiData = data.map(mapSpecieSummaryToUI);

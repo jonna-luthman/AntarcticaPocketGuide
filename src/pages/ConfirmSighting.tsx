@@ -93,6 +93,7 @@ const ConfirmSighting: React.FC = () => {
     }
   };
 
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -104,7 +105,7 @@ const ConfirmSighting: React.FC = () => {
         />
         <div>
           <Image
-            image={species?.SpeciesMedia}
+            image={species?.SpeciesMedia[0]}
             className="sightingHeaderImage"
             imageUrl={resolveImageUrl(species?.SpeciesMedia[0].media_url)}
           />

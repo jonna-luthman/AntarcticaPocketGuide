@@ -2,26 +2,21 @@ import React, { FormEvent, useState } from "react";
 import {
   IonContent,
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonList,
-  IonLink,
   IonItem,
   IonInput,
-  IonInputPasswordToggle,
   IonText,
   IonButton,
-  IonNav,
 } from "@ionic/react";
 import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import useUsers from "../../hooks/useUser";
-import { AuthResult } from "../../types/auth";
 import { useLoading } from "../../context/LoadingContext";
-import Login from "./Login";
-import { Link } from "react-router-dom";
 
-const ChangePassword: React.FC = () => {
+interface ChangePasswordProps {
+  nav: HTMLIonNavElement;
+}
+
+const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
   const { showLoading, hideLoading } = useLoading();
   const { updateUser } = useUsers();
 
@@ -56,10 +51,8 @@ const ChangePassword: React.FC = () => {
         password: form.newPassword,
       });
 
-      console.log("result", result);
-
       if (!result.success) {
-        setErrors((prev) => ({ ...prev, api: result.error }));
+        setErrors((prev) => ({ ...prev, api: result.error.message }));
         hideLoading();
         return;
       }
@@ -153,7 +146,7 @@ const ChangePassword: React.FC = () => {
               className="ion-margin-top"
               type="submit"
               expand="block"
-              fill="transparent"
+              fill="clear"
               color="dark"
               
             >
@@ -171,7 +164,7 @@ const ChangePassword: React.FC = () => {
               <div>
                 <IonButton
                   expand="block"
-                  fill="transparent"
+                  fill="clear"
                   onClick={() => nav.pop()}
                 >
                   <IonText>Go back to log in</IonText>

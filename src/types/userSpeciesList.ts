@@ -19,3 +19,17 @@ export type UserSpeciesListItem = SpecieSummary & {
   SpeciesMedia: SpeciesMedia[];
   UserSpeciesList: UserSpeciesList[];
 };
+
+type ResponseSuccess = {
+  success: true;
+  data: UserSpeciesList
+  }
+
+type ResponseFailure = {
+  success: false;
+  error: {
+    message: string;
+    code?: string;
+  };
+};
+export type CreateUserSpeciesListResult = ResponseSuccess | ResponseFailure;

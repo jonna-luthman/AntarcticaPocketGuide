@@ -2,11 +2,9 @@ import { IonModal, IonHeader, IonToolbar, IonButtons, IonButton, IonContent, Ion
 import { closeOutline } from 'ionicons/icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Zoom } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/zoom';
+import 'swiper/swiper.css'
 import Image from "../Image"
-import { SpeciesMedia } from "../../types/species.ts"
-import styles from "./styles/Image.module.css";
+import { SpeciesMedia } from '../../types/media';
 import { resolveImageUrl } from '../../utils/resolveImageUrl';
 
 interface ImageModalProps {

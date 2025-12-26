@@ -1,7 +1,7 @@
-import { SpecieSummaryWithMedia } from "../types/species";
+import { UISpecieSummaryWithMedia } from "../types/species";
 
 interface Props {
-  items: SpecieSummaryWithMedia[] | undefined;
+  items: UISpecieSummaryWithMedia[] | undefined;
   classSlug: string;
 }
 
