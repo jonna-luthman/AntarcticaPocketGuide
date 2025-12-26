@@ -49,7 +49,7 @@ export type GetSpeciesByClassWithMediaOptions = {
 };
 
 export type SpecieQueryResult = SpecieSummary & {
-  SpeciesMedia?: SpeciesMediaSummary[];
+  SpeciesMedia?: SpeciesMedia[];
 };
 
 export type SpecieSummaryWithMediaAndUrl = SpecieSummary & {

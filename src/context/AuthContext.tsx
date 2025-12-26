@@ -38,9 +38,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     const initAuth = async () => {
       try {
         const { data } = await supabase.auth.getSession();
-        setSession(data.session ?? null);
-        if (data.session?.user) {
-          await checkUserProfile(data.session.user);
+        const currentSession = data.session
+        setSession(currentSession);
+
+        if (currentSession?.user) {
+          await checkUserProfile(currentSession.user);
         }
       } catch (err) {
         console.error("Auth init error", err);
@@ -52,10 +54,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     initAuth();
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setSession(session ?? null);
-        if (session?.user) {
-         checkUserProfile(session.user);
+      async (event, newSession) => {
+        setSession(newSession);
+        if (newSession?.user) {
+         checkUserProfile(newSession.user);
         }
       }
     );
@@ -88,7 +90,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         };
       }
 
-      return { success: true, data };
+      return { success: true, data: {user: data.user, session: data.session} };
     } catch (error: any) {
       return {
         success: false,

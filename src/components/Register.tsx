@@ -221,7 +221,7 @@ const Register: React.FC<RegisterProps> = ({
 
           <IonButton
             expand="block"
-            fill="transparent"
+            fill="clear"
             onClick={() => nav.pop()}
           >
             <IonText>

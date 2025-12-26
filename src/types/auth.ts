@@ -2,11 +2,10 @@ import { Session } from '@supabase/supabase-js';
 import { AuthUser } from './user';
 import { User } from '@supabase/auth-js/src/lib/types'
 
-
 type AuthSuccess = {
   success: true;
   data: {
-    user: AuthUser | null;
+    user: User | null;
     session?: Session | null;
   };
 };
@@ -27,6 +26,10 @@ type AuthFailure = {
 export type AuthResult = AuthSuccess | AuthFailure;
 
 export type AuthResultUpdateUser = AuthFailure | AuthSuccessUpdateUser;
+
+export type checkUserProfileResult = {
+  
+}
 
 export type SignOutResult =
   | { success: true }
