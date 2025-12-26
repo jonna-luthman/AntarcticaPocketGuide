@@ -95,14 +95,7 @@ export default function useSpecies() {
         .from("Species")
         .select(
           `*,
-        SpeciesMedia (
-          id,
-          media_url,
-          role,
-          order_index,
-          photographer,
-          attribute
-        )
+        SpeciesMedia (*)
       `
         )
         .eq("id", id)

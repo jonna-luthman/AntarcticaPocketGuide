@@ -11,7 +11,11 @@ import DistributionInfo from "./DistributionInfo";
 import styles from "./styles/SpeciesCard.module.css";
 import { SpecieDetail } from "../../types/species";
 
-export default function SpeciesTabs(specie: SpecieDetail) {
+interface SpeciesTabsProps {
+  specie: SpecieDetail;
+}
+
+export default function SpeciesTabs({ specie }: SpeciesTabsProps) {
   const [selectedTab, setSelectedTab] = useState<SegmentValue>("distribution");
 
   return (

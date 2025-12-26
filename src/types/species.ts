@@ -1,4 +1,4 @@
-import { SpeciesMedia } from "./media";
+import { SpeciesMedia, SpeciesMediaSummary } from "./media";
 import { Database } from "./supabase";
 import { UserSpeciesList } from "./userSpeciesList";
 
@@ -36,10 +36,9 @@ export type SpecieWithMedia = Specie & {
   SpeciesMedia: SpeciesMedia[];
 };
 
-export type SpecieListItemWithMedia =
-  SpecieSummary & {
-    SpeciesMedia: SpeciesMedia[];
-  };
+export type SpecieListItemWithMedia = SpecieSummary & {
+  SpeciesMedia: SpeciesMedia[];
+};
 
 export type GetSpeciesByClassOptions = {
   includeMedia?: false;
@@ -50,7 +49,7 @@ export type GetSpeciesByClassWithMediaOptions = {
 };
 
 export type SpecieQueryResult = SpecieSummary & {
-  SpeciesMedia?: SpeciesMedia[];
+  SpeciesMedia?: SpeciesMediaSummary[];
 };
 
 export type SpecieSummaryWithMedia = SpecieSummary & {
@@ -59,20 +58,13 @@ export type SpecieSummaryWithMedia = SpecieSummary & {
   resolvedImageUrl: string | null;
 };
 
-export type UISpecieSummaryWithMedia =
-  SpecieSummary & {
-    resolvedImageUrl: string;
-    SpeciesMedia: SpeciesMedia[]
-  };
-
+export type UISpecieSummaryWithMedia = SpecieSummary & {
+  resolvedImageUrl: string;
+  SpeciesMedia: SpeciesMedia[];
+};
 
 export type SpecieDetail = Specie & {
-  SpeciesMedia: Array<
-    Pick<
-      SpeciesMedia,
-      "id" | "media_url" | "role" | "order_index" | "photographer" | "attribute"
-    >
-  >;
+  SpeciesMedia: SpeciesMedia[];
 };
 
 export interface BehaviourEntry {
@@ -90,5 +82,3 @@ export type Distribution = Record<string, string>;
 export interface Facts {
   description: string[];
 }
-
-

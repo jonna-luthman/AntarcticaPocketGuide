@@ -10,3 +10,5 @@ export type SpeciesMedia = {
   class_id: string | null;
   role: string;
 };
+
+export type SpeciesMediaSummary = Pick<SpeciesMedia, "id" | "role" | "media_url" | "order_index">

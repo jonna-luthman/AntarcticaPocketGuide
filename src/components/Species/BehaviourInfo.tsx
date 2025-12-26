@@ -1,11 +1,11 @@
 import styles from "./styles/SpeciesTabs.module.css"
-import { Specie } from "../../types/species";
+import { SpecieDetail } from "../../types/species";
 
-interface Props {
-  specie: Specie;
+interface BehaviourInfoProps {
+  specie: SpecieDetail;
 }
 
-const BehaviourInfo = ({ specie }: Props) => {
+const BehaviourInfo = ({ specie }: BehaviourInfoProps) => {
   return (
     <div>
       <div className={`${styles.leadBox} ${styles.fontBold}`}>

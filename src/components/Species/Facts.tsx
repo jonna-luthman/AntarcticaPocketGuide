@@ -1,15 +1,15 @@
 import styles from "./styles/SpeciesTabs.module.css";
-import { SpecieWithMedia } from "../../types/species";
+import { SpecieDetail, SpecieWithMedia } from "../../types/species";
 import Image from "../Image";
 import imageStyles from "../styles/Image.module.css";
 import { findImageByRole } from "../../utils/getMediaTypes";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
 
-interface Props {
-  specie: SpecieWithMedia;
+interface FactsProps {
+  specie: SpecieDetail;
 }
 
-const Facts = ({ specie }: Props) => {
+const Facts = ({ specie }: FactsProps) => {
   const factsList = specie?.facts?.description;
   const factsImage = findImageByRole(specie?.SpeciesMedia, "facts");
 
