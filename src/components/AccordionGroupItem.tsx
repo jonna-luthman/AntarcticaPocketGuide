@@ -8,7 +8,7 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import { chevronUpOutline, chevronDownOutline } from "ionicons/icons";
-import { SpecieSummaryWithMedia } from "../types/species";
+import { SpecieSummaryWithMedia, SpecieSummaryWithMediaAndUrl, UISpecieSummaryWithMedia } from "../types/species";
 
 interface AccordionGroupProps {
   title: string;
@@ -27,6 +27,8 @@ const AccordionGroupItem = ({
   const navigateToSpecies = (id: string, classSlug: string) => {
     router.push(`/animals/${classSlug}/${id}`);
   };
+
+  console.log(items)
 
   return (
     <IonAccordion value={title}>

@@ -1,3 +1,4 @@
+import { User } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
 import { AuthResult, AuthResultUpdateUser } from "../types/auth";
 import { AuthUser } from "../types/user";
@@ -5,7 +6,7 @@ import { CreateUserSpeciesList, CreateUserSpeciesListResult } from "../types/use
 
 export default function useUsers() {
 
-  async function checkUserProfile(user: AuthUser): Promise<AuthResult> {
+  async function checkUserProfile(user: User){
     try {
       const { data: existingUser, error: selectError } = await supabase
         .from("Users")
@@ -13,24 +14,28 @@ export default function useUsers() {
         .eq("id", user.id)
         .single();
 
+        console.log(existingUser)
+        console.log(user)
+
       if (selectError) {
-        return {
-          success: false,
-          error: { message: selectError.message, code: selectError.code },
-        };
+        return 
       }
 
       if (existingUser) {
-        return { success: true, data: { user: existingUser } };
+        return existingUser;
       }
 
-      const name = user.name;
+      const name =
+        user.user_metadata?.full_name ??
+        user.user_metadata?.name ??
+        user.email ??
+        "Unnamed user";
 
       const { data, error } = await supabase
         .from("Users")
         .insert({
           id: user.id,
-          name,
+          name: name,
         })
         .select()
         .single();

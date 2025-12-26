@@ -18,7 +18,7 @@ export default function useSpecies() {
   >(null);
   const [singleSpecies, setSingleSpecies] = useState<SpecieDetail | null>(null);
   const [speciesWithSightings, setSpeciesWithSightings] = useState<
-    SpecieListItemWithMedia[] | null
+    SpecieSummaryWithMedia[] | null
   >(null);
 
   const [error, setError] = useState<PostgrestError | null>(null);

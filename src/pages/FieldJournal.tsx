@@ -45,6 +45,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     }
   }, []);
 
+  console.log("species", species)
   useEffect(() => {
     if (userId) {
       getUserSpeciesList(userId);
@@ -65,6 +66,8 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
       };
     });
   }, [species]);
+
+  console.log("speciesWithUrls",speciesWithUrls)
 
   const seenSpecies = speciesWithUrls?.filter(
     (s) => s.UserSpeciesList?.length > 0

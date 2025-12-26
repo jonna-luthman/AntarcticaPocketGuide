@@ -33,7 +33,7 @@ const SpeciesCard: React.FC<SpeciesCardProps> = ({
       <IonCard className={styles.specieCard} color="tertiary">
         <div className={styles.contentWrapper}>
           {headerImage && (
-            <Image image={headerImage} className="cornerImage" imageUrl={species?.resolvedImageUrl}/>
+            <Image image={headerImage} className="cornerImage" imageUrl={species?.resolvedImageUrl ?? ""}/>
           )}
 
           <IonCardHeader className={styles.cardHeader}>

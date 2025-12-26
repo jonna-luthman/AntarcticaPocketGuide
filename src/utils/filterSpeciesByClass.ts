@@ -1,4 +1,7 @@
-import { UISpecieSummaryWithMedia } from "../types/species";
+import {
+  SpecieSummaryWithMediaAndUrl,
+  UISpecieSummaryWithMedia,
+} from "../types/species";
 
 interface Props {
   items: UISpecieSummaryWithMedia[] | undefined;
@@ -7,5 +10,5 @@ interface Props {
 
 export const filterSpeciesByClass = ({ items, classSlug }: Props) => {
   const filteredSpecies = items?.filter((s) => s.class_slug === classSlug);
-  return filteredSpecies;
+  return filteredSpecies as SpecieSummaryWithMediaAndUrl[];
 };
