@@ -10,7 +10,9 @@ import { useLoading } from "../context/LoadingContext";
 
 export default function useAnimals() {
   const { showLoading, hideLoading } = useLoading();
-  const [animalClasses, setAnimalClasses] = useState<AnimalClassWithMedia[] | null>(null);
+  const [animalClasses, setAnimalClasses] = useState<
+    AnimalClassWithMedia[] | null
+  >(null);
   const [animalFamilies, setAnimalFamilies] = useState<AnimalClass[] | null>(
     null
   );
@@ -33,7 +35,9 @@ export default function useAnimals() {
           SpeciesMedia (
           id, 
           media_url,
-          role
+          role,
+          order_index,
+          attribute  
         )`
         )
         .eq("SpeciesMedia.role", "cover")

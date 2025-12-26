@@ -5,7 +5,6 @@ import { PostgrestError } from "@supabase/supabase-js";
 import { SpeciesMedia } from "../types/media";
 
 export default function useMedia() {
-  const [media, setMedia] = useState<SpeciesMedia[] | null>(null);
   const { showLoading, hideLoading } = useLoading();
   const [error, setError] = useState<PostgrestError | null>(null);
 
@@ -25,7 +24,6 @@ export default function useMedia() {
         setError(error);
         return null;
       }
-      setMedia(data);
 
       return data;
     } catch (error) {
@@ -48,8 +46,7 @@ export default function useMedia() {
       if (error) {
         setError(error);
         return null;
-      }
-      setMedia(data);
+      };
 
       return data;
     } catch (error) {
@@ -60,5 +57,5 @@ export default function useMedia() {
   }
 
 
-  return { getSpeciesMedia, getClassMedia, media, error };
+  return { getSpeciesMedia, getClassMedia, error };
 }

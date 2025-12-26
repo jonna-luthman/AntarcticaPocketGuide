@@ -43,8 +43,6 @@ import "./theme/global.css";
 
 import Home from "./pages/Home";
 import LoginModal from "./pages/Authentication/LoginModal";
-import Register from "./pages/Authentication/Register";
-import ResetPassword from "./pages/Authentication/ResetPassword";
 import ChangePassword from "./pages/Authentication/ChangePassword";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";

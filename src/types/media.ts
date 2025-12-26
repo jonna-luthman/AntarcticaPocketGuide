@@ -8,7 +8,7 @@ export type SpeciesMedia = {
   region: number[] | null;
   species_id: string | null;
   class_id: string | null;
-  role: string;
+  role: string | null;
 };
 
-export type SpeciesMediaSummary = Pick<SpeciesMedia, "id" | "role" | "media_url" | "order_index">
+export type SpeciesMediaSummary = Pick<SpeciesMedia, "id" | "role" | "media_url" | "order_index" | "attribute">

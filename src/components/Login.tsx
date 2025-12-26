@@ -16,14 +16,14 @@ import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { useLoading } from "../context/LoadingContext";
 
-import Register from "./Register"
+import Register from "./Register";
 import ResetPassword from "./ResetPassword";
 
 import styles from "./styles/Auth.module.css";
 
 interface LoginProps {
-  nav: any;
-  setIsOpen: () => void;
+  nav: HTMLIonNavElement;
+  setIsOpen: (isOpen: boolean) => void;
 }
 
 const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
@@ -63,7 +63,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         return;
       }
 
-      hideLoading()
+      hideLoading();
       showToast({
         message: "Welcome back!",
         duration: 2000,
@@ -134,8 +134,6 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
                   nav.push(() => (
                     <ResetPassword
                       nav={nav}
-                      showLoading={showLoading}
-                      hideLoading={hideLoading}
                     />
                   ))
                 }
@@ -170,14 +168,12 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         </div>
 
         <IonButton
-          fill="transparent"
+          fill="clear"
           expand="block"
           onClick={() =>
             nav.push(() => (
               <Register
                 nav={nav}
-                showLoading={showLoading}
-                hideLoading={hideLoading}
                 signUpNewUser={signUpNewUser}
                 signUpWithGoogle={signInWithGoogle}
               />

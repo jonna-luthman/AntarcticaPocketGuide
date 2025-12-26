@@ -1,16 +1,12 @@
 import {
-  IonPage,
   IonHeader,
   IonToolbar,
   IonButtons,
-  IonBackButton,
-  IonTitle,
   IonContent,
   IonInput,
   IonButton,
   IonText,
   IonIcon,
-  IonItem,
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 import { supabase } from "../api/supabaseClient";
@@ -19,10 +15,10 @@ import { chevronBackOutline } from "ionicons/icons";
 import styles from "./styles/Auth.module.css";
 
 interface LoginProps {
-  nav: any;
+  nav: HTMLIonNavElement;
 }
 
-const ResetPassword: React.FC = ({ nav }) => {
+const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
   const { showLoading, hideLoading } = useLoading();
   const [showForm, setShowForm] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
@@ -92,7 +88,7 @@ const ResetPassword: React.FC = ({ nav }) => {
 
               {error && (
                 <IonText color="danger" className="ion-padding">
-                  {error.message}
+                  {error}
                 </IonText>
               )}
 

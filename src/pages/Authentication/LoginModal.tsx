@@ -1,26 +1,7 @@
-import {
-  IonModal,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonInput,
-  IonIcon,
-  IonInputPasswordToggle,
-  IonItem,
-  IonList,
-  useIonRouter,
-  IonText,
-  IonButtons,
-  IonNav,
-} from "@ionic/react";
-import React, { FormEvent, useState, useEffect, useRef } from "react";
+import { IonModal, IonNav } from "@ionic/react";
+import React, { useEffect, useRef } from "react";
 import { UserAuth } from "../../context/AuthContext";
-import { useLoading } from "../../context/LoadingContext";
 import Login from "../../components/Login";
-
-import styles from "../components/styles/Auth.module.css";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -29,22 +10,15 @@ interface LoginModalProps {
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, setIsOpen }) => {
   const navRef = useRef<HTMLIonNavElement>(null);
-  const router = useIonRouter()
-
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [introSeen, setIntroSeen] = useState<boolean>(false);
-
-  const { signInUser, signInWithGoogle, session } = UserAuth();
+  const { session } = UserAuth();
 
   const handleDismiss = () => {
     setIsOpen(false);
-
   };
 
   useEffect(() => {
     if (session) {
+
       setIsOpen(false);
     }
   }, [session, setIsOpen]);
@@ -60,7 +34,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, setIsOpen }) => {
       >
         <IonNav
           ref={navRef}
-          root={() => <Login nav={navRef.current} setIsOpen={setIsOpen}/>}
+          root={() => <Login nav={navRef.current!} setIsOpen={setIsOpen} />}
         />
       </IonModal>
     </>

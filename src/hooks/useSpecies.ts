@@ -18,7 +18,7 @@ export default function useSpecies() {
   >(null);
   const [singleSpecies, setSingleSpecies] = useState<SpecieDetail | null>(null);
   const [speciesWithSightings, setSpeciesWithSightings] = useState<
-    SpecieSummaryWithMedia[] | null
+    SpecieListItemWithMedia[] | null
   >(null);
 
   const [error, setError] = useState<PostgrestError | null>(null);
@@ -107,7 +107,7 @@ export default function useSpecies() {
       }
 
       setSingleSpecies(data as SpecieDetail);
-      return data;
+      return data as SpecieDetail;
     } catch (error: any) {
       console.error(error);
       setError(error);
@@ -141,7 +141,7 @@ export default function useSpecies() {
 
   async function getUserSpeciesList(
     currentUserId: string
-  ): Promise<AuthResult> {
+  ): Promise<SpecieSummaryWithMedia[] | null> {
     try {
       const { data, error } = await supabase
         .from("Species")
@@ -151,16 +151,16 @@ export default function useSpecies() {
         .eq("UserSpeciesList.user_id", currentUserId);
 
       if (error) {
-        return { success: false, error: { message: error.message } };
+        setError(error);
+        return null;
       }
 
       setSpeciesWithSightings(data);
-      return { success: true, data: { user: null } };
+      return data;
     } catch (error: any) {
-      return {
-        success: false,
-        error: { message: error.message ?? "Unexpected error" },
-      };
+      console.error(error);
+      setError(error);
+      return null;
     }
   }
 

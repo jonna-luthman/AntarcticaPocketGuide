@@ -9,20 +9,17 @@ import {
   IonThumbnail,
   IonItemDivider,
   IonItemGroup,
-  IonButton,
-  IonText,
-  IonIcon,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
 import useSpecies from "../hooks/useSpecies";
 
 import Header from "../components/Header";
+import NotAuthorized from "../components/NotAuthorized";
 
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { UserAuth } from "../context/AuthContext";
-import { personCircleOutline } from "ionicons/icons";
-import NotAuthorized from "../components/NotAuthorized";
+import { UISpecieSummaryWithMedia } from "../types/species";
 
 interface AddSightingProps {
   onShowLoginModal: () => void;
@@ -36,8 +33,6 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
   useEffect(() => {
     getAllSpecies();
   }, []);
-
-  const userId = session?.user.id;
 
   useEffect(() => {
     if (!session) {
@@ -81,7 +76,7 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
     classSlug: "whales-and-dolphins",
   });
 
-  const SpeciesGroup = ({ title, items }: { title: string; items: any[] }) => (
+  const SpeciesGroup = ({ title, items }: { title: string; items: UISpecieSummaryWithMedia[] }) => (
     <IonItemGroup className="ion-margin-bottom">
       <IonItemDivider color="inherit">
         <h3 className="font-average ion-text-uppercase">{title}</h3>
@@ -96,7 +91,7 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
         >
           {item.resolvedImageUrl && (
             <IonThumbnail slot="start">
-              <img alt={item.name_common} src={item.resolvedImageUrl} />
+              <img alt={item.name_common ?? "undefined"} src={item.resolvedImageUrl} />
             </IonThumbnail>
           )}
           <div>

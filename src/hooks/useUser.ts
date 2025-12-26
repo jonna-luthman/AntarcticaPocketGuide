@@ -1,33 +1,30 @@
-import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { AuthResult } from "../types/auth";
-import { User } from "../types/user";
-import { User } from "@supabase/supabase-js";
-import { CreateUserSpeciesList } from "../types/userSpeciesList";
+import { AuthResult, AuthResultUpdateUser } from "../types/auth";
+import { AuthUser } from "../types/user";
+import { CreateUserSpeciesList, CreateUserSpeciesListResult } from "../types/userSpeciesList";
 
 export default function useUsers() {
-  const [user, setUser] = useState<User | null>(null);
 
-  async function checkUserProfile(user: User): Promise<AuthResult> {
+  async function checkUserProfile(user: AuthUser): Promise<AuthResult> {
     try {
       const { data: existingUser, error: selectError } = await supabase
         .from("Users")
-        .select("id")
-        .eq("id", user.id);
+        .select("*")
+        .eq("id", user.id)
+        .single();
 
       if (selectError) {
-        return { success: false, error: selectError.message };
+        return {
+          success: false,
+          error: { message: selectError.message, code: selectError.code },
+        };
       }
 
       if (existingUser) {
-        return { success: true, data: existingUser };
+        return { success: true, data: { user: existingUser } };
       }
 
-      const name =
-        user.user_metadata?.full_name ??
-        user.user_metadata?.name ??
-        user.email ??
-        "Unnamed user";
+      const name = user.name;
 
       const { data, error } = await supabase
         .from("Users")
@@ -39,10 +36,13 @@ export default function useUsers() {
         .single();
 
       if (error) {
-        return { success: false, error: error.message };
+        return {
+          success: false,
+          error: { message: error.message, code: error.code },
+        };
       }
 
-      return { success: true, data };
+      return { success: true, data: { user: data } };
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
     }
@@ -51,7 +51,7 @@ export default function useUsers() {
   async function updateUser(user: {
     email: string;
     password: string;
-  }): Promise<AuthResult> {
+  }): Promise<AuthResultUpdateUser> {
     try {
       const { data, error } = await supabase.auth.updateUser({
         email: user.email,
@@ -59,37 +59,43 @@ export default function useUsers() {
       });
 
       if (error) {
-        return { success: false, error: error.message };
+        return {
+          success: false,
+          error: { message: error.message, code: error.code },
+        };
       }
 
-      return { success: true, data };
+      return { success: true, user: data.user };
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
     }
   }
 
   async function createUserSpeciesList(
-  sighting: CreateUserSpeciesList
-): Promise<AuthResult> {
-  try {
-    const { data, error } = await supabase
-      .from("UserSpeciesList")
-      .insert({
-        user_id: sighting.user_id,
-        note_text: sighting.note_text,
-        species_id: sighting.species_id,
-        location: sighting.location,
-        observation_date: sighting.observation_date,
-        observations: sighting.observations,
-      })
-      .select()
-      .single();
+    sighting: CreateUserSpeciesList
+  ): Promise<CreateUserSpeciesListResult> {
+    try {
+      const { data, error } = await supabase
+        .from("UserSpeciesList")
+        .insert({
+          user_id: sighting.user_id,
+          note_text: sighting.note_text,
+          species_id: sighting.species_id,
+          location: sighting.location,
+          observation_date: sighting.observation_date,
+          observations: sighting.observations,
+        })
+        .select()
+        .single();
 
       if (error) {
-        return { success: false, error: error.message };
+        return {
+          success: false,
+          error: { message: error.message, code: error.code },
+        };
       }
 
-      return { success: true, data };
+      return { success: true, data: data };
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
     }
@@ -98,7 +104,6 @@ export default function useUsers() {
   return {
     checkUserProfile,
     updateUser,
-    user,
     createUserSpeciesList,
   };
 }

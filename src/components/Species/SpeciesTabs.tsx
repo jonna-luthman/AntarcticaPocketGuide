@@ -12,7 +12,7 @@ import styles from "./styles/SpeciesCard.module.css";
 import { SpecieDetail } from "../../types/species";
 
 interface SpeciesTabsProps {
-  specie: SpecieDetail;
+  specie: SpecieDetail | null;
 }
 
 export default function SpeciesTabs({ specie }: SpeciesTabsProps) {

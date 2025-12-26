@@ -1,9 +1,10 @@
 import { IonImg } from "@ionic/react";
 import styles from "./styles/Image.module.css";
-import { SpeciesMedia } from "../types/media";
+import { SpeciesMedia, SpeciesMediaSummary } from "../types/media";
+import { AnimalClassWithMedia } from "../types/animalClasses";
 
 type ImageProps = {
-  image: SpeciesMedia;
+  image: SpeciesMedia | SpeciesMediaSummary | undefined;
   className?: keyof typeof styles;
   imageUrl?: string;
 };

@@ -9,7 +9,6 @@ import {
   IonThumbnail,
 } from "@ionic/react";
 import { useEffect } from "react";
-import { UserAuth } from "../context/AuthContext";
 
 import useAnimals from "../hooks/useAnimals";
 
@@ -23,10 +22,8 @@ import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 const Home: React.FC = () => {
   const { animalClasses, getAllAnimalClasses } = useAnimals();
-  const { session } = UserAuth();
 
   const router = useIonRouter();
-  console.log("session", session);
 
   useEffect(() => {
     getAllAnimalClasses();
@@ -49,7 +46,7 @@ const Home: React.FC = () => {
               onClick={() => handleNavigate(`/animals/${animalClass.slug}`)}
             >
               <Image
-                image={animalClass.SpeciesMedia[0]}
+                image={animalClass?.SpeciesMedia[0]}
                 className="coverImage"
                 imageUrl={resolveImageUrl(
                   animalClass?.SpeciesMedia[0]?.media_url,
