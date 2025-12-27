@@ -1,27 +1,39 @@
-import { SpeciesMedia, SpeciesMediaSummary } from "./media";
+
+import { SpeciesMedia,  } from "./media";
 import { Database } from "./supabase";
 import { UserSpeciesList } from "./userSpeciesList";
 
 export type Specie = {
   animal_class_id: string | null;
-  behaviour: Behaviour | JSON | null;
-  birthing_season: string | null;
+  behaviour_en: Behaviour | null;
+  behaviour_es: Behaviour | null;
+  birthing_season_en: string | null;
+  birthing_season_es: string | null;
   class_slug: string | null;
   conservation_status: Database["public"]["Enums"]["ConservationStatus"] | null;
   created_at: string;
-  diet: string | null;
-  distinguishable_features: DistinguishableFeatures | null;
-  facts: Facts | null;
-  human_interaction: string | null;
+  diet_en: string | null;
+  diet_es: string | null;
+  distinguishable_features_en: DistinguishableFeatures | null;
+  distinguishable_features_es: DistinguishableFeatures | null;
+  distribution_en: Distribution | null;
+  distribution_es: Distribution | null;
+  facts_en: Facts | null;
+  facts_es: Facts | null;
+  human_interaction_en: string | null;
+  human_interaction_es: string | null;
   id: string;
-  identifying_features: string | null;
-  lead_text: string | null;
+  identifying_features_en: string | null;
+  identifying_features_es: string | null;
+  lead_text_en: string | null;
+  lead_text_es: string | null;
   lifespan: string | null;
-  mating_season: string | null;
-  name_common: string | null;
+  mating_season_en: string | null;
+  mating_season_es: string | null;
+  name_common_en: string | null;
+  name_common_es: string | null;
   name_latin: string | null;
   population: string | null;
-  distribution: Distribution | null;
   size: string | null;
   slug: string;
   weight: string | null;
@@ -29,7 +41,7 @@ export type Specie = {
 
 export type SpecieSummary = Pick<
   Specie,
-  "id" | "name_common" | "name_latin" | "class_slug" | "slug"
+  "id" | "name_common_en" | "name_common_es" | "name_latin" | "class_slug" | "slug"
 >;
 
 export type SpecieWithMedia = Specie & {
