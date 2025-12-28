@@ -5,25 +5,34 @@ import imageStyles from "../styles/Image.module.css";
 import { findImageByRole } from "../../utils/getMediaTypes";
 import Image from "../Image";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
-
+import { useTranslation } from "react-i18next";
+import useGetLang from "../../hooks/useGetlang";
+import { get } from "node:http";
 
 interface DistributionInfoProps {
   specie: SpecieDetail;
 }
 
+interface DistributionObject {
+  features: string[];
+}
+
 const DistributionInfo = ({ specie }: DistributionInfoProps) => {
-  const distribution = specie.distribution;
-  
+  const { t } = useTranslation();
+  const getLang = useGetLang();
+
+  const distribution: DistributionObject = getLang(specie, 'distribution')
+
   const image = findImageByRole(specie.SpeciesMedia, "distribution");
   const imageUrl = image?.media_url ? resolveImageUrl(image.media_url) : "";
-  
+
   if (!distribution) return null;
 
   return (
     <div>
       <h3>
         <MapPinned className={styles.icon} />
-        Where to look for them:
+        {t("pages.animalsSpeciesPage.whereToLook")}
       </h3>
       {Object.entries(distribution).map(([region, description]) => (
         <div key={region}>

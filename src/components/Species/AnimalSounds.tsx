@@ -5,6 +5,7 @@ import { Trans, useTranslation } from "react-i18next";
 
 export default function AnimalSounds({ sounds }: { sounds: animalSound[] }) {
   const { t } = useTranslation();
+
   return (
     <>
       <div className="ion-padding-top">
@@ -20,13 +21,18 @@ export default function AnimalSounds({ sounds }: { sounds: animalSound[] }) {
                 className="ion-padding-bottom"
                 muted
               />
-              <Trans i18nKey="pages.animalsSpeciesPage.recordedIn" />
-              {/* <p>Recorded in <i>{sound.country}</i> by <i>{sound.recorder}</i>
-              </p> */}
-              <Trans i18nKey="pages.animalsSpeciesPage.licence" />
-              {/* <p>
-                <i>License: {sound.license}</i>
-              </p> */}
+              <p>
+                <Trans
+                  i18nKey="pages.animalsSpeciesPage.recordedIn"
+                  values={{ country: sound.country, recorder: sound.recorder }}
+                  components={{ italic: <i /> }}
+                />
+              </p>
+              <p>
+                <i>
+                  {t("pages.animalsSpeciesPage.licence")}: {sound.license}
+                </i>
+              </p>
             </IonLabel>
           </IonItem>
         ))}

@@ -123,7 +123,30 @@
       "identifyPenguinsNote": "Use our guide to find out what you saw"
     },
     "header": {
-      "addSighting": "Add sighting"
+      "addSighting": "Add sighting",
+      "errorMessages": {
+        "noSpeciesFound": "No species found"
+      }
+    }
+  },
+  "components": {
+    "accordionGroupItem": {
+      "date": "Date:",
+      "location": "Location:",
+      "notes": "Notes:",
+      "observations": "observations"
+    },
+    "speciesFeatures": {
+      "lifespan": "Up to {{lifespan}} years"
+    },
+    "speciesTabs": {
+      "behaviour": "Behaviour",
+      "distribution": "Distribution",
+      "facts": "Facts"
+    },
+    "distinguishableFeatures": {
+      "title": "Distinguishable features",
+      "nonAvailable": "No features available"
     }
   }
 }
