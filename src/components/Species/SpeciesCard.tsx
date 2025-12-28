@@ -25,6 +25,8 @@ const SpeciesCard: React.FC<SpeciesCardProps> = ({
   headerImage,
 }) => {
 
+  console.log(species)
+
   return (
     <IonRouterLink
       routerLink={`/animals/${species?.class_slug}/${species?.id}`}

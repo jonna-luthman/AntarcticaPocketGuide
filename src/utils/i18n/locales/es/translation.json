@@ -105,7 +105,7 @@
       "confirmSighting": "Confirmar avistamiento",
       "howMany": "¿Cuántos viste?",
       "location": "Ubicación",
-      "locationPlacholder": "¿Dónde lo viste?",
+      "locationPlaceholder": "¿Dónde lo viste?",
       "notes": "Notas",
       "notesPlaceholder": "Añade una nota...",
       "date": "Fecha"
@@ -114,13 +114,16 @@
       "sigthingsLogged": "Avistamientos registrados:",
       "birdsSeen": "Aves vistas:",
       "sealsSeen": "Focas vistas",
-      "Whales seen": "Ballenas vistas",
+      "whalesSeen": "Ballenas vistas",
       "seen": "Visto",
       "notSeen": "No visto"
     },
     "home": {
       "identifyPenguins": "Cómo identificar pingüinos",
       "identifyPenguinsNote": "Usa nuestra guía para descubrir qué viste"
+    },
+    "header": {
+      "addSighting": "Añadir avistamiento"
     }
   }
 }

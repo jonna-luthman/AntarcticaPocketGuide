@@ -11,6 +11,7 @@ import {
 import { useEffect } from "react";
 
 import useAnimals from "../hooks/useAnimals";
+import useGetLang from "../hooks/useGetlang";
 
 import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";
@@ -18,10 +19,14 @@ import Image from "../components/Image";
 
 import styles from "./styles/Home.module.css";
 import IdentifyPenguin from "../assets/icons/identify-penguin-icon.svg";
+
 import { resolveImageUrl } from "../utils/resolveImageUrl";
+import { useTranslation } from "react-i18next";
 
 const Home: React.FC = () => {
   const { animalClasses, getAllAnimalClasses } = useAnimals();
+  const getLang = useGetLang();
+  const { t } = useTranslation();
 
   const router = useIonRouter();
 
@@ -53,7 +58,9 @@ const Home: React.FC = () => {
                   "Homepage"
                 )}
               />
-              <IonText className={styles.heading}>{animalClass.name}</IonText>
+              <IonText className={styles.heading}>
+                {getLang(animalClass, "name_common")}
+              </IonText>
             </IonCol>
           ))}
 
@@ -71,8 +78,8 @@ const Home: React.FC = () => {
                 <img alt="Man with binoculars" src={IdentifyPenguin} />
               </IonThumbnail>
               <IonText>
-                <h2>How to identify penguins</h2>
-                <p>Use our guide to find out what you saw</p>
+                <h2>{t("pages.home.identifyPenguins")}</h2>
+                <p>{t("pages.home.identifyPenguinsNote")}</p>
               </IonText>
             </IonItem>
           </IonCol>

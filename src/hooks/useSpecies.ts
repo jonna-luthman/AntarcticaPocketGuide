@@ -32,7 +32,8 @@ export default function useSpecies() {
         .select(
           `
         id,
-        name_common,
+        name_common_en,
+        name_common_es,
         name_latin,
         class_slug,
         slug,
@@ -40,7 +41,7 @@ export default function useSpecies() {
       `
         )
         .eq("SpeciesMedia.role", "header")
-        .order("name_common", { ascending: false })
+        .order("name_common_en", { ascending: false })
         .limit(1, { foreignTable: "SpeciesMedia" });
 
       if (error) {
@@ -65,8 +66,8 @@ export default function useSpecies() {
 
     try {
       const selectQuery = options?.includeMedia
-        ? `id, name_common, name_latin, slug, class_slug, SpeciesMedia (id, media_url, role, order_index)`
-        : `id, name_common, name_latin, slug, class_slug`;
+        ? `id, name_common_en, name_common_es, name_latin, slug, class_slug, SpeciesMedia (id, media_url, role, order_index)`
+        : `id, name_common_en, name_common_es, name_latin, slug, class_slug`;
 
       const { data, error } = await supabase
         .from("Species")
@@ -123,8 +124,8 @@ export default function useSpecies() {
     try {
       const { data, error } = await supabase
         .from("Species")
-        .select("id, name_common, name_latin, slug, class_slug")
-        .ilike("name_common", `%${query}%`);
+        .select("id, name_common_en, name_common_es, name_latin, slug, class_slug")
+        .ilike("name_common_en", `%${query}%`);
 
       if (error) {
         setError(error);
@@ -146,7 +147,7 @@ export default function useSpecies() {
       const { data, error } = await supabase
         .from("Species")
         .select(
-          `id, name_common, name_latin, slug, class_slug, SpeciesMedia!inner(*), UserSpeciesList(*)`
+          `id, name_common_en, name_common_es, name_latin, slug, class_slug, SpeciesMedia!inner(*), UserSpeciesList(*)`
         )
         .eq("UserSpeciesList.user_id", currentUserId);
 

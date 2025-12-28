@@ -9,7 +9,8 @@ export function mapSpecieSummaryToUI(
 ): UISpecieSummaryWithMedia {
   return {
     id: specie.id,
-    name_common: specie.name_common ?? "Unknown",
+    name_common_en: specie.name_common_en ?? "Unknown",
+    name_common_es: specie.name_common_es ?? "Unknown",
     name_latin: specie.name_latin ?? "",
     slug: specie.slug,
     class_slug: specie.class_slug ?? "",

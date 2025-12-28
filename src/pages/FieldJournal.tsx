@@ -1,15 +1,12 @@
 import {
   IonContent,
   IonPage,
-  IonText,
-  IonButton,
   IonSegment,
   IonSegmentButton,
   IonLabel,
   IonAccordionGroup,
   IonCol,
   IonGrid,
-  IonIcon,
   IonRow,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
@@ -21,12 +18,10 @@ import useSpecies from "../hooks/useSpecies";
 
 import Header from "../components/Header";
 import AccordionGroupItem from "../components/AccordionGroupItem";
+import NotAuthorized from "../components/NotAuthorized";
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
-import { waterOutline, boatOutline } from "ionicons/icons";
-import { Bird } from "lucide-react";
-import { count } from "console";
-import NotAuthorized from "../components/NotAuthorized";
+import { useTranslation } from "react-i18next";
 
 interface FieldJournalProps {
   onShowLoginModal: () => void;
@@ -35,6 +30,8 @@ interface FieldJournalProps {
 const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
   const { session } = UserAuth();
   const { getUserSpeciesList, speciesWithSightings: species } = useSpecies();
+  const { t } = useTranslation();
+
   const [selectedSegment, setSelectedSegment] = useState<string>("seen");
 
   const userId = session?.user.id;
@@ -45,7 +42,6 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     }
   }, []);
 
-  console.log("species", species)
   useEffect(() => {
     if (userId) {
       getUserSpeciesList(userId);
@@ -66,8 +62,6 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
       };
     });
   }, [species]);
-
-  console.log("speciesWithUrls",speciesWithUrls)
 
   const seenSpecies = speciesWithUrls?.filter(
     (s) => s.UserSpeciesList?.length > 0
@@ -106,7 +100,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
           <NotAuthorized onAction={onShowLoginModal} />
         ) : (
           <div>
-            <h1 className="ion-padding-horizontal">Field notes</h1>
+            <h1 className="ion-padding-horizontal"></h1>
 
             <div className={styles.header}>
               <IonGrid className={styles.summaryContainer}>
@@ -114,7 +108,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{totalSightings}</strong>
-                      <small>Sightings logged</small>
+                      <small>{t('pages.fieldJournal.sigthingsLogged')}</small>
                     </IonLabel>
                   </IonCol>
                 </IonRow>
@@ -123,19 +117,19 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{birds?.length}</strong>
-                      <small>Birds seen</small>
+                      <small>{t('pages.fieldJournal.birdsSeen')}</small>
                     </IonLabel>
                   </IonCol>
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{seals?.length}</strong>
-                      <small>Seals seen</small>
+                      <small>{t('pages.fieldJournal.sealsSeen')}</small>
                     </IonLabel>
                   </IonCol>
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{whales?.length}</strong>
-                      <small>Whales seen</small>
+                      <small>{t('pages.fieldJournal.whalesSeen')}</small>
                     </IonLabel>
                   </IonCol>
                 </IonRow>
@@ -148,28 +142,28 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
                 onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
               >
                 <IonSegmentButton value="seen">
-                  <IonLabel>Seen</IonLabel>
+                  <IonLabel>{t('pages.fieldJournal.seen')}</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="not-seen">
-                  <IonLabel>Not seen</IonLabel>
+                  <IonLabel>{t('pages.fieldJournal.notSeen')}</IonLabel>
                 </IonSegmentButton>
               </IonSegment>
 
               <IonAccordionGroup expand="inset">
                 <AccordionGroupItem
-                  title="Birds"
+                  title={t('animalClasses.birds')}
                   items={birds ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
 
                 <AccordionGroupItem
-                  title="Seals"
+                  title={t('animalClasses.seals')}
                   items={seals ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
 
                 <AccordionGroupItem
-                  title="Whales & Dolphins"
+                  title={t('animalClasses.whalesAndDolphins')}
                   items={whales ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />

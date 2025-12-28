@@ -105,7 +105,7 @@
       "confirmSighting": "Confirm Sighting",
       "howMany": "How many did you see?",
       "location": "Location",
-      "locationPlacholder": "Where did you see it?",
+      "locationPlaceholder": "Where did you see it?",
       "notes": "Notes",
       "notesPlaceholder": "Add a note...",
       "date": "Date"
@@ -114,13 +114,16 @@
       "sigthingsLogged": "Sightings logged:",
       "birdsSeen": "Birds seen:",
       "sealsSeen": "Seals seen",
-      "Whales seen": "Whales seen",
+      "whalesSeen": "Whales seen",
       "seen": "Seen",
       "notSeen": "Not seen"
     },
     "home": {
       "identifyPenguins": "How to identify penguins",
       "identifyPenguinsNote": "Use our guide to find out what you saw"
+    },
+    "header": {
+      "addSighting": "Add sighting"
     }
   }
 }

@@ -20,6 +20,9 @@ import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { UserAuth } from "../context/AuthContext";
 import { UISpecieSummaryWithMedia } from "../types/species";
+import useGetLang from "../hooks/useGetlang";
+import { useTranslation } from "react-i18next";
+import i18n from "../utils/i18n";
 
 interface AddSightingProps {
   onShowLoginModal: () => void;
@@ -29,6 +32,10 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
   const { session } = UserAuth();
   const { getAllSpecies, speciesList: species } = useSpecies();
   const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const getLang = useGetLang();
+  const { t } = useTranslation();
+  const lang = i18n.language;
 
   useEffect(() => {
     getAllSpecies();
@@ -57,11 +64,16 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
 
   const filteredList = useMemo(() => {
     if (!searchTerm) return speciesWithUrls;
+    const nameKey = `name_common_${lang}` as keyof (typeof speciesWithUrls)[0];
 
-    return speciesWithUrls.filter((s) =>
-      s.name_common?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }, [speciesWithUrls, searchTerm]);
+    return speciesWithUrls.filter((s) => {
+      const name = (s[nameKey] || s.name_common_en || "")
+        .toString()
+        .toLowerCase();
+
+      return name.includes(searchTerm.toLowerCase());
+    });
+  }, [speciesWithUrls, searchTerm, lang]);
 
   const birds = filterSpeciesByClass({
     items: filteredList,
@@ -76,7 +88,13 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
     classSlug: "whales-and-dolphins",
   });
 
-  const SpeciesGroup = ({ title, items }: { title: string; items: UISpecieSummaryWithMedia[] }) => (
+  const SpeciesGroup = ({
+    title,
+    items,
+  }: {
+    title: string;
+    items: UISpecieSummaryWithMedia[];
+  }) => (
     <IonItemGroup className="ion-margin-bottom">
       <IonItemDivider color="inherit">
         <h3 className="font-average ion-text-uppercase">{title}</h3>
@@ -91,11 +109,14 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
         >
           {item.resolvedImageUrl && (
             <IonThumbnail slot="start">
-              <img alt={item.name_common ?? "undefined"} src={item.resolvedImageUrl} />
+              <img
+                alt={getLang(item, 'name_common') ?? "undefined"}
+                src={getLang(item, 'resolvedImageUrl')}
+              />
             </IonThumbnail>
           )}
           <div>
-            <h4 className="font-average">{item.name_common}</h4>
+            <h4 className="font-average">{getLang(item, 'name_common')}</h4>
             <p>{item.name_latin}</p>
           </div>
         </IonItem>
@@ -113,7 +134,11 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
       />
       <IonContent fullscreen>
         {!session ? (
-          <NotAuthorized title="Add sighting" description="Log in to add a sighting, track your progress, and build your personal field journal." onAction={onShowLoginModal} />
+          <NotAuthorized
+            title={t('notAuthorized.addSighting.title')}
+            description={t('notAuthorized.addSighting.title')}
+            onAction={onShowLoginModal}
+          />
         ) : (
           <div>
             <IonHeader collapse="condense">
@@ -121,7 +146,7 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
                 <IonSearchbar
                   value={searchTerm}
                   onIonInput={(e) => setSearchTerm(e.detail.value!)}
-                  placeholder="Search for species..."
+                  placeholder={t('searchBarDescription')}
                   debounce={300}
                 />
               </IonToolbar>
@@ -129,15 +154,15 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
 
             <IonList className="ion-padding">
               {birds && birds.length > 0 && (
-                <SpeciesGroup title="Birds" items={birds} />
+                <SpeciesGroup title={t('animalClasses.birds')} items={birds} />
               )}
 
               {seals && seals.length > 0 && (
-                <SpeciesGroup title="Seals" items={seals} />
+                <SpeciesGroup title={t('animalClasses.seals')} items={seals} />
               )}
 
               {whales && whales.length > 0 && (
-                <SpeciesGroup title="Whales and Dolphins" items={whales} />
+                <SpeciesGroup title={t('animalClasses.whalesAndDolphins')} items={whales} />
               )}
             </IonList>
           </div>
