@@ -97,7 +97,12 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
       <Header showMenu={true} />
       <IonContent fullscreen>
         {!session ? (
-          <NotAuthorized onAction={onShowLoginModal} />
+          <NotAuthorized
+            title={t('notAuthorized.fieldNotes.title')}
+            description={t('notAuthorized.fieldNotes.description')}
+            buttonText={t('notAuthorized.buttonText')}
+            onAction={onShowLoginModal}
+          />
         ) : (
           <div>
             <h1 className="ion-padding-horizontal"></h1>

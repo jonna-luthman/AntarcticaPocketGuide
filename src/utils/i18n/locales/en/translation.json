@@ -10,7 +10,8 @@
   "buttons": {
     "signOut": "Sign Out",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "close": "Close"
   },
   "menu": {
     "page": {
@@ -27,6 +28,7 @@
   "auth": {
     "buttons": {
       "login": "Log in",
+      "logout": "Sign out",
       "register": "Register",
       "createAccount": "Create account",
       "resetPassword": "Reset password",
@@ -36,11 +38,14 @@
       "goBackToLogin": "Go back to login",
       "googleSignIn": "Sign in with Google",
       "continueWithGoogle": "Continue with Google",
-      "registerPrompt": "Dont have an account?<b> Register here</b>",
-      "loginPrompt": "Already have an account?<b> Log in </b>",
+      "registerPrompt": "Dont have an account?",
+      "registerHere": "Register here",
+      "loginPrompt": "Already have an account?",
       "signInOrCreateAccount": "Sign in or create account"
     },
     "phrases": {
+      "loginTitle": "Log in",
+            "createAccountTitle": "Create account",
       "changePassword": "Change password",
       "login": "Welcome back! Log in to view your Field Notes and Add Sightings.",
       "forgotPassword": "No worries! Enter your email and we will send you a reset link.",
@@ -48,10 +53,15 @@
     },
     "form": {
       "newPassword": "New password",
-      "repeatPassword": "Repeat password"
+      "repeatPassword": "Repeat password",
+      "email": "Email",
+      "password": "Password",
+      "passwordNotMatching": "Passwords do not match",
+      "name": "Name"
     }
   },
   "notAuthorized": {
+    "buttonText": "Sign in or create account",
     "fieldNotes": {
       "title": "Field Notes",
       "description": "Log in to view your saved animals, track your progress, and build your personal field journal."
@@ -66,7 +76,10 @@
       "user_already_exists": "User already exists. Go to login.",
       "weak_password": "Password is too weak (at least 6 charachters)",
       "validation_failed": "Invalid email",
-      "over_email_send_rate_limit": "Too many requests. Try again in a few minutes."
+      "over_email_send_rate_limit": "Too many requests. Try again in a few minutes.",
+      "invalid_credentials": "Incorrect email or password",
+      "user_not_found": "No user found with this email.",
+      "unexpectedError": "Unexpected error, try again"
     }
   },
   "alerts": {
@@ -78,6 +91,9 @@
   "toasts": {
     "signOut": {
       "message": "You have been signed out."
+    },
+    "login": {
+      "welcomeBack": "Welcome back!"
     }
   },
   "animalClasses": {

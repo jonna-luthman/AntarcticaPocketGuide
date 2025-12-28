@@ -13,6 +13,7 @@ import { supabase } from "../api/supabaseClient";
 import { useLoading } from "../context/LoadingContext";
 import { chevronBackOutline } from "ionicons/icons";
 import styles from "./styles/Auth.module.css";
+import { useTranslation } from "react-i18next";
 
 interface LoginProps {
   nav: HTMLIonNavElement;
@@ -20,9 +21,10 @@ interface LoginProps {
 
 const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
   const { showLoading, hideLoading } = useLoading();
+  const { t } = useTranslation();
+
   const [showForm, setShowForm] = useState<boolean>(true);
   const [email, setEmail] = useState<string>("");
-
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
 
@@ -40,7 +42,7 @@ const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
 
       setShowForm(false);
       setSuccess(
-        `An email have been sent to "${email}" with a reset password link.`
+       t('auth.phrases.resetPassword', { email: email })
       );
     } catch (error: any) {
       console.error("Supabase error: ", error);
@@ -64,27 +66,27 @@ const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
       <IonContent fullscreen className="ion-padding">
         <div className={styles.center}>
           <IonText>
-            <h2>Forgot your password?</h2>
+            <h2>{t('auth.buttons.forgotPassword')}</h2>
             <p>
-              No worries! Enter your email and we will send you a reset link.
+              {t('auth.phrases.forgotPassword')}
             </p>
           </IonText>
         </div>
         <div>
           {showForm && (
             <form onSubmit={handleReset}>
-                <IonInput
-                  className="ion-margin-top"
-                  label="Email"
-                  type="email"
-                  fill="outline"
-                  labelPlacement="stacked"
-                  placeholder="example@mail.com"
-                  value={email}
-                  onIonInput={(event: CustomEvent) =>
-                    setEmail(event.detail.value)
-                  }
-                />
+              <IonInput
+                className="ion-margin-top"
+                label={t('auth.form.email')}
+                type="email"
+                fill="outline"
+                labelPlacement="stacked"
+                placeholder="example@mail.com"
+                value={email}
+                onIonInput={(event: CustomEvent) =>
+                  setEmail(event.detail.value)
+                }
+              />
 
               {error && (
                 <IonText color="danger" className="ion-padding">
@@ -98,7 +100,7 @@ const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
                 expand="block"
                 type="submit"
               >
-                Send
+                {t('auth.buttons.send')}
               </IonButton>
             </form>
           )}

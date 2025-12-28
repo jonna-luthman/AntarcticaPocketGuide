@@ -20,6 +20,7 @@ import Register from "./Register";
 import ResetPassword from "./ResetPassword";
 
 import styles from "./styles/Auth.module.css";
+import { useTranslation } from "react-i18next";
 
 interface LoginProps {
   nav: HTMLIonNavElement;
@@ -28,6 +29,7 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
   const { showLoading, hideLoading } = useLoading();
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -49,23 +51,23 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         const errorCode = response.error.code;
         switch (errorCode) {
           case "validation_failed":
-            setError("Invalid email");
+            setError(t('errors.auth.validation_failed'));
             break;
           case "invalid_credentials":
-            setError("Incorrect email or password");
+            setError(t('errors.auth.invalid_credentials'));
             break;
           case "user_not_found":
-            setError("No user found with this email.");
+            setError(t('errors.auth.user_not_found'));
             break;
           default:
-            setError(response.error.message || "Unexpected error, try again.");
+            setError(response.error.message || t('errors.auth.user_not_found'));
         }
         return;
       }
 
       hideLoading();
       showToast({
-        message: "Welcome back!",
+        message: t('toasts.login.welcomeBack'),
         duration: 2000,
         color: "dark",
         position: "bottom",
@@ -84,7 +86,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
       <IonHeader>
         <IonToolbar color="inherit">
           <IonButtons slot="end">
-            <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
+            <IonButton onClick={() => setIsOpen(false)}>{t('buttons.close')}</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -92,9 +94,9 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
       <IonContent className="ion-padding">
         <div className={styles.center}>
           <IonText>
-            <h2>Log in</h2>
+            <h2>{t('auth.phrases.loginTitle')}</h2>
             <p>
-              Welcome back! Log in to view your Field Notes and Add Sightings.
+              {t('auth.phrases.login')}
             </p>
           </IonText>
         </div>
@@ -102,7 +104,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           <form onSubmit={handleSignIn}>
             <IonInput
               className="ion-margin-top"
-              label="Email"
+              label={t('auth.form.email')}
               type="email"
               labelPlacement="stacked"
               fill="outline"
@@ -112,7 +114,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
             <IonInput
               className="ion-margin-top"
-              label="Password"
+              label={t('auth.form.password')}
               type="password"
               labelPlacement="stacked"
               fill="outline"
@@ -130,15 +132,9 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
             <p className={styles.right}>
               <IonText
-                onClick={() =>
-                  nav.push(() => (
-                    <ResetPassword
-                      nav={nav}
-                    />
-                  ))
-                }
+                onClick={() => nav.push(() => <ResetPassword nav={nav} />)}
               >
-                Forgot your password?
+                {t('auth.buttons.forgotPassword')}
               </IonText>
             </p>
 
@@ -148,7 +144,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
               className={styles.button}
               fill="outline"
             >
-              Continue
+              {t('auth.buttons.continue')}
             </IonButton>
           </form>
         </div>
@@ -163,7 +159,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
             onClick={signInWithGoogle}
           >
             <IonIcon slot="start" icon={logoGoogle} />
-            Sign in with Google
+            {t('auth.buttons.continueWithGoogle')}
           </IonButton>
         </div>
 
@@ -181,7 +177,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           }
         >
           <IonText>
-            Dont have an account?<b> Register here</b>
+            {t('auth.buttons.registerPrompt')}<b> {t('auth.buttons.registerHere')}</b>
           </IonText>
         </IonButton>
       </IonContent>

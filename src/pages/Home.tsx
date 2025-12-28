@@ -59,7 +59,7 @@ const Home: React.FC = () => {
                 )}
               />
               <IonText className={styles.heading}>
-                {getLang(animalClass, "name_common")}
+                {getLang(animalClass, "name")}
               </IonText>
             </IonCol>
           ))}

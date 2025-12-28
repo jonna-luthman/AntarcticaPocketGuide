@@ -10,7 +10,8 @@
   "buttons": {
     "signOut": "Cerrar sesión",
     "cancel": "Cancelar",
-    "save": "Guardar"
+    "save": "Guardar",
+    "close": "Cerrar"
   },
   "menu": {
     "page": {
@@ -27,7 +28,8 @@
   "auth": {
     "buttons": {
       "login": "Iniciar sesión",
-      "register": "Registrarse",
+      "logout": "Cerrar sesión",
+      "register": "Registrar-se",
       "createAccount": "Crear cuenta",
       "resetPassword": "Restablecer contraseña",
       "forgotPassword": "¿Olvidaste tu contraseña?",
@@ -36,11 +38,14 @@
       "goBackToLogin": "Volver al inicio de sesión",
       "googleSignIn": "Iniciar sesión con Google",
       "continueWithGoogle": "Continuar con Google",
-      "registerPrompt": "¿No tienes una cuenta?<b> Regístrate aquí</b>",
-      "loginPrompt": "¿Ya tienes una cuenta?<b> Inicia sesión </b>",
+      "registerPrompt": "¿No tienes una cuenta?",
+      "registerHere": "Regístrate aquí",
+      "loginPrompt": "¿Ya tienes una cuenta?",
       "signInOrCreateAccount": "Inicia sesión o crea una cuenta"
     },
     "phrases": {
+      "loginTitle": "Iniciar sesión",
+      "createAccountTitle": "Crear cuenta",
       "changePassword": "Cambiar contraseña",
       "login": "¡Bienvenido de nuevo! Inicia sesión para ver tus notas de campo y añadir avistamientos.",
       "forgotPassword": "¡No te preocupes! Introduce tu correo electrónico y te enviaremos un enlace para restablecer la contraseña.",
@@ -48,10 +53,15 @@
     },
     "form": {
       "newPassword": "Nueva contraseña",
-      "repeatPassword": "Repita la contraseña"
+      "repeatPassword": "Repita la contraseña",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "passwordNotMatching": "Las contraseñas no coinciden",
+      "name": "Nome"
     }
   },
   "notAuthorized": {
+    "buttonText": "Iniciar sesión o crear cuenta",
     "fieldNotes": {
       "title": "Notas de campo",
       "description": "Inicia sesión para ver tus animales guardados, seguir tu progreso y crear tu diario de campo personal."
@@ -66,7 +76,10 @@
       "user_already_exists": "El usuario ya existe. Ve al inicio de sesión.",
       "weak_password": "La contraseña es demasiado débil (al menos 6 caracteres)",
       "validation_failed": "Correo electrónico inválido",
-      "over_email_send_rate_limit": "Demasiadas solicitudes. Inténtalo de nuevo en unos minutos."
+      "over_email_send_rate_limit": "Demasiadas solicitudes. Inténtalo de nuevo en unos minutos.",
+      "invalid_credentials": "Correo o contraseña incorrectos",
+      "user_not_found": "No existe un usuario con este correo",
+      "unexpectedError": "Ocurrió un error inesperado. Inténtalo de nuevo."
     }
   },
   "alerts": {
@@ -78,6 +91,9 @@
   "toasts": {
     "signOut": {
       "message": "Has cerrado sesión."
+    },
+    "login": {
+      "welcomeBack": "¡Bienvenido de nuevo!"
     }
   },
   "animalClasses": {
@@ -137,8 +153,8 @@
       "observations": "observaciones"
     },
     "speciesFeatures": {
-    "lifespan": "Hasta {{lifespan}} años"
-  },
+      "lifespan": "Hasta {{lifespan}} años"
+    },
     "speciesTabs": {
       "behaviour": "Comportamiento",
       "distribution": "Distribución",
@@ -148,5 +164,5 @@
       "title": "Características distintivas",
       "nonAvailable": "No hay características disponibles."
     }
-}
+  }
 }

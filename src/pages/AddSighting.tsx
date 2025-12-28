@@ -130,13 +130,14 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
         showBackButton={true}
         showLogo={false}
         showTitle={true}
-        title="Add a Sighting"
+        title={t('pages.header.addSighting')}
       />
       <IonContent fullscreen>
         {!session ? (
           <NotAuthorized
             title={t('notAuthorized.addSighting.title')}
-            description={t('notAuthorized.addSighting.title')}
+            description={t('notAuthorized.addSighting.description')}
+            buttonText={t('notAuthorized.buttonText')}
             onAction={onShowLoginModal}
           />
         ) : (
