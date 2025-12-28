@@ -1,5 +1,4 @@
-
-import { SpeciesMedia,  } from "./media";
+import { SpeciesMedia } from "./media";
 import { Database } from "./supabase";
 import { UserSpeciesList } from "./userSpeciesList";
 
@@ -37,11 +36,17 @@ export type Specie = {
   size: string | null;
   slug: string;
   weight: string | null;
+  [key: string]: any;
 };
 
 export type SpecieSummary = Pick<
   Specie,
-  "id" | "name_common_en" | "name_common_es" | "name_latin" | "class_slug" | "slug"
+  | "id"
+  | "name_common_en"
+  | "name_common_es"
+  | "name_latin"
+  | "class_slug"
+  | "slug"
 >;
 
 export type SpecieWithMedia = Specie & {

@@ -1,0 +1,126 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "back": "Back"
+  },
+  "settings": {
+    "change_language": "Change Language"
+  },
+  "buttons": {
+    "signOut": "Sign Out",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "menu": {
+    "page": {
+      "fieldJournal": "Field Journal",
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us"
+    },
+    "description": {
+      "fieldJournal": "All my logs",
+      "aboutUs": "Who are we?",
+      "contactUs": "Any questions?"
+    }
+  },
+  "auth": {
+    "buttons": {
+      "login": "Log in",
+      "register": "Register",
+      "createAccount": "Create account",
+      "resetPassword": "Reset password",
+      "forgotPassword": "Forgot your password?",
+      "send": "Send",
+      "continue": "Continue",
+      "goBackToLogin": "Go back to login",
+      "googleSignIn": "Sign in with Google",
+      "continueWithGoogle": "Continue with Google",
+      "registerPrompt": "Dont have an account?<b> Register here</b>",
+      "loginPrompt": "Already have an account?<b> Log in </b>",
+      "signInOrCreateAccount": "Sign in or create account"
+    },
+    "phrases": {
+      "changePassword": "Change password",
+      "login": "Welcome back! Log in to view your Field Notes and Add Sightings.",
+      "forgotPassword": "No worries! Enter your email and we will send you a reset link.",
+      "resetPassword": "An email have been sent to {{email}} with a reset password link."
+    },
+    "form": {
+      "newPassword": "New password",
+      "repeatPassword": "Repeat password"
+    }
+  },
+  "notAuthorized": {
+    "fieldNotes": {
+      "title": "Field Notes",
+      "description": "Log in to view your saved animals, track your progress, and build your personal field journal."
+    },
+    "addSighting": {
+      "title": "Add sighting",
+      "description": "Log in to add a sighting, track your progress, and build your personal field journal."
+    }
+  },
+  "errors": {
+    "auth": {
+      "user_already_exists": "User already exists. Go to login.",
+      "weak_password": "Password is too weak (at least 6 charachters)",
+      "validation_failed": "Invalid email",
+      "over_email_send_rate_limit": "Too many requests. Try again in a few minutes."
+    }
+  },
+  "alerts": {
+    "signOut": {
+      "header": "Sign Out",
+      "message": "Are you sure you want to sign out?"
+    }
+  },
+  "toasts": {
+    "signOut": {
+      "message": "You have been signed out."
+    }
+  },
+  "animalClasses": {
+    "seals": "Seals",
+    "birds": "Birds",
+    "whalesAndDolphins": "Whales and Dolphins"
+  },
+  "searchBarDescription": "Search for species...",
+  "pages": {
+    "animalsSpeciesPage": {
+      "lookFor": "Look for",
+      "similiarSpecies": "Similar species",
+      "behaviourAroundPeople": "Behaviour around people",
+      "whereToLook": "Where to look for them:",
+      "facts": "Facts",
+      "figure": "Figure:",
+      "photographer": "Photographer:",
+      "distribution": "Distribution",
+      "behaviuor": "Behaviour",
+      "listen": "Listen",
+      "recordedIn": "Recorded in <i>{{country}}</i> by <i>{{recorder}}</i>",
+      "licence": "License:"
+    },
+    "confirmSighting": {
+      "confirmSighting": "Confirm Sighting",
+      "howMany": "How many did you see?",
+      "location": "Location",
+      "locationPlacholder": "Where did you see it?",
+      "notes": "Notes",
+      "notesPlaceholder": "Add a note...",
+      "date": "Date"
+    },
+    "fieldJournal": {
+      "sigthingsLogged": "Sightings logged:",
+      "birdsSeen": "Birds seen:",
+      "sealsSeen": "Seals seen",
+      "Whales seen": "Whales seen",
+      "seen": "Seen",
+      "notSeen": "Not seen"
+    },
+    "home": {
+      "identifyPenguins": "How to identify penguins",
+      "identifyPenguinsNote": "Use our guide to find out what you saw"
+    }
+  }
+}

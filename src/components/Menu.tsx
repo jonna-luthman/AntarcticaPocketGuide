@@ -15,6 +15,7 @@ import {
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const Menu = () => {
   const { signOutUser, session } = UserAuth();
@@ -103,6 +104,8 @@ const Menu = () => {
               </IonLabel>
             </IonItem>
           </IonMenuToggle>
+
+          <LanguageSwitcher />
 
           {session && (
             <IonMenuToggle>

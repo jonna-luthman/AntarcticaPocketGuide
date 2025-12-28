@@ -39,19 +39,22 @@ export type Database = {
         Row: {
           class_id: string | null
           id: string
-          name: string
+          name_en: string
+          name_es: string | null
           slug: string
         }
         Insert: {
           class_id?: string | null
           id?: string
-          name: string
+          name_en: string
+          name_es?: string | null
           slug: string
         }
         Update: {
           class_id?: string | null
           id?: string
-          name?: string
+          name_en?: string
+          name_es?: string | null
           slug?: string
         }
         Relationships: []

@@ -1,0 +1,126 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "back": "Volver"
+  },
+  "settings": {
+    "change_language": "Cambiar idioma"
+  },
+  "buttons": {
+    "signOut": "Cerrar sesión",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "menu": {
+    "page": {
+      "fieldJournal": "Diario de campo",
+      "aboutUs": "Sobre nosotros",
+      "contactUs": "Contacto"
+    },
+    "description": {
+      "fieldJournal": "Todos mis registros",
+      "aboutUs": "¿Quiénes somos?",
+      "contactUs": "¿Alguna pregunta?"
+    }
+  },
+  "auth": {
+    "buttons": {
+      "login": "Iniciar sesión",
+      "register": "Registrarse",
+      "createAccount": "Crear cuenta",
+      "resetPassword": "Restablecer contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "send": "Enviar",
+      "continue": "Continuar",
+      "goBackToLogin": "Volver al inicio de sesión",
+      "googleSignIn": "Iniciar sesión con Google",
+      "continueWithGoogle": "Continuar con Google",
+      "registerPrompt": "¿No tienes una cuenta?<b> Regístrate aquí</b>",
+      "loginPrompt": "¿Ya tienes una cuenta?<b> Inicia sesión </b>",
+      "signInOrCreateAccount": "Inicia sesión o crea una cuenta"
+    },
+    "phrases": {
+      "changePassword": "Cambiar contraseña",
+      "login": "¡Bienvenido de nuevo! Inicia sesión para ver tus notas de campo y añadir avistamientos.",
+      "forgotPassword": "¡No te preocupes! Introduce tu correo electrónico y te enviaremos un enlace para restablecer la contraseña.",
+      "resetPassword": "Se ha enviado un correo electrónico a {{email}} con un enlace para restablecer la contraseña."
+    },
+    "form": {
+      "newPassword": "Nueva contraseña",
+      "repeatPassword": "Repita la contraseña"
+    }
+  },
+  "notAuthorized": {
+    "fieldNotes": {
+      "title": "Notas de campo",
+      "description": "Inicia sesión para ver tus animales guardados, seguir tu progreso y crear tu diario de campo personal."
+    },
+    "addSighting": {
+      "title": "Añadir avistamiento",
+      "description": "Inicia sesión para añadir un avistamiento, seguir tu progreso y crear tu diario de campo personal."
+    }
+  },
+  "errors": {
+    "auth": {
+      "user_already_exists": "El usuario ya existe. Ve al inicio de sesión.",
+      "weak_password": "La contraseña es demasiado débil (al menos 6 caracteres)",
+      "validation_failed": "Correo electrónico inválido",
+      "over_email_send_rate_limit": "Demasiadas solicitudes. Inténtalo de nuevo en unos minutos."
+    }
+  },
+  "alerts": {
+    "signOut": {
+      "header": "Cerrar sesión",
+      "message": "¿Estás seguro de que quieres cerrar sesión?"
+    }
+  },
+  "toasts": {
+    "signOut": {
+      "message": "Has cerrado sesión."
+    }
+  },
+  "animalClasses": {
+    "seals": "Focas",
+    "birds": "Aves",
+    "whalesAndDolphins": "Ballenas y delfines"
+  },
+  "searchBarDescription": "Buscar especies...",
+  "pages": {
+    "animalsSpeciesPage": {
+      "lookFor": "Buscar",
+      "similiarSpecies": "Especies similares",
+      "behaviourAroundPeople": "Comportamiento cerca de las personas",
+      "whereToLook": "Dónde encontrarlos:",
+      "facts": "Datos",
+      "figure": "Figura:",
+      "photographer": "Fotógrafo:",
+      "distribution": "Distribución",
+      "behaviuor": "Comportamiento",
+      "listen": "Escucha",
+      "recordedIn": "Grabade en <i>{{country}}</i> por <i>{{recorder}}</i>",
+      "licence": "Licencia:"
+    },
+    "confirmSighting": {
+      "confirmSighting": "Confirmar avistamiento",
+      "howMany": "¿Cuántos viste?",
+      "location": "Ubicación",
+      "locationPlacholder": "¿Dónde lo viste?",
+      "notes": "Notas",
+      "notesPlaceholder": "Añade una nota...",
+      "date": "Fecha"
+    },
+    "fieldJournal": {
+      "sigthingsLogged": "Avistamientos registrados:",
+      "birdsSeen": "Aves vistas:",
+      "sealsSeen": "Focas vistas",
+      "Whales seen": "Ballenas vistas",
+      "seen": "Visto",
+      "notSeen": "No visto"
+    },
+    "home": {
+      "identifyPenguins": "Cómo identificar pingüinos",
+      "identifyPenguinsNote": "Usa nuestra guía para descubrir qué viste"
+    }
+  }
+}
