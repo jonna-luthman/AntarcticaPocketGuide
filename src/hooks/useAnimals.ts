@@ -30,18 +30,20 @@ export default function useAnimals() {
         .select(
           `
           id, 
-          name,
+          name_en,
+          name_es,
           slug, 
           SpeciesMedia (
           id, 
           media_url,
           role,
           order_index,
-          attribute  
+          attribute_en, 
+          attribute_es
         )`
         )
         .eq("SpeciesMedia.role", "cover")
-        .order("name", { ascending: false });
+        .order("name_en", { ascending: false });
       if (error) {
         setError(error);
         return;
@@ -63,7 +65,7 @@ export default function useAnimals() {
 
       const { data: classData } = await supabase
         .from("AnimalClasses")
-        .select("id, name")
+        .select("id, name_en, name_es")
         .eq("slug", slug)
         .single();
 

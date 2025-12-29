@@ -18,6 +18,7 @@ import { checkPasswordsMatch } from "../utils/checkPasswordsMatch";
 import { logoGoogle, chevronBackOutline } from "ionicons/icons";
 import styles from "./styles/Auth.module.css";
 import { AuthResult } from "../types/auth";
+import { useTranslation } from "react-i18next";
 
 interface RegisterProps {
   nav: HTMLIonNavElement;
@@ -36,6 +37,7 @@ const Register: React.FC<RegisterProps> = ({
 }) => {
   const router = useIonRouter();
   const { showLoading, hideLoading } = useLoading();
+  const { t } = useTranslation();
 
   const [errors, setErrors] = useState({
     email: "",
@@ -62,7 +64,7 @@ const Register: React.FC<RegisterProps> = ({
     if (!validPassword) {
       setErrors((prev) => ({
         ...prev,
-        repeatPassword: "Passwords do not match",
+        repeatPassword: t('auth.form.passwordNotMatching'),
       }));
       return;
     }
@@ -77,19 +79,19 @@ const Register: React.FC<RegisterProps> = ({
 
       switch (errorCode) {
         case "user_already_exists":
-          message = "User already exists. Go to login.";
+          message = t('errors.auth.user_already_exists');
           break;
         case "weak_password":
-          message = "Password is too weak (at least 6 charachters)";
+          message = t('errors.auth.weak_password');
           break;
         case "validation_failed":
-          message = "Invalid email";
+          message = t('errors.auth.validation_failed');
           break;
         case "over_email_send_rate_limit":
-          message = "Too many requests. Try again in a few minutes.";
+          message = t('errors.auth.over_email_send_rate_limit');
           break;
         default:
-          message = response.error.message;
+          message = response.error.message || t('errors.auth.unexpectedError');
       }
 
       setErrors((prev) => ({ ...prev, form: message }));
@@ -113,7 +115,7 @@ const Register: React.FC<RegisterProps> = ({
       <IonContent fullscreen className="ion-padding">
         <div className={styles.center}>
           <IonText>
-            <h2>Create account</h2>
+            <h2>{t('auth.phrases.createAccountTitle')}</h2>
           </IonText>
         </div>
         <form onSubmit={handleSubmit}>
@@ -122,7 +124,7 @@ const Register: React.FC<RegisterProps> = ({
               <IonInput
                 className="ion-margin-top"
                 name="name"
-                label="Name"
+                label={t('auth.form.name')}
                 labelPlacement="floating"
                 placeholder="John Smith"
                 value={form.name}
@@ -138,7 +140,7 @@ const Register: React.FC<RegisterProps> = ({
               <IonInput
                 type="email"
                 name="email"
-                label="Email"
+                label={t('auth.form.email')}
                 placeholder="example@mail.com"
                 className={
                   errors.email
@@ -159,7 +161,7 @@ const Register: React.FC<RegisterProps> = ({
             <IonItem>
               <IonInput
                 className="ion-margin-top"
-                label="Password"
+                label={t('auth.form.password')}
                 type="password"
                 value={form.password}
                 labelPlacement="floating"
@@ -174,7 +176,7 @@ const Register: React.FC<RegisterProps> = ({
 
             <IonItem>
               <IonInput
-                label="Repeat password"
+                label={t('auth.form.repeatPassword')}
                 type="password"
                 value={repeatPassword}
                 labelPlacement="floating"
@@ -202,7 +204,7 @@ const Register: React.FC<RegisterProps> = ({
             expand="block"
             type="submit"
           >
-            Register
+            {t('auth.buttons.register')}
           </IonButton>
         </form>
 
@@ -216,16 +218,12 @@ const Register: React.FC<RegisterProps> = ({
             onClick={signUpWithGoogle}
           >
             <IonIcon slot="start" icon={logoGoogle} />
-            Continue with Google
+            {t('auth.buttons.continueWithGoogle')}
           </IonButton>
 
-          <IonButton
-            expand="block"
-            fill="clear"
-            onClick={() => nav.pop()}
-          >
+          <IonButton expand="block" fill="clear" onClick={() => nav.pop()}>
             <IonText>
-              Already have an account?<b> Log in </b>
+            {t('auth.buttons.loginPrompt')}<b> {t('auth.buttons.login')} </b>
             </IonText>
           </IonButton>
         </div>

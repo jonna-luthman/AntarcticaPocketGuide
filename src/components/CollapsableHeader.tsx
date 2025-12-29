@@ -9,8 +9,12 @@ import {
 import useSpecies from "../hooks/useSpecies";
 import { useRef, useState } from "react";
 import { SpecieSummary } from "../types/species";
+import useGetLang from "../hooks/useGetLang";
+import { useTranslation } from "react-i18next";
 
 const CollapsableHeader = () => {
+  const getLang = useGetLang();
+  const { t } = useTranslation();
   const { getSpeciesBySearchQuery } = useSpecies();
 
   const [query, setQuery] = useState("");
@@ -29,7 +33,9 @@ const CollapsableHeader = () => {
     timeout.current = setTimeout(async () => {
       const data = await getSpeciesBySearchQuery(query);
       if (data?.length === 0) {
-        setMessage("No species found");
+        setMessage(t("pages.header.errorMessages.noSpeciesFound"));
+      } else {
+        setMessage("");
       }
       setResults(data);
     }, 300);
@@ -42,7 +48,7 @@ const CollapsableHeader = () => {
           <IonSearchbar
             onIonInput={(event) => handleInput(event)}
             debounce={1000}
-            placeholder="Search for species..."
+            placeholder={t("searchBarDescription")}
           />
         </IonToolbar>
       </IonHeader>
@@ -55,7 +61,7 @@ const CollapsableHeader = () => {
                 routerLink={`/${result.class_slug}/${result.slug}`}
                 key={result.id}
               >
-                <IonLabel>{result.name_common}</IonLabel>
+                <IonLabel>{getLang(result, "name_common")}</IonLabel>
               </IonItem>
             ))
           ) : (

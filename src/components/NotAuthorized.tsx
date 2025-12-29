@@ -1,5 +1,5 @@
 import { IonIcon, IonText, IonButton } from "@ionic/react";
-import styles from "./styles/NotAuthorized.module.css"
+import styles from "./styles/NotAuthorized.module.css";
 import { personCircleOutline } from "ionicons/icons";
 import React from "react";
 
@@ -10,11 +10,11 @@ interface NotAuthorizedProps {
   onAction?: () => void;
 }
 
-const NotAuthorized: React.FC<NotAuthorizedProps> = ({ 
-  title = "Field Notes", 
-  description = "Log in to view your saved animals, track your progress, and build your personal field journal.",
-  buttonText = "Sign in or create account",
-  onAction 
+const NotAuthorized: React.FC<NotAuthorizedProps> = ({
+  title,
+  description,
+  buttonText,
+  onAction,
 }) => {
 
   return (
@@ -30,9 +30,7 @@ const NotAuthorized: React.FC<NotAuthorizedProps> = ({
         </IonText>
 
         <IonText color="medium">
-          <p className={styles.loginPromptDescription}>
-            {description}
-          </p>
+          <p className={styles.loginPromptDescription}>{description}</p>
         </IonText>
 
         <IonButton

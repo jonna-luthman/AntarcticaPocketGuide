@@ -7,7 +7,7 @@ import {
   IonRouterLink,
 } from "@ionic/react";
 import styles from "./styles/SpeciesCard.module.css";
-import Image from "../Image"
+import Image from "../Image";
 import { UISpecieSummaryWithMedia } from "../../types/species";
 import { SpeciesMedia } from "../../types/media";
 
@@ -15,7 +15,7 @@ interface SpeciesCardProps {
   title: string | null;
   subtitle: string | null;
   species: UISpecieSummaryWithMedia | null;
-  headerImage: SpeciesMedia;
+  headerImage: SpeciesMedia | undefined;
 }
 
 const SpeciesCard: React.FC<SpeciesCardProps> = ({
@@ -24,7 +24,6 @@ const SpeciesCard: React.FC<SpeciesCardProps> = ({
   species,
   headerImage,
 }) => {
-
   return (
     <IonRouterLink
       routerLink={`/animals/${species?.class_slug}/${species?.id}`}
@@ -33,7 +32,11 @@ const SpeciesCard: React.FC<SpeciesCardProps> = ({
       <IonCard className={styles.specieCard} color="tertiary">
         <div className={styles.contentWrapper}>
           {headerImage && (
-            <Image image={headerImage} className="cornerImage" imageUrl={species?.resolvedImageUrl ?? ""}/>
+            <Image
+              image={headerImage}
+              className="cornerImage"
+              imageUrl={species?.resolvedImageUrl ?? ""}
+            />
           )}
 
           <IonCardHeader className={styles.cardHeader}>

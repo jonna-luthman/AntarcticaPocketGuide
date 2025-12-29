@@ -10,16 +10,21 @@ import Breadcrumbs from "../components/ui/Breadcrumbs";
 import useAnimals from "../hooks/useAnimals";
 import useSpecies from "../hooks/useSpecies";
 
-import { SpecieWithMedia, UISpecieSummaryWithMedia } from "../types/species";
+import { UISpecieSummaryWithMedia } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
 import { mapSpecieSummaryToUI } from "../mappers/speciesSummary";
+import useGetLang from "../hooks/useGetLang";
+import { findImageByRole } from "../utils/getMediaTypes";
 
 const AnimalClassPage: React.FC = () => {
   const { classSlug } = useParams<{ classSlug: string }>();
   const { getSpeciesByClass } = useSpecies();
   const { getAnimalClass } = useAnimals();
+  const getLang = useGetLang();
 
-  const [species, setSpecies] = useState<UISpecieSummaryWithMedia[] | null>(null);
+  const [species, setSpecies] = useState<UISpecieSummaryWithMedia[] | null>(
+    null
+  );
   const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(
     null
   );
@@ -42,31 +47,29 @@ const AnimalClassPage: React.FC = () => {
 
         setSpecies(uiData);
       } catch (error) {
-        console.error("Misslyckades att hämta arter:", error);
+        console.error("Failed to fetch species:", error);
       }
     };
 
     fetchData();
   }, [animalClass]);
 
-
   return (
     <IonPage>
       <IonContent>
         <Header showBackButton={true} />
         <CollapsableHeader />
-        <Breadcrumbs param1={animalClass?.name} />
+        <Breadcrumbs param1={getLang(animalClass, "name")} />
         <IonList>
           {species &&
             species.map((s) => {
-              const headerImage = s.SpeciesMedia?.[0];
-
+              const headerImage = findImageByRole(s.SpeciesMedia, "header");
               return (
                 <div key={s.id}>
                   <SpeciesCard
                     species={s}
-                    headerImage={headerImage}
-                    title={s.name_common}
+                    headerImage={headerImage ?? undefined}
+                    title={getLang(s, "name_common")}
                     subtitle={s.name_latin}
                   />
                 </div>
@@ -79,6 +82,3 @@ const AnimalClassPage: React.FC = () => {
 };
 
 export default AnimalClassPage;
-function getSpeciesByClass(id: any, arg1: { includeMedia: boolean }) {
-  throw new Error("Function not implemented.");
-}

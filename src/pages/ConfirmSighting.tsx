@@ -3,7 +3,6 @@ import {
   IonButton,
   IonContent,
   IonItemGroup,
-  IonItemDivider,
   IonLabel,
   IonItem,
   IonIcon,
@@ -38,6 +37,8 @@ import {
   chatbubbleEllipsesOutline,
 } from "ionicons/icons";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
+import { useTranslation } from "react-i18next";
+import useGetLang from "../hooks/useGetLang";
 
 const ConfirmSighting: React.FC = () => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
@@ -45,6 +46,8 @@ const ConfirmSighting: React.FC = () => {
   const { session } = UserAuth();
   const { createUserSpeciesList } = useUser();
   const { showLoading, hideLoading } = useLoading();
+  const getLang = useGetLang();
+  const { t } = useTranslation();
 
   const router = useIonRouter();
 
@@ -93,7 +96,6 @@ const ConfirmSighting: React.FC = () => {
     }
   };
 
-
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -101,7 +103,7 @@ const ConfirmSighting: React.FC = () => {
           showBackButton={true}
           showLogo={false}
           showTitle={true}
-          title="Confirm Sighting"
+          title={t("pages.header.addSighting")}
         />
         <div>
           <Image
@@ -118,7 +120,7 @@ const ConfirmSighting: React.FC = () => {
               className="ion-margin-vertical ion-padding-bottom"
               routerLink="/add-sighting"
             >
-              <h3 className="ion-margin">{species?.name_common}</h3>
+              <h3 className="ion-margin">{getLang(species, "name_common")}</h3>
             </IonItem>
 
             <IonItem
@@ -138,7 +140,7 @@ const ConfirmSighting: React.FC = () => {
 
             <IonItem lines="full" className="ion-margin ion-padding-bottom">
               <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
-              <p>How many did you see?</p>
+              <p>{t("pages.confirmSighting.howMany")}</p>
               <QuantitySelector count={count} setCount={setCount} />
             </IonItem>
 
@@ -152,21 +154,25 @@ const ConfirmSighting: React.FC = () => {
                 icon={locationOutline}
                 slot="start"
               ></IonIcon>
-              <IonLabel position="stacked">Location</IonLabel>
+              <IonLabel position="stacked">
+                {t("pages.confirmSighting.location")}
+              </IonLabel>
               <IonInput
                 type="text"
                 value={location}
-                placeholder="Where did you see it?"
+                placeholder={t("pages.confirmSighting.locationPlaceholder")}
                 onIonInput={(e) => setLocation(e.detail.value!)}
               />
             </IonItem>
 
             <IonItem lines="full" className="ion-margin ion-padding-bottom">
               <IonIcon icon={chatbubbleEllipsesOutline} slot="start" />
-              <IonLabel position="stacked">Notes</IonLabel>
+              <IonLabel position="stacked">
+                {t("pages.confirmSighting.notes")}
+              </IonLabel>
               <IonTextarea
                 value={notes}
-                placeholder="Add a note..."
+                placeholder={t("pages.confirmSighting.notesPlaceholder")}
                 autoGrow={true}
                 rows={3}
                 onIonInput={(e) => setNotes(e.detail.value!)}
@@ -186,9 +192,9 @@ const ConfirmSighting: React.FC = () => {
                 value={selectedDate}
                 onIonChange={(e) => setSelectedDate(e.detail.value as string)}
                 showDefaultButtons={true}
-                doneText="Done"
+                doneText={t("buttons.save")}
                 presentation="date"
-                cancelText="Cancel"
+                cancelText={t("buttons.cancel")}
                 color="dark"
                 hourCycle="h12"
               />
@@ -196,7 +202,7 @@ const ConfirmSighting: React.FC = () => {
           </IonModal>
           <div className="ion-padding">
             <IonButton expand="block" color="tertiary" type="submit">
-              Save
+              {t("buttons.save")}
             </IonButton>
 
             <IonButton
@@ -205,7 +211,7 @@ const ConfirmSighting: React.FC = () => {
               color="dark"
               onClick={() => router.back()}
             >
-              Cancel
+              {t("buttons.cancel")}
             </IonButton>
           </div>
         </form>

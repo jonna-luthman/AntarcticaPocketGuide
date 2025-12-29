@@ -1,23 +1,28 @@
-import styles from "./styles/SpeciesTabs.module.css"
+import styles from "./styles/SpeciesTabs.module.css";
 import { SpecieDetail } from "../../types/species";
+import useGetLang from "../../hooks/useGetLang";
 
 interface BehaviourInfoProps {
   specie: SpecieDetail;
 }
 
 const BehaviourInfo = ({ specie }: BehaviourInfoProps) => {
+  const getLang = useGetLang();
+
   return (
     <div>
       <div className={`${styles.leadBox} ${styles.fontBold}`}>
-        <p>"{specie.lead_text}"</p>
+        <p>"{getLang(specie, "lead_text")}"</p>
       </div>
-      {Object.entries(specie.behaviour ?? {}).map(([name, entry]) => (
-        <div key={name}>
-          <h3>{name}</h3>
-          <p>{entry.description}</p>
-          <hr className={styles.line} />
-        </div>
-      ))}
+      {Object.entries(getLang(specie, "behaviour") ?? {}).map(
+        ([title, entry]) => (
+          <div key={title}>
+            <h3>{title}</h3>
+            <p>{(entry as { description: string }).description}</p>
+            <hr className={styles.line} />
+          </div>
+        )
+      )}
     </div>
   );
 };

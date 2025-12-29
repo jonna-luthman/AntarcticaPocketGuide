@@ -17,17 +17,20 @@ export type Database = {
       AnimalClasses: {
         Row: {
           id: string
-          name: string
+          name_en: string
+          name_es: string | null
           slug: string
         }
         Insert: {
           id?: string
-          name: string
+          name_en: string
+          name_es?: string | null
           slug: string
         }
         Update: {
           id?: string
-          name?: string
+          name_en?: string
+          name_es?: string | null
           slug?: string
         }
         Relationships: []
@@ -36,19 +39,22 @@ export type Database = {
         Row: {
           class_id: string | null
           id: string
-          name: string
+          name_en: string
+          name_es: string | null
           slug: string
         }
         Insert: {
           class_id?: string | null
           id?: string
-          name: string
+          name_en: string
+          name_es?: string | null
           slug: string
         }
         Update: {
           class_id?: string | null
           id?: string
-          name?: string
+          name_en?: string
+          name_es?: string | null
           slug?: string
         }
         Relationships: []
@@ -56,39 +62,53 @@ export type Database = {
       Regions: {
         Row: {
           id: string
-          name: string
+          name_en: string
+          name_es: string | null
         }
         Insert: {
           id?: string
-          name: string
+          name_en: string
+          name_es?: string | null
         }
         Update: {
           id?: string
-          name?: string
+          name_en?: string
+          name_es?: string | null
         }
         Relationships: []
       }
       Species: {
         Row: {
           animal_class_id: string | null
-          behaviour: Json | null
-          birthing_season: string | null
+          behaviour_en: Json | null
+          behaviour_es: Json | null
+          birthing_season_en: string | null
+          birthing_season_es: string | null
           class_slug: string | null
           conservation_status:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
           created_at: string
-          diet: string | null
-          distinguishable_features: Json | null
-          distribution: Json | null
-          facts: Json | null
-          human_interaction: string | null
+          diet_en: string | null
+          diet_es: string | null
+          distinguishable_features_en: Json | null
+          distinguishable_features_es: Json | null
+          distribution_en: Json | null
+          distribution_es: Json | null
+          facts_en: Json | null
+          facts_es: Json | null
+          human_interaction_en: string | null
+          human_interaction_es: string | null
           id: string
-          identifying_features: string | null
-          lead_text: string | null
+          identifying_features_en: string | null
+          identifying_features_es: string | null
+          lead_text_en: string | null
+          lead_text_es: string | null
           lifespan: string | null
-          mating_season: string | null
-          name_common: string | null
+          mating_season_en: string | null
+          mating_season_es: string | null
+          name_common_en: string | null
+          name_common_es: string | null
           name_latin: string | null
           population: string | null
           size: string | null
@@ -97,24 +117,35 @@ export type Database = {
         }
         Insert: {
           animal_class_id?: string | null
-          behaviour?: Json | null
-          birthing_season?: string | null
+          behaviour_en?: Json | null
+          behaviour_es?: Json | null
+          birthing_season_en?: string | null
+          birthing_season_es?: string | null
           class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
           created_at?: string
-          diet?: string | null
-          distinguishable_features?: Json | null
-          distribution?: Json | null
-          facts?: Json | null
-          human_interaction?: string | null
+          diet_en?: string | null
+          diet_es?: string | null
+          distinguishable_features_en?: Json | null
+          distinguishable_features_es?: Json | null
+          distribution_en?: Json | null
+          distribution_es?: Json | null
+          facts_en?: Json | null
+          facts_es?: Json | null
+          human_interaction_en?: string | null
+          human_interaction_es?: string | null
           id?: string
-          identifying_features?: string | null
-          lead_text?: string | null
+          identifying_features_en?: string | null
+          identifying_features_es?: string | null
+          lead_text_en?: string | null
+          lead_text_es?: string | null
           lifespan?: string | null
-          mating_season?: string | null
-          name_common?: string | null
+          mating_season_en?: string | null
+          mating_season_es?: string | null
+          name_common_en?: string | null
+          name_common_es?: string | null
           name_latin?: string | null
           population?: string | null
           size?: string | null
@@ -123,24 +154,35 @@ export type Database = {
         }
         Update: {
           animal_class_id?: string | null
-          behaviour?: Json | null
-          birthing_season?: string | null
+          behaviour_en?: Json | null
+          behaviour_es?: Json | null
+          birthing_season_en?: string | null
+          birthing_season_es?: string | null
           class_slug?: string | null
           conservation_status?:
             | Database["public"]["Enums"]["ConservationStatus"]
             | null
           created_at?: string
-          diet?: string | null
-          distinguishable_features?: Json | null
-          distribution?: Json | null
-          facts?: Json | null
-          human_interaction?: string | null
+          diet_en?: string | null
+          diet_es?: string | null
+          distinguishable_features_en?: Json | null
+          distinguishable_features_es?: Json | null
+          distribution_en?: Json | null
+          distribution_es?: Json | null
+          facts_en?: Json | null
+          facts_es?: Json | null
+          human_interaction_en?: string | null
+          human_interaction_es?: string | null
           id?: string
-          identifying_features?: string | null
-          lead_text?: string | null
+          identifying_features_en?: string | null
+          identifying_features_es?: string | null
+          lead_text_en?: string | null
+          lead_text_es?: string | null
           lifespan?: string | null
-          mating_season?: string | null
-          name_common?: string | null
+          mating_season_en?: string | null
+          mating_season_es?: string | null
+          name_common_en?: string | null
+          name_common_es?: string | null
           name_latin?: string | null
           population?: string | null
           size?: string | null
@@ -166,7 +208,8 @@ export type Database = {
       }
       SpeciesMedia: {
         Row: {
-          attribute: string | null
+          attribute_en: string | null
+          attribute_es: string | null
           class_id: string | null
           created_at: string
           id: string
@@ -178,7 +221,8 @@ export type Database = {
           species_id: string | null
         }
         Insert: {
-          attribute?: string | null
+          attribute_en?: string | null
+          attribute_es?: string | null
           class_id?: string | null
           created_at?: string
           id?: string
@@ -190,7 +234,8 @@ export type Database = {
           species_id?: string | null
         }
         Update: {
-          attribute?: string | null
+          attribute_en?: string | null
+          attribute_es?: string | null
           class_id?: string | null
           created_at?: string
           id?: string

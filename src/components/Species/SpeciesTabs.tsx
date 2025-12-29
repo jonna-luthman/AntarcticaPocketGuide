@@ -10,12 +10,14 @@ import Facts from "./Facts";
 import DistributionInfo from "./DistributionInfo";
 import styles from "./styles/SpeciesCard.module.css";
 import { SpecieDetail } from "../../types/species";
+import { useTranslation } from "react-i18next";
 
 interface SpeciesTabsProps {
   specie: SpecieDetail | null;
 }
 
 export default function SpeciesTabs({ specie }: SpeciesTabsProps) {
+  const { t } = useTranslation()
   const [selectedTab, setSelectedTab] = useState<SegmentValue>("distribution");
 
   return (
@@ -26,15 +28,15 @@ export default function SpeciesTabs({ specie }: SpeciesTabsProps) {
         onIonChange={(e) => setSelectedTab(e.detail.value!)}
       >
         <IonSegmentButton value="distribution">
-          <IonLabel>Distribution</IonLabel>
+          <IonLabel>{t('components.speciesTabs.distribution')}</IonLabel>
         </IonSegmentButton>
 
         <IonSegmentButton value="behaviour">
-          <IonLabel className={styles.segmentLabel}>Behaviour</IonLabel>
+          <IonLabel className={styles.segmentLabel}>{t('components.speciesTabs.behaviour')}</IonLabel>
         </IonSegmentButton>
 
         <IonSegmentButton value="facts">
-          <IonLabel>Facts</IonLabel>
+          <IonLabel>{t('components.speciesTabs.facts')}</IonLabel>
         </IonSegmentButton>
       </IonSegment>
 

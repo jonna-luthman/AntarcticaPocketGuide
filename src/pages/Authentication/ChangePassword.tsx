@@ -11,14 +11,18 @@ import {
 import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import useUsers from "../../hooks/useUser";
 import { useLoading } from "../../context/LoadingContext";
+import useGetLang from "../../hooks/useGetLang";
+import { useTranslation } from "react-i18next";
 
 interface ChangePasswordProps {
   nav: HTMLIonNavElement;
 }
 
-const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
+const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
   const { showLoading, hideLoading } = useLoading();
   const { updateUser } = useUsers();
+  const getLang = useGetLang();
+  const { t } = useTranslation();
 
   const [form, setForm] = useState({
     email: "",
@@ -71,7 +75,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
       <IonContent fullscreen scrollY={false} className="ion-padding">
         <div>
           <IonText className="ion-text-center">
-            <h2>Change password</h2>
+            <h2>{t("auth.phrases.changePassword")}</h2>
           </IonText>
         </div>
         {showForm && (
@@ -94,7 +98,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
 
               <IonItem>
                 <IonInput
-                  label="New password"
+                  label={t("auth.form.newPassword")}
                   type="password"
                   labelPlacement="stacked"
                   value={form.newPassword}
@@ -109,7 +113,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
 
               <IonItem>
                 <IonInput
-                  label="Repeat password"
+                  label={t("auth.form.repeatPassword")}
                   type="password"
                   value={repeatPassword}
                   labelPlacement="stacked"
@@ -139,7 +143,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
               expand="block"
               color="dark"
             >
-              Reset password
+              {t("auth.phrases.resetPassword")}
             </IonButton>
 
             <IonButton
@@ -148,9 +152,8 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
               expand="block"
               fill="clear"
               color="dark"
-              
             >
-              Cancel
+              {t("buttons.cancel")}
             </IonButton>
           </form>
         )}
@@ -160,16 +163,12 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({nav}) => {
             <IonText color="success" className="ion-padding">
               {success}
             </IonText>
-            
-              <div>
-                <IonButton
-                  expand="block"
-                  fill="clear"
-                  onClick={() => nav.pop()}
-                >
-                  <IonText>Go back to log in</IonText>
-                </IonButton>
-              </div>
+
+            <div>
+              <IonButton expand="block" fill="clear" onClick={() => nav.pop()}>
+                <IonText>{t("auth.buttons.goBackToLogin")}</IonText>
+              </IonButton>
+            </div>
           </div>
         )}
       </IonContent>

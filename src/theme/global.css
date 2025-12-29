@@ -59,12 +59,33 @@ ion-tab-button {
   font-family: "Avenir", sans-serif;
 }
 
-.alert-button {
-  color: var(--ion-color-dark) !important;
+.language-action-sheet {
+  --button-color: var(--ion-color-tertiary);
+  --button-background-selected: var(--ion-color-light);
 }
 
 .custom-modal {
   --ion-color-primary: var(--ion-color-dark);
+}
+
+/* Själva containern */
+.custom-alert {
+  --background: var(--ion-color-light); /* Eller din primary */
+  --backdrop-opacity: 0.6;
+}
+
+/* Styla ALLA knappar i alerten */
+.custom-alert .alert-button {
+  color: var(--ion-color-dark);
+}
+
+/* Om du vill styla 'Confirm' och 'Cancel' olika (använd klasserna vi satte ovan) */
+.custom-alert .alert-button-confirm {
+  color: var(--color);
+}
+
+.custom-alert .alert-button-cancel {
+  color: var(--ion-color-danger);
 }
 
 .font-avenir { font-family: var(--font-avenir); }

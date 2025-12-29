@@ -8,7 +8,9 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import { chevronUpOutline, chevronDownOutline } from "ionicons/icons";
-import { SpecieSummaryWithMedia, SpecieSummaryWithMediaAndUrl, UISpecieSummaryWithMedia } from "../types/species";
+import { SpecieSummaryWithMediaAndUrl } from "../types/species";
+import { useTranslation } from "react-i18next";
+import useGetLang from "../hooks/useGetLang";
 
 interface AccordionGroupProps {
   title: string;
@@ -21,6 +23,8 @@ const AccordionGroupItem = ({
   items,
   isSeenMode,
 }: AccordionGroupProps) => {
+  const getLang = useGetLang();
+  const { t } = useTranslation();
   const router = useIonRouter();
   const [expandedId, setExpandedId] = useState<string>("");
 
@@ -28,13 +32,13 @@ const AccordionGroupItem = ({
     router.push(`/animals/${classSlug}/${id}`);
   };
 
-  console.log(items)
-
   return (
     <IonAccordion value={title}>
       <IonItem slot="header" color="inherit" className="ion-margin-vertical">
         <IonLabel>
-          <h1>{title} ({items?.length})</h1>
+          <h1>
+            {title} ({items?.length})
+          </h1>
         </IonLabel>
       </IonItem>
       <div slot="content">
@@ -52,15 +56,18 @@ const AccordionGroupItem = ({
               {item.resolvedImageUrl && (
                 <IonThumbnail slot="start">
                   <img
-                    alt={item.name_common ?? ""}
+                    alt={getLang(item, "name_common")}
                     src={item.resolvedImageUrl}
                   />
                 </IonThumbnail>
               )}
               <IonLabel>
-                <h2 className="font-average">{item.name_common}</h2>
+                <h2 className="font-average">{getLang(item, "name_common")}</h2>
                 {isSeenMode && (
-                  <p>{item.UserSpeciesList.length} observations</p>
+                  <p>
+                    {item.UserSpeciesList.length}{" "}
+                    {t("components.accordionGroupItem.observations")}
+                  </p>
                 )}
               </IonLabel>
               {isSeenMode && (
@@ -81,11 +88,21 @@ const AccordionGroupItem = ({
                   <IonItem key={o.id} lines="none">
                     <IonLabel>
                       <p>
-                        Date:{" "}
-                        {new Date(o.observation_date).toLocaleDateString()} -{" "}
+                        {t("components.accordionGroupItem.date")}
+                        {new Date(
+                          o.observation_date
+                        ).toLocaleDateString()} -{" "}
                       </p>
-                      <p>Location: {o.location}</p>
-                      {o.note_text && <p>Notes: {o.note_text} </p>}
+                      <p>
+                        {t("components.accordionGroupItem.location")}{" "}
+                        {getLang(o, "location")}
+                      </p>
+                      {o.note_text && (
+                        <p>
+                          {t("components.accordionGroupItem.notes")}{" "}
+                          {o.note_text}{" "}
+                        </p>
+                      )}
                     </IonLabel>
                   </IonItem>
                 ))}

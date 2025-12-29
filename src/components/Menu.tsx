@@ -15,22 +15,26 @@ import {
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Menu = () => {
   const { signOutUser, session } = UserAuth();
   const router = useIonRouter();
   const [showAlert] = useIonAlert();
   const [showToast] = useIonToast();
+  const { t } = useTranslation();
 
   const handleClick = () => {
     showAlert({
-      header: "Sign out",
-      message: "Are you sure you want to sign out?",
+      header: t("alerts.signOut.header"),
+      message: t("alerts.signOut.message"),
       cssClass: "custom-alert",
       buttons: [
-        { text: "Cancel", role: "cancel" },
+        { text: t("buttons.cancel"), role: "cancel", cssClass: 'alert-button-cancel' },
         {
-          text: "Sign out",
+          text: t("buttons.signOut"),
+          cssClass: 'alert-button-confirm',
           role: "confirm",
           handler: async () => {
             await handleSignOut();
@@ -45,7 +49,7 @@ const Menu = () => {
       await signOutUser();
 
       showToast({
-        message: "You have been logged out.",
+        message: t("toasts.signOut.message"),
         duration: 2000,
         color: "dark",
         position: "bottom",
@@ -77,29 +81,42 @@ const Menu = () => {
 
       <IonContent className="ion-padding">
         <IonList>
-          <IonMenuToggle autoHide={false}>
+          <IonMenuToggle></IonMenuToggle>
+
+          <div className="ion-padding-start ion-margin-bottom">
+            <LanguageSwitcher />
+          </div>
+          <IonMenuToggle>
             <IonItem routerLink="/field-journal" lines="none">
               <IonLabel>
-                <h2 className="ion-text-uppercase tex">Field Journal</h2>
-                <p className="font-display">All my logs</p>
+                <h2 className="ion-text-uppercase">
+                  {t("menu.page.fieldJournal")}
+                </h2>
+                <p className="font-display">
+                  {t("menu.description.fieldJournal")}
+                </p>
               </IonLabel>
             </IonItem>
           </IonMenuToggle>
 
-          <IonMenuToggle autoHide={false}>
+          <IonMenuToggle>
             <IonItem routerLink="/about-us" lines="none">
               <IonLabel>
-                <h2 className="ion-text-uppercase">About us</h2>
-                <p className="font-display">Who are we</p>
+                <h2 className="ion-text-uppercase">{t("menu.page.aboutUs")}</h2>
+                <p className="font-display">{t("menu.description.aboutUs")}</p>
               </IonLabel>
             </IonItem>
           </IonMenuToggle>
 
-          <IonMenuToggle autoHide={false}>
+          <IonMenuToggle>
             <IonItem routerLink="/contact-us" lines="none">
               <IonLabel>
-                <h2 className="ion-text-uppercase">Contact us</h2>
-                <p className="font-display">Any questions</p>
+                <h2 className="ion-text-uppercase">
+                  {t("menu.page.contactUs")}
+                </h2>
+                <p className="font-display">
+                  {t("menu.description.contactUs")}
+                </p>
               </IonLabel>
             </IonItem>
           </IonMenuToggle>
@@ -112,7 +129,7 @@ const Menu = () => {
                 expand="block"
                 onClick={handleClick}
               >
-                Sign out
+                {t("auth.buttons.logout")}
               </IonButton>
             </IonMenuToggle>
           )}
