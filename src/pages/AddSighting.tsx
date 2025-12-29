@@ -20,7 +20,7 @@ import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { UserAuth } from "../context/AuthContext";
 import { UISpecieSummaryWithMedia } from "../types/species";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
 import i18n from "../utils/i18n";
 

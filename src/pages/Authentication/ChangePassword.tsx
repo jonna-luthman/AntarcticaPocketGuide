@@ -11,7 +11,7 @@ import {
 import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import useUsers from "../../hooks/useUser";
 import { useLoading } from "../../context/LoadingContext";
-import useGetLang from "../../hooks/useGetlang";
+import useGetLang from "../../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
 
 interface ChangePasswordProps {

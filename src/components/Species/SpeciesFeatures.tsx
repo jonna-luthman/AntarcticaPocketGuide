@@ -1,7 +1,7 @@
-import { Circle, Clock, Ruler, Utensils, Weight } from "lucide-react";
+import { Clock, Ruler, Utensils } from "lucide-react";
 import { Specie } from "../../types/species";
 import styles from "./styles/SpeciesFeatures.module.css";
-import useGetLang from "../../hooks/useGetlang";
+import useGetLang from "../../hooks/useGetLang";
 import { Trans, useTranslation } from "react-i18next";
 import { conservationStatusMap } from "../../constants/ConservationStatus";
 

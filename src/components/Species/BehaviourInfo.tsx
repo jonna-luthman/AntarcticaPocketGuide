@@ -1,7 +1,6 @@
 import styles from "./styles/SpeciesTabs.module.css";
 import { SpecieDetail } from "../../types/species";
-import useGetLang from "../../hooks/useGetlang";
-import { spec } from "node:test/reporters";
+import useGetLang from "../../hooks/useGetLang";
 
 interface BehaviourInfoProps {
   specie: SpecieDetail;

@@ -5,7 +5,7 @@ import imageStyles from "../styles/Image.module.css";
 import { findImageByRole } from "../../utils/getMediaTypes";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../../hooks/useGetlang";
+import useGetLang from "../../hooks/useGetLang";
 
 interface FactsProps {
   specie: SpecieDetail;

@@ -13,7 +13,7 @@ import {
   SpecieSummaryWithMediaAndUrl,
   UISpecieSummaryWithMedia,
 } from "../types/species";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
 
 interface AccordionGroupProps {

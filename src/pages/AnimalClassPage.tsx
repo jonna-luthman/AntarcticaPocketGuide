@@ -13,7 +13,7 @@ import useSpecies from "../hooks/useSpecies";
 import { UISpecieSummaryWithMedia } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
 import { mapSpecieSummaryToUI } from "../mappers/speciesSummary";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 import { findImageByRole } from "../utils/getMediaTypes";
 
 const AnimalClassPage: React.FC = () => {

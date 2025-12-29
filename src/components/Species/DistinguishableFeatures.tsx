@@ -1,7 +1,7 @@
 import { FingerprintPattern } from "lucide-react";
 import { Specie } from "../../types/species";
 import styles from "./styles/SpeciesTabs.module.css";
-import useGetLang from "../../hooks/useGetlang";
+import useGetLang from "../../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
 
 interface DistinguishableFeaturesCardProps {
