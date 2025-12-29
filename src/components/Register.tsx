@@ -15,7 +15,7 @@ import React, { FormEvent, useState } from "react";
 
 import { useLoading } from "../context/LoadingContext";
 import { checkPasswordsMatch } from "../utils/checkPasswordsMatch";
-import { logoGoogle, chevronBackOutline } from "ionicons/icons";
+import { logoGoogle, logoFacebook, chevronBackOutline } from "ionicons/icons";
 import styles from "./styles/Auth.module.css";
 import { AuthResult } from "../types/auth";
 import { useTranslation } from "react-i18next";
@@ -28,12 +28,14 @@ interface RegisterProps {
     name: string;
   }) => Promise<AuthResult>;
   signUpWithGoogle: () => Promise<void>;
+  signUpWithFacebook: () => Promise<void>;
 }
 
 const Register: React.FC<RegisterProps> = ({
   nav,
   signUpNewUser,
   signUpWithGoogle,
+  signUpWithFacebook
 }) => {
   const router = useIonRouter();
   const { showLoading, hideLoading } = useLoading();
@@ -219,6 +221,16 @@ const Register: React.FC<RegisterProps> = ({
           >
             <IonIcon slot="start" icon={logoGoogle} />
             {t('auth.buttons.continueWithGoogle')}
+          </IonButton>
+
+          <IonButton
+            expand="block"
+            fill="solid"
+            className={styles.googleButton}
+            onClick={signUpWithFacebook}
+          >
+            <IonIcon slot="start" icon={logoFacebook} />
+            {t('auth.buttons.continueWithFacebook')}
           </IonButton>
 
           <IonButton expand="block" fill="clear" onClick={() => nav.pop()}>

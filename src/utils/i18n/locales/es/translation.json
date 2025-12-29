@@ -40,6 +40,8 @@
       "goBackToLogin": "Volver al inicio de sesión",
       "googleSignIn": "Iniciar sesión con Google",
       "continueWithGoogle": "Continuar con Google",
+      "facebookSignIn": "Iniciar sesión con Facebook",
+      "continueWithFacebook": "Continuar con Facebook",
       "registerPrompt": "¿No tienes una cuenta?",
       "registerHere": "Regístrate aquí",
       "loginPrompt": "¿Ya tienes una cuenta?",
