@@ -16,7 +16,7 @@ import Image from "../Image";
 import { SpeciesMedia } from "../../types/media";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../../hooks/useGetlang";
+import useGetLang from "../../hooks/useGetLang";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -32,7 +32,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
-  const getLang = useGetLang()
+  const getLang = useGetLang();
   const imageUrl = image?.media_url ? resolveImageUrl(image.media_url) : "";
 
   return (
@@ -65,7 +65,10 @@ const ImageModal: React.FC<ImageModalProps> = ({
             </div>
             {image?.photographer && (
               <IonText color="light" className="ion-padding">
-                <i>{t('pages.animalsSpeciesPage.photographer')} {image.photographer}</i>
+                <i>
+                  {t("pages.animalsSpeciesPage.photographer")}{" "}
+                  {image.photographer}
+                </i>
               </IonText>
             )}
           </SwiperSlide>

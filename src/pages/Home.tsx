@@ -11,7 +11,7 @@ import {
 import { useEffect } from "react";
 
 import useAnimals from "../hooks/useAnimals";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 
 import Header from "../components/Header";
 import CollapsableHeader from "../components/CollapsableHeader";

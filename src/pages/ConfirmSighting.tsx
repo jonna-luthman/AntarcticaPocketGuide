@@ -38,7 +38,7 @@ import {
 } from "ionicons/icons";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 
 const ConfirmSighting: React.FC = () => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();

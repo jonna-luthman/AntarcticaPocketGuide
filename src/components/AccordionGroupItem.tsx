@@ -8,11 +8,9 @@ import {
 } from "@ionic/react";
 import { useState } from "react";
 import { chevronUpOutline, chevronDownOutline } from "ionicons/icons";
-import {
-  SpecieSummaryWithMediaAndUrl,
-} from "../types/species";
+import { SpecieSummaryWithMediaAndUrl } from "../types/species";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 
 interface AccordionGroupProps {
   title: string;
@@ -58,15 +56,18 @@ const AccordionGroupItem = ({
               {item.resolvedImageUrl && (
                 <IonThumbnail slot="start">
                   <img
-                    alt={getLang(item, 'name_common')}
+                    alt={getLang(item, "name_common")}
                     src={item.resolvedImageUrl}
                   />
                 </IonThumbnail>
               )}
               <IonLabel>
-                <h2 className="font-average">{getLang(item, 'name_common')}</h2>
+                <h2 className="font-average">{getLang(item, "name_common")}</h2>
                 {isSeenMode && (
-                  <p>{item.UserSpeciesList.length} {t('components.accordionGroupItem.observations')}</p>
+                  <p>
+                    {item.UserSpeciesList.length}{" "}
+                    {t("components.accordionGroupItem.observations")}
+                  </p>
                 )}
               </IonLabel>
               {isSeenMode && (
@@ -87,11 +88,21 @@ const AccordionGroupItem = ({
                   <IonItem key={o.id} lines="none">
                     <IonLabel>
                       <p>
-                        {t('components.accordionGroupItem.date')}
-                        {new Date(o.observation_date).toLocaleDateString()} -{" "}
+                        {t("components.accordionGroupItem.date")}
+                        {new Date(
+                          o.observation_date
+                        ).toLocaleDateString()} -{" "}
                       </p>
-                      <p>{t('components.accordionGroupItem.location')} {getLang(o, 'location')}</p>
-                      {o.note_text && <p>{t('components.accordionGroupItem.notes')} {o.note_text} </p>}
+                      <p>
+                        {t("components.accordionGroupItem.location")}{" "}
+                        {getLang(o, "location")}
+                      </p>
+                      {o.note_text && (
+                        <p>
+                          {t("components.accordionGroupItem.notes")}{" "}
+                          {o.note_text}{" "}
+                        </p>
+                      )}
                     </IonLabel>
                   </IonItem>
                 ))}

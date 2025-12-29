@@ -1,7 +1,7 @@
 import { IonImg } from "@ionic/react";
 import styles from "./styles/Image.module.css";
 import { SpeciesMedia, SpeciesMediaSummary } from "../types/media";
-import useGetLang from "../hooks/useGetlang";
+import useGetLang from "../hooks/useGetLang";
 
 type ImageProps = {
   image: SpeciesMedia | SpeciesMediaSummary | undefined;
