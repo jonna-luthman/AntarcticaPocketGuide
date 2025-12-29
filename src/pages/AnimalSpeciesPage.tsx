@@ -20,6 +20,7 @@ import { findImageByRole } from "../utils/getMediaTypes";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import useGetLang from "../hooks/useGetlang";
 import { useTranslation } from "react-i18next";
+import { AnimalSound } from "../types/animalSounds";
 
 const AnimalSpeciesPage: React.FC = () => {
   const { speciesId } = useParams<{ speciesId: string }>();
@@ -28,7 +29,7 @@ const AnimalSpeciesPage: React.FC = () => {
   const getLang = useGetLang();
   const { t } = useTranslation();
 
-  const [sounds, setSounds] = useState([]);
+  const [sounds, setSounds] = useState<AnimalSound[] | undefined>([]);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -36,8 +37,6 @@ const AnimalSpeciesPage: React.FC = () => {
   }, [speciesId]);
 
   useEffect(() => {
-    //TODO: Only for testing => delete before release.
-    // fetchSounds("Sterna paradisaea").then(setSounds);
     if (species?.name_latin) fetchSounds(species.name_latin).then(setSounds);
   }, [species]);
 
@@ -71,7 +70,7 @@ const AnimalSpeciesPage: React.FC = () => {
         <div className={styles.contentWrapper}>
           <IonText>
             <h1 className="font-average ion-text-uppercase ion-no-margin ion-padding-top">
-              {getLang(species, 'name_common')}
+              {getLang(species, "name_common")}
             </h1>
           </IonText>
           <IonText className="font-average">
@@ -81,16 +80,17 @@ const AnimalSpeciesPage: React.FC = () => {
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">
               <Eye size={20} />
-              {t('pages.animalsSpeciesPage.lookFor')}
+              {t("pages.animalsSpeciesPage.lookFor")}
             </h3>
-            <p> {getLang(species, 'identifying_features')}</p>
+            <p> {getLang(species, "identifying_features")}</p>
           </div>
 
           {sounds && sounds.length > 0 && <AnimalSounds sounds={sounds} />}
 
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">
-              <Blend size={20} /> {t('pages.animalsSpeciesPage.similiarSpecies')}
+              <Blend size={20} />{" "}
+              {t("pages.animalsSpeciesPage.similiarSpecies")}
             </h3>
             <p>TBA</p>
           </div>
@@ -101,9 +101,9 @@ const AnimalSpeciesPage: React.FC = () => {
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">
               <PersonStanding size={20} />
-              {t('pages.animalsSpeciesPage.behaviourAroundPeople')}
+              {t("pages.animalsSpeciesPage.behaviourAroundPeople")}
             </h3>
-            <p>{getLang(species, 'human_interaction')}</p>
+            <p>{getLang(species, "human_interaction")}</p>
           </div>
 
           {<SpeciesTabs specie={species} />}

@@ -10,10 +10,11 @@ import Breadcrumbs from "../components/ui/Breadcrumbs";
 import useAnimals from "../hooks/useAnimals";
 import useSpecies from "../hooks/useSpecies";
 
-import { SpecieWithMedia, UISpecieSummaryWithMedia } from "../types/species";
+import { UISpecieSummaryWithMedia } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
 import { mapSpecieSummaryToUI } from "../mappers/speciesSummary";
 import useGetLang from "../hooks/useGetlang";
+import { findImageByRole } from "../utils/getMediaTypes";
 
 const AnimalClassPage: React.FC = () => {
   const { classSlug } = useParams<{ classSlug: string }>();
@@ -51,8 +52,6 @@ const AnimalClassPage: React.FC = () => {
     fetchData();
   }, [animalClass]);
 
-  console.log(species)
-
   return (
     <IonPage>
       <IonContent>
@@ -62,13 +61,12 @@ const AnimalClassPage: React.FC = () => {
         <IonList>
           {species &&
             species.map((s) => {
-              const headerImage = s.SpeciesMedia?.[0];
-
+              const headerImage = findImageByRole(s.SpeciesMedia, "header");
               return (
                 <div key={s.id}>
                   <SpeciesCard
                     species={s}
-                    headerImage={headerImage}
+                    headerImage={headerImage ?? undefined}
                     title={getLang(s, 'name_common')}
                     subtitle={s.name_latin}
                   />
