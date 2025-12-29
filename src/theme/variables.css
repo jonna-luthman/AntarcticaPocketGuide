@@ -79,6 +79,8 @@ http://ionicframework.com/docs/theming/ */
   --font-display: "Playfair Display SC", serif;
   --font-average: "Average", serif;
 }
+
+
 :root.ios {
   --ion-text-color: #000;
 }

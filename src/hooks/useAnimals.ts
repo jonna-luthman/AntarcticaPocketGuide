@@ -38,7 +38,8 @@ export default function useAnimals() {
           media_url,
           role,
           order_index,
-          attribute  
+          attribute_en, 
+          attribute_es
         )`
         )
         .eq("SpeciesMedia.role", "cover")

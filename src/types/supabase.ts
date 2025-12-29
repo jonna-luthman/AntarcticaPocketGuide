@@ -208,7 +208,8 @@ export type Database = {
       }
       SpeciesMedia: {
         Row: {
-          attribute: string | null
+          attribute_en: string | null
+          attribute_es: string | null
           class_id: string | null
           created_at: string
           id: string
@@ -220,7 +221,8 @@ export type Database = {
           species_id: string | null
         }
         Insert: {
-          attribute?: string | null
+          attribute_en?: string | null
+          attribute_es?: string | null
           class_id?: string | null
           created_at?: string
           id?: string
@@ -232,7 +234,8 @@ export type Database = {
           species_id?: string | null
         }
         Update: {
-          attribute?: string | null
+          attribute_en?: string | null
+          attribute_es?: string | null
           class_id?: string | null
           created_at?: string
           id?: string

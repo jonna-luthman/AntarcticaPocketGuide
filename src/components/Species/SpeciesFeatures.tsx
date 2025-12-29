@@ -3,6 +3,7 @@ import { Specie } from "../../types/species";
 import styles from "./styles/SpeciesFeatures.module.css";
 import useGetLang from "../../hooks/useGetlang";
 import { Trans, useTranslation } from "react-i18next";
+import { conservationStatusMap } from "../../constants/ConservationStatus";
 
 interface SpeciesInfoProps {
   specie: Specie | null;
@@ -11,6 +12,7 @@ interface SpeciesInfoProps {
 const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
   const getLang = useGetLang();
   const { t } = useTranslation();
+  const status = specie?.conservation_status;
 
   return (
     <div className={styles.contentWrapper}>
@@ -23,10 +25,10 @@ const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
       </div>
 
       <div className={styles.contentBox}>
-        <Circle className={styles.icon} />
+        {status && conservationStatusMap[status]}
         <div className={styles.textBlock}>
-          <p>{specie?.conservation_status}</p>
-          <p>{specie?.population} indiv.</p>
+          {status && <p><i>{t(`conservationStatus.${status}` as any)} </i></p>}
+           <p>{specie?.population} indiv.</p>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState } from "react";
 import { IonLoading } from "@ionic/react";
 
 interface LoadingContextType {
-  showLoading: (message?: string) => void;
+  showLoading: () => void;
   hideLoading: () => void;
 }
 
@@ -14,10 +14,8 @@ export const LoadingProvider = ({
   children: React.ReactNode;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Loading...");
 
-  const showLoading = (message?: string) => {
-    if (message) setLoadingMessage(message);
+  const showLoading = () => {
     setIsOpen(true);
   };
 
@@ -28,9 +26,9 @@ export const LoadingProvider = ({
       {children}
       <IonLoading
         isOpen={isOpen}
-        spinner="crescent"
-        message={loadingMessage}
+        spinner="bubbles"
         backdropDismiss={false}
+        animated={true}
         duration={0}
       />
     </LoadingContext.Provider>

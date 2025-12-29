@@ -11,10 +11,12 @@
     "signOut": "Sign Out",
     "cancel": "Cancel",
     "save": "Save",
-    "close": "Close"
+    "close": "Close",
+    "selectLanguage": "Select language"
   },
   "menu": {
     "page": {
+      "home": "Home",
       "fieldJournal": "Field Journal",
       "aboutUs": "About Us",
       "contactUs": "Contact Us"
@@ -164,5 +166,15 @@
       "title": "Distinguishable features",
       "nonAvailable": "No features available"
     }
+  },
+  
+  "conservationStatus": {
+    "Least concern": "Least concern",
+    "Near threatened": "Near threatened",
+    "Vulnerable": "Vulnerable",
+    "Endangered": "Endangered",
+    "Critically endangered": "Critically endangered",
+    "Extinct in the wild": "Extinct in the wild",
+    "Extinct": "Extinct"
   }
 }

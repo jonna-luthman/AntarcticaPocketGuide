@@ -35,7 +35,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
 
   return (
     <IonModal isOpen={isOpen} onDidDismiss={onClose}>
-      <IonHeader>
+      <IonHeader className="ion-no-border">
         <IonToolbar color="tertiary">
           <IonButtons slot="end">
             <IonButton onClick={onClose}>

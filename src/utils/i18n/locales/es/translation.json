@@ -11,10 +11,12 @@
     "signOut": "Cerrar sesión",
     "cancel": "Cancelar",
     "save": "Guardar",
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "selectLanguage": "Seleccionar idioma"
   },
   "menu": {
     "page": {
+      "home": "Inicio",
       "fieldJournal": "Diario de campo",
       "aboutUs": "Sobre nosotros",
       "contactUs": "Contacto"
@@ -164,5 +166,15 @@
       "title": "Características distintivas",
       "nonAvailable": "No hay características disponibles."
     }
-  }
+  },
+  "conservationStatus": {
+    "Least concern": "Preocupación menor",
+    "Near threatened": "Casi amenazada",
+    "Vulnerable": "Vulnerable",
+    "Endangered": "En peligro",
+    "Critically endangered": "En peligro crítico",
+    "Extinct in the wild": "Extincto en estado silvestre",
+    "Extinct": "Extinto"
+
+}
 }
