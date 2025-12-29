@@ -1,7 +1,7 @@
 import { FingerprintPattern } from "lucide-react";
 import { Specie } from "../../types/species";
 import styles from "./styles/SpeciesTabs.module.css";
-import useGetLang from "../../hooks/useGetLang";
+import useGetLang from "../../hooks/useGetlang";
 import { useTranslation } from "react-i18next";
 
 interface DistinguishableFeaturesCardProps {
@@ -15,8 +15,8 @@ interface FeaturesObject {
 const DistinguishableFeaturesCard = ({
   specie,
 }: DistinguishableFeaturesCardProps) => {
-    const getLang = useGetLang();
-    const { t } = useTranslation()
+  const getLang = useGetLang();
+  const { t } = useTranslation();
 
   const distinguishableFeatures: FeaturesObject = getLang(
     specie,
@@ -25,13 +25,14 @@ const DistinguishableFeaturesCard = ({
   const featureList = distinguishableFeatures?.features;
 
   if (!featureList || featureList.length === 0) {
-    return <p>{t('components.distinguishableFeatures.nonAvailable')}</p>;
+    return <p>{t("components.distinguishableFeatures.nonAvailable")}</p>;
   }
 
   return (
     <div className="ion-padding-top">
       <h3>
-        <FingerprintPattern size={20} />{t('components.distinguishableFeatures.title')}
+        <FingerprintPattern size={20} />
+        {t("components.distinguishableFeatures.title")}
       </h3>
       {featureList?.map((f, index) => (
         <div className={styles.card} key={index}>

@@ -6,7 +6,7 @@ import { findImageByRole } from "../../utils/getMediaTypes";
 import Image from "../Image";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../../hooks/useGetLang";
+import useGetLang from "../../hooks/useGetlang";
 
 interface DistributionInfoProps {
   specie: SpecieDetail;
@@ -17,10 +17,10 @@ interface DistributionObject {
 }
 
 const DistributionInfo = ({ specie }: DistributionInfoProps) => {
-  const { t } = useTranslation();
   const getLang = useGetLang();
+  const { t } = useTranslation();
 
-  const distribution: DistributionObject = getLang(specie, 'distribution')
+  const distribution: DistributionObject = getLang(specie, "distribution");
 
   const image = findImageByRole(specie.SpeciesMedia, "distribution");
   const imageUrl = image?.media_url ? resolveImageUrl(image.media_url) : "";

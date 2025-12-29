@@ -1,7 +1,7 @@
 import { Clock, Ruler, Utensils } from "lucide-react";
 import { Specie } from "../../types/species";
 import styles from "./styles/SpeciesFeatures.module.css";
-import useGetLang from "../../hooks/useGetLang";
+import useGetLang from "../../hooks/useGetlang";
 import { Trans, useTranslation } from "react-i18next";
 import { conservationStatusMap } from "../../constants/ConservationStatus";
 
@@ -27,8 +27,12 @@ const SpeciesFeatures = ({ specie }: SpeciesInfoProps) => {
       <div className={styles.contentBox}>
         {status && conservationStatusMap[status]}
         <div className={styles.textBlock}>
-          {status && <p><i>{t(`conservationStatus.${status}` as any)} </i></p>}
-           <p>{specie?.population} indiv.</p>
+          {status && (
+            <p>
+              <i>{t(`conservationStatus.${status}` as any)} </i>
+            </p>
+          )}
+          <p>{specie?.population} indiv.</p>
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 import { IonItem, IonLabel } from "@ionic/react";
-import { animalSound } from "../../types/animalSounds";
+import { AnimalSound } from "../../types/animalSounds";
 import { AudioLines } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 
-export default function AnimalSounds({ sounds }: { sounds: animalSound[] }) {
+export default function AnimalSounds({ sounds }: { sounds: AnimalSound[] }) {
   const { t } = useTranslation();
 
   return (

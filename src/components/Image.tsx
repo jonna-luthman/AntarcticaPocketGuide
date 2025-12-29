@@ -1,7 +1,7 @@
 import { IonImg } from "@ionic/react";
 import styles from "./styles/Image.module.css";
 import { SpeciesMedia, SpeciesMediaSummary } from "../types/media";
-import useGetLang from "../hooks/useGetLang";
+import useGetLang from "../hooks/useGetlang";
 
 type ImageProps = {
   image: SpeciesMedia | SpeciesMediaSummary | undefined;
@@ -10,8 +10,8 @@ type ImageProps = {
 };
 
 const Image = ({ image, className, imageUrl }: ImageProps) => {
-  if (!image || !imageUrl) return null;
   const getLang = useGetLang();
+  if (!image || !imageUrl) return null;
 
   return (
     <IonImg

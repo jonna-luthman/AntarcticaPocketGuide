@@ -18,7 +18,7 @@ import Header from "../components/Header";
 
 import { findImageByRole } from "../utils/getMediaTypes";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
-import useGetLang from "../hooks/useGetLang";
+import useGetLang from "../hooks/useGetlang";
 import { useTranslation } from "react-i18next";
 import { AnimalSound } from "../types/animalSounds";
 

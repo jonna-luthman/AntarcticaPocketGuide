@@ -20,7 +20,7 @@ import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { UserAuth } from "../context/AuthContext";
 import { UISpecieSummaryWithMedia } from "../types/species";
-import useGetLang from "../hooks/useGetLang";
+import useGetLang from "../hooks/useGetlang";
 import { useTranslation } from "react-i18next";
 import i18n from "../utils/i18n";
 
@@ -110,13 +110,13 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
           {item.resolvedImageUrl && (
             <IonThumbnail slot="start">
               <img
-                alt={getLang(item, 'name_common') ?? "undefined"}
-                src={getLang(item, 'resolvedImageUrl')}
+                alt={getLang(item, "name_common") ?? "undefined"}
+                src={getLang(item, "resolvedImageUrl")}
               />
             </IonThumbnail>
           )}
           <div>
-            <h4 className="font-average">{getLang(item, 'name_common')}</h4>
+            <h4 className="font-average">{getLang(item, "name_common")}</h4>
             <p>{item.name_latin}</p>
           </div>
         </IonItem>
@@ -130,14 +130,14 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
         showBackButton={true}
         showLogo={false}
         showTitle={true}
-        title={t('pages.header.addSighting')}
+        title={t("pages.header.addSighting")}
       />
       <IonContent fullscreen>
         {!session ? (
           <NotAuthorized
-            title={t('notAuthorized.addSighting.title')}
-            description={t('notAuthorized.addSighting.description')}
-            buttonText={t('notAuthorized.buttonText')}
+            title={t("notAuthorized.addSighting.title")}
+            description={t("notAuthorized.addSighting.description")}
+            buttonText={t("notAuthorized.buttonText")}
             onAction={onShowLoginModal}
           />
         ) : (
@@ -147,7 +147,7 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
                 <IonSearchbar
                   value={searchTerm}
                   onIonInput={(e) => setSearchTerm(e.detail.value!)}
-                  placeholder={t('searchBarDescription')}
+                  placeholder={t("searchBarDescription")}
                   debounce={300}
                 />
               </IonToolbar>
@@ -155,15 +155,18 @@ const AddSighting: React.FC<AddSightingProps> = ({ onShowLoginModal }) => {
 
             <IonList className="ion-padding">
               {birds && birds.length > 0 && (
-                <SpeciesGroup title={t('animalClasses.birds')} items={birds} />
+                <SpeciesGroup title={t("animalClasses.birds")} items={birds} />
               )}
 
               {seals && seals.length > 0 && (
-                <SpeciesGroup title={t('animalClasses.seals')} items={seals} />
+                <SpeciesGroup title={t("animalClasses.seals")} items={seals} />
               )}
 
               {whales && whales.length > 0 && (
-                <SpeciesGroup title={t('animalClasses.whalesAndDolphins')} items={whales} />
+                <SpeciesGroup
+                  title={t("animalClasses.whalesAndDolphins")}
+                  items={whales}
+                />
               )}
             </IonList>
           </div>

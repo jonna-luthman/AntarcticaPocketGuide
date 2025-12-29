@@ -5,7 +5,7 @@ import imageStyles from "../styles/Image.module.css";
 import { findImageByRole } from "../../utils/getMediaTypes";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../../hooks/useGetLang";
+import useGetLang from "../../hooks/useGetlang";
 
 interface FactsProps {
   specie: SpecieDetail;
@@ -16,12 +16,12 @@ interface FactsObject {
 }
 
 const Facts = ({ specie }: FactsProps) => {
-  const { t } = useTranslation();
   const getLang = useGetLang();
+  const { t } = useTranslation();
 
-  const facts: FactsObject = getLang(specie, 'facts')
+  const facts: FactsObject = getLang(specie, "facts");
 
-  const factsList = facts.description
+  const factsList = facts.description;
   const factsImage = findImageByRole(specie?.SpeciesMedia, "facts");
 
   const image = findImageByRole(specie?.SpeciesMedia ?? null, "facts");
@@ -38,7 +38,9 @@ const Facts = ({ specie }: FactsProps) => {
         <div className={imageStyles.factsImageContainer}>
           <Image image={factsImage} imageUrl={imageUrl} />
           <p>
-            <i>{t('pages.animalsSpeciesPage.figure')} {factsImage?.attribute}</i>
+            <i>
+              {t("pages.animalsSpeciesPage.figure")} {getLang(factsImage, "attribute")}
+            </i>
           </p>
         </div>
       )}

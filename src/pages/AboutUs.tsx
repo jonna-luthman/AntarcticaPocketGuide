@@ -3,11 +3,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 
 const AboutUs: React.FC = () => {
-  const { t } = useTranslation();
   return (
     <IonPage>
       <IonContent fullscreen>
-        <IonTitle>{t("welcomeMessage")}</IonTitle>
+        <IonTitle>About us</IonTitle>
       </IonContent>
     </IonPage>
   );

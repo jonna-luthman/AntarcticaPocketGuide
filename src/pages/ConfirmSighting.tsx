@@ -38,7 +38,7 @@ import {
 } from "ionicons/icons";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
-import useGetLang from "../hooks/useGetLang";
+import useGetLang from "../hooks/useGetlang";
 
 const ConfirmSighting: React.FC = () => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
@@ -103,7 +103,7 @@ const ConfirmSighting: React.FC = () => {
           showBackButton={true}
           showLogo={false}
           showTitle={true}
-          title={t('pages.header.addSighting')}
+          title={t("pages.header.addSighting")}
         />
         <div>
           <Image
@@ -120,7 +120,7 @@ const ConfirmSighting: React.FC = () => {
               className="ion-margin-vertical ion-padding-bottom"
               routerLink="/add-sighting"
             >
-              <h3 className="ion-margin">{getLang(species, 'name_common')}</h3>
+              <h3 className="ion-margin">{getLang(species, "name_common")}</h3>
             </IonItem>
 
             <IonItem
@@ -140,7 +140,7 @@ const ConfirmSighting: React.FC = () => {
 
             <IonItem lines="full" className="ion-margin ion-padding-bottom">
               <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
-              <p>{t('pages.confirmSighting.howMany')}</p>
+              <p>{t("pages.confirmSighting.howMany")}</p>
               <QuantitySelector count={count} setCount={setCount} />
             </IonItem>
 
@@ -154,21 +154,25 @@ const ConfirmSighting: React.FC = () => {
                 icon={locationOutline}
                 slot="start"
               ></IonIcon>
-              <IonLabel position="stacked">{t('pages.confirmSighting.location')}</IonLabel>
+              <IonLabel position="stacked">
+                {t("pages.confirmSighting.location")}
+              </IonLabel>
               <IonInput
                 type="text"
                 value={location}
-                placeholder={t('pages.confirmSighting.locationPlaceholder')}
+                placeholder={t("pages.confirmSighting.locationPlaceholder")}
                 onIonInput={(e) => setLocation(e.detail.value!)}
               />
             </IonItem>
 
             <IonItem lines="full" className="ion-margin ion-padding-bottom">
               <IonIcon icon={chatbubbleEllipsesOutline} slot="start" />
-              <IonLabel position="stacked">{t('pages.confirmSighting.notes')}</IonLabel>
+              <IonLabel position="stacked">
+                {t("pages.confirmSighting.notes")}
+              </IonLabel>
               <IonTextarea
                 value={notes}
-                placeholder={t('pages.confirmSighting.notesPlaceholder')}
+                placeholder={t("pages.confirmSighting.notesPlaceholder")}
                 autoGrow={true}
                 rows={3}
                 onIonInput={(e) => setNotes(e.detail.value!)}
@@ -188,9 +192,9 @@ const ConfirmSighting: React.FC = () => {
                 value={selectedDate}
                 onIonChange={(e) => setSelectedDate(e.detail.value as string)}
                 showDefaultButtons={true}
-                doneText={t('buttons.save')}
+                doneText={t("buttons.save")}
                 presentation="date"
-                cancelText={t('buttons.cancel')}
+                cancelText={t("buttons.cancel")}
                 color="dark"
                 hourCycle="h12"
               />
@@ -198,7 +202,7 @@ const ConfirmSighting: React.FC = () => {
           </IonModal>
           <div className="ion-padding">
             <IonButton expand="block" color="tertiary" type="submit">
-              {t('buttons.save')}
+              {t("buttons.save")}
             </IonButton>
 
             <IonButton
@@ -207,7 +211,7 @@ const ConfirmSighting: React.FC = () => {
               color="dark"
               onClick={() => router.back()}
             >
-              {t('buttons.cancel')}
+              {t("buttons.cancel")}
             </IonButton>
           </div>
         </form>

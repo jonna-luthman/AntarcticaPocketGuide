@@ -9,12 +9,10 @@ import {
 import { useState } from "react";
 import { chevronUpOutline, chevronDownOutline } from "ionicons/icons";
 import {
-  SpecieSummaryWithMedia,
   SpecieSummaryWithMediaAndUrl,
-  UISpecieSummaryWithMedia,
 } from "../types/species";
-import useGetLang from "../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
+import useGetLang from "../hooks/useGetlang";
 
 interface AccordionGroupProps {
   title: string;

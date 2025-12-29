@@ -16,6 +16,7 @@ import Image from "../Image";
 import { SpeciesMedia } from "../../types/media";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
+import useGetLang from "../../hooks/useGetlang";
 
 interface ImageModalProps {
   isOpen: boolean;
@@ -31,6 +32,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
   className,
 }) => {
   const { t } = useTranslation();
+  const getLang = useGetLang()
   const imageUrl = image?.media_url ? resolveImageUrl(image.media_url) : "";
 
   return (
@@ -56,7 +58,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
         >
           <SwiperSlide>
             <IonText color="light" className="ion-padding ion-text-center">
-              <h3>{image.attribute}</h3>
+              <h3>{getLang(image, "attribute")}</h3>
             </IonText>
             <div className="swiper-zoom-container">
               <Image image={image} imageUrl={imageUrl} className={className} />

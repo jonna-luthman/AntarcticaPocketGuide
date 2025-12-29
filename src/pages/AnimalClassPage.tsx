@@ -13,7 +13,7 @@ import useSpecies from "../hooks/useSpecies";
 import { UISpecieSummaryWithMedia } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
 import { mapSpecieSummaryToUI } from "../mappers/speciesSummary";
-import useGetLang from "../hooks/useGetLang";
+import useGetLang from "../hooks/useGetlang";
 import { findImageByRole } from "../utils/getMediaTypes";
 
 const AnimalClassPage: React.FC = () => {
@@ -22,7 +22,9 @@ const AnimalClassPage: React.FC = () => {
   const { getAnimalClass } = useAnimals();
   const getLang = useGetLang();
 
-  const [species, setSpecies] = useState<UISpecieSummaryWithMedia[] | null>(null);
+  const [species, setSpecies] = useState<UISpecieSummaryWithMedia[] | null>(
+    null
+  );
   const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(
     null
   );
@@ -57,7 +59,7 @@ const AnimalClassPage: React.FC = () => {
       <IonContent>
         <Header showBackButton={true} />
         <CollapsableHeader />
-        <Breadcrumbs param1={getLang(animalClass, 'name')} />
+        <Breadcrumbs param1={getLang(animalClass, "name")} />
         <IonList>
           {species &&
             species.map((s) => {
@@ -67,7 +69,7 @@ const AnimalClassPage: React.FC = () => {
                   <SpeciesCard
                     species={s}
                     headerImage={headerImage ?? undefined}
-                    title={getLang(s, 'name_common')}
+                    title={getLang(s, "name_common")}
                     subtitle={s.name_latin}
                   />
                 </div>
@@ -80,4 +82,3 @@ const AnimalClassPage: React.FC = () => {
 };
 
 export default AnimalClassPage;
-

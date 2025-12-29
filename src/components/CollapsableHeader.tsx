@@ -9,13 +9,13 @@ import {
 import useSpecies from "../hooks/useSpecies";
 import { useRef, useState } from "react";
 import { SpecieSummary } from "../types/species";
-import useGetLang from "../hooks/useGetLang"
+import useGetLang from "../hooks/useGetlang";
 import { useTranslation } from "react-i18next";
 
 const CollapsableHeader = () => {
-  const { getSpeciesBySearchQuery } = useSpecies();
   const getLang = useGetLang();
   const { t } = useTranslation();
+  const { getSpeciesBySearchQuery } = useSpecies();
 
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SpecieSummary[] | null>(null);
@@ -33,9 +33,9 @@ const CollapsableHeader = () => {
     timeout.current = setTimeout(async () => {
       const data = await getSpeciesBySearchQuery(query);
       if (data?.length === 0) {
-        setMessage(t('pages.header.errorMessages.noSpeciesFound'));
+        setMessage(t("pages.header.errorMessages.noSpeciesFound"));
       } else {
-        setMessage("")
+        setMessage("");
       }
       setResults(data);
     }, 300);
@@ -48,7 +48,7 @@ const CollapsableHeader = () => {
           <IonSearchbar
             onIonInput={(event) => handleInput(event)}
             debounce={1000}
-            placeholder={t('searchBarDescription')}
+            placeholder={t("searchBarDescription")}
           />
         </IonToolbar>
       </IonHeader>
@@ -61,7 +61,7 @@ const CollapsableHeader = () => {
                 routerLink={`/${result.class_slug}/${result.slug}`}
                 key={result.id}
               >
-                <IonLabel>{getLang(result, 'name_common')}</IonLabel>
+                <IonLabel>{getLang(result, "name_common")}</IonLabel>
               </IonItem>
             ))
           ) : (
