@@ -11,7 +11,7 @@ import {
   IonButtons,
   useIonToast,
 } from "@ionic/react";
-import { logoGoogle } from "ionicons/icons";
+import { logoGoogle, logoFacebook } from "ionicons/icons";
 import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { useLoading } from "../context/LoadingContext";
@@ -36,7 +36,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
   const [error, setError] = useState<string>("");
   const [introSeen, setIntroSeen] = useState<boolean>(false);
 
-  const { signInWithEmail, signInWithGoogle, signUpNewUser } = UserAuth();
+  const { signInWithEmail, signInWithGoogle, signInWithFacebook, signUpNewUser } = UserAuth();
   const [showToast] = useIonToast();
 
   const router = useIonRouter();
@@ -47,6 +47,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
     try {
       const response = await signInWithEmail({ email, password });
 
+      console.log("repsonse login", response)
       if (!response.success) {
         const errorCode = response.error.code;
         switch (errorCode) {
@@ -163,6 +164,18 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           </IonButton>
         </div>
 
+        <div>
+          <IonButton
+            expand="block"
+            fill="solid"
+            className={styles.googleButton}
+            onClick={signInWithFacebook}
+          >
+            <IonIcon slot="start" icon={logoFacebook} />
+            {t('auth.buttons.continueWithFacebook')}
+          </IonButton>
+        </div>
+
         <IonButton
           fill="clear"
           expand="block"
@@ -172,6 +185,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
                 nav={nav}
                 signUpNewUser={signUpNewUser}
                 signUpWithGoogle={signInWithGoogle}
+                signUpWithFacebook={signInWithFacebook}
               />
             ))
           }

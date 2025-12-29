@@ -6,6 +6,7 @@
 .googleButton {
   color: white;
   padding: 16px;
+  padding-bottom: 0;
 }
 
 .center {

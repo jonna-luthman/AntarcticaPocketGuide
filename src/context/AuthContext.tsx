@@ -23,6 +23,7 @@ interface AuthContextType {
     password: string;
   }) => Promise<AuthResult>;
   signInWithGoogle: () => Promise<void>;
+  signInWithFacebook: () => Promise<void>;
   signOutUser: () => Promise<SignOutResult>;
 }
 
@@ -112,6 +113,16 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const signInWithFacebook = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "facebook",
+    });
+
+    if (error) {
+      console.error(error);
+    }
+  };
+
   //Sign in
   const signInWithEmail = async (credentials: {
     email: string;
@@ -175,6 +186,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         signInWithEmail,
         signOutUser,
         signInWithGoogle,
+        signInWithFacebook
       }}
     >
       {children}

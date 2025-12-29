@@ -40,6 +40,8 @@
       "goBackToLogin": "Go back to login",
       "googleSignIn": "Sign in with Google",
       "continueWithGoogle": "Continue with Google",
+      "facebookSignIn": "Sign in with Facebook",
+      "continueWithFacebook": "Continue with Facebook",
       "registerPrompt": "Dont have an account?",
       "registerHere": "Register here",
       "loginPrompt": "Already have an account?",
