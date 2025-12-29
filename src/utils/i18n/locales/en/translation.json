@@ -47,7 +47,7 @@
     },
     "phrases": {
       "loginTitle": "Log in",
-            "createAccountTitle": "Create account",
+      "createAccountTitle": "Create account",
       "changePassword": "Change password",
       "login": "Welcome back! Log in to view your Field Notes and Add Sightings.",
       "forgotPassword": "No worries! Enter your email and we will send you a reset link.",
@@ -167,7 +167,7 @@
       "nonAvailable": "No features available"
     }
   },
-  
+
   "conservationStatus": {
     "Least concern": "Least concern",
     "Near threathened": "Near threatened",
@@ -176,5 +176,16 @@
     "Critically endangered": "Critically endangered",
     "Extinct in the wild": "Extinct in the wild",
     "Extinct": "Extinct"
+  },
+  "identifyingPenguins": {
+    "description": "Look for visual clues to identify penguins",
+    "gentoo": "White triangular patch over eye and orange beak",
+    "adelie": "White ring around eye",
+    "chinstrap": "The chinstrap line",
+    "king": "Solid yellow-orange patch behind cheek",
+    "emperor": "Yellowish-white patch that fads into the belly",
+    "macaroni": "Spiked feathers on top of the head",
+    "rockhopper": "Yellow feathers dropping down",
+    "imageAtt": "Man with Binoculars"
   }
 }

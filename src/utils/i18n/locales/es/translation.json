@@ -175,6 +175,16 @@
     "Critically endangered": "En peligro crítico",
     "Extinct in the wild": "Extincto en estado silvestre",
     "Extinct": "Extinto"
-
-}
+  },
+  "identifyingPenguins": {
+    "description": "Busca pistas visuales para identificar a los pingüinos",
+    "gentoo": "Parche triangular blanco sobre el ojo y pico naranja",
+    "adelie": "Anillo blanco alrededor del ojo",
+    "chinstrap": "La línea negra bajo el mentón",
+    "king": "Parche sólido amarillo anaranjado detrás de la mejilla",
+    "emperor": "Parche blanco amarillento que se desvanece hacia el vientre",
+    "macaroni": "Plumas puntiagudas en la parte superior de la cabeza",
+    "rockhopper": "Plumas amarillas que caen hacia los lados",
+    "imageAtt": "Hombre con prismáticos"
+  }
 }

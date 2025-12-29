@@ -1,0 +1,51 @@
+.gridWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin: 8px;
+}
+
+.cardImage {
+  object-fit: cover;
+  width: 100%;
+  min-height: 120px;
+  top: 10px;
+}
+
+.card {
+  color: #fff;
+  margin: 0;
+}
+
+.cardIntro {
+  padding: 10px;
+  width: 100%;
+  min-height: 120px;
+}
+
+.cardWrapper {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: #fff;
+  background: linear-gradient(to bottom, var(--ion-color-primary-tint) 10%, rgb(255, 255, 255) 40%);
+}
+
+.cardHeader {
+  padding: 10px 15px 5px 15px;
+  color: var(--ion-color-dark)
+}
+
+.cardFont {
+  margin: 0;
+  color: var(--ion-color-dark)
+}
+
+ion-card-content.cardFont {
+  padding: 0 15px 15px 15px;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
