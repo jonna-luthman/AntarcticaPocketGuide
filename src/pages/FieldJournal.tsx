@@ -144,6 +144,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
             <div className="ion-padding">
               <IonSegment
+              mode="ios"
                 value={selectedSegment}
                 onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
               >
@@ -156,7 +157,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
               </IonSegment>
 
               <IonAccordionGroup expand="inset">
-                <AccordionGroupItem
+                <AccordionGroupItem 
                   title={t('animalClasses.birds')}
                   items={birds ?? []}
                   isSeenMode={selectedSegment === "seen"}

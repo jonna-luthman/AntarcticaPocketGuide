@@ -24,7 +24,7 @@ import i18n from "../utils/i18n";
 
 import { UISpecieSummaryWithMedia } from "../types/species";
 
-const SearchPage: React.FC= () => {
+const SearchPage: React.FC = () => {
   const { getAllSpecies, speciesList: species } = useSpecies();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -115,44 +115,38 @@ const SearchPage: React.FC= () => {
 
   return (
     <IonPage>
-      <Header
-        showBackButton={true}
-        showLogo={false}
-        showTitle={true}
-        title={t("pages.header.addSighting")}
-      />
+      <Header showMenu={true} />
+      <IonHeader className="ion-no-border ion-margin-bottom">
+        <IonToolbar className="ion-padding-top">
+          <IonSearchbar
+            value={searchTerm}
+            onIonInput={(e) => setSearchTerm(e.detail.value!)}
+            placeholder={t("searchBarDescription")}
+            debounce={300}
+            color="light"
+
+          />
+        </IonToolbar>
+      </IonHeader>
       <IonContent fullscreen>
+        <div>
+          <IonList className="ion-padding">
+            {birds && birds.length > 0 && (
+              <SpeciesGroup title={t("animalClasses.birds")} items={birds} />
+            )}
 
-          <div>
-            <IonHeader collapse="condense">
-              <IonToolbar>
-                <IonSearchbar
-                  value={searchTerm}
-                  onIonInput={(e) => setSearchTerm(e.detail.value!)}
-                  placeholder={t("searchBarDescription")}
-                  debounce={300}
-                />
-              </IonToolbar>
-            </IonHeader>
+            {seals && seals.length > 0 && (
+              <SpeciesGroup title={t("animalClasses.seals")} items={seals} />
+            )}
 
-            <IonList className="ion-padding">
-              {birds && birds.length > 0 && (
-                <SpeciesGroup title={t("animalClasses.birds")} items={birds} />
-              )}
-
-              {seals && seals.length > 0 && (
-                <SpeciesGroup title={t("animalClasses.seals")} items={seals} />
-              )}
-
-              {whales && whales.length > 0 && (
-                <SpeciesGroup
-                  title={t("animalClasses.whalesAndDolphins")}
-                  items={whales}
-                />
-              )}
-            </IonList>
-          </div>
-
+            {whales && whales.length > 0 && (
+              <SpeciesGroup
+                title={t("animalClasses.whalesAndDolphins")}
+                items={whales}
+              />
+            )}
+          </IonList>
+        </div>
       </IonContent>
     </IonPage>
   );

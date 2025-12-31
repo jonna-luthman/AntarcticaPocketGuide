@@ -33,15 +33,12 @@ const NotAuthorized: React.FC<NotAuthorizedProps> = ({
           <p className={styles.loginPromptDescription}>{description}</p>
         </IonText>
 
-        <IonButton
-          expand="block"
-          fill="solid"
+        <IonText
           className="ion-margin-horizontal"
           onClick={onAction}
-          shape="round"
         >
           {buttonText}
-        </IonButton>
+        </IonText>
       </div>
     </div>
   );

@@ -106,13 +106,13 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({ onShowLoginModal }) =
 
   return (
     <IonPage>
-      <IonContent fullscreen>
         <Header
           showBackButton={true}
           showLogo={false}
           showTitle={true}
           title={t("pages.header.addSighting")}
         />
+      <IonContent fullscreen>
         {!session ? (
           <NotAuthorized
             title={t("notAuthorized.addSighting.title")}
@@ -135,7 +135,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({ onShowLoginModal }) =
                   button
                   lines="full"
                   className="ion-margin-vertical ion-padding-bottom"
-                  routerLink="/add-sighting"
+                  routerLink="/search"
                 >
                   <h3 className="ion-margin">
                     {getLang(species, "name_common")}

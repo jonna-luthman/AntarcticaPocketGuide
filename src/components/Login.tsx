@@ -139,6 +139,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
             <IonButton
               expand="block"
+              shape="round"
               type="submit"
               className={styles.button}
               fill="outline"
@@ -153,6 +154,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         <div>
           <IonButton
             expand="block"
+            shape="round"
             fill="solid"
             className={styles.googleButton}
             onClick={signInWithGoogle}
@@ -165,6 +167,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         <div>
           <IonButton
             expand="block"
+            shape="round"
             fill="solid"
             className={styles.googleButton}
             onClick={signInWithFacebook}

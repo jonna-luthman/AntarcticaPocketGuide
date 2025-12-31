@@ -17,6 +17,7 @@ import { close } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import styles from "./styles/Menu.module.css"
 
 const Menu = () => {
   const { signOutUser, session } = UserAuth();
@@ -63,26 +64,18 @@ const Menu = () => {
 
   return (
     <IonMenu contentId="main-content" side="start">
-      <IonHeader className="ion-padding">
+      <IonHeader className="ion-padding ion-no-border">
         <IonToolbar color="primary">
           <IonMenuToggle slot="start">
             <IonIcon icon={close} color="dark" size="large" />
           </IonMenuToggle>
-
-          <div className="menu-logo" slot="end">
-            <img
-              src="Logo.svg"
-              alt="App Logo"
-              style={{ height: 40, marginLeft: 10 }}
-            />
-          </div>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
-        <IonList>
-          <IonMenuToggle></IonMenuToggle>
+        <div className={styles.MenuInnerContainer}>
 
+        <IonList>
           <div className="ion-padding-start ion-margin-bottom">
             <LanguageSwitcher />
           </div>
@@ -122,7 +115,8 @@ const Menu = () => {
           </IonMenuToggle>
 
           {session && (
-            <IonMenuToggle>
+            <div className={styles.logOutSection}>
+            <IonMenuToggle className="ion-align-self-end">
               <IonButton
                 color="tertiary"
                 className="ion-margin-top"
@@ -132,8 +126,11 @@ const Menu = () => {
                 {t("auth.buttons.logout")}
               </IonButton>
             </IonMenuToggle>
+            </div>
           )}
         </IonList>
+                  
+        </div>
       </IonContent>
     </IonMenu>
   );

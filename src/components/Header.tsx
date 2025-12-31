@@ -24,9 +24,9 @@ const Header = ({
   title = "",
 }: HeaderProps) => {
   return (
-    <IonHeader className="ion-padding-horizontal ion-no-border">
-      <IonToolbar color="inherit">
-        <IonButtons slot="start">
+    <IonHeader className="ion-no-border">
+      <IonToolbar>
+        <IonButtons  slot="start">
           {showBackButton && <IonBackButton text="" defaultHref="/" />}
           {showMenu && <IonMenuButton  autoHide={false} />}
         </IonButtons>
