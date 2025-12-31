@@ -4,6 +4,9 @@ import { IonSelect, IonSelectOption } from '@ionic/react';
 export const LanguageSwitcher = () => {
   const { i18n, t } = useTranslation();
 
+  /**
+   * Updates the UI and automatically saves the choice to Local Storage
+   * */
   const changeLanguage = (event: CustomEvent) => {
     const lang = event.detail.value;
     i18n.changeLanguage(lang);

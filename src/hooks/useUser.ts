@@ -14,9 +14,6 @@ export default function useUsers() {
         .eq("id", user.id)
         .single();
 
-        console.log(existingUser)
-        console.log(user)
-
       if (selectError) {
         return 
       }

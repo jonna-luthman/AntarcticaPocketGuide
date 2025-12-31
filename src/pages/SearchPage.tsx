@@ -11,22 +11,20 @@ import {
   IonItemGroup,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import useSpecies from "../hooks/useSpecies";
+import useGetLang from "../hooks/useGetLang";
 
 import Header from "../components/Header";
 
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
-import { UserAuth } from "../context/AuthContext";
-import { UISpecieSummaryWithMedia } from "../types/species";
-import useGetLang from "../hooks/useGetLang";
-import { useTranslation } from "react-i18next";
 import i18n from "../utils/i18n";
 
+import { UISpecieSummaryWithMedia } from "../types/species";
 
-
-const AddSighting: React.FC= () => {
-  const { session } = UserAuth();
+const SearchPage: React.FC= () => {
   const { getAllSpecies, speciesList: species } = useSpecies();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -160,4 +158,4 @@ const AddSighting: React.FC= () => {
   );
 };
 
-export default AddSighting;
+export default SearchPage;

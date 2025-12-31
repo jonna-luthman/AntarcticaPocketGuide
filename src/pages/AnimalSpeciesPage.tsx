@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonText } from "@ionic/react";
+import { IonPage, IonContent, IonText, IonButton } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { Blend, Eye, PersonStanding } from "lucide-react";
@@ -77,9 +77,21 @@ const AnimalSpeciesPage: React.FC = () => {
             <h3 className="ion-no-margin">{species?.name_latin}</h3>
           </IonText>
 
+          <IonButton
+            expand="block"
+            color="medium"
+            shape="round"
+            className="ion-margin-top"
+            routerLink={`/add-sighting/${species?.id}`}
+          >
+            <IonText color="light">
+            {t("buttons.addSighting")}
+            </IonText>
+          </IonButton>
+
           <div className="ion-padding-top">
             <h3 className="ion-text-justify">
-              <Eye size={20} />
+              <Eye size={20} />{" "}
               {t("pages.animalsSpeciesPage.lookFor")}
             </h3>
             <p> {getLang(species, "identifying_features")}</p>
@@ -87,20 +99,21 @@ const AnimalSpeciesPage: React.FC = () => {
 
           {sounds && sounds.length > 0 && <AnimalSounds sounds={sounds} />}
 
-          <div className="ion-padding-top">
+          {/* TODO */}
+          {/* <div className="ion-padding-top">
             <h3 className="ion-text-justify">
               <Blend size={20} />{" "}
               {t("pages.animalsSpeciesPage.similiarSpecies")}
             </h3>
-            <p>TBA</p>
-          </div>
+            <p></p>
+          </div> */}
 
           <SpeciesFeatures specie={species} />
           <DistinguishableFeaturesCard specie={species} />
 
           <div className="ion-padding-top">
-            <h3 className="ion-text-justify">
-              <PersonStanding size={20} />
+            <h3>
+              <PersonStanding size={20} />{" "}
               {t("pages.animalsSpeciesPage.behaviourAroundPeople")}
             </h3>
             <p>{getLang(species, "human_interaction")}</p>

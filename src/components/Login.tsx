@@ -46,8 +46,6 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
     showLoading();
     try {
       const response = await signInWithEmail({ email, password });
-
-      console.log("repsonse login", response)
       if (!response.success) {
         const errorCode = response.error.code;
         switch (errorCode) {

@@ -31,7 +31,7 @@ const DistinguishableFeaturesCard = ({
   return (
     <div className="ion-padding-top">
       <h3>
-        <FingerprintPattern size={20} />
+        <FingerprintPattern size={20} />{" "}
         {t("components.distinguishableFeatures.title")}
       </h3>
       {featureList?.map((f, index) => (

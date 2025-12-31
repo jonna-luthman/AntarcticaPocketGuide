@@ -1,20 +1,15 @@
 import { IonTabBar, IonTabButton, IonIcon } from "@ionic/react";
-import {useState} from "react"
-import { addCircleOutline, homeOutline, personOutline } from "ionicons/icons";
-import { UserAuth } from "../context/AuthContext";
-import LoginModal from "../pages/Authentication/LoginModal"
+import { search, homeOutline, personOutline } from "ionicons/icons";
 
 const Navbar: React.FC = () => {
-
   return (
     <>
       <IonTabBar slot="bottom" color="primary">
         <IonTabButton tab="Home" href="/">
           <IonIcon icon={homeOutline} color="dark" />
         </IonTabButton>
-        {/* TODO: Add drawer to add to list */}
-        <IonTabButton tab="Add" href="/add-sighting">
-          <IonIcon icon={addCircleOutline}></IonIcon>
+        <IonTabButton tab="Add" href="/search">
+          <IonIcon icon={search}></IonIcon>
         </IonTabButton>
         <IonTabButton
           tab="Profile"

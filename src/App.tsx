@@ -58,6 +58,7 @@ import { LoadingProvider } from "./context/LoadingContext";
 
 import Menu from "./components/Menu";
 import Navbar from "./components/Navbar";
+import SearchPage from "./pages/SearchPage";
 
 setupIonicReact();
 
@@ -76,10 +77,11 @@ const App: React.FC = () => {
                 <Route exact path="/field-journal">
                   <FieldJournal onShowLoginModal={() => setIsLoginOpen(true)} />
                 </Route>
-                <Route exact path="/add-sighting">
-                  <AddSighting onShowLoginModal={() => setIsLoginOpen(true)} />
+                <Route exact path="/search" component={SearchPage}/>
+
+                <Route exact path="/add-sighting/:speciesId">
+                  <ConfirmSighting onShowLoginModal={() => setIsLoginOpen(true)} />
                 </Route>
-                <Route exact path="/add-sighting/:speciesId" component={ConfirmSighting} />
                 <Route exact path="/about-us" component={AboutUs} />
                 <Route exact path="/contact-us" component={ContactUs} />
                 <Route exact path="/change-password" component={ChangePassword} />

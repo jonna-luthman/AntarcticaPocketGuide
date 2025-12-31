@@ -42,7 +42,6 @@ const Home: React.FC = () => {
     <IonPage>
       <IonContent fullscreen={true}>
         <Header showMenu={true} />
-        <CollapsableHeader />
         <IonGrid className={styles.parent}>
           {animalClasses?.map((animalClass) => (
             <IonCol
