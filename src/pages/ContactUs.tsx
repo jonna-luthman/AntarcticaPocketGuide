@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import { useLoading } from "../context/LoadingContext";
 import { checkmarkCircleOutline } from "ionicons/icons";
-import { supabase } from "../api/supabaseClient.ts";
+import { supabase } from "../api/supabaseClient";
 
 interface FormdataType {
   name: string;
