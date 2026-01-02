@@ -147,6 +147,35 @@
       "errorMessages": {
         "noSpeciesFound": "No se han encontrado especies."
       }
+    },
+    "contactUs": {
+      "title": "Ponte en contacto",
+      "description": "Deje su mensaje y nos pondremos en contacto con usted en breve.",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Su nombre y apellidos",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "Sus preguntas o mensajes",
+      "subject": "Asunto",
+      "subjectPlaceholder": "Introduzca un asunto",
+      "message": "Mensaje",
+      "messagePlaceholder": "Sus preguntas o mensajes",
+      "send": "Enviar"
+    },
+    "success": {
+      "title": "¡Gracias!",
+      "message": "Tu mensaje ha sido enviado. Nos pondremos en contacto contigo pronto.",
+      "back": "Enviar otro mensaje"
+    },
+    "errorMessages": {
+      "nameEmpty": "El nombre es obligatorio",
+      "nameError": "El nombre debe tener al menos 2 caracteres",
+      "emailEmpty": "El correo electrónico es obligatorio",
+      "emailError": "Por favor, introduce una dirección de correo electrónico válida",
+      "subjectEmpty": "El asunto es obligatorio",
+      "subjectError": "El asunto debe tener al menos 2 caracteres",
+      "messageEmpty": "El mensaje es obligatorio",
+      "messageError": "El mensaje debe tener al menos 10 caracteres"
     }
   },
   "components": {
@@ -188,5 +217,6 @@
     "macaroni": "Plumas puntiagudas en la parte superior de la cabeza",
     "rockhopper": "Plumas amarillas que caen hacia los lados",
     "imageAtt": "Hombre con prismáticos"
+  }
   }
 }

@@ -147,47 +147,78 @@
       "errorMessages": {
         "noSpeciesFound": "No species found"
       }
+    },
+    "contactUs": {
+      "title": "Get in touch",
+      "description": "Leave your message and we will get back to your shortly",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Your first and last name",
+        "email": "Email",
+        "emailPlaceholder": "Email adress",
+        "subject": "Subject",
+        "subjectPlaceholder": "Enter a subject",
+        "message": "Message",
+        "messagePlaceholder": "Your questions or message",
+        "send": "Send"
+      },
+      "success": {
+        "title": "Thank you!",
+        "message": "Your message have been sent. We will get back to you soon.",
+        "back": "Send another message"
+      },
+      "errorMessages": {
+        "nameEmpty": "Name is required",
+        "nameError": "Name must be at least 2 characters",
+        "emailEmpty": "Email is required",
+        "emailError": "Please enter a valid email address",
+        "subjectEmpty": "Subject is required",
+        "subjectError": "Subject must be at least 2 characters",
+        "messageEmpty": "Message is required",
+        "messageError": "Message must be at least 10 characters"
+      }
     }
   },
-  "components": {
-    "accordionGroupItem": {
-      "date": "Date:",
-      "location": "Location:",
-      "notes": "Notes:",
-      "observations": "observations"
+    "components": {
+      "accordionGroupItem": {
+        "date": "Date:",
+        "location": "Location:",
+        "notes": "Notes:",
+        "observations": "observations"
+      },
+      "speciesFeatures": {
+        "lifespan": "Up to {{lifespan}} years"
+      },
+      "speciesTabs": {
+        "behaviour": "Behaviour",
+        "distribution": "Distribution",
+        "facts": "Facts"
+      },
+      "distinguishableFeatures": {
+        "title": "Distinguishable features",
+        "nonAvailable": "No features available"
+      }
     },
-    "speciesFeatures": {
-      "lifespan": "Up to {{lifespan}} years"
-    },
-    "speciesTabs": {
-      "behaviour": "Behaviour",
-      "distribution": "Distribution",
-      "facts": "Facts"
-    },
-    "distinguishableFeatures": {
-      "title": "Distinguishable features",
-      "nonAvailable": "No features available"
-    }
-  },
 
-  "conservationStatus": {
-    "Least concern": "Least concern",
-    "Near threathened": "Near threatened",
-    "Vulnerable": "Vulnerable",
-    "Endangered": "Endangered",
-    "Critically endangered": "Critically endangered",
-    "Extinct in the wild": "Extinct in the wild",
-    "Extinct": "Extinct"
-  },
-  "identifyingPenguins": {
-    "description": "Look for visual clues to identify penguins",
-    "gentoo": "White triangular patch over eye and orange beak",
-    "adelie": "White ring around eye",
-    "chinstrap": "The chinstrap line",
-    "king": "Solid yellow-orange patch behind cheek",
-    "emperor": "Yellowish-white patch that fads into the belly",
-    "macaroni": "Spiked feathers on top of the head",
-    "rockhopper": "Yellow feathers dropping down",
-    "imageAtt": "Man with Binoculars"
+    "conservationStatus": {
+      "Least concern": "Least concern",
+      "Near threathened": "Near threatened",
+      "Vulnerable": "Vulnerable",
+      "Endangered": "Endangered",
+      "Critically endangered": "Critically endangered",
+      "Extinct in the wild": "Extinct in the wild",
+      "Extinct": "Extinct"
+    },
+    "identifyingPenguins": {
+      "description": "Look for visual clues to identify penguins",
+      "gentoo": "White triangular patch over eye and orange beak",
+      "adelie": "White ring around eye",
+      "chinstrap": "The chinstrap line",
+      "king": "Solid yellow-orange patch behind cheek",
+      "emperor": "Yellowish-white patch that fads into the belly",
+      "macaroni": "Spiked feathers on top of the head",
+      "rockhopper": "Yellow feathers dropping down",
+      "imageAtt": "Man with Binoculars"
+    }
   }
-}
+
