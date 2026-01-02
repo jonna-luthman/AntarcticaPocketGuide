@@ -1,7 +1,6 @@
-import { IonButton, IonIcon, IonText } from "@ionic/react";
+import { IonButton, IonIcon, IonInput } from "@ionic/react";
 import { addOutline, removeOutline } from "ionicons/icons";
 import styles from "./styles/QuantitySelector.module.css";
-import { MouseEventHandler } from "react";
 
 interface QuantitySelectorProps {
   count: number;
@@ -27,19 +26,29 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
       <IonButton
         fill="clear"
         color="dark"
-        onClick={handleIncrement}
+        onClick={handleDecrement}
         className={styles.controlButton}
         disabled={count <= 1}
       >
         <IonIcon icon={removeOutline} slot="icon-only" />
       </IonButton>
 
-      <IonText className={styles.counter}>{count}</IonText>
+      <IonInput
+        value={count}
+        type="number"
+        className={styles.counterInput}
+        onIonChange={(e) => {
+          const val = parseInt(e.detail.value!, 10);
+          if (!isNaN(val)) {
+            setCount(val); 
+          }
+        }}
+      />
 
       <IonButton
         fill="clear"
         color="dark"
-        onClick={handleDecrement}
+        onClick={handleIncrement}
         className={styles.controlButton}
       >
         <IonIcon icon={addOutline} slot="icon-only" />

@@ -11,6 +11,7 @@ import {
   IonModal,
   IonTextarea,
   useIonRouter,
+  IonText,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -46,7 +47,9 @@ interface ConfirmSightingProps {
   onShowLoginModal: () => void;
 }
 
-const ConfirmSighting: React.FC<ConfirmSightingProps> = ({ onShowLoginModal }) => {
+const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
+  onShowLoginModal,
+}) => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { speciesId } = useParams<{ speciesId: string }>();
   const { session } = UserAuth();
@@ -106,13 +109,8 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({ onShowLoginModal }) =
 
   return (
     <IonPage>
-        <Header
-          showBackButton={true}
-          showLogo={false}
-          showTitle={true}
-          title={t("pages.header.addSighting")}
-        />
       <IonContent fullscreen>
+        <Header showBackButton={true} showLogo={true} />
         {!session ? (
           <NotAuthorized
             title={t("notAuthorized.addSighting.title")}
@@ -153,14 +151,20 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({ onShowLoginModal }) =
                     icon={calendarNumberOutline}
                     slot="start"
                   />
-
+                  <IonLabel position="stacked">
+                    {t("pages.confirmSighting.date")}
+                  </IonLabel>
                   <p>{formatDate(selectedDate)}</p>
                 </IonItem>
 
                 <IonItem lines="full" className="ion-margin ion-padding-bottom">
                   <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
-                  <p>{t("pages.confirmSighting.howMany")}</p>
-                  <QuantitySelector count={count} setCount={setCount} />
+                  <div slot="start">
+                    <QuantitySelector count={count} setCount={setCount} />
+                    <IonLabel className="ion-padding-bottom" position="stacked">
+                      {t("pages.confirmSighting.howMany")}
+                    </IonLabel>
+                  </div>
                 </IonItem>
 
                 <IonItem

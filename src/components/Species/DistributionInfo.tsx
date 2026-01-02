@@ -35,16 +35,16 @@ const DistributionInfo = ({ specie }: DistributionInfoProps) => {
       </h3>
       {Object.entries(distribution).map(([region, description]) => (
         <div key={region}>
-          {specie && image && (
-            <div className={imageStyles.distributionImageContainer}>
-              <Image image={image} imageUrl={imageUrl} />
-            </div>
-          )}
           <p className={styles.distributionText}>
             <span className={styles.fontBold}>{region}:</span> {description}
           </p>
         </div>
       ))}
+      {specie && image && (
+        <div className={imageStyles.distributionImageContainer}>
+          <Image image={image} imageUrl={imageUrl} />
+        </div>
+      )}
     </div>
   );
 };

@@ -119,9 +119,7 @@ const AddSighting: React.FC= () => {
     <IonPage>
       <Header
         showBackButton={true}
-        showLogo={false}
-        showTitle={true}
-        title={t("pages.header.addSighting")}
+        showLogo={true}
       />
       <IonContent fullscreen>
 
