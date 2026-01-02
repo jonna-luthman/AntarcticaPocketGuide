@@ -109,8 +109,8 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
 
   return (
     <IonPage>
-      <IonContent fullscreen>
-        <Header showBackButton={true} showLogo={true} />
+      <IonContent fullscreen className="ion-no-border">
+        <Header showBackButton={true} showLogo={false} color="tertiary"/>
         {!session ? (
           <NotAuthorized
             title={t("notAuthorized.addSighting.title")}

@@ -56,7 +56,7 @@ const AnimalSpeciesPage: React.FC = () => {
       )}
 
       <IonContent color="tertiary" className="ion-no-border">
-        <Header showBackButton={true} showLogo={false} />
+        <Header showBackButton={true} showLogo={false} color="inherit"/>
 
         {headerImage && (
           <div
@@ -85,7 +85,7 @@ const AnimalSpeciesPage: React.FC = () => {
             routerLink={`/add-sighting/${species?.id}`}
           >
             <IonText color="light">
-            {t("buttons.addSighting")}
+            {t('buttons.addSighting')}
             </IonText>
           </IonButton>
 
