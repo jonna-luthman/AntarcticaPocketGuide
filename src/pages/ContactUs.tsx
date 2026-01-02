@@ -1,7 +1,6 @@
 import {
   IonPage,
   IonContent,
-  IonTitle,
   IonButton,
   IonCol,
   IonGrid,
@@ -14,41 +13,30 @@ import {
   IonText,
   IonIcon,
 } from "@ionic/react";
-import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import { useLoading } from "../context/LoadingContext";
 import { checkmarkCircleOutline } from "ionicons/icons";
+import { supabase } from "../api/supabaseClient.ts";
 
-const validateForm = (data: any) => {
-  const newErrors = { name: "", email: "", subject: "", message: "" };
-
-  if (!data.name.trim()) newErrors.name = "Name is required";
-  else if (data.name.trim().length < 2)
-    newErrors.name = "Name must be at least 2 chars";
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!data.email.trim()) newErrors.email = "Email is required";
-  else if (!emailRegex.test(data.email))
-    newErrors.email = "Invalid email address";
-
-  if (!data.subject.trim()) newErrors.subject = "Subject is required";
-  if (!data.message.trim()) newErrors.message = "Message is required";
-
-  return newErrors;
-};
+interface FormdataType {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 const ContactUs: React.FC = () => {
   const { t } = useTranslation();
   const { showLoading, hideLoading } = useLoading();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormdataType>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<FormdataType>({
     name: "",
     email: "",
     subject: "",
@@ -58,7 +46,7 @@ const ContactUs: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   useEffect(() => {
-    const validationErrors = validateForm(formData);
+    const validationErrors = validateForm();
     setErrors(validationErrors);
   }, [formData]);
 
@@ -67,7 +55,7 @@ const ContactUs: React.FC = () => {
     return emailRegex.test(email);
   };
 
-  const validateForm = (data: typeof formData) => {
+  const validateForm = () => {
     const newErrors = {
       name: "",
       email: "",
@@ -89,7 +77,7 @@ const ContactUs: React.FC = () => {
 
     if (!formData.subject.trim()) {
       newErrors.subject = t("pages.contactUs.errorMessages.subjectEmpty");
-    } else if (formData.subject.trim().length < 5) {
+    } else if (formData.subject.trim().length < 2) {
       newErrors.subject = t("pages.contactUs.errorMessages.subjectError");
     }
 
@@ -106,27 +94,48 @@ const ContactUs: React.FC = () => {
     setTouched({ ...touched, [name]: true });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const finalErrors = validateForm(formData);
+    const finalErrors = validateForm();
     const isFormValid = Object.values(finalErrors).every((x) => x === "");
 
-    if (isFormValid) {
-      setIsSubmitted(true);
-    } else {
+    if (!isFormValid) {
       setTouched({
         name: true,
         email: true,
         subject: true,
         message: true,
       });
+      return;
+    }
+
+    showLoading();
+    try {
+      const { error } = await supabase.functions.invoke("resend", {
+        body: formData,
+      });
+
+      if (error) throw error;
+
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error("Error sending email:", err);
+      return { success: false, error: err };
+    } finally {
+      hideLoading();
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
     }
   };
 
   return (
     <IonPage>
-      <Header showMenu={true} />
+      <Header showMenu={true}/>
       {isSubmitted ? (
         <IonContent fullscreen>
           <div className="ion-text-center ion-margin-top ion-padding">
@@ -137,9 +146,6 @@ const ContactUs: React.FC = () => {
             />
             <h2>{t("pages.contactUs.success.title")}</h2>
             <p>{t("pages.contactUs.success.message")}</p>
-            <IonButton fill="solid" onClick={() => setIsSubmitted(false)}>
-              {t("pages.contactUs.success.back")}
-            </IonButton>
           </div>
         </IonContent>
       ) : (
@@ -158,7 +164,7 @@ const ContactUs: React.FC = () => {
                 <IonList lines="full">
                   <IonItem>
                     <IonLabel position="stacked">
-                      {t("pages.contactUs.form.name") || "Name"}*
+                      {t("pages.contactUs.form.name") || "Name"}
                     </IonLabel>
                     <IonInput
                       placeholder={t("pages.contactUs.form.name")}
@@ -173,7 +179,6 @@ const ContactUs: React.FC = () => {
                           ? "ion-invalid"
                           : "ion-valid"
                       } ${touched.name && "ion-touched"}`}
-                      required
                     />
                   </IonItem>
 
@@ -201,7 +206,7 @@ const ContactUs: React.FC = () => {
 
                   <IonItem>
                     <IonLabel position="stacked">
-                      {t("pages.contactUs.form.subject") || "Subject"}*
+                      {t("pages.contactUs.form.subject") || "Subject"}
                     </IonLabel>
                     <IonInput
                       placeholder={t("pages.contactUs.form.subjectPlaceholder")}
@@ -216,7 +221,6 @@ const ContactUs: React.FC = () => {
                           ? "ion-invalid"
                           : "ion-valid"
                       } ${touched.subject && "ion-touched"}`}
-                      required
                     />
                   </IonItem>
 

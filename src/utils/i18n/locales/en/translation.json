@@ -177,7 +177,8 @@
         "messageEmpty": "Message is required",
         "messageError": "Message must be at least 10 characters"
       }
-    },
+    }
+  },
     "components": {
       "accordionGroupItem": {
         "date": "Date:",
@@ -220,4 +221,4 @@
       "imageAtt": "Man with Binoculars"
     }
   }
-}
+
