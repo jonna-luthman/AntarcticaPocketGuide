@@ -173,7 +173,7 @@
       "emailEmpty": "El correo electrónico es obligatorio",
       "emailError": "Por favor, introduce una dirección de correo electrónico válida",
       "subjectEmpty": "El asunto es obligatorio",
-      "subjectError": "El asunto debe tener al menos 5 caracteres",
+      "subjectError": "El asunto debe tener al menos 2 caracteres",
       "messageEmpty": "El mensaje es obligatorio",
       "messageError": "El mensaje debe tener al menos 10 caracteres"
     }

@@ -173,7 +173,7 @@
         "emailEmpty": "Email is required",
         "emailError": "Please enter a valid email address",
         "subjectEmpty": "Subject is required",
-        "subjectError": "Subject must be at least 5 characters",
+        "subjectError": "Subject must be at least 2 characters",
         "messageEmpty": "Message is required",
         "messageError": "Message must be at least 10 characters"
       }

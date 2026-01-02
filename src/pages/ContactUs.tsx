@@ -75,12 +75,6 @@ const ContactUs: React.FC = () => {
       newErrors.email = t("pages.contactUs.errorMessages.emailError");
     }
 
-    if (!formData.subject.trim()) {
-      newErrors.subject = t("pages.contactUs.errorMessages.subjectEmpty");
-    } else if (formData.subject.trim().length < 2) {
-      newErrors.subject = t("pages.contactUs.errorMessages.subjectError");
-    }
-
     if (!formData.message.trim()) {
       newErrors.message = t("pages.contactUs.errorMessages.messageEmpty");
     } else if (formData.message.trim().length < 10) {
@@ -164,7 +158,7 @@ const ContactUs: React.FC = () => {
                 <IonList lines="full">
                   <IonItem>
                     <IonLabel position="stacked">
-                      {t("pages.contactUs.form.name") || "Name"}
+                      {t("pages.contactUs.form.name") || "Name"}*
                     </IonLabel>
                     <IonInput
                       placeholder={t("pages.contactUs.form.name")}
@@ -206,7 +200,7 @@ const ContactUs: React.FC = () => {
 
                   <IonItem>
                     <IonLabel position="stacked">
-                      {t("pages.contactUs.form.subject") || "Subject"}
+                      {t("pages.contactUs.form.subject") || "Subject"}*
                     </IonLabel>
                     <IonInput
                       placeholder={t("pages.contactUs.form.subjectPlaceholder")}
