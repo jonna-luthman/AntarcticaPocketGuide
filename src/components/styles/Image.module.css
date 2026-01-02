@@ -5,8 +5,15 @@
   bottom: 0;
   right: 0;
   height: 100%;
-  width: auto;
+  width: 50%;
+  max-width: 50%;
   object-fit: cover; 
+  object-position: center;
+}
+
+.cornerImage::part(image) {
+  object-fit: cover;
+  object-position: right center;
 }
 
 .distributionImageContainer {

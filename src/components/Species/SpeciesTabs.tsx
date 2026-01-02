@@ -23,6 +23,7 @@ export default function SpeciesTabs({ specie }: SpeciesTabsProps) {
   return (
     <div>
       <IonSegment
+        mode="ios"
         scrollable
         value={selectedTab}
         onIonChange={(e) => setSelectedTab(e.detail.value!)}

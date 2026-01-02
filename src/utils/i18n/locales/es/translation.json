@@ -12,7 +12,8 @@
     "cancel": "Cancelar",
     "save": "Guardar",
     "close": "Cerrar",
-    "selectLanguage": "Seleccionar idioma"
+    "selectLanguage": "Seleccionar idioma",
+        "addSighting": "Añadir avistamiento"
   },
   "menu": {
     "page": {

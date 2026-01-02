@@ -56,9 +56,9 @@ const AnimalClassPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonContent>
         <Header showBackButton={true} />
-        <CollapsableHeader />
+      <IonContent>
+        {/* <CollapsableHeader /> */}
         <Breadcrumbs param1={getLang(animalClass, "name")} />
         <IonList>
           {species &&

@@ -46,8 +46,6 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
     showLoading();
     try {
       const response = await signInWithEmail({ email, password });
-
-      console.log("repsonse login", response)
       if (!response.success) {
         const errorCode = response.error.code;
         switch (errorCode) {
@@ -141,6 +139,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
             <IonButton
               expand="block"
+              shape="round"
               type="submit"
               className={styles.button}
               fill="outline"
@@ -155,6 +154,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         <div>
           <IonButton
             expand="block"
+            shape="round"
             fill="solid"
             className={styles.googleButton}
             onClick={signInWithGoogle}
@@ -167,6 +167,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         <div>
           <IonButton
             expand="block"
+            shape="round"
             fill="solid"
             className={styles.googleButton}
             onClick={signInWithFacebook}

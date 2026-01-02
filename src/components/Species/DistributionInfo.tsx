@@ -30,21 +30,21 @@ const DistributionInfo = ({ specie }: DistributionInfoProps) => {
   return (
     <div>
       <h3>
-        <MapPinned className={styles.icon} />
+        <MapPinned className={styles.icon} />{" "}
         {t("pages.animalsSpeciesPage.whereToLook")}
       </h3>
       {Object.entries(distribution).map(([region, description]) => (
         <div key={region}>
-          {specie && image && (
-            <div className={imageStyles.distributionImageContainer}>
-              <Image image={image} imageUrl={imageUrl} />
-            </div>
-          )}
           <p className={styles.distributionText}>
             <span className={styles.fontBold}>{region}:</span> {description}
           </p>
         </div>
       ))}
+      {specie && image && (
+        <div className={imageStyles.distributionImageContainer}>
+          <Image image={image} imageUrl={imageUrl} />
+        </div>
+      )}
     </div>
   );
 };

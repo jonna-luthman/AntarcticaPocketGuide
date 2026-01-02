@@ -34,7 +34,7 @@ const AccordionGroupItem = ({
 
   return (
     <IonAccordion value={title}>
-      <IonItem slot="header" color="inherit" className="ion-margin-vertical">
+      <IonItem slot="header" color="inherit" className="ion-margin-top ion-no-border">
         <IonLabel>
           <h1>
             {title} ({items?.length})
@@ -62,7 +62,7 @@ const AccordionGroupItem = ({
                 </IonThumbnail>
               )}
               <IonLabel>
-                <h2 className="font-average">{getLang(item, "name_common")}</h2>
+                <h4>{getLang(item, "name_common")}</h4>
                 {isSeenMode && (
                   <p>
                     {item.UserSpeciesList.length}{" "}

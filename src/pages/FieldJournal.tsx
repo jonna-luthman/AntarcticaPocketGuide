@@ -22,6 +22,7 @@ import NotAuthorized from "../components/NotAuthorized";
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
+import { findImageByRole } from "../utils/getMediaTypes";
 
 interface FieldJournalProps {
   onShowLoginModal: () => void;
@@ -52,7 +53,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     if (!species) return [];
 
     return species.map((s) => {
-      const headerMedia = s.SpeciesMedia?.[0];
+      const headerMedia = findImageByRole(s.SpeciesMedia, "header")
 
       return {
         ...s,
@@ -143,6 +144,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
             <div className="ion-padding">
               <IonSegment
+              mode="ios"
                 value={selectedSegment}
                 onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
               >
@@ -155,7 +157,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
               </IonSegment>
 
               <IonAccordionGroup expand="inset">
-                <AccordionGroupItem
+                <AccordionGroupItem 
                   title={t('animalClasses.birds')}
                   items={birds ?? []}
                   isSeenMode={selectedSegment === "seen"}

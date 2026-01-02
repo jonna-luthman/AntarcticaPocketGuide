@@ -28,24 +28,24 @@ const IdentifyPenguins: React.FC = () => {
       <div className="">
         {/* TODO: Add routerLink when all species are added. */}
         {/* <IonRouterLink> */}
-          <IonCard color="tertiary" className={styles.cardWrapper}>
-            <div>
-              <IonCardHeader className={styles.cardHeader}>
-                <IonCardTitle>
-                  <h2 className={styles.cardFont}>{penguin}</h2>
-                </IonCardTitle>
-              </IonCardHeader>
+        <IonCard color="tertiary" className={styles.cardWrapper}>
+          <div>
+            <IonCardHeader className={styles.cardHeader}>
+              <IonCardTitle>
+                <h2 className={styles.cardFont}>{penguin}</h2>
+              </IonCardTitle>
+            </IonCardHeader>
 
-              <IonCardContent className={styles.cardFont}>
-                {description}
-              </IonCardContent>
-            </div>
-            <img
-              src={src}
-              alt={`${penguin} penguin`}
-              className={styles.cardImage}
-            />
-          </IonCard>
+            <IonCardContent className={styles.cardFont}>
+              {description}
+            </IonCardContent>
+          </div>
+          <img
+            src={src}
+            alt={`${penguin} penguin`}
+            className={styles.cardImage}
+          />
+        </IonCard>
         {/* </IonRouterLink> */}
       </div>
     );
@@ -53,8 +53,8 @@ const IdentifyPenguins: React.FC = () => {
 
   return (
     <IonPage>
+      <Header showBackButton={true} />
       <IonContent fullscreen>
-        <Header showBackButton={true} />
         <div className={styles.gridWrapper}>
           <PenguinCard
             penguin="Gentoo"

@@ -202,6 +202,7 @@ const Register: React.FC<RegisterProps> = ({
 
           <IonButton
             className={styles.button}
+            shape="round"
             fill="outline"
             expand="block"
             type="submit"
@@ -215,6 +216,7 @@ const Register: React.FC<RegisterProps> = ({
         <div className={styles.center}>
           <IonButton
             expand="block"
+            shape="round"
             fill="solid"
             className={styles.googleButton}
             onClick={signUpWithGoogle}
@@ -225,6 +227,7 @@ const Register: React.FC<RegisterProps> = ({
 
           <IonButton
             expand="block"
+            shape="round"
             fill="solid"
             className={styles.googleButton}
             onClick={signUpWithFacebook}

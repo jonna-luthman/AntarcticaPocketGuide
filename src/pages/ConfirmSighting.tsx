@@ -11,6 +11,7 @@ import {
   IonModal,
   IonTextarea,
   useIonRouter,
+  IonText,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -39,8 +40,16 @@ import {
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
 import useGetLang from "../hooks/useGetLang";
+import { findImageByRole } from "../utils/getMediaTypes";
+import NotAuthorized from "../components/NotAuthorized";
 
-const ConfirmSighting: React.FC = () => {
+interface ConfirmSightingProps {
+  onShowLoginModal: () => void;
+}
+
+const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
+  onShowLoginModal,
+}) => {
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { speciesId } = useParams<{ speciesId: string }>();
   const { session } = UserAuth();
@@ -61,6 +70,8 @@ const ConfirmSighting: React.FC = () => {
   useEffect(() => {
     getSpeciesById(speciesId);
   }, []);
+
+  const headerImage = findImageByRole(species?.SpeciesMedia ?? null, "header");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,122 +110,138 @@ const ConfirmSighting: React.FC = () => {
   return (
     <IonPage>
       <IonContent fullscreen>
-        <Header
-          showBackButton={true}
-          showLogo={false}
-          showTitle={true}
-          title={t("pages.header.addSighting")}
-        />
-        <div>
-          <Image
-            image={species?.SpeciesMedia[0]}
-            className="sightingHeaderImage"
-            imageUrl={resolveImageUrl(species?.SpeciesMedia[0].media_url)}
+        <Header showBackButton={true} showLogo={true} />
+        {!session ? (
+          <NotAuthorized
+            title={t("notAuthorized.addSighting.title")}
+            description={t("notAuthorized.addSighting.description")}
+            buttonText={t("notAuthorized.buttonText")}
+            onAction={onShowLoginModal}
           />
-        </div>
-        <form onSubmit={handleSubmit}>
-          <IonItemGroup>
-            <IonItem
-              button
-              lines="full"
-              className="ion-margin-vertical ion-padding-bottom"
-              routerLink="/add-sighting"
-            >
-              <h3 className="ion-margin">{getLang(species, "name_common")}</h3>
-            </IonItem>
-
-            <IonItem
-              button
-              lines="full"
-              className="ion-margin ion-padding-bottom"
-              id="open-date-modal"
-            >
-              <IonIcon
-                aria-hidden="true"
-                icon={calendarNumberOutline}
-                slot="start"
-              />
-
-              <p>{formatDate(selectedDate)}</p>
-            </IonItem>
-
-            <IonItem lines="full" className="ion-margin ion-padding-bottom">
-              <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
-              <p>{t("pages.confirmSighting.howMany")}</p>
-              <QuantitySelector count={count} setCount={setCount} />
-            </IonItem>
-
-            <IonItem
-              lines="full"
-              className="ion-margin ion-padding-bottom"
-              id="open-date-modal"
-            >
-              <IonIcon
-                aria-hidden="true"
-                icon={locationOutline}
-                slot="start"
-              ></IonIcon>
-              <IonLabel position="stacked">
-                {t("pages.confirmSighting.location")}
-              </IonLabel>
-              <IonInput
-                type="text"
-                value={location}
-                placeholder={t("pages.confirmSighting.locationPlaceholder")}
-                onIonInput={(e) => setLocation(e.detail.value!)}
-              />
-            </IonItem>
-
-            <IonItem lines="full" className="ion-margin ion-padding-bottom">
-              <IonIcon icon={chatbubbleEllipsesOutline} slot="start" />
-              <IonLabel position="stacked">
-                {t("pages.confirmSighting.notes")}
-              </IonLabel>
-              <IonTextarea
-                value={notes}
-                placeholder={t("pages.confirmSighting.notesPlaceholder")}
-                autoGrow={true}
-                rows={3}
-                onIonInput={(e) => setNotes(e.detail.value!)}
-              />
-            </IonItem>
-          </IonItemGroup>
-
-          <IonModal
-            trigger="open-date-modal"
-            keepContentsMounted={true}
-            className={styles.DateTimeModal}
-            showBackdrop={true}
-            backdropDismiss={true}
-          >
-            <div className={styles.DatePicker}>
-              <IonDatetime
-                value={selectedDate}
-                onIonChange={(e) => setSelectedDate(e.detail.value as string)}
-                showDefaultButtons={true}
-                doneText={t("buttons.save")}
-                presentation="date"
-                cancelText={t("buttons.cancel")}
-                color="dark"
-                hourCycle="h12"
+        ) : (
+          <>
+            <div>
+              <Image
+                image={species?.SpeciesMedia[0]}
+                className="sightingHeaderImage"
+                imageUrl={resolveImageUrl(headerImage?.media_url)}
               />
             </div>
-          </IonModal>
-          <div className="ion-padding">
-            <IonButton expand="block" color="tertiary" type="submit">
-              {t("buttons.save")}
-            </IonButton>
+            <form onSubmit={handleSubmit}>
+              <IonItemGroup>
+                <IonItem
+                  button
+                  lines="full"
+                  className="ion-margin-vertical ion-padding-bottom"
+                  routerLink="/search"
+                >
+                  <h3 className="ion-margin">
+                    {getLang(species, "name_common")}
+                  </h3>
+                </IonItem>
 
-            <IonButton
-              expand="block"
-              fill="clear"
-              color="dark"
-              onClick={() => router.back()}
-            >
-              {t("buttons.cancel")}
-            </IonButton>
-          </div>
-        </form>
+                <IonItem
+                  button
+                  lines="full"
+                  className="ion-margin ion-padding-bottom"
+                  id="open-date-modal"
+                >
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={calendarNumberOutline}
+                    slot="start"
+                  />
+                  <IonLabel position="stacked">
+                    {t("pages.confirmSighting.date")}
+                  </IonLabel>
+                  <p>{formatDate(selectedDate)}</p>
+                </IonItem>
+
+                <IonItem lines="full" className="ion-margin ion-padding-bottom">
+                  <IonIcon aria-hidden="true" icon={eyeOutline} slot="start" />
+                  <div slot="start">
+                    <QuantitySelector count={count} setCount={setCount} />
+                    <IonLabel className="ion-padding-bottom" position="stacked">
+                      {t("pages.confirmSighting.howMany")}
+                    </IonLabel>
+                  </div>
+                </IonItem>
+
+                <IonItem
+                  lines="full"
+                  className="ion-margin ion-padding-bottom"
+                  id="open-date-modal"
+                >
+                  <IonIcon
+                    aria-hidden="true"
+                    icon={locationOutline}
+                    slot="start"
+                  ></IonIcon>
+                  <IonLabel position="stacked">
+                    {t("pages.confirmSighting.location")}
+                  </IonLabel>
+                  <IonInput
+                    type="text"
+                    value={location}
+                    placeholder={t("pages.confirmSighting.locationPlaceholder")}
+                    onIonInput={(e) => setLocation(e.detail.value!)}
+                  />
+                </IonItem>
+
+                <IonItem lines="full" className="ion-margin ion-padding-bottom">
+                  <IonIcon icon={chatbubbleEllipsesOutline} slot="start" />
+                  <IonLabel position="stacked">
+                    {t("pages.confirmSighting.notes")}
+                  </IonLabel>
+                  <IonTextarea
+                    value={notes}
+                    placeholder={t("pages.confirmSighting.notesPlaceholder")}
+                    autoGrow={true}
+                    rows={3}
+                    onIonInput={(e) => setNotes(e.detail.value!)}
+                  />
+                </IonItem>
+              </IonItemGroup>
+
+              <IonModal
+                trigger="open-date-modal"
+                keepContentsMounted={true}
+                className={styles.DateTimeModal}
+                showBackdrop={true}
+                backdropDismiss={true}
+              >
+                <div className={styles.DatePicker}>
+                  <IonDatetime
+                    value={selectedDate}
+                    onIonChange={(e) =>
+                      setSelectedDate(e.detail.value as string)
+                    }
+                    showDefaultButtons={true}
+                    doneText={t("buttons.save")}
+                    presentation="date"
+                    cancelText={t("buttons.cancel")}
+                    color="dark"
+                    hourCycle="h12"
+                  />
+                </div>
+              </IonModal>
+              <div className="ion-padding">
+                <IonButton expand="block" color="tertiary" type="submit">
+                  {t("buttons.save")}
+                </IonButton>
+
+                <IonButton
+                  expand="block"
+                  fill="clear"
+                  color="dark"
+                  onClick={() => router.back()}
+                >
+                  {t("buttons.cancel")}
+                </IonButton>
+              </div>
+            </form>
+          </>
+        )}
       </IonContent>
     </IonPage>
   );
