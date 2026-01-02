@@ -13,7 +13,8 @@
     "save": "Save",
     "close": "Close",
     "selectLanguage": "Select language",
-    "addSighting": "Add sighting"
+    "addSighting": "Add sighting",
+    "contactUs": "Contact us"
   },
   "menu": {
     "page": {
@@ -178,48 +179,60 @@
         "messageEmpty": "Message is required",
         "messageError": "Message must be at least 10 characters"
       }
+    },
+    "aboutUs": {
+      "titles": {
+        "about": "About us",
+        "section_1": "Who are we?",
+        "section_2": "Our vision",
+        "section_3": "Want to contribute?"
+      },
+      "text": {
+        "section_1": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible.",
+        "section_2": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible.",
+        "section_3": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible."
+      }
     }
   },
-    "components": {
-      "accordionGroupItem": {
-        "date": "Date:",
-        "location": "Location:",
-        "notes": "Notes:",
-        "observations": "observations"
-      },
-      "speciesFeatures": {
-        "lifespan": "Up to {{lifespan}} years"
-      },
-      "speciesTabs": {
-        "behaviour": "Behaviour",
-        "distribution": "Distribution",
-        "facts": "Facts"
-      },
-      "distinguishableFeatures": {
-        "title": "Distinguishable features",
-        "nonAvailable": "No features available"
-      }
+  "components": {
+    "accordionGroupItem": {
+      "date": "Date:",
+      "location": "Location:",
+      "notes": "Notes:",
+      "observations": "observations"
     },
-
-    "conservationStatus": {
-      "Least concern": "Least concern",
-      "Near threathened": "Near threatened",
-      "Vulnerable": "Vulnerable",
-      "Endangered": "Endangered",
-      "Critically endangered": "Critically endangered",
-      "Extinct in the wild": "Extinct in the wild",
-      "Extinct": "Extinct"
+    "speciesFeatures": {
+      "lifespan": "Up to {{lifespan}} years"
     },
-    "identifyingPenguins": {
-      "description": "Look for visual clues to identify penguins",
-      "gentoo": "White triangular patch over eye and orange beak",
-      "adelie": "White ring around eye",
-      "chinstrap": "The chinstrap line",
-      "king": "Solid yellow-orange patch behind cheek",
-      "emperor": "Yellowish-white patch that fads into the belly",
-      "macaroni": "Spiked feathers on top of the head",
-      "rockhopper": "Yellow feathers dropping down",
-      "imageAtt": "Man with Binoculars"
+    "speciesTabs": {
+      "behaviour": "Behaviour",
+      "distribution": "Distribution",
+      "facts": "Facts"
+    },
+    "distinguishableFeatures": {
+      "title": "Distinguishable features",
+      "nonAvailable": "No features available"
     }
-  }
+  },
 
+  "conservationStatus": {
+    "Least concern": "Least concern",
+    "Near threathened": "Near threatened",
+    "Vulnerable": "Vulnerable",
+    "Endangered": "Endangered",
+    "Critically endangered": "Critically endangered",
+    "Extinct in the wild": "Extinct in the wild",
+    "Extinct": "Extinct"
+  },
+  "identifyingPenguins": {
+    "description": "Look for visual clues to identify penguins",
+    "gentoo": "White triangular patch over eye and orange beak",
+    "adelie": "White ring around eye",
+    "chinstrap": "The chinstrap line",
+    "king": "Solid yellow-orange patch behind cheek",
+    "emperor": "Yellowish-white patch that fads into the belly",
+    "macaroni": "Spiked feathers on top of the head",
+    "rockhopper": "Yellow feathers dropping down",
+    "imageAtt": "Man with Binoculars"
+  }
+}

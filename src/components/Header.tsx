@@ -14,6 +14,7 @@ interface HeaderProps {
   showLogo?: boolean;
   showTitle?: boolean;
   title?: string;
+  color?: string
 }
 
 const Header = ({
@@ -22,10 +23,11 @@ const Header = ({
   showLogo = true,
   showTitle = false,
   title = "",
+  color ="primary"
 }: HeaderProps) => {
   return (
     <IonHeader className="ion-no-border">
-      <IonToolbar color="inherit">
+      <IonToolbar color={color}>
         <IonButtons  slot="start">
           {showBackButton && <IonBackButton text="" defaultHref="/" />}
           {showMenu && <IonMenuButton  autoHide={false} />}

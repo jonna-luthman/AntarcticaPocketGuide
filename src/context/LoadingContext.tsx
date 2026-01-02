@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { IonLoading } from "@ionic/react";
+import { IonContent, IonLoading } from "@ionic/react";
 
 interface LoadingContextType {
   showLoading: () => void;
@@ -24,13 +24,17 @@ export const LoadingProvider = ({
   return (
     <LoadingContext.Provider value={{ showLoading, hideLoading }}>
       {children}
-      <IonLoading
-        isOpen={isOpen}
-        spinner="bubbles"
-        backdropDismiss={false}
-        animated={true}
-        duration={0}
-      />
+      <IonContent>
+        <div>
+          <IonLoading
+            isOpen={isOpen}
+            spinner="bubbles"
+            backdropDismiss={false}
+            animated={true}
+            duration={0}
+          />
+        </div>
+      </IonContent>
     </LoadingContext.Provider>
   );
 };

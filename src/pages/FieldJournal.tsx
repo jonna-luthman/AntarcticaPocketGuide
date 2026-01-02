@@ -3,11 +3,12 @@ import {
   IonPage,
   IonSegment,
   IonSegmentButton,
-  IonLabel,
   IonAccordionGroup,
   IonCol,
   IonGrid,
   IonRow,
+  IonText,
+  IonLabel,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
 
@@ -53,7 +54,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     if (!species) return [];
 
     return species.map((s) => {
-      const headerMedia = findImageByRole(s.SpeciesMedia, "header")
+      const headerMedia = findImageByRole(s.SpeciesMedia, "header");
 
       return {
         ...s,
@@ -95,82 +96,82 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
   return (
     <IonPage>
-      <Header showMenu={true} />
       <IonContent fullscreen>
+      <Header showMenu={true}/>
         {!session ? (
           <NotAuthorized
-            title={t('notAuthorized.fieldNotes.title')}
-            description={t('notAuthorized.fieldNotes.description')}
-            buttonText={t('notAuthorized.buttonText')}
+            title={t("notAuthorized.fieldNotes.title")}
+            description={t("notAuthorized.fieldNotes.description")}
+            buttonText={t("notAuthorized.buttonText")}
             onAction={onShowLoginModal}
           />
         ) : (
           <div>
-            <h1 className="ion-padding-horizontal"></h1>
+  
+              <div className={styles.header}>
+                <IonGrid className={styles.summaryContainer}>
+                  <IonRow>
+                    <IonCol>
+                      <IonText className={styles.statCard}>
+                        <strong>{totalSightings}</strong>
+                        <small>{t("pages.fieldJournal.sigthingsLogged")}</small>
+                      </IonText>
+                    </IonCol>
+                  </IonRow>
 
-            <div className={styles.header}>
-              <IonGrid className={styles.summaryContainer}>
-                <IonRow>
-                  <IonCol>
-                    <IonLabel className={styles.statCard}>
-                      <strong>{totalSightings}</strong>
-                      <small>{t('pages.fieldJournal.sigthingsLogged')}</small>
-                    </IonLabel>
-                  </IonCol>
-                </IonRow>
-
-                <IonRow>
-                  <IonCol>
-                    <IonLabel className={styles.statCard}>
-                      <strong>{birds?.length}</strong>
-                      <small>{t('pages.fieldJournal.birdsSeen')}</small>
-                    </IonLabel>
-                  </IonCol>
-                  <IonCol>
-                    <IonLabel className={styles.statCard}>
-                      <strong>{seals?.length}</strong>
-                      <small>{t('pages.fieldJournal.sealsSeen')}</small>
-                    </IonLabel>
-                  </IonCol>
-                  <IonCol>
-                    <IonLabel className={styles.statCard}>
-                      <strong>{whales?.length}</strong>
-                      <small>{t('pages.fieldJournal.whalesSeen')}</small>
-                    </IonLabel>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
-            </div>
+                  <IonRow>
+                    <IonCol>
+                      <IonText className={styles.statCard}>
+                        <strong>{birds?.length}</strong>
+                        <small>{t("pages.fieldJournal.birdsSeen")}</small>
+                      </IonText>
+                    </IonCol>
+                    <IonCol>
+                      <IonText className={styles.statCard}>
+                        <strong>{seals?.length}</strong>
+                        <small>{t("pages.fieldJournal.sealsSeen")}</small>
+                      </IonText>
+                    </IonCol>
+                    <IonCol>
+                      <IonText className={styles.statCard}>
+                        <strong>{whales?.length}</strong>
+                        <small>{t("pages.fieldJournal.whalesSeen")}</small>
+                      </IonText>
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </div>
+      
 
             <div className="ion-padding">
               <IonSegment
-              mode="ios"
+                mode="ios"
                 value={selectedSegment}
                 onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
               >
                 <IonSegmentButton value="seen">
-                  <IonLabel>{t('pages.fieldJournal.seen')}</IonLabel>
+                  <IonLabel>{t("pages.fieldJournal.seen")}</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="not-seen">
-                  <IonLabel>{t('pages.fieldJournal.notSeen')}</IonLabel>
+                  <IonLabel>{t("pages.fieldJournal.notSeen")}</IonLabel>
                 </IonSegmentButton>
               </IonSegment>
 
-              <IonAccordionGroup expand="inset">
-                <AccordionGroupItem 
-                  title={t('animalClasses.birds')}
+              <IonAccordionGroup>
+                <AccordionGroupItem
+                  title={t("animalClasses.birds")}
                   items={birds ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
 
                 <AccordionGroupItem
-                  title={t('animalClasses.seals')}
+                  title={t("animalClasses.seals")}
                   items={seals ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
 
                 <AccordionGroupItem
-                  title={t('animalClasses.whalesAndDolphins')}
+                  title={t("animalClasses.whalesAndDolphins")}
                   items={whales ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />

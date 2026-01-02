@@ -129,7 +129,7 @@ const ContactUs: React.FC = () => {
 
   return (
     <IonPage>
-      <Header showMenu={true}/>
+      <Header showBackButton={true}/>
       {isSubmitted ? (
         <IonContent fullscreen>
           <div className="ion-text-center ion-margin-top ion-padding">
@@ -145,18 +145,17 @@ const ContactUs: React.FC = () => {
       ) : (
         <>
           <IonContent fullscreen>
-            <div className="ion-padding">
+            <div className="ion-margin ion-padding-horizontal">
               <IonText>
                 <h2>{t("pages.contactUs.title")}</h2>
-              </IonText>
-              <IonText>
                 <p>{t("pages.contactUs.description")}</p>
               </IonText>
             </div>
-            <IonGrid>
+            <hr />
+            <IonGrid className="ion-margin">
               <form onSubmit={handleSubmit}>
-                <IonList lines="full">
-                  <IonItem>
+                <IonList>
+                  <IonItem lines="none">
                     <IonLabel position="stacked">
                       {t("pages.contactUs.form.name") || "Name"}*
                     </IonLabel>
@@ -176,7 +175,7 @@ const ContactUs: React.FC = () => {
                     />
                   </IonItem>
 
-                  <IonItem>
+                  <IonItem lines="none"> 
                     <IonLabel position="stacked">
                       {t("pages.contactUs.form.email") || "Email"}*
                     </IonLabel>
@@ -198,7 +197,7 @@ const ContactUs: React.FC = () => {
                     />
                   </IonItem>
 
-                  <IonItem>
+                  <IonItem >
                     <IonLabel position="stacked">
                       {t("pages.contactUs.form.subject") || "Subject"}*
                     </IonLabel>
@@ -218,7 +217,7 @@ const ContactUs: React.FC = () => {
                     />
                   </IonItem>
 
-                  <IonItem>
+                  <IonItem lines="none">
                     <IonLabel position="stacked">
                       {t("pages.contactUs.form.message") || "Message"}*
                     </IonLabel>
@@ -235,7 +234,7 @@ const ContactUs: React.FC = () => {
                         errors.message && touched.message
                           ? "ion-invalid"
                           : "ion-valid"
-                      } ${touched.message && "ion-touched"}`}
+                      } ${touched.message && "ion-touched"} ion-no-border`}
                       required
                     />
                   </IonItem>

@@ -1,5 +1,4 @@
 import {
-  IonLabel,
   IonItem,
   IonThumbnail,
   IonAccordion,
@@ -34,17 +33,20 @@ const AccordionGroupItem = ({
 
   return (
     <IonAccordion value={title}>
-      <IonItem slot="header" color="inherit" className="ion-margin-top ion-no-border">
-        <IonLabel>
-          <h1>
-            {title} ({items?.length})
-          </h1>
-        </IonLabel>
+      <IonItem
+        lines="full"
+        slot="header"
+        color="inherit"
+        className="ion-margin"
+      >
+        <h3>{title}</h3>
+        <h3 slot="start"> ({items?.length})</h3>
       </IonItem>
       <div slot="content">
         {items?.map((item) => (
           <div key={item.id}>
             <IonItem
+              slot="header"
               button
               detail={isSeenMode ? false : true}
               onClick={() =>
@@ -61,15 +63,15 @@ const AccordionGroupItem = ({
                   />
                 </IonThumbnail>
               )}
-              <IonLabel>
-                <h4>{getLang(item, "name_common")}</h4>
+              <div>
+                <p>{getLang(item, "name_common")}</p>
                 {isSeenMode && (
                   <p>
                     {item.UserSpeciesList.length}{" "}
                     {t("components.accordionGroupItem.observations")}
                   </p>
                 )}
-              </IonLabel>
+              </div>
               {isSeenMode && (
                 <IonIcon
                   icon={
@@ -83,27 +85,25 @@ const AccordionGroupItem = ({
             </IonItem>
 
             {isSeenMode && expandedId === item.id && (
-              <div className="ion-margin-start ion-margin-bottom">
+              <div className="ion-margin-bottom">
                 {item.UserSpeciesList.map((o: any) => (
-                  <IonItem key={o.id} lines="none">
-                    <IonLabel>
+                  <IonItem key={o.id}>
+                    <div>
                       <p>
-                        {t("components.accordionGroupItem.date")}
-                        {new Date(
-                          o.observation_date
-                        ).toLocaleDateString()} -{" "}
+                        <b>{t("components.accordionGroupItem.date")} </b>
+                        {new Date(o.observation_date).toLocaleDateString()}
                       </p>
                       <p>
-                        {t("components.accordionGroupItem.location")}{" "}
+                        <b>{t("components.accordionGroupItem.location")} </b>
                         {getLang(o, "location")}
                       </p>
                       {o.note_text && (
                         <p>
-                          {t("components.accordionGroupItem.notes")}{" "}
+                          <b>{t("components.accordionGroupItem.notes")} </b>
                           {o.note_text}{" "}
                         </p>
                       )}
-                    </IonLabel>
+                    </div>
                   </IonItem>
                 ))}
               </div>

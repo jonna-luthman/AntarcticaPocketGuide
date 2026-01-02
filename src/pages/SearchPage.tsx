@@ -117,7 +117,7 @@ const SearchPage: React.FC = () => {
     <IonPage>
       <Header showMenu={true} />
       <IonHeader className="ion-no-border ion-margin-bottom">
-        <IonToolbar className="ion-padding-top" >
+        <IonToolbar className="ion-padding-top" color="primary">
           <IonSearchbar
             value={searchTerm}
             onIonInput={(e) => setSearchTerm(e.detail.value!)}

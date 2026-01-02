@@ -31,7 +31,7 @@
   justify-content: space-between;
   flex-direction: column;
   background-color: #fff;
-  background: linear-gradient(to bottom, var(--ion-color-primary-tint) 10%, rgb(255, 255, 255) 40%);
+  /* background: linear-gradient(to bottom, var(--ion-color-primary-tint) 10%, rgb(255, 255, 255) 40%); */
 }
 
 .cardHeader {

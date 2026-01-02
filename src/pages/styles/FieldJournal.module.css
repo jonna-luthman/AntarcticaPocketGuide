@@ -8,15 +8,14 @@
 }
 
 .statCard {
-  background: rgba(var(--ion-color-secondary-rgb), 0.5);
+  background: rgba(var(--ion-color-primary-rgb), 0.8);
   padding: 12px;
   border-radius: 6px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  /* border: 1px solid var(--ion-color-secondary); */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .heading {
@@ -28,6 +27,16 @@
   align-items: center;
 }
 
-.header{
-    padding-bottom: 16px;
+.header {
+  background-image: linear-gradient(
+      rgba(0, 0, 0, 0.2), 
+      rgba(0, 0, 0, 0.2)
+    ), 
+    url("/public/_SR38851-2.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; 
+  padding: 20px;
+  min-height: 40vh;
+  color: var(--ion-color-dark)
 }
