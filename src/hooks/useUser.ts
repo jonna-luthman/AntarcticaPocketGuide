@@ -1,22 +1,14 @@
 import { User } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
 import { AuthResultUpdateUser } from "../types/auth";
-import { CreateUserSpeciesList, CreateUserSpeciesListResult } from "../types/userSpeciesList";
+import {
+  CreateUserSpeciesList,
+  CreateUserSpeciesListResult,
+} from "../types/userSpeciesList";
 
 export default function useUsers() {
-
-  async function checkUserProfile(user: User){
+  async function checkUserProfile(user: User) {
     try {
-      const { data: existingUser, error: selectError } = await supabase
-        .from("Users")
-        .select("*")
-        .eq("id", user.id)
-        .maybeSingle()
-
-      if (existingUser) {
-        return existingUser;
-      }
-
       const name =
         user.user_metadata?.full_name ??
         user.user_metadata?.name ??
@@ -25,10 +17,13 @@ export default function useUsers() {
 
       const { data, error } = await supabase
         .from("Users")
-        .upsert({
-          id: user.id,
-          name: name,
-        })
+        .upsert(
+          {
+            id: user.id,
+            name: name,
+          },
+          { onConflict: "id" }
+        )
         .select()
         .single();
 
