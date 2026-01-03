@@ -28,24 +28,22 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
-  const { showLoading, hideLoading } = useLoading();
   const { t } = useTranslation();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const [introSeen, setIntroSeen] = useState<boolean>(false);
 
   const { signInWithEmail, signInWithGoogle, signInWithFacebook, signUpNewUser } = UserAuth();
   const [showToast] = useIonToast();
 
-  const router = useIonRouter();
-
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault();
-    showLoading();
+    setError("")
+
     try {
       const response = await signInWithEmail({ email, password });
+
       if (!response.success) {
         const errorCode = response.error.code;
         switch (errorCode) {
@@ -61,10 +59,10 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           default:
             setError(response.error.message || t('errors.auth.user_not_found'));
         }
+
         return;
       }
 
-      hideLoading();
       showToast({
         message: t('toasts.login.welcomeBack'),
         duration: 2000,
@@ -74,9 +72,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
       return response.data;
     } catch (error: any) {
-      setError(error);
-    } finally {
-      hideLoading();
+      console.error("An error unexpected error occured: ", error)
     }
   };
 

@@ -32,23 +32,19 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const { checkUserProfile } = useUsers();
-  const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
-    showLoading()
     const initAuth = async () => {
       try {
         const { data } = await supabase.auth.getSession();
-        const currentSession = data.session
+        const currentSession = data.session;
         setSession(currentSession);
-
+        
         if (currentSession?.user) {
           await checkUserProfile(currentSession.user);
         }
       } catch (err) {
         console.error("Auth init error", err);
-      } finally {
-        hideLoading();
       }
     };
 
@@ -58,7 +54,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       async (event, newSession) => {
         setSession(newSession);
         if (newSession?.user) {
-         checkUserProfile(newSession.user);
+          checkUserProfile(newSession.user);
         }
       }
     );
@@ -71,14 +67,21 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const signUpNewUser = async ({
     email,
     password,
+    name,
   }: {
     email: string;
     password: string;
+    name: string;
   }): Promise<AuthResult> => {
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            name: name,
+          },
+        },
       });
 
       if (error) {
@@ -91,7 +94,10 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         };
       }
 
-      return { success: true, data: {user: data.user, session: data.session} };
+      return {
+        success: true,
+        data: { user: data.user, session: data.session },
+      };
     } catch (error: any) {
       return {
         success: false,
@@ -186,7 +192,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         signInWithEmail,
         signOutUser,
         signInWithGoogle,
-        signInWithFacebook
+        signInWithFacebook,
       }}
     >
       {children}

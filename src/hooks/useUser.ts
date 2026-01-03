@@ -1,7 +1,6 @@
 import { User } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
-import { AuthResult, AuthResultUpdateUser } from "../types/auth";
-import { AuthUser } from "../types/user";
+import { AuthResultUpdateUser } from "../types/auth";
 import { CreateUserSpeciesList, CreateUserSpeciesListResult } from "../types/userSpeciesList";
 
 export default function useUsers() {
@@ -12,11 +11,7 @@ export default function useUsers() {
         .from("Users")
         .select("*")
         .eq("id", user.id)
-        .single();
-
-      if (selectError) {
-        return 
-      }
+        .maybeSingle()
 
       if (existingUser) {
         return existingUser;
@@ -30,7 +25,7 @@ export default function useUsers() {
 
       const { data, error } = await supabase
         .from("Users")
-        .insert({
+        .upsert({
           id: user.id,
           name: name,
         })
