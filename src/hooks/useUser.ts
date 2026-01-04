@@ -5,7 +5,7 @@ import {
   CreateUserSpeciesList,
   CreateUserSpeciesListResult,
 } from "../types/userSpeciesList";
-import { useLoading } from "../context/LoadingContext.tsx";
+import { useLoading } from "../context/LoadingContext";
 
 /**
  * Hook that handles user related logic;
