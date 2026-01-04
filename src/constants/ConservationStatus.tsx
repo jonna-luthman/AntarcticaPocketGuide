@@ -1,4 +1,3 @@
-import { AlertTriangle, Flame, AlertOctagon, OctagonX, EyeOff, Skull } from "lucide-react";
 import { JSX } from "react";
 import leastConcernIcon from "../assets/ConservationStatus/least-concern.svg"
 import cirticallyEndangeredIcon from "../assets/ConservationStatus/critically-endangered.svg"

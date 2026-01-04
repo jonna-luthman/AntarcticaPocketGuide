@@ -8,6 +8,8 @@ import {
 import { useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 
+
+
 export default function useAnimals() {
   const [animalClasses, setAnimalClasses] = useState<
     AnimalClassWithMedia[] | null

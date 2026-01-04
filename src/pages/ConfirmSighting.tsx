@@ -11,7 +11,6 @@ import {
   IonModal,
   IonTextarea,
   useIonRouter,
-  IonText,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -41,7 +40,7 @@ import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
 import useGetLang from "../hooks/useGetLang";
 import { findImageByRole } from "../utils/getMediaTypes";
-import NotAuthorized from "../components/NotAuthorized";
+import NotAuthorized from "../components/auth/NotAuthorized";
 
 interface ConfirmSightingProps {
   onShowLoginModal: () => void;

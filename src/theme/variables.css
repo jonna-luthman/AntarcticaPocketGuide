@@ -80,7 +80,6 @@ http://ionicframework.com/docs/theming/ */
   --font-average: "Average", serif;
 }
 
-
 :root.ios {
   --ion-text-color: #000;
 }

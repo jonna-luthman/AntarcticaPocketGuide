@@ -6,20 +6,16 @@ import {
   IonInput,
   IonIcon,
   IonInputPasswordToggle,
-  useIonRouter,
   IonText,
   IonButtons,
   useIonToast,
 } from "@ionic/react";
 import { logoGoogle, logoFacebook } from "ionicons/icons";
 import React, { FormEvent, useState } from "react";
-import { UserAuth } from "../context/AuthContext";
-import { useLoading } from "../context/LoadingContext";
-
+import { UserAuth } from "../../context/AuthContext";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
-
-import styles from "./styles/Auth.module.css";
+import styles from "../styles/Auth.module.css";
 import { useTranslation } from "react-i18next";
 
 interface LoginProps {

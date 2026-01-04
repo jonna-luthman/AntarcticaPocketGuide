@@ -14,7 +14,6 @@ import useAnimals from "../hooks/useAnimals";
 import useGetLang from "../hooks/useGetLang";
 
 import Header from "../components/Header";
-import CollapsableHeader from "../components/CollapsableHeader";
 import Image from "../components/Image";
 
 import styles from "./styles/Home.module.css";

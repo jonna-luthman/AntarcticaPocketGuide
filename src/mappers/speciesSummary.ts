@@ -3,7 +3,7 @@ import { findImageByRole } from "../utils/getMediaTypes";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 
 /**
- * Transforms Specie from database result into UI sumamry object.
+ * Transforms Specie from database result into UI summary object.
  * 
  * Handles extraction of the primary header image from the media array and the full storage URL for the image.
  * 
