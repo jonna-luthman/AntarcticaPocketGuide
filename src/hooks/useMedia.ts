@@ -1,13 +1,9 @@
-import { useLoading } from "../context/LoadingContext";
 import { supabase } from "../api/supabaseClient";
 import { useState } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
-import { SpeciesMedia } from "../types/media";
 
 export default function useMedia() {
-  const { showLoading, hideLoading } = useLoading();
   const [error, setError] = useState<PostgrestError | null>(null);
-
 
   async function getSpeciesMedia(
     speciesId: string

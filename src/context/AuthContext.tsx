@@ -33,8 +33,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
  * Provider component that handles the applications Authentication state.
  * The provider is listening on changes in Supabase session and is responsible for:
  * 1. Keep the current user session updated.
- * 2. Syncronize logged in users with the public 'Users' tables through checkUserProfile.
- * 3. Handling functionality in the app reagrding user authentication; Sign in, Registration
+ * 2. Syncronize logged in users with the public 'Users' table.
+ * 3. Handling functionality in the app regarding user authentication; Sign in, Registration
  *    (Email, Google and Facebook) and Sign out.
  */
 
@@ -139,7 +139,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   };
 
   /**
-   * Social login with through Google with 0Auth 2.0.
+   * Social login through Google with 0Auth 2.0.
    * User is directed to Google Authentication window.
    * At success user gets redirected back to the app and a new Supabase session is created.
    */
@@ -182,7 +182,7 @@ const signInWithFacebook = async () => {
   /**
    * Login with email and password.
    * @param credentials - object containing users email and password.
-   * @returns A promise with an AuthResult that gives either a success or error.
+   * @returns A promise with an AuthResult that returns either a success or error.
    */
   const signInWithEmail = async (credentials: {
     email: string;
