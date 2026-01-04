@@ -1,7 +1,7 @@
 import { IonModal, IonNav } from "@ionic/react";
 import React, { useEffect, useRef } from "react";
 import { UserAuth } from "../../context/AuthContext";
-import Login from "../../components/Login";
+import Login from "../../components/auth/Login";
 
 interface LoginModalProps {
   isOpen: boolean;

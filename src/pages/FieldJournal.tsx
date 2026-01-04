@@ -19,7 +19,7 @@ import useSpecies from "../hooks/useSpecies";
 
 import Header from "../components/Header";
 import AccordionGroupItem from "../components/AccordionGroupItem";
-import NotAuthorized from "../components/NotAuthorized";
+import NotAuthorized from "../components/auth/NotAuthorized"
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";

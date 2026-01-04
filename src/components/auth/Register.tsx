@@ -14,11 +14,11 @@ import {
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 
-import { useLoading } from "../context/LoadingContext";
-import { checkPasswordsMatch } from "../utils/checkPasswordsMatch";
+import { useLoading } from "../../context/LoadingContext";
+import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import { logoGoogle, logoFacebook, chevronBackOutline } from "ionicons/icons";
-import styles from "./styles/Auth.module.css";
-import { AuthResult } from "../types/auth";
+import styles from "../styles/Auth.module.css";
+import { AuthResult } from "../../types/auth";
 import { useTranslation } from "react-i18next";
 
 interface RegisterProps {

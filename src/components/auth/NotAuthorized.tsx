@@ -1,5 +1,5 @@
 import { IonIcon, IonText, IonButton } from "@ionic/react";
-import styles from "./styles/NotAuthorized.module.css";
+import styles from "../styles/NotAuthorized.module.css";
 import { personCircleOutline } from "ionicons/icons";
 import React from "react";
 
