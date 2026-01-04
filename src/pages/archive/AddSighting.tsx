@@ -11,17 +11,17 @@ import {
   IonItemGroup,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
-import useSpecies from "../hooks/useSpecies";
+import useSpecies from "../../hooks/useSpecies";
 
-import Header from "../components/Header";
+import Header from "../../components/Header";
 
-import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
-import { resolveImageUrl } from "../utils/resolveImageUrl";
-import { UserAuth } from "../context/AuthContext";
-import { UISpecieSummaryWithMedia } from "../types/species";
-import useGetLang from "../hooks/useGetLang";
+import { filterSpeciesByClass } from "../../utils/filterSpeciesByClass";
+import { resolveImageUrl } from "../../utils/resolveImageUrl";
+import { UserAuth } from "../../context/AuthContext";
+import { UISpecieSummaryWithMedia } from "../../types/species";
+import useGetLang from "../../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
-import i18n from "../utils/i18n";
+import i18n from "../../utils/i18n";
 
 
 

@@ -1,6 +1,19 @@
 import React, { createContext, useContext, useState } from "react";
 import { IonContent, IonLoading } from "@ionic/react";
 
+/**
+ * Context and Provider for managing a global loading overlay.
+ * Use this to block user interaction during critical, non-interruptible 
+ * processes like Authentication. 
+ * @example const { showLoading, hideLoading } = useLoading();
+ *  try {
+ *  showLoading();
+ *  await function();
+ *  } finally {
+ *  hideLoading();
+ *  }
+ */
+
 interface LoadingContextType {
   showLoading: () => void;
   hideLoading: () => void;

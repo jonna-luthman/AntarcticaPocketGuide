@@ -8,15 +8,15 @@ ion-content {
   background: var(--ion-background-color);
   color: var(--app-text-color);
 }
-/* -------- FONTER -------- */
-/* Bastext */
+/* -------- FONTS -------- */
+/* Bas */
 body, p, span {
   font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 
-/* Rubriker */
+/* Titles */
 h1 {
   font-family: "Playfair Display SC", serif;
   font-size: 2rem;
@@ -31,13 +31,13 @@ h2, h3 {
 h2 { font-size: 1.6rem; }
 h3 { font-size: 1.3rem; }
 
-/* Mindre rubrik */
 h4 {
   font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
 }
 
+/* Global custom Ionic styles */
 ion-title {
   font-family: "Playfair Display SC", serif;
   font-size: 1.5rem;
@@ -59,6 +59,7 @@ ion-tab-button {
   font-family: "Avenir", sans-serif;
 }
 
+/* Custom CSS classes */
 .language-action-sheet {
   --button-color: var(--ion-color-tertiary);
   --button-background-selected: var(--ion-color-light);
@@ -68,18 +69,15 @@ ion-tab-button {
   --ion-color-primary: var(--ion-color-dark);
 }
 
-/* Själva containern */
 .custom-alert {
-  --background: var(--ion-color-light); /* Eller din primary */
+  --background: var(--ion-color-light);
   --backdrop-opacity: 0.6;
 }
 
-/* Styla ALLA knappar i alerten */
 .custom-alert .alert-button {
   color: var(--ion-color-dark);
 }
 
-/* Om du vill styla 'Confirm' och 'Cancel' olika (använd klasserna vi satte ovan) */
 .custom-alert .alert-button-confirm {
   color: var(--color);
 }
@@ -88,6 +86,7 @@ ion-tab-button {
   color: var(--ion-color-danger);
 }
 
+/* Fonts - Custom CSS classes */
 .font-avenir { font-family: var(--font-avenir); }
 .font-display { font-family: var(--font-display); }
 .font-average { font-family: var(--font-average); }

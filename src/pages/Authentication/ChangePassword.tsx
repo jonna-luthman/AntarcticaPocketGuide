@@ -11,7 +11,6 @@ import {
 import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import useUsers from "../../hooks/useUser";
 import { useLoading } from "../../context/LoadingContext";
-import useGetLang from "../../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
 
 interface ChangePasswordProps {
@@ -21,7 +20,6 @@ interface ChangePasswordProps {
 const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
   const { showLoading, hideLoading } = useLoading();
   const { updateUser } = useUsers();
-  const getLang = useGetLang();
   const { t } = useTranslation();
 
   const [form, setForm] = useState({

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 import Header from "../components/Header";
-import CollapsableHeader from "../components/CollapsableHeader";
 import SpeciesCard from "../components/Species/SpeciesCard";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
 

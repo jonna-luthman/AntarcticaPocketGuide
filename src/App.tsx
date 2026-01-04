@@ -4,7 +4,6 @@ import {
   IonRouterOutlet,
   IonTabs,
   setupIonicReact,
-  useIonRouter,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import React, { useState } from "react";
@@ -47,13 +46,12 @@ import ChangePassword from "./pages/Authentication/ChangePassword";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import FieldJournal from "./pages/FieldJournal";
-import AddSighting from "./pages/AddSighting";
 import AnimalClassPage from "./pages/AnimalClassPage";
 import AnimalSpeciesPage from "./pages/AnimalSpeciesPage";
 import IdentifyPenguins from "./pages/IdentifyPenguins";
 import ConfirmSighting from "./pages/ConfirmSighting";
 
-import { AuthContextProvider, UserAuth } from "./context/AuthContext";
+import { AuthContextProvider } from "./context/AuthContext";
 import { LoadingProvider } from "./context/LoadingContext";
 
 import Menu from "./components/Menu";

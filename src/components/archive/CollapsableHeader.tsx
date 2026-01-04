@@ -6,10 +6,10 @@ import {
   IonItem,
   IonLabel,
 } from "@ionic/react";
-import useSpecies from "../hooks/useSpecies";
+import useSpecies from "../../hooks/useSpecies";
 import { useRef, useState } from "react";
-import { SpecieSummary } from "../types/species";
-import useGetLang from "../hooks/useGetLang";
+import { SpecieSummary } from "../../types/species";
+import useGetLang from "../../hooks/useGetLang"
 import { useTranslation } from "react-i18next";
 
 const CollapsableHeader = () => {

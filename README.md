@@ -75,7 +75,12 @@ The app is designed to be multi-lingual. For the moment is available in English 
 - Structure: Each supported language has its own subfolder (/en, /es) conatining a translation.json file.
 - Json files: Using nested objects to group translations by feature
     e.g "pages": { "home": {"title": "Welcome"} }
-- Usage: Translations are accessed using the useTranslation (and useGetLang ) hook throughout the application.
+- Usage: Translations are accessed using the useTranslation hook throughout the application.
 
+### Dynamic Content Localization
+While 'i18next' handles static UI text, we use a custom hook 'useGetLang' for localized database content (e.g., facts).
+
+-Logic: The hook detects the current language and appends the suffix (e.g., '_en', '_sv') to the requested database field.
+    If a translation for the current language is missing in the database, it automatically falls back to the English ('_en') version to ensure content is always visible.
 
 ## Known issues
