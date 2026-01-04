@@ -10,7 +10,6 @@ import {
 import { PostgrestError } from "@supabase/supabase-js";
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { AuthResult } from "../types/auth";
 
 export default function useSpecies() {
   const [speciesList, setSpeciesList] = useState<

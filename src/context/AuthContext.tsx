@@ -29,17 +29,38 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+/**
+ * Provider component that handles the applications Authentication state.
+ * The provider is listening on changes in Supabase session and is responsible for:
+ * 1. Keep the current user session updated.
+ * 2. Syncronize logged in users with the public 'Users' tables through checkUserProfile.
+ * 3. Handling functionality in the app reagrding user authentication; Sign in, Registration
+ *    (Email, Google and Facebook) and Sign out.
+ */
+
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const { checkUserProfile } = useUsers();
+  const { showLoading, hideLoading} = useLoading()
 
+/**
+ * Initializes the application's authentication state and sets up a real-time listener.
+ * * Performs two key tasks:
+ * - Initial Sync (on mount): Fetches the current session to check if the user is 
+ * logged in. If a session exists, it ensures the user is synchronized with the 
+ * 'public.Users' table via checkUserProfile.
+ * - Event Listening (post-initialization): Subscribes to Supabase auth changes. 
+ * On every state change, it updates the local session and synchronizes the 
+ * user profile with the database.
+ * * The subscription is automatically cleaned up when the provider unmounts.
+ */
   useEffect(() => {
     const initAuth = async () => {
       try {
         const { data } = await supabase.auth.getSession();
         const currentSession = data.session;
         setSession(currentSession);
-        
+
         if (currentSession?.user) {
           await checkUserProfile(currentSession.user);
         }
@@ -64,6 +85,11 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     };
   }, []);
 
+  /**
+   * Function that inserts row in Supabase 'Authentication.Users' creating a new user.
+   * @param - takes given data from users and inserts a new row.
+   * @returns AuthResult (AuthSuccess/AuthFailure): returns different objects if the result was a success or not.
+   */
   const signUpNewUser = async ({
     email,
     password,
@@ -73,6 +99,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     password: string;
     name: string;
   }): Promise<AuthResult> => {
+    showLoading()
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -106,34 +133,62 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           code: error.code ?? "Unexpected error",
         },
       };
+    } finally {
+      hideLoading()
     }
   };
 
+  /**
+   * Social login with through Google with 0Auth 2.0.
+   * User is directed to Google Authentication window.
+   * At success user gets redirected back to the app and a new Supabase session is created.
+   */
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-    });
+    showLoading();
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: window.location.origin,
+        },
+      });
 
-    if (error) {
-      console.error(error);
+      if (error) console.error(error);
+    } finally {
+      hideLoading();
     }
   };
 
-  const signInWithFacebook = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "facebook",
-    });
+  /**
+   * Login with through Google with 0Auth 2.0.
+   * Same functionality as Google login. See above.
+   */
+const signInWithFacebook = async () => {
+    showLoading();
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "facebook",
+        options: {
+          redirectTo: window.location.origin,
+        },
+      });
 
-    if (error) {
-      console.error(error);
+      if (error) console.error(error);
+    } finally {
+      hideLoading();
     }
   };
 
-  //Sign in
+  /**
+   * Login with email and password.
+   * @param credentials - object containing users email and password.
+   * @returns A promise with an AuthResult that gives either a success or error.
+   */
   const signInWithEmail = async (credentials: {
     email: string;
     password: string;
   }): Promise<AuthResult> => {
+    showLoading()
     try {
       const { data, error } = await supabase.auth.signInWithPassword(
         credentials
@@ -158,11 +213,18 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           code: error.code ?? "Unexpected error",
         },
       };
+    } finally {
+      hideLoading()
     }
   };
 
-  //Sign out
+  /**
+   * Function that ends the current session and signs out user.
+   * Clears locally stored session data and triggers onAuthStateChange.
+   * @returns SignOutresult - object that tells if the sign out was successful or not.
+   */
   const signOutUser = async (): Promise<SignOutResult> => {
+    showLoading()
     try {
       const { error } = await supabase.auth.signOut();
 
@@ -181,6 +243,8 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         success: false,
         error: error.message ?? "Unexpected error",
       };
+    } finally {
+      hideLoading()
     }
   };
 

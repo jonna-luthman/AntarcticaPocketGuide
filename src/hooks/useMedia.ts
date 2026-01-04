@@ -12,7 +12,6 @@ export default function useMedia() {
   async function getSpeciesMedia(
     speciesId: string
   ) {
-    showLoading();
     try {
       const { data, error } = await supabase
         .from("SpeciesMedia")
@@ -28,15 +27,12 @@ export default function useMedia() {
       return data;
     } catch (error) {
       console.error("An error occured: ", error);
-    } finally {
-      hideLoading();
     }
   }
 
   async function getClassMedia(
     classId: string
   ){
-    showLoading();
     try {
       const { data, error } = await supabase
         .from("SpeciesMedia")
@@ -51,11 +47,8 @@ export default function useMedia() {
       return data;
     } catch (error) {
       console.error("An error occured: ", error);
-    } finally {
-      hideLoading();
     }
   }
-
 
   return { getSpeciesMedia, getClassMedia, error };
 }
