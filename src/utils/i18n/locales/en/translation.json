@@ -55,7 +55,8 @@
       "changePassword": "Change password",
       "login": "Welcome back! Log in to view your Field Notes and Add Sightings.",
       "forgotPassword": "No worries! Enter your email and we will send you a reset link.",
-      "resetPassword": "An email have been sent to {{email}} with a reset password link."
+      "resetPassword": "An email have been sent to {{email}} with a reset password link.",
+      "checkEmail": "Check your email"
     },
     "form": {
       "newPassword": "New password",
@@ -95,11 +96,17 @@
     }
   },
   "toasts": {
+    "register": {
+      "welcomeMsg": "Welcome to Antarctica Pocket Guide, {{name}}!"
+    },
     "signOut": {
       "message": "You have been signed out."
     },
     "login": {
       "welcomeBack": "Welcome back!"
+    },
+    "fieldJournal": { 
+      "success": "Your sighting has been saved!" 
     }
   },
   "animalClasses": {

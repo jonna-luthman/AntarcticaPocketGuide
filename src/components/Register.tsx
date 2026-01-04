@@ -10,6 +10,7 @@ import {
   IonButtons,
   useIonRouter,
   IonText,
+  useIonToast,
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 
@@ -35,11 +36,11 @@ const Register: React.FC<RegisterProps> = ({
   nav,
   signUpNewUser,
   signUpWithGoogle,
-  signUpWithFacebook
+  signUpWithFacebook,
 }) => {
   const router = useIonRouter();
-  const { showLoading, hideLoading } = useLoading();
   const { t } = useTranslation();
+  const [showToast] = useIonToast();
 
   const [errors, setErrors] = useState({
     email: "",
@@ -66,14 +67,12 @@ const Register: React.FC<RegisterProps> = ({
     if (!validPassword) {
       setErrors((prev) => ({
         ...prev,
-        repeatPassword: t('auth.form.passwordNotMatching'),
+        repeatPassword: t("auth.form.passwordNotMatching"),
       }));
       return;
     }
 
-    showLoading();
     const response = await signUpNewUser(form);
-    hideLoading();
 
     if (!response.success) {
       const errorCode = response.error.code;
@@ -81,26 +80,31 @@ const Register: React.FC<RegisterProps> = ({
 
       switch (errorCode) {
         case "user_already_exists":
-          message = t('errors.auth.user_already_exists');
+          message = t("errors.auth.user_already_exists");
           break;
         case "weak_password":
-          message = t('errors.auth.weak_password');
+          message = t("errors.auth.weak_password");
           break;
         case "validation_failed":
-          message = t('errors.auth.validation_failed');
+          message = t("errors.auth.validation_failed");
           break;
         case "over_email_send_rate_limit":
-          message = t('errors.auth.over_email_send_rate_limit');
+          message = t("errors.auth.over_email_send_rate_limit");
           break;
         default:
-          message = response.error.message || t('errors.auth.unexpectedError');
+          message = response.error.message || t("errors.auth.unexpectedError");
       }
 
       setErrors((prev) => ({ ...prev, form: message }));
       return;
     }
-
     router.push("/", "none");
+    showToast({
+      message: t("toasts.register.welcomeMsg", { name: form.name }),
+      duration: 2000,
+      color: "dark",
+      position: "bottom",
+    });
   };
 
   return (
@@ -117,7 +121,7 @@ const Register: React.FC<RegisterProps> = ({
       <IonContent fullscreen className="ion-padding">
         <div className={styles.center}>
           <IonText>
-            <h2>{t('auth.phrases.createAccountTitle')}</h2>
+            <h2>{t("auth.phrases.createAccountTitle")}</h2>
           </IonText>
         </div>
         <form onSubmit={handleSubmit}>
@@ -126,7 +130,7 @@ const Register: React.FC<RegisterProps> = ({
               <IonInput
                 className="ion-margin-top"
                 name="name"
-                label={t('auth.form.name')}
+                label={t("auth.form.name")}
                 labelPlacement="floating"
                 placeholder="John Smith"
                 value={form.name}
@@ -142,13 +146,8 @@ const Register: React.FC<RegisterProps> = ({
               <IonInput
                 type="email"
                 name="email"
-                label={t('auth.form.email')}
+                label={t("auth.form.email")}
                 placeholder="example@mail.com"
-                className={
-                  errors.email
-                    ? "ion-invalid ion-margin-top"
-                    : "ion-valid ion-margin-top"
-                }
                 labelPlacement="floating"
                 value={form.email}
                 onIonInput={(event: CustomEvent) =>
@@ -163,7 +162,7 @@ const Register: React.FC<RegisterProps> = ({
             <IonItem>
               <IonInput
                 className="ion-margin-top"
-                label={t('auth.form.password')}
+                label={t("auth.form.password")}
                 type="password"
                 value={form.password}
                 labelPlacement="floating"
@@ -178,15 +177,10 @@ const Register: React.FC<RegisterProps> = ({
 
             <IonItem>
               <IonInput
-                label={t('auth.form.repeatPassword')}
+                label={t("auth.form.repeatPassword")}
                 type="password"
                 value={repeatPassword}
                 labelPlacement="floating"
-                className={
-                  errors.repeatPassword
-                    ? "ion-invalid ion-margin-top"
-                    : "ion-valid ion-margin-top"
-                }
                 onIonInput={(event: Event) =>
                   setRepeatPassword((event.target as HTMLInputElement).value)
                 }
@@ -194,9 +188,14 @@ const Register: React.FC<RegisterProps> = ({
             </IonItem>
           </IonList>
 
-          {errors && (
+          {errors.repeatPassword && (
             <IonText color="danger" className="ion-padding">
               {errors.repeatPassword}
+            </IonText>
+          )}
+          {errors.form && (
+            <IonText color="danger" className="ion-padding">
+              {errors.form}
             </IonText>
           )}
 
@@ -207,7 +206,7 @@ const Register: React.FC<RegisterProps> = ({
             expand="block"
             type="submit"
           >
-            {t('auth.buttons.register')}
+            {t("auth.buttons.register")}
           </IonButton>
         </form>
 
@@ -222,7 +221,7 @@ const Register: React.FC<RegisterProps> = ({
             onClick={signUpWithGoogle}
           >
             <IonIcon slot="start" icon={logoGoogle} />
-            {t('auth.buttons.continueWithGoogle')}
+            {t("auth.buttons.continueWithGoogle")}
           </IonButton>
 
           <IonButton
@@ -233,12 +232,13 @@ const Register: React.FC<RegisterProps> = ({
             onClick={signUpWithFacebook}
           >
             <IonIcon slot="start" icon={logoFacebook} />
-            {t('auth.buttons.continueWithFacebook')}
+            {t("auth.buttons.continueWithFacebook")}
           </IonButton>
 
           <IonButton expand="block" fill="clear" onClick={() => nav.pop()}>
             <IonText>
-            {t('auth.buttons.loginPrompt')}<b> {t('auth.buttons.login')} </b>
+              {t("auth.buttons.loginPrompt")}
+              <b> {t("auth.buttons.login")} </b>
             </IonText>
           </IonButton>
         </div>

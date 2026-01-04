@@ -55,7 +55,8 @@
       "changePassword": "Cambiar contraseña",
       "login": "¡Bienvenido de nuevo! Inicia sesión para ver tus notas de campo y añadir avistamientos.",
       "forgotPassword": "¡No te preocupes! Introduce tu correo electrónico y te enviaremos un enlace para restablecer la contraseña.",
-      "resetPassword": "Se ha enviado un correo electrónico a {{email}} con un enlace para restablecer la contraseña."
+      "resetPassword": "Se ha enviado un correo electrónico a {{email}} con un enlace para restablecer la contraseña.",
+      "checkEmail": "Revisa tu correo electrónico."
     },
     "form": {
       "newPassword": "Nueva contraseña",
@@ -95,11 +96,17 @@
     }
   },
   "toasts": {
+    "register": {
+      "welcomeMsg": "Bienvenido a Antarctica Pocket Guide, {{name}}!"
+    },
     "signOut": {
       "message": "Has cerrado sesión."
     },
     "login": {
       "welcomeBack": "¡Bienvenido de nuevo!"
+    },
+    "fieldJournal": {
+      "success": "¡Tu avistamiento ha sido guardado!"
     }
   },
   "animalClasses": {

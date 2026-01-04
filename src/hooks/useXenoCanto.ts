@@ -16,13 +16,11 @@ import { AnimalSound } from "../types/animalSounds";
  */
 
 export default function useXenoCanto() {
-  const { showLoading, hideLoading } = useLoading();
   const [error, setError] = useState<PostgrestError | null>(null);
 
   async function fetchSounds(
     scientificName: string
   ): Promise<AnimalSound[] | undefined> {
-    showLoading();
     setError(null);
     try {
       const { data, error } = await supabase.functions.invoke(
@@ -42,9 +40,8 @@ export default function useXenoCanto() {
       return data as AnimalSound[];
     } catch (error) {
       console.error("An error occured: ", error);
-    } finally {
-      hideLoading();
     }
   }
+
   return { fetchSounds, error };
 }

@@ -24,8 +24,6 @@ export const LoadingProvider = ({
   return (
     <LoadingContext.Provider value={{ showLoading, hideLoading }}>
       {children}
-      <IonContent>
-        <div>
           <IonLoading
             isOpen={isOpen}
             spinner="bubbles"
@@ -33,8 +31,6 @@ export const LoadingProvider = ({
             animated={true}
             duration={0}
           />
-        </div>
-      </IonContent>
     </LoadingContext.Provider>
   );
 };

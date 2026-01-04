@@ -1,27 +1,32 @@
 import { User } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
-import { AuthResult, AuthResultUpdateUser } from "../types/auth";
-import { AuthUser } from "../types/user";
-import { CreateUserSpeciesList, CreateUserSpeciesListResult } from "../types/userSpeciesList";
+import { AuthResultUpdateUser } from "../types/auth";
+import {
+  CreateUserSpeciesList,
+  CreateUserSpeciesListResult,
+} from "../types/userSpeciesList";
+import { useLoading } from "../context/LoadingContext";
+
+/**
+ * Hook that handles user related logic;
+ *  checkUserProfile: Check if a user exists in 'public.Users' table after session has been initialized.
+ *  updateUser: Update user password.
+ *  createUserSpeciesList: Creates a row in 'public.userSpeciesList'
+ */
 
 export default function useUsers() {
+  const { showLoading, hideLoading } = useLoading();
 
-  async function checkUserProfile(user: User){
+  /**
+   * Function that syncronizes Supabase 'Authentication.Users' table with 'public.Users' table.
+   * Using upsert logic (Insert and Update);
+   *    If the user does not exist in 'public.Users', a new row is created with name and id (using 'Authentication.Users.UID')
+   *    If the user already exists the row either is updated or remains the same.
+   * @param user - User object coming from the current session in AuthContext.
+   * @returns object with {data, success/error}
+   */
+  async function checkUserProfile(user: User) {
     try {
-      const { data: existingUser, error: selectError } = await supabase
-        .from("Users")
-        .select("*")
-        .eq("id", user.id)
-        .single();
-
-      if (selectError) {
-        return 
-      }
-
-      if (existingUser) {
-        return existingUser;
-      }
-
       const name =
         user.user_metadata?.full_name ??
         user.user_metadata?.name ??
@@ -30,10 +35,13 @@ export default function useUsers() {
 
       const { data, error } = await supabase
         .from("Users")
-        .insert({
-          id: user.id,
-          name: name,
-        })
+        .upsert(
+          {
+            id: user.id,
+            name: name,
+          },
+          { onConflict: "id" }
+        )
         .select()
         .single();
 
@@ -54,6 +62,7 @@ export default function useUsers() {
     email: string;
     password: string;
   }): Promise<AuthResultUpdateUser> {
+    showLoading();
     try {
       const { data, error } = await supabase.auth.updateUser({
         email: user.email,
@@ -70,12 +79,15 @@ export default function useUsers() {
       return { success: true, user: data.user };
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
+    } finally {
+      hideLoading();
     }
   }
 
   async function createUserSpeciesList(
     sighting: CreateUserSpeciesList
   ): Promise<CreateUserSpeciesListResult> {
+    showLoading()
     try {
       const { data, error } = await supabase
         .from("UserSpeciesList")
@@ -100,6 +112,8 @@ export default function useUsers() {
       return { success: true, data: data };
     } catch (error: any) {
       return { success: false, error: error.message ?? "Unexpected error" };
+    } finally {
+      hideLoading()
     }
   }
 

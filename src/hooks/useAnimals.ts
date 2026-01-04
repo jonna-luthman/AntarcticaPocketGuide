@@ -9,7 +9,6 @@ import { useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 
 export default function useAnimals() {
-  const { showLoading, hideLoading } = useLoading();
   const [animalClasses, setAnimalClasses] = useState<
     AnimalClassWithMedia[] | null
   >(null);
@@ -23,7 +22,6 @@ export default function useAnimals() {
 
   async function getAllAnimalClasses() {
     try {
-      showLoading();
       setError(null);
       const { data, error } = await supabase
         .from("AnimalClasses")
@@ -53,14 +51,11 @@ export default function useAnimals() {
       console.error(error);
       setError(error);
       return null;
-    } finally {
-      hideLoading();
     }
   }
 
   async function getAnimalClass(slug: string) {
     try {
-      showLoading();
       setError(null);
 
       const { data: classData } = await supabase
@@ -80,14 +75,11 @@ export default function useAnimals() {
       console.error(error);
       setError(error);
       return null;
-    } finally {
-      hideLoading();
     }
   }
 
   async function getAllAnimalFamilies() {
     try {
-      showLoading();
       setError(null);
       const { data, error } = await supabase.from("AnimalFamilies").select("*");
 
@@ -100,8 +92,6 @@ export default function useAnimals() {
       console.error(error);
       setError(error);
       return null;
-    } finally {
-      hideLoading();
     }
   }
 

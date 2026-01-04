@@ -1,18 +1,13 @@
-import { useLoading } from "../context/LoadingContext";
 import { supabase } from "../api/supabaseClient";
 import { useState } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
-import { SpeciesMedia } from "../types/media";
 
 export default function useMedia() {
-  const { showLoading, hideLoading } = useLoading();
   const [error, setError] = useState<PostgrestError | null>(null);
-
 
   async function getSpeciesMedia(
     speciesId: string
   ) {
-    showLoading();
     try {
       const { data, error } = await supabase
         .from("SpeciesMedia")
@@ -28,15 +23,12 @@ export default function useMedia() {
       return data;
     } catch (error) {
       console.error("An error occured: ", error);
-    } finally {
-      hideLoading();
     }
   }
 
   async function getClassMedia(
     classId: string
   ){
-    showLoading();
     try {
       const { data, error } = await supabase
         .from("SpeciesMedia")
@@ -51,11 +43,8 @@ export default function useMedia() {
       return data;
     } catch (error) {
       console.error("An error occured: ", error);
-    } finally {
-      hideLoading();
     }
   }
-
 
   return { getSpeciesMedia, getClassMedia, error };
 }
