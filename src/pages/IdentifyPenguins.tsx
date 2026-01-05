@@ -19,34 +19,31 @@ const IdentifyPenguins: React.FC = () => {
     penguin,
     description,
     src,
+    link,
   }: {
     penguin: string;
     description: string;
     src: string;
+    link: string;
   }) => {
     return (
       <div className="">
-        {/* TODO: Add routerLink when all species are added. */}
-        {/* <IonRouterLink> */}
-        <IonCard color="tertiary" className={styles.cardWrapper}>
-          <div>
-            <IonCardHeader className={styles.cardHeader}>
-              <IonCardTitle>
-                <h2 className={styles.cardFont}>{penguin}</h2>
-              </IonCardTitle>
-            </IonCardHeader>
+        <IonCard color="tertiary" className={styles.cardWrapper} routerLink={link}>
+              <IonCardHeader className={styles.cardHeader}>
+                <IonCardTitle>
+                  <h2 className={styles.cardFont}>{penguin}</h2>
+                </IonCardTitle>
+              </IonCardHeader>
 
-            <IonCardContent className={styles.cardFont}>
-              {description}
-            </IonCardContent>
-          </div>
-          <img
-            src={src}
-            alt={`${penguin} penguin`}
-            className={styles.cardImage}
-          />
+              <IonCardContent className={styles.cardFont}>
+                {description}
+              </IonCardContent>
+            <img
+              src={src}
+              alt={`${penguin} penguin`}
+              className={styles.cardImage}
+            />
         </IonCard>
-        {/* </IonRouterLink> */}
       </div>
     );
   };
@@ -56,18 +53,8 @@ const IdentifyPenguins: React.FC = () => {
       <Header showBackButton={true} />
       <IonContent fullscreen>
         <div className={styles.gridWrapper}>
-          <PenguinCard
-            penguin="Gentoo"
-            description={t("identifyingPenguins.gentoo")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/Northern_Rockhopper_penguin_KM_1.webp"
-          />
-          <PenguinCard
-            penguin="Adelie"
-            description={t("identifyingPenguins.adelie")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/Adelie_KM.webp"
-          />
           <div>
-            <IonCard color="tertiary" className={styles.card}>
+            <IonCard color="tertiary" className={styles.cardWrapper}>
               <IonCardHeader className={styles.cardHeader}>
                 <IonCardTitle>
                   <h4>{t("identifyingPenguins.description")}</h4>
@@ -81,29 +68,46 @@ const IdentifyPenguins: React.FC = () => {
             </IonCard>
           </div>
           <PenguinCard
+            penguin="Adelie"
+            description={t("identifyingPenguins.adelie")}
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/1109642f-de43-44ad-a76f-dfd877b64048/adelie.webp"
+            link="/animals/birds/1109642f-de43-44ad-a76f-dfd877b64048"
+          />
+          <PenguinCard
+            penguin="Gentoo"
+            description={t("identifyingPenguins.gentoo")}
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/bd8bd490-eca8-46b6-ae1f-0e4998d74152/Gentoo.webp"
+            link="/animals/birds/bd8bd490-eca8-46b6-ae1f-0e4998d74152"
+          />
+          <PenguinCard
             penguin="Chinstrap"
             description={t("identifyingPenguins.chinstrap")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/Penguin_Chinstrap_04_KM%202_1.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/769300b4-7c9d-401e-a026-29defdfaf12f/Chinstrap.webp"
+            link="/animals/birds/769300b4-7c9d-401e-a026-29defdfaf12f"
           />
           <PenguinCard
             penguin="King"
             description={t("identifyingPenguins.king")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/King%20Penguin_KM_1.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/991d9fb4-8885-407d-8b80-c64869d64ddd/King_Penguin_KM.webp"
+            link="/animals/birds/991d9fb4-8885-407d-8b80-c64869d64ddd"
           />
           <PenguinCard
             penguin="Emperor"
             description={t("identifyingPenguins.emperor")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/Penguin_King_1000px_1.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/9c869b1e-3ab7-4864-ba95-91058b2eb71d/emperor.webp"
+            link="/animals/birds/9c869b1e-3ab7-4864-ba95-91058b2eb71d"
           />
           <PenguinCard
             penguin="Macaroni"
             description={t("identifyingPenguins.macaroni")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/Penguin_Macaroni_KM%202_1.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/d8ec5262-4873-4d4b-b6b2-c89ae32db9a0/Penguin_Macaroni_KM.webp"
+            link="/animals/birds/d8ec5262-4873-4d4b-b6b2-c89ae32db9a0"
           />
           <PenguinCard
             penguin="Rockhopper"
             description={t("identifyingPenguins.rockhopper")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/identifyPenguins/Northern_Rockhopper_penguin_KM_1.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/d9b7c1f0-3551-41e4-bcb1-86e0da8ab20b/rockhopper.webp"
+            link="/animals/birds/d9b7c1f0-3551-41e4-bcb1-86e0da8ab20b"
           />
         </div>
       </IonContent>

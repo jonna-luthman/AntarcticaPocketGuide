@@ -95,7 +95,7 @@ const AccordionGroupItem = ({
                       </p>
                       <p>
                         <b>{t("components.accordionGroupItem.location")} </b>
-                        {getLang(o, "location")}
+                        {o.location}
                       </p>
                       {o.note_text && (
                         <p>

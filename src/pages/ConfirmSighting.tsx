@@ -11,6 +11,7 @@ import {
   IonModal,
   IonTextarea,
   useIonRouter,
+  useIonToast,
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -49,6 +50,7 @@ interface ConfirmSightingProps {
 const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
   onShowLoginModal,
 }) => {
+  const [showToast] = useIonToast();
   const { getSpeciesById, singleSpecies: species } = useSpecies();
   const { speciesId } = useParams<{ speciesId: string }>();
   const { session } = UserAuth();
@@ -98,6 +100,14 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
         return;
       }
 
+      hideLoading();
+      showToast({
+        message: t('toasts.fieldJournal.success'),
+        duration: 2000,
+        color: "dark",
+        position: "bottom",
+      });
+
       router.push("/field-journal", "root");
     } catch (error) {
       console.error("Error saving sighting:", error);
@@ -109,7 +119,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
   return (
     <IonPage>
       <IonContent fullscreen className="ion-no-border">
-        <Header showBackButton={true} showLogo={false} color="tertiary"/>
+        <Header showBackButton={true} showLogo={false} color="inherit" />
         {!session ? (
           <NotAuthorized
             title={t("notAuthorized.addSighting.title")}
