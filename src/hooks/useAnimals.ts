@@ -1,50 +1,68 @@
 import { PostgrestError } from "@supabase/supabase-js";
 import { supabase } from "../api/supabaseClient";
-import { AnimalClass, AnimalClassSummary } from "../types/animalClasses";
+import {
+  AnimalClass,
+  AnimalClassSummary,
+  AnimalClassWithMedia,
+} from "../types/animalClasses";
 import { useState } from "react";
 import { useLoading } from "../context/LoadingContext";
 
+
+
 export default function useAnimals() {
-  const { showLoading, hideLoading } = useLoading();
-  const [animalClasses, setAnimalClasses] = useState<AnimalClass[] | null>(
-    null
-  );
+  const [animalClasses, setAnimalClasses] = useState<
+    AnimalClassWithMedia[] | null
+  >(null);
   const [animalFamilies, setAnimalFamilies] = useState<AnimalClass[] | null>(
     null
   );
-  const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(null)
+  const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(
+    null
+  );
   const [error, setError] = useState<PostgrestError | null>(null);
 
   async function getAllAnimalClasses() {
     try {
-      showLoading();
       setError(null);
-
-      const { data, error } = await supabase.from("AnimalClasses").select("*");
-
+      const { data, error } = await supabase
+        .from("AnimalClasses")
+        .select(
+          `
+          id, 
+          name_en,
+          name_es,
+          slug, 
+          SpeciesMedia (
+          id, 
+          media_url,
+          role,
+          order_index,
+          attribute_en, 
+          attribute_es
+        )`
+        )
+        .eq("SpeciesMedia.role", "cover")
+        .order("name_en", { ascending: false });
       if (error) {
         setError(error);
-        return null;
+        return;
       }
-
       setAnimalClasses(data);
     } catch (error: any) {
       console.error(error);
       setError(error);
       return null;
-    } finally {
-      hideLoading();
     }
   }
 
   async function getAnimalClass(slug: string) {
     try {
-      showLoading();
       setError(null);
 
       const { data: classData } = await supabase
         .from("AnimalClasses")
-        .select("id, name")
+        .select("id, name_en, name_es")
         .eq("slug", slug)
         .single();
 
@@ -54,19 +72,16 @@ export default function useAnimals() {
       }
 
       setAnimalClass(classData);
-      return classData
+      return classData;
     } catch (error: any) {
       console.error(error);
       setError(error);
       return null;
-    } finally {
-      hideLoading();
     }
   }
 
   async function getAllAnimalFamilies() {
     try {
-      showLoading();
       setError(null);
       const { data, error } = await supabase.from("AnimalFamilies").select("*");
 
@@ -79,8 +94,6 @@ export default function useAnimals() {
       console.error(error);
       setError(error);
       return null;
-    } finally {
-      hideLoading();
     }
   }
 

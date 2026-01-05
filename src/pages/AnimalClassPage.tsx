@@ -1,64 +1,79 @@
-import { IonPage, IonContent, IonList, IonRouterLink } from "@ionic/react";
+import { IonPage, IonContent, IonList } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import CollapsableHeader from "../components/CollapsableHeader";
 import { useParams } from "react-router";
-import useSpecies from "../hooks/useSpecies";
-import { SpecieSummary } from "../types/species";
-import SpecieCard from "../components/SpecieCard";
+
+import Header from "../components/Header";
+import SpeciesCard from "../components/Species/SpeciesCard";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
+
 import useAnimals from "../hooks/useAnimals";
-import { useLoading } from "../context/LoadingContext";
+import useSpecies from "../hooks/useSpecies";
+
+import { UISpecieSummaryWithMedia } from "../types/species";
 import { AnimalClassSummary } from "../types/animalClasses";
+import { mapSpecieSummaryToUI } from "../mappers/speciesSummary";
+import useGetLang from "../hooks/useGetLang";
+import { findImageByRole } from "../utils/getMediaTypes";
 
 const AnimalClassPage: React.FC = () => {
-  const { showLoading, hideLoading } = useLoading();
   const { classSlug } = useParams<{ classSlug: string }>();
   const { getSpeciesByClass } = useSpecies();
   const { getAnimalClass } = useAnimals();
+  const getLang = useGetLang();
 
-  const [species, setSpecies] = useState<SpecieSummary[] | null>(null);
+  const [species, setSpecies] = useState<UISpecieSummaryWithMedia[] | null>(
+    null
+  );
   const [animalClass, setAnimalClass] = useState<AnimalClassSummary | null>(
     null
   );
 
   useEffect(() => {
-    const fetch = async () => {
-      showLoading();
-      
-      const classData = await getAnimalClass(classSlug);
-      setAnimalClass(classData);
+    getAnimalClass(classSlug).then(setAnimalClass);
+  }, [classSlug]);
 
-      if (classData?.id) {
-        const speciesData = await getSpeciesByClass(classData.id);
-        setSpecies(speciesData);
+  useEffect(() => {
+    const classId = animalClass?.id;
+    if (!classId) return;
+
+    const fetchData = async () => {
+      try {
+        const data = await getSpeciesByClass(classId, { includeMedia: true });
+
+        if (!data) return;
+
+        const uiData = data.map(mapSpecieSummaryToUI);
+
+        setSpecies(uiData);
+      } catch (error) {
+        console.error("Failed to fetch species:", error);
       }
-
-      hideLoading();
     };
 
-    fetch();
-  }, [classSlug]);
+    fetchData();
+  }, [animalClass]);
 
   return (
     <IonPage>
-      <Header showBackButton={true} />
-      <CollapsableHeader />
-      <IonContent fullscreen>
-        <Breadcrumbs param1={animalClass?.name} />
+        <Header showBackButton={true} />
+      <IonContent>
+        {/* <CollapsableHeader /> */}
+        <Breadcrumbs param1={getLang(animalClass, "name")} />
         <IonList>
-          {species?.map((specie: SpecieSummary) => (
-            <IonRouterLink
-              href={`/${classSlug}/${specie.slug}`}
-              key={specie.id}
-            >
-              <SpecieCard
-                title={specie.name_common}
-                subtitle={specie.name_latin}
-                src="/WeddellSeal.svg"
-              />
-            </IonRouterLink>
-          ))}
+          {species &&
+            species.map((s) => {
+              const headerImage = findImageByRole(s.SpeciesMedia, "header");
+              return (
+                <div key={s.id}>
+                  <SpeciesCard
+                    species={s}
+                    headerImage={headerImage ?? undefined}
+                    title={getLang(s, "name_common")}
+                    subtitle={s.name_latin}
+                  />
+                </div>
+              );
+            })}
         </IonList>
       </IonContent>
     </IonPage>

@@ -1,7 +1,13 @@
+import { SpeciesMediaSummary } from "./media";
 import { Database } from "./supabase";
 
 export type AnimalClass = Database["public"]["Tables"]["AnimalClasses"]["Row"];
-export type AnimalClassSummary = Pick<AnimalClass, "id" | "name">;
+
+export type AnimalClassSummary = Pick<AnimalClass, "id" | "name_en" | "name_es">;
+
+export type AnimalClassWithMedia = AnimalClass & {
+  SpeciesMedia: SpeciesMediaSummary[]
+}
 
 export type AnimalFamily =
   Database["public"]["Tables"]["AnimalFamilies"]["Row"];

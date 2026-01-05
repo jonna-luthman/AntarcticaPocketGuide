@@ -1,0 +1,39 @@
+/* Add styling */
+.cornerImage {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  max-width: 50%;
+  object-fit: cover; 
+  object-position: center;
+}
+
+.cornerImage::part(image) {
+  object-fit: cover;
+  object-position: right center;
+}
+
+.distributionImageContainer {
+  padding: 16px 0;
+}
+
+.factsImageContainer {
+  padding: 16px 0;
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  z-index: 0;
+}
+
+.sightingHeaderImage {
+  background-color: var(--ion-color-tertiary);
+}

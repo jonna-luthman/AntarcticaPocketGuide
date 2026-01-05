@@ -1,24 +1,53 @@
+import {
+  GetSpeciesByClassOptions,
+  GetSpeciesByClassWithMediaOptions,
+  SpecieDetail,
+  SpecieListItemWithMedia,
+  SpecieQueryResult,
+  SpecieSummary,
+  SpecieSummaryWithMedia,
+} from "./../types/species";
 import { PostgrestError } from "@supabase/supabase-js";
 import { useState } from "react";
 import { supabase } from "../api/supabaseClient";
-import { useLoading } from "../context/LoadingContext";
-import { Specie, SpecieSummary } from "../types/species";
 
-export default function useSpecies<T>() {
-  const [species, setSpecies] = useState<T[] | null>(null);
+export default function useSpecies() {
+  const [speciesList, setSpeciesList] = useState<
+    SpecieListItemWithMedia[] | null
+  >(null);
+  const [singleSpecies, setSingleSpecies] = useState<SpecieDetail | null>(null);
+  const [speciesWithSightings, setSpeciesWithSightings] = useState<
+    SpecieSummaryWithMedia[] | null
+  >(null);
+
   const [error, setError] = useState<PostgrestError | null>(null);
 
-  async function getAllSpecies(): Promise<Specie[] | null> {
+  async function getAllSpecies(): Promise<SpecieListItemWithMedia[] | null> {
     try {
       setError(null);
 
-      const { data, error } = await supabase.from("Species").select("*");
+      const { data, error } = await supabase
+        .from("Species")
+        .select(
+          `
+        id,
+        name_common_en,
+        name_common_es,
+        name_latin,
+        class_slug,
+        slug,
+        SpeciesMedia!inner(*)
+      `
+        )
+        .eq("SpeciesMedia.role", "header")
+        .order("name_common_en", { ascending: false })
+        .limit(1, { foreignTable: "SpeciesMedia" });
 
       if (error) {
         setError(error);
         return null;
       }
-      setSpecies(data as Specie[]);
+      setSpeciesList(data);
 
       return data;
     } catch (error: any) {
@@ -29,13 +58,19 @@ export default function useSpecies<T>() {
   }
 
   async function getSpeciesByClass(
-    classId: string
-  ): Promise<SpecieSummary[] | null> {
+    classId: string,
+    options?: GetSpeciesByClassOptions | GetSpeciesByClassWithMediaOptions
+  ): Promise<SpecieQueryResult[] | null> {
     setError(null);
+
     try {
+      const selectQuery = options?.includeMedia
+        ? `id, name_common_en, name_common_es, name_latin, slug, class_slug, SpeciesMedia (id, media_url, role, order_index)`
+        : `id, name_common_en, name_common_es, name_latin, slug, class_slug`;
+
       const { data, error } = await supabase
         .from("Species")
-        .select("id, name_common, name_latin, slug")
+        .select(selectQuery)
         .eq("animal_class_id", classId);
 
       if (error) {
@@ -43,8 +78,36 @@ export default function useSpecies<T>() {
         return null;
       }
 
-      setSpecies(data as Specie[]);
-      return data;
+      return data as unknown as SpecieQueryResult[];
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  async function getSpeciesById(id: string): Promise<SpecieDetail | null> {
+    setError(null);
+
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select(
+          `*,
+        SpeciesMedia (*)
+      `
+        )
+        .eq("id", id)
+        .order("order_index", { foreignTable: "SpeciesMedia" })
+        .single();
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setSingleSpecies(data as SpecieDetail);
+      return data as SpecieDetail;
     } catch (error: any) {
       console.error(error);
       setError(error);
@@ -60,15 +123,14 @@ export default function useSpecies<T>() {
     try {
       const { data, error } = await supabase
         .from("Species")
-        .select("id, name_common, name_latin, slug, class_slug")
-        .ilike("name_common", `%${query}%`);
+        .select("id, name_common_en, name_common_es, name_latin, slug, class_slug")
+        .ilike("name_common_en", `%${query}%`);
 
       if (error) {
         setError(error);
         return null;
       }
 
-      setSpecies(data as SpecieSummary[]);
       return data;
     } catch (error: any) {
       console.error(error);
@@ -77,5 +139,40 @@ export default function useSpecies<T>() {
     }
   }
 
-  return { getAllSpecies, getSpeciesByClass, getSpeciesBySearchQuery, species, error };
+  async function getUserSpeciesList(
+    currentUserId: string
+  ): Promise<SpecieSummaryWithMedia[] | null> {
+    try {
+      const { data, error } = await supabase
+        .from("Species")
+        .select(
+          `id, name_common_en, name_common_es, name_latin, slug, class_slug, SpeciesMedia!inner(*), UserSpeciesList(*)`
+        )
+        .eq("UserSpeciesList.user_id", currentUserId);
+
+      if (error) {
+        setError(error);
+        return null;
+      }
+
+      setSpeciesWithSightings(data);
+      return data;
+    } catch (error: any) {
+      console.error(error);
+      setError(error);
+      return null;
+    }
+  }
+
+  return {
+    getAllSpecies,
+    getSpeciesByClass,
+    getSpeciesBySearchQuery,
+    getSpeciesById,
+    getUserSpeciesList,
+    speciesList,
+    singleSpecies,
+    speciesWithSightings,
+    error,
+  };
 }

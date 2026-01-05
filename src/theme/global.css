@@ -8,15 +8,15 @@ ion-content {
   background: var(--ion-background-color);
   color: var(--app-text-color);
 }
-/* -------- FONTER -------- */
-/* Bastext */
+/* -------- FONTS -------- */
+/* Bas */
 body, p, span {
   font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 
-/* Rubriker */
+/* Titles */
 h1 {
   font-family: "Playfair Display SC", serif;
   font-size: 2rem;
@@ -25,23 +25,23 @@ h1 {
 
 h2, h3 {
   font-family: "Average", serif;
-  font-weight: 400;
+  font-weight: 800;
 }
 
 h2 { font-size: 1.6rem; }
 h3 { font-size: 1.3rem; }
 
-/* Mindre rubrik */
 h4 {
   font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.1rem;
   font-weight: 600;
 }
 
+/* Global custom Ionic styles */
 ion-title {
-  font-family: "Playfair Display SC", serif !important;
-  font-size: 1.5rem !important;
-  font-weight: 700 !important;
+  font-family: "Playfair Display SC", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 ion-label {
@@ -59,6 +59,34 @@ ion-tab-button {
   font-family: "Avenir", sans-serif;
 }
 
+/* Custom CSS classes */
+.language-action-sheet {
+  --button-color: var(--ion-color-tertiary);
+  --button-background-selected: var(--ion-color-light);
+}
+
+.custom-modal {
+  --ion-color-primary: var(--ion-color-dark);
+}
+
+.custom-alert {
+  --background: var(--ion-color-light);
+  --backdrop-opacity: 0.6;
+}
+
+.custom-alert .alert-button {
+  color: var(--ion-color-dark);
+}
+
+.custom-alert .alert-button-confirm {
+  color: var(--color);
+}
+
+.custom-alert .alert-button-cancel {
+  color: var(--ion-color-danger);
+}
+
+/* Fonts - Custom CSS classes */
 .font-avenir { font-family: var(--font-avenir); }
 .font-display { font-family: var(--font-display); }
 .font-average { font-family: var(--font-average); }

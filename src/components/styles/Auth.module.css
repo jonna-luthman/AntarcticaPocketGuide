@@ -1,0 +1,42 @@
+.button {
+  color: var(--ion-tertiary);
+  padding: 16px;
+}
+
+.googleButton {
+  color: white;
+  padding: 16px;
+  padding-bottom: 0;
+}
+
+.center {
+  text-align: center;
+}
+.right {
+  text-align: right;
+}
+
+.divider {
+  border-top: 1px solid #bbb;
+  border-radius: 5px;
+}
+
+/* Register component */
+.successContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px; 
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.iconWrapper {
+  margin-bottom: 20px;
+}
+
+.buttonSection {
+  width: 100%;
+  margin-top: 30px;
+  color: var(--ion-color-light);
+}

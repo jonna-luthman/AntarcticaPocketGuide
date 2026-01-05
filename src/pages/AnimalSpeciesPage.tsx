@@ -1,47 +1,126 @@
-import {
-  IonPage,
-  IonContent,
-  IonTitle,
-  IonItem,
-  IonList,
-  IonRouterLink,
-  IonText,
-} from "@ionic/react";
+import { IonPage, IonContent, IonText, IonButton } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import Header from "../components/Header";
-import CollapsableHeader from "../components/CollapsableHeader";
 import { useParams } from "react-router";
+import { Blend, Eye, PersonStanding } from "lucide-react";
+
 import useSpecies from "../hooks/useSpecies";
-import { Specie } from "../types/species";
+import useXenoCanto from "../hooks/useXenoCanto";
+
+import styles from "./styles/AnimalSpeciesPage.module.css";
+
+import SpeciesFeatures from "../components/Species/SpeciesFeatures";
+import DistinguishableFeaturesCard from "../components/Species/DistinguishableFeatures";
+import SpeciesTabs from "../components/Species/SpeciesTabs";
+import AnimalSounds from "../components/Species/AnimalSounds";
+import ImageModal from "../components/Species/ImageModal";
+import Image from "../components/Image";
+import Header from "../components/Header";
+
+import { findImageByRole } from "../utils/getMediaTypes";
+import { resolveImageUrl } from "../utils/resolveImageUrl";
+import useGetLang from "../hooks/useGetLang";
+import { useTranslation } from "react-i18next";
+import { AnimalSound } from "../types/animalSounds";
 
 const AnimalSpeciesPage: React.FC = () => {
-  const { classId } = useParams<{ classId: string }>();
-  const { getAllSpecies, species } = useSpecies();
+  const { speciesId } = useParams<{ speciesId: string }>();
+  const { getSpeciesById, singleSpecies: species } = useSpecies();
+  const { fetchSounds } = useXenoCanto();
+  const getLang = useGetLang();
+  const { t } = useTranslation();
 
-  console.log(classId)
+  const [sounds, setSounds] = useState<AnimalSound[] | undefined>([]);
+  const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const fetchSpecies = async () => {
-      const data = await getAllSpecies();
+    getSpeciesById(speciesId);
+  }, [speciesId]);
 
-    };
-    fetchSpecies();
-  }, []);
+  useEffect(() => {
+    if (species?.name_latin) fetchSounds(species.name_latin).then(setSounds);
+  }, [species]);
+
+  const headerImage = findImageByRole(species?.SpeciesMedia ?? null, "header");
+  const imageUrl = headerImage?.media_url
+    ? resolveImageUrl(headerImage.media_url)
+    : "";
 
   return (
     <IonPage>
-      <Header showBackButton={true} />
-      <IonContent fullscreen>
-        <IonTitle>Animal Species page</IonTitle>
-        {/* <IonList>
-          {species?.map((specie) => (
-            <IonRouterLink href={`/anim/${specie.id}`}>
-              <IonItem key={specie.id}>
-                <IonText>{specie.name_common}</IonText>
-              </IonItem>
-            </IonRouterLink>
-          ))} */}
-        {/* </IonList> */}
+      {headerImage && (
+        <ImageModal
+          isOpen={isImageModalOpen}
+          onClose={() => setIsImageModalOpen(false)}
+          image={headerImage}
+        />
+      )}
+
+      <IonContent color="tertiary" className="ion-no-border">
+        <Header showBackButton={true} showLogo={false} color="inherit"/>
+
+        {headerImage && (
+          <div
+            onClick={() => setIsImageModalOpen(true)}
+            className={styles.headerImageContainer}
+          >
+            <Image image={headerImage} className="header" imageUrl={imageUrl} />
+          </div>
+        )}
+
+        <div className={styles.contentWrapper}>
+          <IonText>
+            <h1 className="font-average ion-text-uppercase ion-no-margin ion-padding-top">
+              {getLang(species, "name_common")}
+            </h1>
+          </IonText>
+          <IonText className="font-average">
+            <h3 className="ion-no-margin">{species?.name_latin}</h3>
+          </IonText>
+
+          <IonButton
+            expand="block"
+            color="medium"
+            shape="round"
+            className="ion-margin-top"
+            routerLink={`/add-sighting/${species?.id}`}
+          >
+            <IonText color="light">
+            {t('buttons.addSighting')}
+            </IonText>
+          </IonButton>
+
+          <div className="ion-padding-top">
+            <h3 className="ion-text-justify">
+              <Eye size={20} />{" "}
+              {t("pages.animalsSpeciesPage.lookFor")}
+            </h3>
+            <p> {getLang(species, "identifying_features")}</p>
+          </div>
+
+          {sounds && sounds.length > 0 && <AnimalSounds sounds={sounds} />}
+
+          {/* TODO */}
+          {/* <div className="ion-padding-top">
+            <h3 className="ion-text-justify">
+              <Blend size={20} />{" "}
+              {t("pages.animalsSpeciesPage.similiarSpecies")}
+            </h3>
+            <p></p>
+          </div> */}
+
+          <SpeciesFeatures specie={species} />
+          <DistinguishableFeaturesCard specie={species} />
+
+          <div className="ion-padding-top">
+            <h3>
+              <PersonStanding size={20} />{" "}
+              {t("pages.animalsSpeciesPage.behaviourAroundPeople")}
+            </h3>
+            <p>{getLang(species, "human_interaction")}</p>
+          </div>
+
+          {<SpeciesTabs specie={species} />}
+        </div>
       </IonContent>
     </IonPage>
   );

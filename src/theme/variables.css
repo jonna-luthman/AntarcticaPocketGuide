@@ -54,7 +54,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-shade: #d8dade;
   --ion-color-light-tint: #f7f9fc;
 
-	--ion-color-medium: #c98540;
+	--ion-color-medium: #D0944F;
 	--ion-color-medium-rgb: 201,133,64;
 	--ion-color-medium-contrast: #000000;
 	--ion-color-medium-contrast-rgb: 0,0,0;
@@ -68,6 +68,8 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-dark-shade: #292929;
   --ion-color-dark-tint: #444444;
 
+  --ion-color-light-blue: #86BCD4;
+
   --ion-font-family: "Avenir", -apple-system, BlinkMacSystemFont, sans-serif;
 
   --ion-heading-font-weight: 700;
@@ -77,6 +79,7 @@ http://ionicframework.com/docs/theming/ */
   --font-display: "Playfair Display SC", serif;
   --font-average: "Average", serif;
 }
+
 :root.ios {
   --ion-text-color: #000;
 }

@@ -1,19 +1,34 @@
 import React, { createContext, useContext, useState } from "react";
-import { IonLoading } from "@ionic/react";
+import { IonContent, IonLoading } from "@ionic/react";
+
+/**
+ * Context and Provider for managing a global loading overlay.
+ * Use this to block user interaction during critical, non-interruptible 
+ * processes like Authentication. 
+ * @example const { showLoading, hideLoading } = useLoading();
+ *  try {
+ *  showLoading();
+ *  await function();
+ *  } finally {
+ *  hideLoading();
+ *  }
+ */
 
 interface LoadingContextType {
-  showLoading: (message?: string) => void;
+  showLoading: () => void;
   hideLoading: () => void;
 }
 
 const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 
-export const LoadingProvider = ({ children }: { children: React.ReactNode }) => {
+export const LoadingProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState("Loading...");
 
-  const showLoading = (message?: string) => {
-    if (message) setLoadingMessage(message);
+  const showLoading = () => {
     setIsOpen(true);
   };
 
@@ -22,13 +37,13 @@ export const LoadingProvider = ({ children }: { children: React.ReactNode }) => 
   return (
     <LoadingContext.Provider value={{ showLoading, hideLoading }}>
       {children}
-      <IonLoading
-        isOpen={isOpen}
-        spinner="crescent"
-        message={loadingMessage}
-        backdropDismiss={false}
-        duration={0}
-      />
+          <IonLoading
+            isOpen={isOpen}
+            spinner="bubbles"
+            backdropDismiss={false}
+            animated={true}
+            duration={0}
+          />
     </LoadingContext.Provider>
   );
 };

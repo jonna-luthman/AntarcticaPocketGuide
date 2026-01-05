@@ -1,0 +1,15 @@
+.menu-content {
+  --height: 100%;
+}
+
+.MenuInnerContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.logoutSection {
+  margin-top: auto;
+  padding-bottom: 20px; 
+}

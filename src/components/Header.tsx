@@ -3,28 +3,56 @@ import {
   IonToolbar,
   IonBackButton,
   IonButtons,
+  IonButton,
   IonMenuButton,
+  IonTitle,
 } from "@ionic/react";
 
-const Header = ({ showMenu = false, showBackButton = false }) => {
+interface HeaderProps {
+  showMenu?: boolean;
+  showBackButton?: boolean;
+  showLogo?: boolean;
+  showTitle?: boolean;
+  title?: string;
+  color?: string
+}
+
+const Header = ({
+  showMenu = false,
+  showBackButton = false,
+  showLogo = true,
+  showTitle = false,
+  title = "",
+  color ="primary"
+}: HeaderProps) => {
   return (
-    <IonHeader translucent={true} className="ion-padding">
-      <IonToolbar>
-        {showBackButton && (
-          <IonButtons slot="start">
-            <IonBackButton defaultHref="#" color="dark" />
-          </IonButtons>
+    <IonHeader className="ion-no-border">
+      <IonToolbar color={color}>
+        <IonButtons  slot="start">
+          {showBackButton && <IonBackButton text="" defaultHref="/" />}
+          {showMenu && <IonMenuButton  autoHide={false} />}
+        </IonButtons>
+
+        {showTitle && (
+          <IonTitle color="dark" slot="end" className="ion-text-center">
+            <h4>{title}</h4>
+          </IonTitle>
         )}
 
-        {showMenu && (
-          <IonButtons slot="start">
-            <IonMenuButton autoHide={false} color="dark" />
-          </IonButtons>
+        {showLogo && (
+          <IonButton
+            slot="end"
+            fill="clear"
+            routerLink="/"
+            routerDirection="root"
+          >
+            <img
+              src="Logo.svg"
+              alt="App Logo"
+              style={{ height: "45px", width: "auto" }}
+            />
+          </IonButton>
         )}
-
-        <div slot="end">
-          <img src="Logo.svg" alt="App Logo" />
-        </div>
       </IonToolbar>
     </IonHeader>
   );

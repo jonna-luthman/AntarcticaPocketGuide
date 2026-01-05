@@ -1,0 +1,20 @@
+.DateTimeModal {
+    --width: fit-content;
+  --height: fit-content;
+  --border-radius: 16px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+.DateTimeModal::part(content) {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.DateTimeContainer {
+display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--ion-background-color);
+}

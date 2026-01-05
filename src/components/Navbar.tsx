@@ -1,29 +1,23 @@
-import {
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonFab,
-  IonFabButton,
-} from "@ionic/react";
-import { homeOutline, personOutline, add } from "ionicons/icons";
+import { IonTabBar, IonTabButton, IonIcon } from "@ionic/react";
+import { search, homeOutline, personOutline } from "ionicons/icons";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/">
+      <IonTabBar slot="bottom" color="primary">
+        <IonTabButton tab="Home" href="/">
           <IonIcon icon={homeOutline} color="dark" />
         </IonTabButton>
-        <IonTabButton tab="profile" href="/field-journal">
+        <IonTabButton tab="Add" href="/search">
+          <IonIcon icon={search}></IonIcon>
+        </IonTabButton>
+        <IonTabButton
+          tab="Profile"
+          href="/field-journal"
+        >
           <IonIcon icon={personOutline} color="dark" />
         </IonTabButton>
       </IonTabBar>
-
-      <IonFab vertical="bottom" horizontal="center" edge={true}>
-        <IonFabButton>
-          <IonIcon icon={add} color="dark" />
-        </IonFabButton>
-      </IonFab>
     </>
   );
 };

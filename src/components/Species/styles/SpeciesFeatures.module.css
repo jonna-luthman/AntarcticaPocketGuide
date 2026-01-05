@@ -1,0 +1,75 @@
+.contentWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 12px;
+  padding: 16px;
+  background: var(--ion-color-secondary);
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  flex: 1 1 150px;
+  min-height: 64px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.heroImage {
+  height: 45vh;
+  object-fit: cover;
+  padding-top: env(safe-area-inset-top);
+}
+
+.boxSmall {
+  flex: 1 1 100px;
+}
+
+.boxMedium {
+  flex: 1.5 1 220px;
+}
+
+.boxWide {
+  flex: 2 1 280px;
+}
+
+.icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  flex-shrink: 0;
+}
+
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contentBox p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ion-color-dark);
+}
+
+.bold {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--ion-color-medium);
+}
+
+@media (min-width: 768px) {
+  .contentBox {
+    padding: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contentWrapper {
+    gap: 16px;
+  }
+}

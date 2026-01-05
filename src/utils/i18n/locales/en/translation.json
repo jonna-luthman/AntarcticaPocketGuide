@@ -1,0 +1,245 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "back": "Back"
+  },
+  "settings": {
+    "change_language": "Change Language"
+  },
+  "buttons": {
+    "signOut": "Sign Out",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close",
+    "selectLanguage": "Select language",
+    "addSighting": "Add sighting",
+    "contactUs": "Contact us"
+  },
+  "menu": {
+    "page": {
+      "home": "Home",
+      "fieldJournal": "Field Journal",
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us"
+    },
+    "description": {
+      "fieldJournal": "All my logs",
+      "aboutUs": "Who are we?",
+      "contactUs": "Any questions?"
+    }
+  },
+  "auth": {
+    "buttons": {
+      "login": "Log in",
+      "logout": "Sign out",
+      "register": "Register",
+      "createAccount": "Create account",
+      "resetPassword": "Reset password",
+      "forgotPassword": "Forgot your password?",
+      "send": "Send",
+      "continue": "Continue",
+      "goBackToLogin": "Go back to login",
+      "googleSignIn": "Sign in with Google",
+      "continueWithGoogle": "Continue with Google",
+      "facebookSignIn": "Sign in with Facebook",
+      "continueWithFacebook": "Continue with Facebook",
+      "registerPrompt": "Dont have an account?",
+      "registerHere": "Register here",
+      "loginPrompt": "Already have an account?",
+      "signInOrCreateAccount": "Sign in or create account"
+    },
+    "phrases": {
+      "loginTitle": "Log in",
+      "createAccountTitle": "Create account",
+      "changePassword": "Change password",
+      "login": "Welcome back! Log in to view your Field Notes and Add Sightings.",
+      "forgotPassword": "No worries! Enter your email and we will send you a reset link.",
+      "resetPassword": "An email have been sent to {{email}} with a reset password link.",
+      "checkEmail": "Check your email"
+    },
+    "form": {
+      "newPassword": "New password",
+      "repeatPassword": "Repeat password",
+      "email": "Email",
+      "password": "Password",
+      "passwordNotMatching": "Passwords do not match",
+      "name": "Name"
+    }
+  },
+  "notAuthorized": {
+    "buttonText": "Sign in or create account",
+    "fieldNotes": {
+      "title": "Field Notes",
+      "description": "Log in to view your saved animals, track your progress, and build your personal field journal."
+    },
+    "addSighting": {
+      "title": "Add sighting",
+      "description": "Log in to add a sighting, track your progress, and build your personal field journal."
+    }
+  },
+  "errors": {
+    "auth": {
+      "user_already_exists": "User already exists. Go to login.",
+      "weak_password": "Password is too weak (at least 6 charachters)",
+      "validation_failed": "Invalid email",
+      "over_email_send_rate_limit": "Too many requests. Try again in a few minutes.",
+      "invalid_credentials": "Incorrect email or password",
+      "user_not_found": "No user found with this email.",
+      "unexpectedError": "Unexpected error, try again"
+    }
+  },
+  "alerts": {
+    "signOut": {
+      "header": "Sign Out",
+      "message": "Are you sure you want to sign out?"
+    }
+  },
+  "toasts": {
+    "register": {
+      "welcomeMsg": "Welcome to Antarctica Pocket Guide, {{name}}!"
+    },
+    "signOut": {
+      "message": "You have been signed out."
+    },
+    "login": {
+      "welcomeBack": "Welcome back!"
+    },
+    "fieldJournal": { 
+      "success": "Your sighting has been saved!" 
+    }
+  },
+  "animalClasses": {
+    "seals": "Seals",
+    "birds": "Birds",
+    "whalesAndDolphins": "Whales and Dolphins"
+  },
+  "searchBarDescription": "Search for species...",
+  "pages": {
+    "animalsSpeciesPage": {
+      "lookFor": "Look for",
+      "similiarSpecies": "Similar species",
+      "behaviourAroundPeople": "Behaviour around people",
+      "whereToLook": "Where to look for them:",
+      "facts": "Facts",
+      "figure": "Figure:",
+      "photographer": "Photographer:",
+      "distribution": "Distribution",
+      "behaviuor": "Behaviour",
+      "listen": "Listen",
+      "recordedIn": "Recorded in <i>{{country}}</i> by <i>{{recorder}}</i>",
+      "licence": "License:"
+    },
+    "confirmSighting": {
+      "confirmSighting": "Confirm Sighting",
+      "howMany": "How many did you see?",
+      "location": "Location",
+      "locationPlaceholder": "Where did you see it?",
+      "notes": "Notes",
+      "notesPlaceholder": "Add a note...",
+      "date": "Date"
+    },
+    "fieldJournal": {
+      "sigthingsLogged": "Sightings logged:",
+      "birdsSeen": "Birds seen:",
+      "sealsSeen": "Seals seen",
+      "whalesSeen": "Whales seen",
+      "seen": "Seen",
+      "notSeen": "Not seen"
+    },
+    "home": {
+      "identifyPenguins": "How to identify penguins",
+      "identifyPenguinsNote": "Use our guide to find out what you saw"
+    },
+    "header": {
+      "addSighting": "Add sighting",
+      "errorMessages": {
+        "noSpeciesFound": "No species found"
+      }
+    },
+    "contactUs": {
+      "title": "Get in touch",
+      "description": "Leave your message and we will get back to your shortly",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Your first and last name",
+        "email": "Email",
+        "emailPlaceholder": "Email adress",
+        "subject": "Subject",
+        "subjectPlaceholder": "Enter a subject",
+        "message": "Message",
+        "messagePlaceholder": "Your questions or message",
+        "send": "Send"
+      },
+      "success": {
+        "title": "Thank you!",
+        "message": "Your message have been sent. We will get back to you soon.",
+        "back": "Send another message"
+      },
+      "errorMessages": {
+        "nameEmpty": "Name is required",
+        "nameError": "Name must be at least 2 characters",
+        "emailEmpty": "Email is required",
+        "emailError": "Please enter a valid email address",
+        "subjectEmpty": "Subject is required",
+        "subjectError": "Subject must be at least 2 characters",
+        "messageEmpty": "Message is required",
+        "messageError": "Message must be at least 10 characters"
+      }
+    },
+    "aboutUs": {
+      "titles": {
+        "about": "About us",
+        "section_1": "Who are we?",
+        "section_2": "Our vision",
+        "section_3": "Want to contribute?"
+      },
+      "text": {
+        "section_1": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible.",
+        "section_2": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible.",
+        "section_3": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible."
+      }
+    }
+  },
+  "components": {
+    "accordionGroupItem": {
+      "date": "Date:",
+      "location": "Location:",
+      "notes": "Notes:",
+      "observations": "observations"
+    },
+    "speciesFeatures": {
+      "lifespan": "Up to {{lifespan}} years"
+    },
+    "speciesTabs": {
+      "behaviour": "Behaviour",
+      "distribution": "Distribution",
+      "facts": "Facts"
+    },
+    "distinguishableFeatures": {
+      "title": "Distinguishable features",
+      "nonAvailable": "No features available"
+    }
+  },
+
+  "conservationStatus": {
+    "Least concern": "Least concern",
+    "Near threathened": "Near threatened",
+    "Vulnerable": "Vulnerable",
+    "Endangered": "Endangered",
+    "Critically endangered": "Critically endangered",
+    "Extinct in the wild": "Extinct in the wild",
+    "Extinct": "Extinct"
+  },
+  "identifyingPenguins": {
+    "description": "Look for visual clues to identify penguins",
+    "gentoo": "White triangular patch over eye and orange beak",
+    "adelie": "White ring around eye",
+    "chinstrap": "The chinstrap line",
+    "king": "Solid yellow-orange patch behind cheek",
+    "emperor": "Yellowish-white patch that fads into the belly",
+    "macaroni": "Spiked feathers on top of the head",
+    "rockhopper": "Yellow feathers dropping down",
+    "imageAtt": "Man with Binoculars"
+  }
+}

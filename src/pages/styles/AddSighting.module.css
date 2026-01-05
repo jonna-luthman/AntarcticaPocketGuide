@@ -1,0 +1,21 @@
+.group {
+    padding-bottom: 16px;
+    padding-top: 16px;
+}
+
+.divider {
+  background-color: var(--ion-color-secondary);
+}
+
+.label {
+  font-weight: 600;
+  padding: 0.4rem;
+}
+
+.item {
+    padding-top: 6px;
+}
+
+.thumbnail {
+    border-radius: 10px;
+}

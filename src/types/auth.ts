@@ -1,4 +1,6 @@
-import { User, Session } from '@supabase/supabase-js';
+import { Session } from '@supabase/supabase-js';
+import { AuthUser } from './user';
+import { User } from '@supabase/auth-js/src/lib/types'
 
 type AuthSuccess = {
   success: true;
@@ -8,12 +10,26 @@ type AuthSuccess = {
   };
 };
 
+type AuthSuccessUpdateUser = {
+  success: true;
+  user: User
+};
+
 type AuthFailure = {
   success: false;
-  error: string;
+  error: {
+    message: string;
+    code?: string;
+  };
 };
 
 export type AuthResult = AuthSuccess | AuthFailure;
+
+export type AuthResultUpdateUser = AuthFailure | AuthSuccessUpdateUser;
+
+export type checkUserProfileResult = {
+  
+}
 
 export type SignOutResult =
   | { success: true }
