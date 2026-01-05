@@ -14,7 +14,6 @@ import {
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 
-import { useLoading } from "../../context/LoadingContext";
 import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import { logoGoogle, logoFacebook, chevronBackOutline } from "ionicons/icons";
 import styles from "../styles/Auth.module.css";
@@ -113,19 +112,17 @@ const Register: React.FC<RegisterProps> = ({
         <IonToolbar color="inherit">
           <IonButtons slot="start">
             <IonButton onClick={() => nav.pop()}>
-              <IonIcon slot="start" icon={chevronBackOutline} />
+              <IonIcon slot="start" icon={chevronBackOutline} aria-hidden="true"/>
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
-        <div className={styles.center}>
-          <IonText>
-            <h2>{t("auth.phrases.createAccountTitle")}</h2>
-          </IonText>
-        </div>
         <form onSubmit={handleSubmit}>
           <IonList>
+            <h2 className="ion-text-center">
+              {t("auth.phrases.createAccountTitle")}
+            </h2>
             <IonItem>
               <IonInput
                 className="ion-margin-top"

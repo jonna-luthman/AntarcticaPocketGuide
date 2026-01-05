@@ -74,7 +74,7 @@ const AnimalSpeciesPage: React.FC = () => {
             </h1>
           </IonText>
           <IonText className="font-average">
-            <h3 className="ion-no-margin">{species?.name_latin}</h3>
+            <h2 className="ion-no-margin">{species?.name_latin}</h2>
           </IonText>
 
           <IonButton
@@ -84,7 +84,7 @@ const AnimalSpeciesPage: React.FC = () => {
             className="ion-margin-top"
             routerLink={`/add-sighting/${species?.id}`}
           >
-            <IonText color="light">
+            <IonText color="dark">
             {t('buttons.addSighting')}
             </IonText>
           </IonButton>
