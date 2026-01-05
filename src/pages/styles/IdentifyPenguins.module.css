@@ -48,6 +48,11 @@
   color: var(--ion-color-light);
 }
 
+.cardIntroText {
+  padding-bottom: 16px;
+  font-size: 1.2rem
+}
+
 ion-card-content.cardFont {
   padding: 0 15px 15px 15px;
   font-size: 0.9rem;
