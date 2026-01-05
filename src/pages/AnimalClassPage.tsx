@@ -55,16 +55,15 @@ const AnimalClassPage: React.FC = () => {
 
   return (
     <IonPage>
-        <Header showBackButton={true} />
+      <Header showBackButton={true} />
       <IonContent>
-        {/* <CollapsableHeader /> */}
         <Breadcrumbs param1={getLang(animalClass, "name")} />
         <IonList>
           {species &&
             species.map((s) => {
               const headerImage = findImageByRole(s.SpeciesMedia, "header");
               return (
-                <div key={s.id}>
+                <div key={s.id} role="listitem">
                   <SpeciesCard
                     species={s}
                     headerImage={headerImage ?? undefined}

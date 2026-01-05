@@ -59,6 +59,12 @@ ion-tab-button {
   font-family: "Avenir", sans-serif;
 }
 
+ion-breadcrumb {
+  --color: rgb(0, 0, 0);
+  --color-active: rgb(0, 0, 0);
+  --color-hover: rgb(0, 0, 0);
+}
+
 /* Custom CSS classes */
 .language-action-sheet {
   --button-color: var(--ion-color-tertiary);
