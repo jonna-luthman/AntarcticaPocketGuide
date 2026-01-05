@@ -3,23 +3,21 @@ import {
   IonPage,
   IonSegment,
   IonSegmentButton,
+  IonLabel,
   IonAccordionGroup,
   IonCol,
   IonGrid,
   IonRow,
-  IonText,
-  IonLabel,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
-
 import { UserAuth } from "../context/AuthContext";
 import styles from "./styles/FieldJournal.module.css";
-
 import useSpecies from "../hooks/useSpecies";
-
 import Header from "../components/Header";
 import AccordionGroupItem from "../components/AccordionGroupItem";
-import NotAuthorized from "../components/auth/NotAuthorized"
+import NotAuthorized from "../components/auth/NotAuthorized";
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
@@ -44,11 +42,24 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (userId) {
-      getUserSpeciesList(userId);
+  const fetchSpeciesList = async () => {
+    try {
+      if (userId) {
+        await getUserSpeciesList(userId);
+      }
+    } catch (error) {
+      console.error("Could not fetch data", error);
     }
+  };
+
+  useEffect(() => {
+    fetchSpeciesList();
   }, [userId]);
+
+  const handleRefresh = async (event: CustomEvent) => {
+    await fetchSpeciesList();
+    event.detail.complete(); // Stops the loading spinner
+  };
 
   const speciesWithUrls = useMemo(() => {
     if (!species) return [];
@@ -78,6 +89,19 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     }, 0);
   }, [speciesWithUrls]);
 
+  const birdsSeen = filterSpeciesByClass({
+    items: seenSpecies,
+    classSlug: "birds",
+  });
+  const sealsSeen = filterSpeciesByClass({
+    items: seenSpecies,
+    classSlug: "seals",
+  });
+  const whalesSeen = filterSpeciesByClass({
+    items: seenSpecies,
+    classSlug: "whales-and-dolphins",
+  });
+
   const currentDisplayList =
     selectedSegment === "seen" ? seenSpecies : notSeenSpecies;
 
@@ -96,8 +120,8 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
   return (
     <IonPage>
+      <Header showMenu={true} />
       <IonContent fullscreen>
-      <Header showMenu={true}/>
         {!session ? (
           <NotAuthorized
             title={t("notAuthorized.fieldNotes.title")}
@@ -107,41 +131,47 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
           />
         ) : (
           <div>
-  
-              <div className={styles.header}>
-                <IonGrid className={styles.summaryContainer}>
-                  <IonRow>
-                    <IonCol>
-                      <IonText className={styles.statCard}>
-                        <strong>{totalSightings}</strong>
-                        <small>{t("pages.fieldJournal.sigthingsLogged")}</small>
-                      </IonText>
-                    </IonCol>
-                  </IonRow>
+            <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+              <IonRefresherContent
+                pullingText="Pull to update"
+                refreshingSpinner="circles"
+                refreshingText="Uppdating Field Journal..."
+              />
+            </IonRefresher>
 
-                  <IonRow>
-                    <IonCol>
-                      <IonText className={styles.statCard}>
-                        <strong>{birds?.length}</strong>
-                        <small>{t("pages.fieldJournal.birdsSeen")}</small>
-                      </IonText>
-                    </IonCol>
-                    <IonCol>
-                      <IonText className={styles.statCard}>
-                        <strong>{seals?.length}</strong>
-                        <small>{t("pages.fieldJournal.sealsSeen")}</small>
-                      </IonText>
-                    </IonCol>
-                    <IonCol>
-                      <IonText className={styles.statCard}>
-                        <strong>{whales?.length}</strong>
-                        <small>{t("pages.fieldJournal.whalesSeen")}</small>
-                      </IonText>
-                    </IonCol>
-                  </IonRow>
-                </IonGrid>
-              </div>
-      
+            <div className={styles.header}>
+              <IonGrid className={styles.summaryContainer}>
+                <IonRow>
+                  <IonCol>
+                    <IonLabel className={styles.statCard}>
+                      <strong>{totalSightings}</strong>
+                      <small>{t("pages.fieldJournal.sigthingsLogged")}</small>
+                    </IonLabel>
+                  </IonCol>
+                </IonRow>
+
+                <IonRow>
+                  <IonCol>
+                    <IonLabel className={styles.statCard}>
+                      <strong>{birdsSeen?.length}</strong>
+                      <small>{t("pages.fieldJournal.birdsSeen")}</small>
+                    </IonLabel>
+                  </IonCol>
+                  <IonCol>
+                    <IonLabel className={styles.statCard}>
+                      <strong>{sealsSeen?.length}</strong>
+                      <small>{t("pages.fieldJournal.sealsSeen")}</small>
+                    </IonLabel>
+                  </IonCol>
+                  <IonCol>
+                    <IonLabel className={styles.statCard}>
+                      <strong>{whalesSeen?.length}</strong>
+                      <small>{t("pages.fieldJournal.whalesSeen")}</small>
+                    </IonLabel>
+                  </IonCol>
+                </IonRow>
+              </IonGrid>
+            </div>
 
             <div className="ion-padding">
               <IonSegment
@@ -157,7 +187,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
                 </IonSegmentButton>
               </IonSegment>
 
-              <IonAccordionGroup>
+              <IonAccordionGroup expand="inset">
                 <AccordionGroupItem
                   title={t("animalClasses.birds")}
                   items={birds ?? []}
