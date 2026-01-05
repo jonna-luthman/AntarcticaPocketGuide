@@ -57,7 +57,9 @@ const AnimalClassPage: React.FC = () => {
     <IonPage>
       <Header showBackButton={true} />
       <IonContent>
-        <Breadcrumbs param1={getLang(animalClass, "name")} />
+        <Breadcrumbs
+          param1={getLang(animalClass, "name")}
+        />
         <IonList>
           {species &&
             species.map((s) => {

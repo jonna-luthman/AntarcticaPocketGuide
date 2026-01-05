@@ -50,7 +50,7 @@ const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
         <IonToolbar color="inherit">
           <IonButtons slot="start">
             <IonButton onClick={() => nav.pop()}>
-              <IonIcon slot="start" icon={chevronBackOutline} />
+              <IonIcon slot="start" icon={chevronBackOutline} aria-hidden="true"/>
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -66,6 +66,7 @@ const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
                 icon={checkmarkCircle}
                 color="success"
                 style={{ fontSize: "96px" }}
+                aria-hidden="true"
               />
             </div>
 

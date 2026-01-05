@@ -13,7 +13,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 }) => {
   const {t} = useTranslation()
   return (
-    <IonBreadcrumbs>
+    <IonBreadcrumbs style={{ "--color": "var(--ion-color-primary-contrast)" }}>
       <IonBreadcrumb href={`/`}>{t('menu.page.home')}</IonBreadcrumb>
       {param1 && <IonBreadcrumb href={`/${param1}`}>{param1}</IonBreadcrumb>}
       {param2 && (

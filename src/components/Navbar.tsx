@@ -8,16 +8,16 @@ const Navbar: React.FC = () => {
     <>
       <IonTabBar slot="bottom" color="primary">
         <IonTabButton tab="Home" href="/">
-          <IonIcon icon={homeOutline} color="dark" />{t('menu.page.home')}
+          <IonIcon icon={homeOutline} color="dark" aria-hidden="true"/>{t('menu.page.home')}
         </IonTabButton>
         <IonTabButton tab="Add" href="/search">
-          <IonIcon icon={search}></IonIcon>{t('menu.page.search')}
+          <IonIcon icon={search} aria-hidden="true"/>{t('menu.page.search')}
         </IonTabButton>
         <IonTabButton
           tab="Profile"
           href="/field-journal"
         >{t('menu.page.fieldJournal')}
-          <IonIcon icon={bookOutline} color="dark" />
+          <IonIcon icon={bookOutline} color="dark" aria-hidden="true"/>
         </IonTabButton>
       </IonTabBar>
     </>

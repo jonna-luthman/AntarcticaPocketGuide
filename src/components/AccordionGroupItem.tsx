@@ -80,6 +80,7 @@ const AccordionGroupItem = ({
                       : chevronDownOutline
                   }
                   slot="end"
+                  aria-hidden="true"
                 />
               )}
             </IonItem>

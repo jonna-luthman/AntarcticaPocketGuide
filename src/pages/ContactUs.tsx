@@ -137,6 +137,7 @@ const ContactUs: React.FC = () => {
               icon={checkmarkCircleOutline}
               color="success"
               style={{ fontSize: "96px" }}
+              aria-hidden="true"
             />
             <h2>{t("pages.contactUs.success.title")}</h2>
             <p>{t("pages.contactUs.success.message")}</p>

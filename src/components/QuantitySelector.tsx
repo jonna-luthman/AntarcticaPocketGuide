@@ -57,7 +57,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         className={styles.controlButton}
         aria-label="Increase value"
       >
-        <IonIcon icon={addOutline} slot="icon-only" />
+        <IonIcon icon={addOutline} slot="icon-only" aria-hidden="true"/>
       </IonButton>
     </div>
   );
