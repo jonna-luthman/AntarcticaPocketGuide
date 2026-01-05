@@ -7,11 +7,13 @@ import {
   IonInput,
   IonText,
   IonButton,
+  IonIcon,
 } from "@ionic/react";
 import { checkPasswordsMatch } from "../../utils/checkPasswordsMatch";
 import useUsers from "../../hooks/useUser";
 import { useLoading } from "../../context/LoadingContext";
 import { useTranslation } from "react-i18next";
+import { checkmarkCircle } from "ionicons/icons";
 
 interface ChangePasswordProps {
   nav: HTMLIonNavElement;
@@ -33,7 +35,6 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
     api: "",
   });
 
-  const [showForm, setShowForm] = useState<boolean>(true);
   const [success, setSuccess] = useState<string>("");
 
   const handleReset = async (e: FormEvent) => {
@@ -58,8 +59,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
         hideLoading();
         return;
       }
-      setShowForm(false);
-      setSuccess("Password was successfully updated!");
+      setSuccess(t("auth.phrases.passwordChangeSuccess", { email: form.email }));
     } catch (err: any) {
       console.error("Critical error in handleReset:", err);
       setErrors((prev) => ({ ...prev, api: "An unexpected error occurred." }));
@@ -76,7 +76,31 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
             <h2>{t("auth.phrases.changePassword")}</h2>
           </IonText>
         </div>
-        {showForm && (
+        {success ? (
+          <div
+            className="ion-padding ion-text-center"
+          >
+            <div className="ion-margin-bottom">
+              <IonIcon
+                icon={checkmarkCircle}
+                color="success"
+                style={{ fontSize: "96px" }}
+              />
+              </div>
+            <IonText>
+              <p className="ion-padding-bottom">{success}</p>
+            </IonText>
+              <IonButton
+                expand="block"
+                fill="solid"
+                color="dark"
+                shape="round"
+                routerLink="/field-journal"
+              >
+                {t("auth.buttons.continue")}
+              </IonButton>
+          </div>
+        ) : (
           <form onSubmit={handleReset}>
             <IonList>
               <IonItem>
@@ -141,7 +165,7 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
               expand="block"
               color="dark"
             >
-              {t("auth.phrases.resetPassword")}
+              {t("auth.buttons.resetPassword")}
             </IonButton>
 
             <IonButton
@@ -154,20 +178,6 @@ const ChangePassword: React.FC<ChangePasswordProps> = ({ nav }) => {
               {t("buttons.cancel")}
             </IonButton>
           </form>
-        )}
-
-        {success && (
-          <div>
-            <IonText color="success" className="ion-padding">
-              {success}
-            </IonText>
-
-            <div>
-              <IonButton expand="block" fill="clear" onClick={() => nav.pop()}>
-                <IonText>{t("auth.buttons.goBackToLogin")}</IonText>
-              </IonButton>
-            </div>
-          </div>
         )}
       </IonContent>
     </IonPage>
