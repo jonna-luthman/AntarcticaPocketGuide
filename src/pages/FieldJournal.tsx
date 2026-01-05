@@ -8,6 +8,8 @@ import {
   IonCol,
   IonGrid,
   IonRow,
+  IonRefresher,
+  IonRefresherContent,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
@@ -15,7 +17,7 @@ import styles from "./styles/FieldJournal.module.css";
 import useSpecies from "../hooks/useSpecies";
 import Header from "../components/Header";
 import AccordionGroupItem from "../components/AccordionGroupItem";
-import NotAuthorized from "../components/auth/NotAuthorized"
+import NotAuthorized from "../components/auth/NotAuthorized";
 import { filterSpeciesByClass } from "../utils/filterSpeciesByClass";
 import { resolveImageUrl } from "../utils/resolveImageUrl";
 import { useTranslation } from "react-i18next";
@@ -40,17 +42,30 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (userId) {
-      getUserSpeciesList(userId);
+  const fetchSpeciesList = async () => {
+    try {
+      if (userId) {
+        await getUserSpeciesList(userId);
+      }
+    } catch (error) {
+      console.error("Could not fetch data", error);
     }
+  };
+
+  useEffect(() => {
+    fetchSpeciesList();
   }, [userId]);
+
+  const handleRefresh = async (event: CustomEvent) => {
+    await fetchSpeciesList();
+    event.detail.complete(); // Stops the loading spinner
+  };
 
   const speciesWithUrls = useMemo(() => {
     if (!species) return [];
 
     return species.map((s) => {
-      const headerMedia = findImageByRole(s.SpeciesMedia, "header")
+      const headerMedia = findImageByRole(s.SpeciesMedia, "header");
 
       return {
         ...s,
@@ -87,7 +102,6 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
     classSlug: "whales-and-dolphins",
   });
 
-  
   const currentDisplayList =
     selectedSegment === "seen" ? seenSpecies : notSeenSpecies;
 
@@ -110,14 +124,20 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
       <IonContent fullscreen>
         {!session ? (
           <NotAuthorized
-            title={t('notAuthorized.fieldNotes.title')}
-            description={t('notAuthorized.fieldNotes.description')}
-            buttonText={t('notAuthorized.buttonText')}
+            title={t("notAuthorized.fieldNotes.title")}
+            description={t("notAuthorized.fieldNotes.description")}
+            buttonText={t("notAuthorized.buttonText")}
             onAction={onShowLoginModal}
           />
         ) : (
           <div>
-            <h1 className="ion-padding-horizontal"></h1>
+            <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+              <IonRefresherContent
+                pullingText="Pull to update"
+                refreshingSpinner="circles"
+                refreshingText="Uppdating Field Journal..."
+              />
+            </IonRefresher>
 
             <div className={styles.header}>
               <IonGrid className={styles.summaryContainer}>
@@ -125,7 +145,7 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{totalSightings}</strong>
-                      <small>{t('pages.fieldJournal.sigthingsLogged')}</small>
+                      <small>{t("pages.fieldJournal.sigthingsLogged")}</small>
                     </IonLabel>
                   </IonCol>
                 </IonRow>
@@ -134,19 +154,19 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{birdsSeen?.length}</strong>
-                      <small>{t('pages.fieldJournal.birdsSeen')}</small>
+                      <small>{t("pages.fieldJournal.birdsSeen")}</small>
                     </IonLabel>
                   </IonCol>
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{sealsSeen?.length}</strong>
-                      <small>{t('pages.fieldJournal.sealsSeen')}</small>
+                      <small>{t("pages.fieldJournal.sealsSeen")}</small>
                     </IonLabel>
                   </IonCol>
                   <IonCol>
                     <IonLabel className={styles.statCard}>
                       <strong>{whalesSeen?.length}</strong>
-                      <small>{t('pages.fieldJournal.whalesSeen')}</small>
+                      <small>{t("pages.fieldJournal.whalesSeen")}</small>
                     </IonLabel>
                   </IonCol>
                 </IonRow>
@@ -155,33 +175,33 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
             <div className="ion-padding">
               <IonSegment
-              mode="ios"
+                mode="ios"
                 value={selectedSegment}
                 onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
               >
                 <IonSegmentButton value="seen">
-                  <IonLabel>{t('pages.fieldJournal.seen')}</IonLabel>
+                  <IonLabel>{t("pages.fieldJournal.seen")}</IonLabel>
                 </IonSegmentButton>
                 <IonSegmentButton value="not-seen">
-                  <IonLabel>{t('pages.fieldJournal.notSeen')}</IonLabel>
+                  <IonLabel>{t("pages.fieldJournal.notSeen")}</IonLabel>
                 </IonSegmentButton>
               </IonSegment>
 
               <IonAccordionGroup expand="inset">
-                <AccordionGroupItem 
-                  title={t('animalClasses.birds')}
+                <AccordionGroupItem
+                  title={t("animalClasses.birds")}
                   items={birds ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
 
                 <AccordionGroupItem
-                  title={t('animalClasses.seals')}
+                  title={t("animalClasses.seals")}
                   items={seals ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
 
                 <AccordionGroupItem
-                  title={t('animalClasses.whalesAndDolphins')}
+                  title={t("animalClasses.whalesAndDolphins")}
                   items={whales ?? []}
                   isSeenMode={selectedSegment === "seen"}
                 />
