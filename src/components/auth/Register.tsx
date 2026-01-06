@@ -98,12 +98,6 @@ const Register: React.FC<RegisterProps> = ({
       return;
     }
     router.push("/", "none");
-    showToast({
-      message: t("toasts.register.welcomeMsg", { name: form.name }),
-      duration: 2000,
-      color: "dark",
-      position: "bottom",
-    });
   };
 
   return (
@@ -158,7 +152,6 @@ const Register: React.FC<RegisterProps> = ({
 
             <IonItem>
               <IonInput
-                className="ion-margin-top"
                 label={t("auth.form.password")}
                 type="password"
                 value={form.password}
@@ -199,7 +192,8 @@ const Register: React.FC<RegisterProps> = ({
           <IonButton
             className={styles.button}
             shape="round"
-            fill="outline"
+            fill="solid"
+            color="tertiary"
             expand="block"
             type="submit"
           >
@@ -213,7 +207,8 @@ const Register: React.FC<RegisterProps> = ({
           <IonButton
             expand="block"
             shape="round"
-            fill="solid"
+            fill="outline"
+            color="dark"
             className={styles.googleButton}
             onClick={signUpWithGoogle}
           >
@@ -224,7 +219,8 @@ const Register: React.FC<RegisterProps> = ({
           <IonButton
             expand="block"
             shape="round"
-            fill="solid"
+            fill="outline"
+            color="dark"
             className={styles.googleButton}
             onClick={signUpWithFacebook}
           >

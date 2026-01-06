@@ -10,6 +10,8 @@ import { Session } from "@supabase/supabase-js";
 import { AuthResult, SignOutResult } from "../types/auth";
 import useUsers from "../hooks/useUser";
 import { useLoading } from "./LoadingContext";
+import { useIonToast } from "@ionic/react";
+import { useTranslation } from "react-i18next";
 
 interface AuthContextType {
   session: Session | null;
@@ -41,19 +43,21 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const { checkUserProfile } = useUsers();
-  const { showLoading, hideLoading} = useLoading()
+  const { showLoading, hideLoading } = useLoading();
+  const { t } = useTranslation();
+  const [showToast] = useIonToast();
 
-/**
- * Initializes the application's authentication state and sets up a real-time listener.
- * * Performs two key tasks:
- * - Initial Sync (on mount): Fetches the current session to check if the user is 
- * logged in. If a session exists, it ensures the user is synchronized with the 
- * 'public.Users' table via checkUserProfile.
- * - Event Listening (post-initialization): Subscribes to Supabase auth changes. 
- * On every state change, it updates the local session and synchronizes the 
- * user profile with the database.
- * * The subscription is automatically cleaned up when the provider unmounts.
- */
+  /**
+   * Initializes the application's authentication state and sets up a real-time listener.
+   * * Performs two key tasks:
+   * - Initial Sync (on mount): Fetches the current session to check if the user is
+   * logged in. If a session exists, it ensures the user is synchronized with the
+   * 'public.Users' table via checkUserProfile.
+   * - Event Listening (post-initialization): Subscribes to Supabase auth changes.
+   * On every state change, it updates the local session and synchronizes the
+   * user profile with the database.
+   * * The subscription is automatically cleaned up when the provider unmounts.
+   */
   useEffect(() => {
     const initAuth = async () => {
       try {
@@ -77,6 +81,27 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         if (newSession?.user) {
           checkUserProfile(newSession.user);
         }
+        const name =
+          newSession?.user.user_metadata.name || newSession?.user.email;
+
+        console.log("event", event);
+        if (event === "SIGNED_IN" && newSession) {
+          showToast({
+            message: t("toasts.login.welcomeBack", { name: name }),
+            duration: 3000,
+            color: "secondary",
+            position: "top",
+          });
+        }
+
+        if (event === "SIGNED_UP" && newSession) {
+          showToast({
+            message: t("toasts.register.welcomeMsg", { name: name }),
+            duration: 3000,
+            color: "secondary",
+            position: "top",
+          });
+        }
       }
     );
 
@@ -99,7 +124,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     password: string;
     name: string;
   }): Promise<AuthResult> => {
-    showLoading()
+    showLoading();
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -134,7 +159,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         },
       };
     } finally {
-      hideLoading()
+      hideLoading();
     }
   };
 
@@ -163,7 +188,7 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
    * Login with through Google with 0Auth 2.0.
    * Same functionality as Google login. See above.
    */
-const signInWithFacebook = async () => {
+  const signInWithFacebook = async () => {
     showLoading();
     try {
       const { error } = await supabase.auth.signInWithOAuth({
@@ -188,7 +213,7 @@ const signInWithFacebook = async () => {
     email: string;
     password: string;
   }): Promise<AuthResult> => {
-    showLoading()
+    showLoading();
     try {
       const { data, error } = await supabase.auth.signInWithPassword(
         credentials
@@ -214,7 +239,7 @@ const signInWithFacebook = async () => {
         },
       };
     } finally {
-      hideLoading()
+      hideLoading();
     }
   };
 
@@ -224,7 +249,7 @@ const signInWithFacebook = async () => {
    * @returns SignOutresult - object that tells if the sign out was successful or not.
    */
   const signOutUser = async (): Promise<SignOutResult> => {
-    showLoading()
+    showLoading();
     try {
       const { error } = await supabase.auth.signOut();
 
@@ -244,7 +269,7 @@ const signInWithFacebook = async () => {
         error: error.message ?? "Unexpected error",
       };
     } finally {
-      hideLoading()
+      hideLoading();
     }
   };
 

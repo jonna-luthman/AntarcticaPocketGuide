@@ -122,7 +122,8 @@ const ResetPassword: React.FC<LoginProps> = ({ nav }) => {
 
                   <IonButton
                     className="ion-padding-vertical"
-                    color={"dark"}
+                    color="tertiary"
+                    shape="round"
                     expand="block"
                     type="submit"
                   >

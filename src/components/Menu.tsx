@@ -52,8 +52,8 @@ const Menu = () => {
       showToast({
         message: t("toasts.signOut.message"),
         duration: 2000,
-        color: "dark",
-        position: "bottom",
+        color: "secondary",
+        position: "top",
       });
 
       router.push("/", "none");
@@ -118,9 +118,10 @@ const Menu = () => {
             <div className={styles.logOutSection}>
             <IonMenuToggle className="ion-align-self-end">
               <IonButton
-                color="tertiary"
+                color="medium"
                 className="ion-margin-top"
                 expand="block"
+                shape="round"
                 onClick={handleClick}
               >
                 {t("auth.buttons.logout")}
