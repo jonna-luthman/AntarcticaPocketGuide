@@ -1,4 +1,12 @@
 /* Add styling */
+/* .imageWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--ion-color-tertiary);
+  display: block;
+} */
+
 .cornerImage {
   position: absolute;
   z-index: 1;
