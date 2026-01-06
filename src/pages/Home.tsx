@@ -39,30 +39,35 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-        <Header showMenu={true} />
+      <Header showMenu={true} />
       <IonContent fullscreen={true}>
         <IonGrid className={styles.parent}>
-          {animalClasses?.map((animalClass) => (
-            <IonCol
-              key={animalClass.id}
-              className={styles.gridItem}
-              onClick={() => handleNavigate(`/animals/${animalClass.slug}`)}
-            >
-              <Image
-                image={animalClass?.SpeciesMedia[0]}
-                className="coverImage"
-                imageUrl={resolveImageUrl(
-                  animalClass?.SpeciesMedia[0]?.media_url,
-                  "Homepage"
-                )}
-              />
-              <IonText className={styles.heading}>
-                {getLang(animalClass, "name")}
-              </IonText>
-            </IonCol>
-          ))}
-
-          {/* Add my species list when page is created. */}
+          {animalClasses?.map((animalClass) => {
+            const index = animalClass?.SpeciesMedia[0]?.order_index;
+            return (
+              <IonCol
+                key={animalClass.id}
+                className={styles.gridItem}
+                onClick={() => handleNavigate(`/animals/${animalClass.slug}`)}
+              >
+                <div className={styles.imageContainer}>
+                  <Image
+                    image={animalClass?.SpeciesMedia[0]}
+                    className="coverImage"
+                    imageUrl={resolveImageUrl(
+                      animalClass?.SpeciesMedia[0]?.media_url,
+                      "Homepage"
+                    )}
+                    priority={true}
+                    aspectRatio={index === 0 ? "16/9" : "3/4"}
+                  />
+                </div>
+                <IonText className={styles.heading}>
+                  {getLang(animalClass, "name")}
+                </IonText>
+              </IonCol>
+            );
+          })}
 
           <IonCol className={styles.fullWidthRow}>
             <IonItem
