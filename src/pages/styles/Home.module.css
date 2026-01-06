@@ -4,11 +4,19 @@
   grid-template-rows: repeat(4, 1fr);
   gap: 5px;
   height: 80vh;
+  grid-template-areas:
+    "top top"
+    "left right"
+    "left right";
 }
 
 .gridItem {
-  overflow: hidden;
   background-color: var(--ion-color-tertiary);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
 }
 
 .gridItem::after {
@@ -37,24 +45,33 @@
   font-size: 2rem;
   font-family: "Average", serif;
   letter-spacing: 0.5px;
+  pointer-events: none;
 }
 
 .gridItem:nth-child(1) {
-  grid-area: 1 / 1 / 2 / 3;
-  border-top-right-radius: 25px;
-  border-top-left-radius: 25px;
+  grid-area: top;
+  border-radius: 25px 25px 0 0;
 }
 
 .gridItem:nth-child(2) {
-  grid-area: 2 / 1 / 4 / 2;
+  grid-area: left;
   border-bottom-left-radius: 25px;
   border-top-right-radius: 25px;
 }
 
 .gridItem:nth-child(3) {
-  grid-area: 2 / 2 / 4 / 3;
+  grid-area: right;
   border-top-left-radius: 25px;
   border-bottom-right-radius: 25px;
+}
+
+.imageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
 }
 
 .identifyItem {

@@ -1,21 +1,23 @@
 import { IonTabBar, IonTabButton, IonIcon } from "@ionic/react";
-import { search, homeOutline, personOutline } from "ionicons/icons";
+import { search, homeOutline, bookOutline } from "ionicons/icons";
+import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
+  const { t } = useTranslation()
   return (
     <>
       <IonTabBar slot="bottom" color="primary">
         <IonTabButton tab="Home" href="/">
-          <IonIcon icon={homeOutline} color="dark" />
+          <IonIcon icon={homeOutline} color="dark" aria-hidden="true"/>{t('menu.page.home')}
         </IonTabButton>
         <IonTabButton tab="Add" href="/search">
-          <IonIcon icon={search}></IonIcon>
+          <IonIcon icon={search} aria-hidden="true"/>{t('menu.page.search')}
         </IonTabButton>
         <IonTabButton
           tab="Profile"
           href="/field-journal"
-        >
-          <IonIcon icon={personOutline} color="dark" />
+        >{t('menu.page.fieldJournal')}
+          <IonIcon icon={bookOutline} color="dark" aria-hidden="true"/>
         </IonTabButton>
       </IonTabBar>
     </>

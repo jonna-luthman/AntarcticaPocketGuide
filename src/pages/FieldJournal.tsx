@@ -10,6 +10,7 @@ import {
   IonRow,
   IonRefresher,
   IonRefresherContent,
+  useIonViewDidEnter,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
@@ -36,11 +37,11 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
   const userId = session?.user.id;
 
-  useEffect(() => {
+  useIonViewDidEnter(() => {
     if (!session) {
       onShowLoginModal();
     }
-  }, []);
+  });
 
   const fetchSpeciesList = async () => {
     try {

@@ -185,7 +185,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                     aria-hidden="true"
                     icon={locationOutline}
                     slot="start"
-                  ></IonIcon>
+                  />
                   <IonLabel position="stacked">
                     {t("pages.confirmSighting.location")}
                   </IonLabel>
@@ -198,7 +198,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                 </IonItem>
 
                 <IonItem lines="full" className="ion-margin ion-padding-bottom">
-                  <IonIcon icon={chatbubbleEllipsesOutline} slot="start" />
+                  <IonIcon icon={chatbubbleEllipsesOutline} slot="start" aria-hidden="true" />
                   <IonLabel position="stacked">
                     {t("pages.confirmSighting.notes")}
                   </IonLabel>

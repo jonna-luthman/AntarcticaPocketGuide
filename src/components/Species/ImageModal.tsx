@@ -12,6 +12,7 @@ import { closeOutline } from "ionicons/icons";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Zoom } from "swiper/modules";
 import "swiper/swiper.css";
+import "swiper/css/zoom";
 import Image from "../Image";
 import { SpeciesMedia } from "../../types/media";
 import { resolveImageUrl } from "../../utils/resolveImageUrl";
@@ -41,7 +42,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
         <IonToolbar color="tertiary">
           <IonButtons slot="end">
             <IonButton onClick={onClose}>
-              <IonIcon icon={closeOutline} />
+              <IonIcon icon={closeOutline} aria-hidden="true" />
             </IonButton>
           </IonButtons>
         </IonToolbar>
@@ -56,22 +57,26 @@ const ImageModal: React.FC<ImageModalProps> = ({
             alignItems: "center",
           }}
         >
-          <SwiperSlide>
-            <IonText color="light" className="ion-padding ion-text-center">
-              <h3>{getLang(image, "attribute")}</h3>
-            </IonText>
-            <div className="swiper-zoom-container">
-              <Image image={image} imageUrl={imageUrl} className={className} />
-            </div>
-            {image?.photographer && (
-              <IonText color="light" className="ion-padding">
-                <i>
-                  {t("pages.animalsSpeciesPage.photographer")}{" "}
-                  {image.photographer}
-                </i>
+            <SwiperSlide>
+              <IonText color="light" className="ion-padding ion-text-center">
+                <h3>{getLang(image, "attribute")}</h3>
               </IonText>
-            )}
-          </SwiperSlide>
+              <div className="swiper-zoom-container">
+                <Image
+                  image={image}
+                  imageUrl={imageUrl}
+                  className={className}
+                />
+              </div>
+              {image?.photographer && (
+                <IonText color="light" className="ion-padding">
+                  <i>
+                    {t("pages.animalsSpeciesPage.photographer")}{" "}
+                    {image.photographer}
+                  </i>
+                </IonText>
+              )}
+            </SwiperSlide>
         </Swiper>
       </IonContent>
     </IonModal>

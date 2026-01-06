@@ -84,33 +84,36 @@ const SearchPage: React.FC = () => {
     title: string;
     items: UISpecieSummaryWithMedia[];
   }) => (
-    <IonItemGroup className="ion-margin-bottom">
+    <div role="listitem">
       <IonItemDivider color="inherit">
         <h3 className="font-average ion-text-uppercase">{title}</h3>
       </IonItemDivider>
-      {items.map((item) => (
-        <IonItem
-          key={item.id}
-          button
-          lines="full"
-          className="ion-padding-bottom"
-          routerLink={`/animals/${item.class_slug}/${item.id}`}
-        >
-          {item.resolvedImageUrl && (
-            <IonThumbnail slot="start">
-              <img
-                alt={getLang(item, "name_common") ?? "undefined"}
-                src={item.resolvedImageUrl}
-              />
-            </IonThumbnail>
-          )}
-          <div>
-            <h4 className="font-average">{getLang(item, "name_common")}</h4>
-            <p>{item.name_latin}</p>
-          </div>
-        </IonItem>
-      ))}
-    </IonItemGroup>
+      <IonItemGroup className="ion-margin-bottom" role="list">
+        {items.map((item) => (
+          <IonItem
+            role="listitem"
+            key={item.id}
+            button
+            lines="full"
+            className="ion-padding-bottom"
+            routerLink={`/animals/${item.class_slug}/${item.id}`}
+          >
+            {item.resolvedImageUrl && (
+              <IonThumbnail slot="start">
+                <img
+                  alt={getLang(item, "name_common") ?? "undefined"}
+                  src={item.resolvedImageUrl}
+                />
+              </IonThumbnail>
+            )}
+            <div>
+              <h4 className="font-average">{getLang(item, "name_common")}</h4>
+              <p>{item.name_latin}</p>
+            </div>
+          </IonItem>
+        ))}
+      </IonItemGroup>
+    </div>
   );
 
   return (
@@ -124,13 +127,12 @@ const SearchPage: React.FC = () => {
             placeholder={t("searchBarDescription")}
             debounce={300}
             color="light"
-
           />
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <div>
-          <IonList className="ion-padding">
+          <IonList className="ion-padding" role="list">
             {birds && birds.length > 0 && (
               <SpeciesGroup title={t("animalClasses.birds")} items={birds} />
             )}

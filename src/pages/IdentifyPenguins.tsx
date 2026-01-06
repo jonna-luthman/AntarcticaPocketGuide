@@ -36,7 +36,7 @@ const IdentifyPenguins: React.FC = () => {
               </IonCardHeader>
 
               <IonCardContent className={styles.cardFont}>
-                {description}
+                <p>{description}</p>
               </IonCardContent>
             <img
               src={src}
@@ -57,7 +57,7 @@ const IdentifyPenguins: React.FC = () => {
             <IonCard color="tertiary" className={styles.cardWrapper}>
               <IonCardHeader className={styles.cardHeader}>
                 <IonCardTitle>
-                  <h4>{t("identifyingPenguins.description")}</h4>
+                  <p className={`${styles.cardIntroText} ${styles.cardFont}`}>{t("identifyingPenguins.description")}</p>
                 </IonCardTitle>
               </IonCardHeader>
               <img

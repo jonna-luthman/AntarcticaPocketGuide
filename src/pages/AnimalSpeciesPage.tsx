@@ -63,7 +63,7 @@ const AnimalSpeciesPage: React.FC = () => {
             onClick={() => setIsImageModalOpen(true)}
             className={styles.headerImageContainer}
           >
-            <Image image={headerImage} className="header" imageUrl={imageUrl} />
+            <Image image={headerImage} className="header" imageUrl={imageUrl} aspectRatio="1/1" priority={true}/>
           </div>
         )}
 
@@ -74,7 +74,7 @@ const AnimalSpeciesPage: React.FC = () => {
             </h1>
           </IonText>
           <IonText className="font-average">
-            <h3 className="ion-no-margin">{species?.name_latin}</h3>
+            <h2 className="ion-no-margin">{species?.name_latin}</h2>
           </IonText>
 
           <IonButton
@@ -84,7 +84,7 @@ const AnimalSpeciesPage: React.FC = () => {
             className="ion-margin-top"
             routerLink={`/add-sighting/${species?.id}`}
           >
-            <IonText color="light">
+            <IonText color="dark">
             {t('buttons.addSighting')}
             </IonText>
           </IonButton>
