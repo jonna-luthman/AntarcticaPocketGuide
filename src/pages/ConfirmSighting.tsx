@@ -65,6 +65,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
   const [notes, setNotes] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [showDateModal, setShowDateModal] = useState(false);
 
   const [count, setCount] = useState<number>(1);
 
@@ -102,7 +103,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
 
       hideLoading();
       showToast({
-        message: t('toasts.fieldJournal.success'),
+        message: t("toasts.fieldJournal.success"),
         duration: 2000,
         color: "dark",
         position: "bottom",
@@ -177,9 +178,10 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                 </IonItem>
 
                 <IonItem
+                  button
                   lines="full"
                   className="ion-margin ion-padding-bottom"
-                  id="open-date-modal"
+                  onClick={() => setShowDateModal(true)}
                 >
                   <IonIcon
                     aria-hidden="true"
@@ -198,7 +200,11 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                 </IonItem>
 
                 <IonItem lines="full" className="ion-margin ion-padding-bottom">
-                  <IonIcon icon={chatbubbleEllipsesOutline} slot="start" aria-hidden="true" />
+                  <IonIcon
+                    icon={chatbubbleEllipsesOutline}
+                    slot="start"
+                    aria-hidden="true"
+                  />
                   <IonLabel position="stacked">
                     {t("pages.confirmSighting.notes")}
                   </IonLabel>
@@ -213,7 +219,8 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
               </IonItemGroup>
 
               <IonModal
-                trigger="open-date-modal"
+                isOpen={showDateModal}
+                onDidDismiss={() => setShowDateModal(false)}
                 keepContentsMounted={true}
                 className={styles.DateTimeModal}
                 showBackdrop={true}

@@ -65,32 +65,47 @@ ion-breadcrumb {
   --color-hover: rgb(0, 0, 0);
 }
 
+ion-modal {
+  --z-index: 99999;
+}
+
+ion-input, ion-textarea, ion-searchbar {
+  --caret-color: var(--ion-color-dark);
+}
+
 /* Custom CSS classes */
+/* !important applied as Ionics "scoped" styles overrides the css otherwise. */
 .language-action-sheet {
-  --button-color: var(--ion-color-tertiary);
-  --button-background-selected: var(--ion-color-light);
+  --button-color: var(--ion-color-tertiary) !important;
+  --button-background-selected: var(--ion-color-light) !important;
 }
 
 .custom-modal {
-  --ion-color-primary: var(--ion-color-dark);
+  --ion-color-primary: var(--ion-color-dark) !important;
 }
 
 .custom-alert {
-  --background: var(--ion-color-light);
-  --backdrop-opacity: 0.6;
+  --background: var(--ion-color-light) !important;
+  --backdrop-opacity: 0.6 !important;
 }
 
 .custom-alert .alert-button {
-  color: var(--ion-color-dark);
+  color: var(--ion-color-dark) !important;
 }
 
 .custom-alert .alert-button-confirm {
-  color: var(--color-selected);
+  color: var(--color-selected) !important;
+}
+
+.alert-button-cancel, .alert-button, .alert-button-confirm {
+  color: var(--ion-color-dark) !important;
 }
 
 .custom-alert .alert-button-cancel {
-  color: var(--ion-color-danger);
+  color: var(--ion-color-danger) !important;
 }
+
+
 
 /* Fonts - Custom CSS classes */
 .font-avenir { font-family: var(--font-avenir); }
