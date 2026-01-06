@@ -34,7 +34,7 @@ Prerequisites:
     VITE_SUPABASE_URL='your-url'
     VITE_SUPABASE_ANON_KEY='your-anon-key'
     RESEND_API_KEY='your-resend-key'
-4. Run development server: Run 'npm run dev' in your terminal
+4. Run development server: Run 'npm run dev' or 'ionic serve' in your terminal.
 
 ## Architecture and structure
 The project follows a modular strcucture to separate logic from UI.
@@ -81,6 +81,22 @@ The app is designed to be multi-lingual. For the moment is available in English 
 While 'i18next' handles static UI text, we use a custom hook 'useGetLang' for localized database content (e.g., facts).
 
 -Logic: The hook detects the current language and appends the suffix (e.g., '_en', '_sv') to the requested database field.
-    If a translation for the current language is missing in the database, it automatically falls back to the English ('_en') version to ensure content is always visible.
+If a translation for the current language is missing in the database, it automatically falls back to the English ('_en') version to ensure content is always visible.
 
 ## Known issues
+### Performance & Image Optimization
+Currently, the Lighthouse performance score is impacted by how media assets are handled. This is a conscious trade-off as current images are provisional.
+
+The Issue: High LCP (Largest Contentful Paint) and CLS (Cumulative Layout Shift) due to large unoptimized image files being fetched from Supabase Storage.
+
+Planned Solutions:
+Responsive Images: Implement srcset by uploading multiple image scales (thumbnail, mobile, desktop) to Supabase to ensure users only download the resolution they need.
+Skeleton Screens: Replace current loading states with IonSkeletonText to improve perceived performance and eliminate layout shifts.
+Enhanced Caching: Implement a Service Worker (PWA) to cache assets locally on the user's device for near-instant repeat loads.
+
+### Accessibility and Focus Management
+There is a known accessibility degradation regarding focus handling within IonModal.
+
+The Issue: When a modal is opened, the keyboard focus does not always automatically move to the first interactive element, and in some cases, focus can "leak" to elements behind the modal (the main content). This makes navigation difficult for users relying on screen readers or keyboards.
+
+Root Cause: This is related to how the Shadow DOM in certain Ionic versions interacts with React's focus management. Despite attempts to use initialFocus and manual ref focusing, the behavior remains inconsistent across different mobile browsers.

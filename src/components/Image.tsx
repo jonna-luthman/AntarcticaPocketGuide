@@ -6,11 +6,11 @@ type ImageProps = {
   image: SpeciesMedia | SpeciesMediaSummary | undefined;
   className?: keyof typeof styles;
   imageUrl?: string;
-  priority?: string;
+  priority?: boolean;
   aspectRatio?: string;
 };
 
-const Image = ({ image, className, imageUrl, priority, aspectRatio }: ImageProps) => {
+const Image = ({ image, className, imageUrl, priority = false, aspectRatio }: ImageProps) => {
   const getLang = useGetLang();
   if (!image || !imageUrl) return null;
 

@@ -63,7 +63,7 @@ const AnimalSpeciesPage: React.FC = () => {
             onClick={() => setIsImageModalOpen(true)}
             className={styles.headerImageContainer}
           >
-            <Image image={headerImage} className="header" imageUrl={imageUrl} />
+            <Image image={headerImage} className="header" imageUrl={imageUrl} aspectRatio="1/1" priority={true}/>
           </div>
         )}
 

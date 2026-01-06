@@ -58,6 +58,7 @@ const Home: React.FC = () => {
                       animalClass?.SpeciesMedia[0]?.media_url,
                       "Homepage"
                     )}
+                    priority={true}
                     aspectRatio={index === 0 ? "16/9" : "3/4"}
                   />
                 </div>
