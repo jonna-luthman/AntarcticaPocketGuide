@@ -85,7 +85,7 @@ ion-breadcrumb {
 }
 
 .custom-alert .alert-button-confirm {
-  color: var(--color);
+  color: var(--color-selected);
 }
 
 .custom-alert .alert-button-cancel {
