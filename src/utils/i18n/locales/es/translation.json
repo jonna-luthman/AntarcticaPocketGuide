@@ -98,13 +98,13 @@
   },
   "toasts": {
     "register": {
-      "welcomeMsg": "Bienvenido a Antarctica Pocket Guide!"
+      "welcomeMsg": "Bienvenido a Antarctica Pocket Guide, {{name}}!"
     },
     "signOut": {
       "message": "Has cerrado sesión."
     },
     "login": {
-      "welcomeBack": "¡Bienvenido de nuevo, {{name}}!"
+      "welcomeBack": "Bienvenido a Antarctica Pocket Guide, {{name}}!"
     },
     "fieldJournal": {
       "success": "¡Tu avistamiento ha sido guardado!"

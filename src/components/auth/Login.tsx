@@ -8,11 +8,10 @@ import {
   IonInputPasswordToggle,
   IonText,
   IonButtons,
-  useIonToast,
   IonPage,
 } from "@ionic/react";
 import { logoGoogle, logoFacebook } from "ionicons/icons";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
@@ -26,7 +25,6 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
   const { t } = useTranslation();
-  const [showToast] = useIonToast();
   const {
     signInWithEmail,
     signInWithGoogle,

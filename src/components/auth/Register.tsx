@@ -10,7 +10,6 @@ import {
   IonButtons,
   useIonRouter,
   IonText,
-  useIonToast,
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 
@@ -39,7 +38,6 @@ const Register: React.FC<RegisterProps> = ({
 }) => {
   const router = useIonRouter();
   const { t } = useTranslation();
-  const [showToast] = useIonToast();
 
   const [errors, setErrors] = useState({
     email: "",

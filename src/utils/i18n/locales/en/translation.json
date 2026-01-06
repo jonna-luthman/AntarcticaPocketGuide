@@ -104,7 +104,7 @@
       "message": "You have been signed out."
     },
     "login": {
-      "welcomeBack": "Welcome back, {{name}}!"
+      "welcomeBack": "Welcome to Antarctica Pocket Guide, {{name}}!"
     },
     "fieldJournal": {
       "success": "Your sighting has been saved!"

@@ -11,7 +11,6 @@ import {
   IonButton,
   useIonRouter,
   useIonAlert,
-  useIonToast,
 } from "@ionic/react";
 import { close } from "ionicons/icons";
 import { UserAuth } from "../context/AuthContext";
@@ -23,7 +22,6 @@ const Menu = () => {
   const { signOutUser, session } = UserAuth();
   const router = useIonRouter();
   const [showAlert] = useIonAlert();
-  const [showToast] = useIonToast();
   const { t } = useTranslation();
 
   const handleClick = () => {
@@ -49,13 +47,6 @@ const Menu = () => {
     try {
       await signOutUser();
 
-      showToast({
-        message: t("toasts.signOut.message"),
-        duration: 2000,
-        color: "secondary",
-        position: "top",
-      });
-
       router.push("/", "none");
     } catch (error) {
       console.error(error);
@@ -65,7 +56,7 @@ const Menu = () => {
   return (
     <IonMenu contentId="main-content" side="start">
       <IonHeader className="ion-padding ion-no-border">
-        <IonToolbar color="primary">
+        <IonToolbar color="primary" className="ion-padding-top">
           <IonMenuToggle slot="start">
             <IonIcon icon={close} color="dark" size="large" aria-hidden="true"/>
           </IonMenuToggle>

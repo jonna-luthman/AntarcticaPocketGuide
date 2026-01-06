@@ -6,7 +6,7 @@ const Navbar: React.FC = () => {
   const { t } = useTranslation()
   return (
     <>
-      <IonTabBar slot="bottom" color="primary">
+      <IonTabBar slot="bottom" color="primary" className="ion-padding">
         <IonTabButton tab="Home" href="/">
           <IonIcon icon={homeOutline} color="dark" aria-hidden="true"/>{t('menu.page.home')}
         </IonTabButton>

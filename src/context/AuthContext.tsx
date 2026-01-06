@@ -84,22 +84,19 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         const name =
           newSession?.user.user_metadata.name || newSession?.user.email;
 
-        console.log("event", event);
         if (event === "SIGNED_IN" && newSession) {
           showToast({
             message: t("toasts.login.welcomeBack", { name: name }),
             duration: 3000,
-            color: "secondary",
-            position: "top",
+            color: "light",
+            position: "bottom",
           });
-        }
-
-        if (event === "SIGNED_UP" && newSession) {
+        } else if (event === "SIGNED_OUT") {
           showToast({
-            message: t("toasts.register.welcomeMsg", { name: name }),
-            duration: 3000,
-            color: "secondary",
-            position: "top",
+            message: t("toasts.signOut.message"),
+            duration: 2000,
+            color: "light",
+            position: "bottom",
           });
         }
       }
