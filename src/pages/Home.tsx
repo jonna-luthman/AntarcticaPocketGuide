@@ -39,7 +39,7 @@ const Home: React.FC = () => {
 
   return (
     <IonPage>
-      <Header showMenu={true} />
+      <Header showMenu={true}/>
       <IonContent fullscreen={true}>
         <IonGrid className={styles.parent}>
           {animalClasses?.map((animalClass) => {
