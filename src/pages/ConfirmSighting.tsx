@@ -105,7 +105,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
       showToast({
         message: t("toasts.fieldJournal.success"),
         duration: 2000,
-        color: "dark",
+        color: "light",
         position: "bottom",
       });
 
@@ -154,7 +154,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                   button
                   lines="full"
                   className="ion-margin ion-padding-bottom"
-                  id="open-date-modal"
+                  onClick={() => setShowDateModal(true)}
                 >
                   <IonIcon
                     aria-hidden="true"
@@ -178,10 +178,8 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                 </IonItem>
 
                 <IonItem
-                  button
                   lines="full"
                   className="ion-margin ion-padding-bottom"
-                  onClick={() => setShowDateModal(true)}
                 >
                   <IonIcon
                     aria-hidden="true"
@@ -192,6 +190,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                     {t("pages.confirmSighting.location")}
                   </IonLabel>
                   <IonInput
+                  className="custom-input"
                     type="text"
                     value={location}
                     placeholder={t("pages.confirmSighting.locationPlaceholder")}
@@ -238,6 +237,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                     cancelText={t("buttons.cancel")}
                     color="dark"
                     hourCycle="h12"
+                    max={new Date().toISOString()}
                   />
                 </div>
               </IonModal>

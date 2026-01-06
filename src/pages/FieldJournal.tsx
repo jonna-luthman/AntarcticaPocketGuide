@@ -37,11 +37,11 @@ const FieldJournal: React.FC<FieldJournalProps> = ({ onShowLoginModal }) => {
 
   const userId = session?.user.id;
 
-  useIonViewDidEnter(() => {
+  useEffect(() => {
     if (!session) {
       onShowLoginModal();
     }
-  });
+  }, []);
 
   const fetchSpeciesList = async () => {
     try {

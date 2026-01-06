@@ -70,7 +70,17 @@ ion-modal {
 }
 
 ion-input, ion-textarea, ion-searchbar {
-  --caret-color: var(--ion-color-dark);
+  --caret-color: var(--ion-color-dark) !important;
+}
+
+
+ion-item.ion-focused {
+  --highlight-color: var(--ion-color-dark) !important;
+  --caret-color: var(--ion-color-dark) !important;
+}
+
+ion-input {
+  --caret-color: var(--ion-color-dark) !important;
 }
 
 /* Custom CSS classes */
@@ -105,7 +115,9 @@ ion-input, ion-textarea, ion-searchbar {
   color: var(--ion-color-danger) !important;
 }
 
-
+.custom-input:focus {
+  caret-color: #000 !important;
+}
 
 /* Fonts - Custom CSS classes */
 .font-avenir { font-family: var(--font-avenir); }
