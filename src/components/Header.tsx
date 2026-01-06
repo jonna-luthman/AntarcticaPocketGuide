@@ -26,7 +26,7 @@ const Header = ({
   color ="primary"
 }: HeaderProps) => {
   return (
-    <IonHeader className="ion-no-border ion-padding-top">
+    <IonHeader className="ion-no-border">
       <IonToolbar color={color}>
         <IonButtons  slot="start">
           {showBackButton && <IonBackButton text="" defaultHref="/" />}
