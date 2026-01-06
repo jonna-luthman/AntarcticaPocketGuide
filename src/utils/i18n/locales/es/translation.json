@@ -21,7 +21,8 @@
       "home": "Inicio",
       "fieldJournal": "Diario de campo",
       "aboutUs": "Sobre nosotros",
-      "contactUs": "Contacto"
+      "contactUs": "Contacto",
+      "search": "Buscar"
     },
     "description": {
       "fieldJournal": "Todos mis registros",

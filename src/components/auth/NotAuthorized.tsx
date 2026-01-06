@@ -16,7 +16,6 @@ const NotAuthorized: React.FC<NotAuthorizedProps> = ({
   buttonText,
   onAction,
 }) => {
-
   return (
     <div className={styles.loginPromptContainer}>
       <div className={styles.loginPromptContent}>
@@ -29,16 +28,18 @@ const NotAuthorized: React.FC<NotAuthorizedProps> = ({
           <h2 className={styles.loginPromptTitle}>{title}</h2>
         </IonText>
 
-        <IonText color="medium">
+        <IonText>
           <p className={styles.loginPromptDescription}>{description}</p>
         </IonText>
 
-        <IonText
+        <IonButton
+          fill="solid"
           className="ion-margin-horizontal"
+          color="medium"
           onClick={onAction}
         >
           {buttonText}
-        </IonText>
+        </IonButton>
       </div>
     </div>
   );

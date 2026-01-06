@@ -67,7 +67,7 @@ const Menu = () => {
       <IonHeader className="ion-padding ion-no-border">
         <IonToolbar color="primary">
           <IonMenuToggle slot="start">
-            <IonIcon icon={close} color="dark" size="large" />
+            <IonIcon icon={close} color="dark" size="large" aria-hidden="true"/>
           </IonMenuToggle>
         </IonToolbar>
       </IonHeader>

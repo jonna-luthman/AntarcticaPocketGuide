@@ -9,9 +9,10 @@ import {
   IonText,
   IonButtons,
   useIonToast,
+  IonPage,
 } from "@ionic/react";
 import { logoGoogle, logoFacebook } from "ionicons/icons";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
@@ -25,17 +26,22 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
   const { t } = useTranslation();
+  const [showToast] = useIonToast();
+  const {
+    signInWithEmail,
+    signInWithGoogle,
+    signInWithFacebook,
+    signUpNewUser,
+  } = UserAuth();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const { signInWithEmail, signInWithGoogle, signInWithFacebook, signUpNewUser } = UserAuth();
-  const [showToast] = useIonToast();
 
   const handleSignIn = async (e: FormEvent) => {
     e.preventDefault();
-    setError("")
+    setError("");
 
     try {
       const response = await signInWithEmail({ email, password });
@@ -44,23 +50,23 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
         const errorCode = response.error.code;
         switch (errorCode) {
           case "validation_failed":
-            setError(t('errors.auth.validation_failed'));
+            setError(t("errors.auth.validation_failed"));
             break;
           case "invalid_credentials":
-            setError(t('errors.auth.invalid_credentials'));
+            setError(t("errors.auth.invalid_credentials"));
             break;
           case "user_not_found":
-            setError(t('errors.auth.user_not_found'));
+            setError(t("errors.auth.user_not_found"));
             break;
           default:
-            setError(response.error.message || t('errors.auth.user_not_found'));
+            setError(response.error.message || t("errors.auth.user_not_found"));
         }
 
         return;
       }
 
       showToast({
-        message: t('toasts.login.welcomeBack'),
+        message: t("toasts.login.welcomeBack"),
         duration: 2000,
         color: "dark",
         position: "bottom",
@@ -68,34 +74,32 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
       return response.data;
     } catch (error: any) {
-      console.error("An error unexpected error occured: ", error)
+      console.error("An error unexpected error occured: ", error);
     }
   };
 
   return (
-    <>
+    <IonPage>
       <IonHeader>
         <IonToolbar color="inherit">
           <IonButtons slot="end">
-            <IonButton onClick={() => setIsOpen(false)}>{t('buttons.close')}</IonButton>
+            <IonButton onClick={() => setIsOpen(false)}>
+              {t("buttons.close")}
+            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
-        <div className={styles.center}>
-          <IonText>
-            <h2>{t('auth.phrases.loginTitle')}</h2>
-            <p>
-              {t('auth.phrases.login')}
-            </p>
-          </IonText>
-        </div>
         <div>
           <form onSubmit={handleSignIn}>
+            <div className={styles.center}>
+              <h2>{t("auth.phrases.loginTitle")}</h2>
+              <p>{t("auth.phrases.login")}</p>
+            </div>
             <IonInput
               className="ion-margin-top"
-              label={t('auth.form.email')}
+              label={t("auth.form.email")}
               type="email"
               labelPlacement="stacked"
               fill="outline"
@@ -105,7 +109,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
             <IonInput
               className="ion-margin-top"
-              label={t('auth.form.password')}
+              label={t("auth.form.password")}
               type="password"
               labelPlacement="stacked"
               fill="outline"
@@ -136,7 +140,7 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
               className={styles.button}
               fill="outline"
             >
-              {t('auth.buttons.continue')}
+              {t("auth.buttons.continue")}
             </IonButton>
           </form>
         </div>
@@ -151,8 +155,8 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
             className={styles.googleButton}
             onClick={signInWithGoogle}
           >
-            <IonIcon slot="start" icon={logoGoogle} />
-            {t('auth.buttons.continueWithGoogle')}
+            <IonIcon slot="start" icon={logoGoogle} aria-hidden="true"/>
+            {t("auth.buttons.continueWithGoogle")}
           </IonButton>
         </div>
 
@@ -164,8 +168,8 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
             className={styles.googleButton}
             onClick={signInWithFacebook}
           >
-            <IonIcon slot="start" icon={logoFacebook} />
-            {t('auth.buttons.continueWithFacebook')}
+            <IonIcon slot="start" icon={logoFacebook} aria-hidden="true"/>
+            {t("auth.buttons.continueWithFacebook")}
           </IonButton>
         </div>
 
@@ -184,11 +188,12 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           }
         >
           <IonText>
-            {t('auth.buttons.registerPrompt')}<b> {t('auth.buttons.registerHere')}</b>
+            {t("auth.buttons.registerPrompt")}
+            <b> {t("auth.buttons.registerHere")}</b>
           </IonText>
         </IonButton>
       </IonContent>
-    </>
+    </IonPage>
   );
 };
 

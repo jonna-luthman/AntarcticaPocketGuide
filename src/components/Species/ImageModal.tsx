@@ -41,7 +41,7 @@ const ImageModal: React.FC<ImageModalProps> = ({
         <IonToolbar color="tertiary">
           <IonButtons slot="end">
             <IonButton onClick={onClose}>
-              <IonIcon icon={closeOutline} />
+              <IonIcon icon={closeOutline} aria-hidden="true"/>
             </IonButton>
           </IonButtons>
         </IonToolbar>

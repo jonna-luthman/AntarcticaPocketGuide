@@ -29,14 +29,16 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         onClick={handleDecrement}
         className={styles.controlButton}
         disabled={count <= 1}
+        aria-label="Decrease value"
       >
-        <IonIcon icon={removeOutline} slot="icon-only" />
+        <IonIcon icon={removeOutline} slot="icon-only" aria-hidden="true"/>
       </IonButton>
 
       <IonInput
         value={count}
         type="number"
         className={styles.counterInput}
+        aria-label="Number"
         onIonChange={(e) => {
           const val = parseInt(e.detail.value!, 10);
           if (!isNaN(val)) {
@@ -44,14 +46,18 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
           }
         }}
       />
+      <div slot="helper-text" aria-live="polite" className="ion-hide">
+           Current value is {count}
+        </div>
 
       <IonButton
         fill="clear"
         color="dark"
         onClick={handleIncrement}
         className={styles.controlButton}
+        aria-label="Increase value"
       >
-        <IonIcon icon={addOutline} slot="icon-only" />
+        <IonIcon icon={addOutline} slot="icon-only" aria-hidden="true"/>
       </IonButton>
     </div>
   );
