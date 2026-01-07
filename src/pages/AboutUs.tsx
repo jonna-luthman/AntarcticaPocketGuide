@@ -1,11 +1,6 @@
-import {
-  IonPage,
-  IonContent,
-  IonText,
-  IonButton,
-} from "@ionic/react";
+import { IonPage, IonContent, IonText, IonButton } from "@ionic/react";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import AntarcticaImg from "../assets/Images/SR306880.webp";
 
@@ -20,7 +15,7 @@ const AboutUs: React.FC = () => {
       <IonContent>
         <div className={styles.container}>
           <section className={styles.heroSection}>
-            <h1 className={styles.title}>{t('pages.aboutUs.titles.about')}</h1>
+            <h1 className={styles.title}>{t("pages.aboutUs.titles.about")}</h1>
             <img
               src={AntarcticaImg}
               alt="Antarctica"
@@ -31,27 +26,43 @@ const AboutUs: React.FC = () => {
           <hr className={styles.linebreaker} />
 
           <section className={styles.contentSection}>
-            <h2>{t('pages.aboutUs.titles.section_1')}</h2>
-            <p>
-              {t('pages.aboutUs.text.section_1')}
-            </p>
+            <h2>{t("pages.aboutUs.titles.about")}</h2>
+            <p>{t("pages.aboutUs.text.whoAreWe.section_1")}</p>
+            <p>{t("pages.aboutUs.text.whoAreWe.section_2")}</p>
           </section>
 
           <hr className={styles.linebreaker} />
 
           <section className={styles.contentSection}>
-            <h2 className={styles.subtitle}>{t('pages.aboutUs.titles.section_2')}</h2>
-            <p>
-              {t('pages.aboutUs.text.section_2')}
-            </p>
+            <h2 className={styles.subtitle}>
+              {t("pages.aboutUs.titles.ourVision")}
+            </h2>
+            <p>{t("pages.aboutUs.text.ourVision.section_1")}</p>
+            <p>{t("pages.aboutUs.text.ourVision.section_2")}</p>
           </section>
 
           <hr className={styles.linebreaker} />
 
           <section className={styles.contentSection}>
-            <h2 className={styles.subtitle}>{t('pages.aboutUs.titles.section_3')}</h2>
+            <h2 className={styles.subtitle}>
+              {t("pages.aboutUs.titles.contribute")}
+            </h2>
+            <p>{t("pages.aboutUs.text.contribute.section_1")}</p>
             <p>
-              {t('pages.aboutUs.text.section_3')}
+              <Trans
+                i18nKey="pages.aboutUs.text.contribute.section_2"
+                components={{
+                  bold: <strong />,
+                }}
+              />
+            </p>
+            <p>
+              <Trans
+                i18nKey="pages.aboutUs.text.contribute.section_3"
+                components={{
+                  i: <i />,
+                }}
+              />
             </p>
 
             <IonButton
@@ -60,7 +71,7 @@ const AboutUs: React.FC = () => {
               className="ion-margin-top"
               routerLink={`/contact-us`}
             >
-              <IonText color="light">{t("buttons.contactUs")}</IonText>
+              <IonText color="dark">{t("buttons.contactUs")}</IonText>
             </IonButton>
           </section>
 

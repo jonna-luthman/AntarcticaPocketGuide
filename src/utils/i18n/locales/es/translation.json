@@ -105,7 +105,7 @@
       "message": "Has cerrado sesión."
     },
     "login": {
-      "welcomeBack": "¡Bienvenido de nuevo!"
+      "welcomeBack": "Bienvenido a Antarctica Pocket Guide, {{name}}!"
     },
     "fieldJournal": {
       "success": "¡Tu avistamiento ha sido guardado!"
@@ -192,14 +192,24 @@
     "aboutUs": {
       "titles": {
         "about": "Sobre nosotros",
-        "section_1": "¿Quiénes somos?",
-        "section_2": "Nuestra visión",
-        "section_3": "¿Quieres contribuir?"
+        "whoAreWe": "¿Quiénes somos?",
+        "ourVision": "Nuestra visión",
+        "contribute": "¿Quieres contribuir?"
       },
       "text": {
-        "section_1": "El propósito principal del proyecto es servir como una herramienta para que las personas puedan aprender y acceder a información sobre la vida silvestre de la Antártida. El objetivo es crear una herramienta sencilla que facilite a los visitantes el acceso a información y consejos, haciendo que su experiencia sea lo más agradable y educativa posible.",
-        "section_2": "El propósito principal del proyecto es servir como una herramienta para que las personas puedan aprender y acceder a información sobre la vida silvestre de la Antártida. El objetivo es crear una herramienta sencilla que facilite a los visitantes el acceso a información y consejos, haciendo que su experiencia sea lo más agradable y educativa posible.",
-        "section_3": "El propósito principal del proyecto es servir como una herramienta para que las personas puedan aprender y acceder a información sobre la vida silvestre de la Antártida. El objetivo es crear una herramienta sencilla que facilite a los visitantes el acceso a información y consejos, haciendo que su experiencia sea lo más agradable y educativa posible."
+        "whoAreWe": {
+          "section_1": "Este proyecto es un trabajo hecho con pasión por Jonna, una experta en tecnología y profesional del esquí, y Kris, fotógrafo de vida silvestre y guía en la Antártida. Juntos, quisimos tender un puente entre la tecnología que llevas en el bolsillo y la impresionante naturaleza salvaje del sur.",
+          "section_2": "Una expedición a la Antártida —especialmente una que incluya la belleza agreste de las Islas Malvinas y Georgia del Sur— es un viaje único en la vida. Creamos esta aplicación para que puedas vivir esa experiencia con confianza. Tanto si eres principiante en la observación de fauna como si eres un guía experimentado, hemos desarrollado una herramienta que te permite identificar lo que estás viendo en tiempo real y profundizar todo lo que desees en la vida de estos animales. Es más que una guía: es una forma interactiva de conectar con el fin del mundo."
+        },
+        "ourVision": {
+          "section_1": "Nuestra visión es acercar la vida silvestre a todo el mundo convirtiendo a cada viajero en un colaborador. Nos cansamos de las guías estáticas llenas de fotos antiguas y textos densos; en su lugar, quisimos crear un compañero interactivo que evolucione junto a tu viaje.",
+          "section_2": "Más importante aún, creemos que tus avistamientos tienen el poder de proteger este frágil ecosistema. Nuestra visión es integrar la ciencia ciudadana en el corazón de la experiencia. Al registrar tus avistamientos y ubicaciones, no solo estás creando un diario personal, sino que también ayudas a recopilar datos sobre especies que mejoran nuestro conocimiento colectivo de la fauna antártica. Queremos cerrar la brecha entre ser un simple espectador y convertirte en un participante activo en la conservación, creando una comunidad global donde cada observación contribuya a comprender y proteger nuestro planeta."
+        },
+        "contribute": {
+          "section_1": "Trabajamos constantemente para mejorar esta experiencia y nos encantaría que formaras parte de ella. Ya sea que tengas una sugerencia para una nueva función, una fotografía impresionante para compartir o comentarios desde el terreno, tu voz nos ayuda a mejorar.",
+          "section_2": "Comparte tus comentarios: ayúdanos a hacer que la aplicación sea aún más útil para futuros exploradores.",
+          "section_3": "Únete a nuestra comunidad: mantente al día mientras añadimos nuevas especies y regiones a nuestro mapa digital."
+        }
       }
     }
   },

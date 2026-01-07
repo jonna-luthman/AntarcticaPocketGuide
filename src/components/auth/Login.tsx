@@ -8,11 +8,10 @@ import {
   IonInputPasswordToggle,
   IonText,
   IonButtons,
-  useIonToast,
   IonPage,
 } from "@ionic/react";
 import { logoGoogle, logoFacebook } from "ionicons/icons";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { UserAuth } from "../../context/AuthContext";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
@@ -26,7 +25,6 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
   const { t } = useTranslation();
-  const [showToast] = useIonToast();
   const {
     signInWithEmail,
     signInWithGoogle,
@@ -64,13 +62,6 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
 
         return;
       }
-
-      showToast({
-        message: t("toasts.login.welcomeBack"),
-        duration: 2000,
-        color: "dark",
-        position: "bottom",
-      });
 
       return response.data;
     } catch (error: any) {
@@ -138,7 +129,8 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
               shape="round"
               type="submit"
               className={styles.button}
-              fill="outline"
+              fill="solid"
+              color="tertiary"
             >
               {t("auth.buttons.continue")}
             </IonButton>
@@ -151,7 +143,8 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           <IonButton
             expand="block"
             shape="round"
-            fill="solid"
+            fill="outline"
+            color="dark"
             className={styles.googleButton}
             onClick={signInWithGoogle}
           >
@@ -164,7 +157,8 @@ const Login: React.FC<LoginProps> = ({ nav, setIsOpen }) => {
           <IonButton
             expand="block"
             shape="round"
-            fill="solid"
+             fill="outline"
+            color="dark"
             className={styles.googleButton}
             onClick={signInWithFacebook}
           >

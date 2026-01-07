@@ -105,7 +105,7 @@
       "message": "You have been signed out."
     },
     "login": {
-      "welcomeBack": "Welcome back!"
+      "welcomeBack": "Welcome to Antarctica Pocket Guide, {{name}}!"
     },
     "fieldJournal": {
       "success": "Your sighting has been saved!"
@@ -192,14 +192,24 @@
     "aboutUs": {
       "titles": {
         "about": "About us",
-        "section_1": "Who are we?",
-        "section_2": "Our vision",
-        "section_3": "Want to contribute?"
+        "whoAreWe": "Who are we?",
+        "ourVision": "Our vision",
+        "contribute": "Want to contribute?"
       },
       "text": {
-        "section_1": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible.",
-        "section_2": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible.",
-        "section_3": "The main purpose of the project is to serve as a tool for people to learn about and access information regarding the wildlife of Antarctica. The objective is to create a simple tool that makes it easy for visitors to access information and tips, making their experience as enjoyable and educational as possible."
+        "whoAreWe": {
+          "section_1": "This project is a labor of love by Jonna, a tech guru and ski professional, and Kris, a wildlife photographer and Antarctica guide. Together, we wanted to bridge the gap between the technology in your pocket and the breathtaking wildness of the South.",
+          "section_2": "An Antarctica expedition—especially one that includes the rugged beauty of the Falklands and South Georgia—is a journey of a lifetime. We built this app so you can navigate that experience with confidence. Whether you are a wildlife beginner or a seasoned expedition guide, we've created a tool that lets you identify what you're seeing in real-time and dive as deep into the lives of these animals as you wish. It's more than a guide; it's an interactive way to connect with the edge of the world."
+        },
+        "ourVision": {
+          "section_1": "Our vision is to bring wildlife closer to everyone by turning every traveler into a contributor. We grew tired of static guides filled with old photos and dense text; instead, we wanted to create an interactive companion that evolves with your trip.",
+          "section_2": "More importantly, we believe that your sightings have the power to protect this fragile ecosystem. Our vision is to integrate citizen science into the heart of the experience. By logging your sightings and locations, you aren't just creating a personal diary—you are helping to track species data that improves our collective knowledge of Antarctic wildlife. We want to bridge the gap between being a spectator and becoming an active participant in conservation, creating a global community where every nature lover's observation helps us understand and protect our planet"
+        },
+        "contribute": {
+          "section_1": "We are constantly working to make this experience better, and we would love for you to be a part of it. Whether you have a suggestion for a new feature, a stunning photo to share, or feedback from the field, your voice helps us improve.",
+          "section_2": "<i>Share Your Feedback:</i>\n Help us make the app even more useful for future explorers.",
+          "section_3": "<i>Join Our Community:</i>\n\nStay updated as we add new species and regions to our digital map."
+        }
       }
     }
   },
