@@ -1,4 +1,3 @@
-import { useLoading } from "../context/LoadingContext";
 import { supabase } from "../api/supabaseClient";
 import { useState } from "react";
 import { PostgrestError } from "@supabase/supabase-js";
