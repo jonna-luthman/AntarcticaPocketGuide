@@ -47,7 +47,7 @@ const Header = ({
             routerDirection="root"
           >
             <img
-              src="Logo.svg"
+              src="/Logo.svg"
               alt="App Logo"
               style={{ height: "45px", width: "auto" }}
             />

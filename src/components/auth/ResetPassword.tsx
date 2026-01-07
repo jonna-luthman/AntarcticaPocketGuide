@@ -10,7 +10,6 @@ import {
 } from "@ionic/react";
 import React, { FormEvent, useState } from "react";
 import { supabase } from "../../api/supabaseClient";
-import { useLoading } from "../../context/LoadingContext";
 import { checkmarkCircle, chevronBackOutline } from "ionicons/icons";
 import styles from "../styles/Auth.module.css";
 import { useTranslation } from "react-i18next";

@@ -23,8 +23,6 @@ import useGetLang from "../../hooks/useGetLang";
 import { useTranslation } from "react-i18next";
 import i18n from "../../utils/i18n";
 
-
-
 const AddSighting: React.FC= () => {
   const { session } = UserAuth();
   const { getAllSpecies, speciesList: species } = useSpecies();

@@ -6,9 +6,6 @@ import {
   AnimalClassWithMedia,
 } from "../types/animalClasses";
 import { useState } from "react";
-import { useLoading } from "../context/LoadingContext";
-
-
 
 export default function useAnimals() {
   const [animalClasses, setAnimalClasses] = useState<

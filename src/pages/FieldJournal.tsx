@@ -10,7 +10,6 @@ import {
   IonRow,
   IonRefresher,
   IonRefresherContent,
-  useIonViewDidEnter,
 } from "@ionic/react";
 import React, { useEffect, useMemo, useState } from "react";
 import { UserAuth } from "../context/AuthContext";
