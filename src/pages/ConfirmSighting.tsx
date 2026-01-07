@@ -120,7 +120,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
   return (
     <IonPage>
       <IonContent fullscreen className="ion-no-border">
-        <Header showBackButton={true} showLogo={false} color="inherit" />
+        <Header showBackButton={true} showLogo={false} color="tertiary" />
         {!session ? (
           <NotAuthorized
             title={t("notAuthorized.addSighting.title")}
@@ -242,7 +242,7 @@ const ConfirmSighting: React.FC<ConfirmSightingProps> = ({
                 </div>
               </IonModal>
               <div className="ion-padding">
-                <IonButton expand="block" color="tertiary" type="submit">
+                <IonButton expand="block" color="tertiary" type="submit" shape="round">
                   {t("buttons.save")}
                 </IonButton>
 

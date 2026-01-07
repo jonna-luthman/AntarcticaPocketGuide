@@ -1,7 +1,7 @@
 import { IonPage, IonContent, IonText, IonButton } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Blend, Eye, PersonStanding } from "lucide-react";
+import { Eye, PersonStanding } from "lucide-react";
 
 import useSpecies from "../hooks/useSpecies";
 import useXenoCanto from "../hooks/useXenoCanto";

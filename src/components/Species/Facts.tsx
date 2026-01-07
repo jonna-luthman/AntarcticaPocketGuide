@@ -1,5 +1,5 @@
 import styles from "./styles/SpeciesTabs.module.css";
-import { SpecieDetail, SpecieWithMedia } from "../../types/species";
+import { SpecieDetail } from "../../types/species";
 import Image from "../Image";
 import imageStyles from "../styles/Image.module.css";
 import { findImageByRole } from "../../utils/getMediaTypes";

@@ -28,21 +28,25 @@ const IdentifyPenguins: React.FC = () => {
   }) => {
     return (
       <div className="">
-        <IonCard color="tertiary" className={styles.cardWrapper} routerLink={link}>
-              <IonCardHeader className={styles.cardHeader}>
-                <IonCardTitle>
-                  <h2 className={styles.cardFont}>{penguin}</h2>
-                </IonCardTitle>
-              </IonCardHeader>
+        <IonCard
+          color="tertiary"
+          className={styles.cardWrapper}
+          routerLink={link}
+        >
+          <IonCardHeader className={styles.cardHeader}>
+            <IonCardTitle>
+              <h2 className={styles.cardFont}>{penguin}</h2>
+            </IonCardTitle>
+          </IonCardHeader>
 
-              <IonCardContent className={styles.cardFont}>
-                <p>{description}</p>
-              </IonCardContent>
-            <img
-              src={src}
-              alt={`${penguin} penguin`}
-              className={styles.cardImage}
-            />
+          <IonCardContent className={styles.cardFont}>
+            <p>{description}</p>
+          </IonCardContent>
+          <img
+            src={src}
+            alt={`${penguin} penguin`}
+            className={styles.cardImage}
+          />
         </IonCard>
       </div>
     );
@@ -57,7 +61,9 @@ const IdentifyPenguins: React.FC = () => {
             <IonCard color="tertiary" className={styles.cardWrapper}>
               <IonCardHeader className={styles.cardHeader}>
                 <IonCardTitle>
-                  <p className={`${styles.cardIntroText} ${styles.cardFont}`}>{t("identifyingPenguins.description")}</p>
+                  <p className={`${styles.cardIntroText} ${styles.cardFont}`}>
+                    {t("identifyingPenguins.description")}
+                  </p>
                 </IonCardTitle>
               </IonCardHeader>
               <img
@@ -70,7 +76,7 @@ const IdentifyPenguins: React.FC = () => {
           <PenguinCard
             penguin="Adelie"
             description={t("identifyingPenguins.adelie")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/1109642f-de43-44ad-a76f-dfd877b64048/adelie.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/1109642f-de43-44ad-a76f-dfd877b64048/adelie-penguin.webp"
             link="/animals/birds/1109642f-de43-44ad-a76f-dfd877b64048"
           />
           <PenguinCard
@@ -80,21 +86,21 @@ const IdentifyPenguins: React.FC = () => {
             link="/animals/birds/bd8bd490-eca8-46b6-ae1f-0e4998d74152"
           />
           <PenguinCard
+            penguin="King"
+            description={t("identifyingPenguins.king")}
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/991d9fb4-8885-407d-8b80-c64869d64ddd/king-penguin.webp"
+            link="/animals/birds/991d9fb4-8885-407d-8b80-c64869d64ddd"
+          />
+          <PenguinCard
             penguin="Chinstrap"
             description={t("identifyingPenguins.chinstrap")}
             src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/769300b4-7c9d-401e-a026-29defdfaf12f/Chinstrap.webp"
             link="/animals/birds/769300b4-7c9d-401e-a026-29defdfaf12f"
           />
           <PenguinCard
-            penguin="King"
-            description={t("identifyingPenguins.king")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/991d9fb4-8885-407d-8b80-c64869d64ddd/King_Penguin_KM.webp"
-            link="/animals/birds/991d9fb4-8885-407d-8b80-c64869d64ddd"
-          />
-          <PenguinCard
             penguin="Emperor"
             description={t("identifyingPenguins.emperor")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/9c869b1e-3ab7-4864-ba95-91058b2eb71d/emperor.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/9c869b1e-3ab7-4864-ba95-91058b2eb71d/emperor-penguin.webp"
             link="/animals/birds/9c869b1e-3ab7-4864-ba95-91058b2eb71d"
           />
           <PenguinCard
@@ -106,7 +112,7 @@ const IdentifyPenguins: React.FC = () => {
           <PenguinCard
             penguin="Rockhopper"
             description={t("identifyingPenguins.rockhopper")}
-            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/d9b7c1f0-3551-41e4-bcb1-86e0da8ab20b/rockhopper.webp"
+            src="https://mefhjfidygidhoynyufe.supabase.co/storage/v1/object/public/species/d9b7c1f0-3551-41e4-bcb1-86e0da8ab20b/rockhopper-penguin.webp"
             link="/animals/birds/d9b7c1f0-3551-41e4-bcb1-86e0da8ab20b"
           />
         </div>
